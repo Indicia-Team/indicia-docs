@@ -5,8 +5,7 @@ Installation Requirements
 For the client website, assuming that the website will use the client helpers 
 PHP API the requirements are as follows:
 
-* PHP version 5.3 to 5.5 is recommended. If installing onto Drupal 6 then
-  use PHP version 5.3.
+* PHP version 5.6, 7.0 or 7.1. Better performance is achieved using PHP 7.*.
 * The cUrl PHP extension should be enabled.
 * Any other requirements of the website (e.g. for running Drupal if using this 
   option).
@@ -15,9 +14,9 @@ PHP API the requirements are as follows:
 
 For the Warehouse, the requirements are as follows:
 
-* PHP version 5.3 to 5.5 is recommended.
+* PHP version 5.6, 7.0 or 7.1.
 * The cUrl PHP extension should be enabled.
 * PostgreSQL 8.4 or higher is required. 9.x is recommended.
 * The PostGIS extension for PostgreSQL must be installed.
-* In addition you might like to consider installing GeoServer alongside the 
-  Warehouse to support spatial data. This requires a Java SDK.
+* If you want to expose spatial layers using standard web services then an 
+  installation of GeoServer alongside the Warehouse. This requires a Java SDK.
