@@ -356,6 +356,17 @@ Attributes
 * **alias** -
   Use in conjunction with the **idlist** datatype. For more information see
   :ref:`idlist-label`
+* **preprocess** -
+  Sometimes it is more efficient to pre-process a parameter value using an SQL statement
+  than to try to perform the required processing within the single report query. An
+  example is when filtering a report by taxon hierarchy if the passed in parameter is a
+  higher taxon such as a family or order. The preprocess query can convert the input
+  parameter to a list of keys or IDs corresponding to all the species within the input
+  taxon and feed that list into the report. The original value can still be accessed
+  within the main query by adding -unprocessed to the parameter name, for example for a
+  parameter called "higher_taxon" the processed list of species would be replaced for a
+  token called #higher_taxon# and the unprocessed original parameter would be available
+  in #higher_taxon-unprocessed#.
 
 .. _idlist-label:
 
