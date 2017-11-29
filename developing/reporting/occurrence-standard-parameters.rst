@@ -8,16 +8,22 @@ set of parameters. The report will automatically support the following list of p
   * ``searchArea`` - Well-Known Text (WKT) definition of a polygon to filter on. Use the
     web mercator projection (unless Indicia has been reconfigured to use a different
     projection).
-  * ``occurrence_id`` - a single occurrence ID to filter against. Supply a parameter called
-    ``occurrence_id_op`` to specify =, >= or <= as the filter opration.
-  * ``taxon_rank_sort_order`` can be used to filter to include taxa above or below a certain
-    rank, defined by the sort_order field in the ``taxon_ranks`` table.
+  * ``occurrence_id`` - a single occurrence ID to filter against. Optionally supply a
+    parameter called ``occurrence_id_op`` to specify =, >= or <= as the filter opration.
+  * ``taxon_rank_sort_order`` can be used to filter to include taxa above or below a
+    certain rank, defined by the sort_order field in the ``taxon_ranks`` table. Optionally
+    supply a parameter called ``taxon_rank_sort_order_op`` to specify =, >= or <= as the
+    filter opration.
   * ``location_name`` - the location name text field or linked location's name contains the
     supplied filter text.
   * ``location_list`` - a comma separated list of location IDs. Records are included if they
-    overlap with or are contained in the location's boundary.
+    overlap with or are contained in the location's boundary. Optionally
+    supply a parameter called ``location_list_op`` to specify 'in' or 'not in' as the
+    filter operation.
   * ``indexed_location_list`` - as location_list, but the locations must be indexed by the
-    ``spatial_index_builder`` warehouse module. Much faster, especially for complex boundaries.
+    ``spatial_index_builder`` warehouse module. Much faster, especially for complex
+    boundaries. Optionally supply a parameter called ``indexed_location_list_op`` to
+    specify 'in' or 'not in' as the filter operation.
   * ``date_from`` - filter to records that were recorded on or after this date.
   * ``date_to`` - filter to records that were recorded on or before this date.
   * ``date_age`` - include records that were recorded after a date defined by an age.
@@ -81,21 +87,29 @@ set of parameters. The report will automatically support the following list of p
     alternative to setting ``user_id`` and ``my_records=1`` which may be more appropriate
     when filtering by another user's records.
   * ``group_id`` - ID of a recording group. Only include records explicitly posted to this group.
-  * ``implicit_group_id`` - ID of a recording group. Only include records by the group members.
-    Should be used in conjunction with a filter defined for the group's interests to retrieve the
-    group records.
-  * ``website_list`` - a comma separated list of website IDs to filter against (which must be ones
-    that you have reporting access to). Specify ``website_list_op`` to either ``in`` (default) or
-    ``not in`` to define how the filter is applied.
+  * ``implicit_group_id`` - ID of a recording group. Only include records by the group
+    members. Should be used in conjunction with a filter defined for the group's interests
+    to retrieve the group records.
+  * ``website_list`` - a comma separated list of website IDs to filter against (which must
+    be ones that you have reporting access to). Specify ``website_list_op`` to either
+    ``in`` (default) or ``not in`` to define how the filter is applied.
   * ``survey_list`` - a comma separated list of survey IDs to filter against. Specify
-    ``survey_list_op`` to either ``in`` (default) or ``not in`` to define how the filter is applied.
-  * ``input_form_list`` - a comma separated list of input form paths to filter against. Specify
-    ``input_form_list_op`` to either ``in`` (default) or ``not in`` to define how the filter is applied.
+    ``survey_list_op`` to either ``in`` (default) or ``not in`` to define how the filter
+    is applied.
+  * ``input_form_list`` - a comma separated list of input form paths to filter against.
+    Specify ``input_form_list_op`` to either ``in`` (default) or ``not in`` to define how
+    the filter is applied.
   * ``taxon_group_list`` - a comma separated list of taxon group IDs to filter against.
-  * ``taxa_taxon_list_list`` - a comma separated list of taxa_taxon_list record IDs to include, allowing
-    filtering at the species or taxon level. Do not use this filter for taxa at family level or higher
-    since the parameter below is optimised for wider queries. Provide the preferred taxa taxon list ID
-    as this makes the query simpler and faster.
-  * ``higher_taxa_taxon_list_list`` - a comma separated list of taxa_taxon_list record IDs to include, allowing
-    filtering at the family or higher taxon level
-  * ``taxon_meaning_list`` - a comma separated list of taxon meaning IDs to filter against.
+  * ``taxa_taxon_list_list`` - a comma separated list of taxa_taxon_list record IDs to
+    include, allowing filtering at the species or taxon level. Do not use this filter for
+    taxa at family level or higher since the parameter below is optimised for wider
+    queries. Provide the preferred taxa taxon list ID as this makes the query simpler and
+    faster.
+  * ``higher_taxa_taxon_list_list`` - a comma separated list of taxa_taxon_list record IDs
+    to include, allowing filtering at the family or higher taxon level
+  * ``taxon_meaning_list`` - a comma separated list of taxon meaning IDs to filter
+    against.
+  * ``identification_difficulty`` - specify a value from 1 to 5 to filter to this
+    identification difficulty level if this feature is set up on your warehouse. Specify
+    an optional ``identification_difficulty_op`` parameter to set the value '=', '<=' or
+    '>=' to control how the filter is applied.
