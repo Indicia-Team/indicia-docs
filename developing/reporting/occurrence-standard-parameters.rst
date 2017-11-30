@@ -79,7 +79,8 @@ set of parameters. The report will automatically support the following list of p
       * P - only records which pass
       * F - only records which fail
 
-  * ``has_photos`` - supply 't' to only include records with photos.
+  * ``has_photos`` - supply '1' to only include records with photos or '0' to exclude
+    records with photos.
   * ``user_id`` - the current user's ID on the warehouse. Does not filter directly but may
     be used by other filter parameters.
   * ``my_records`` - supply 't' to only include records input by the current user.
