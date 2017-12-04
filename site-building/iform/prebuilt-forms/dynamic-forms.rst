@@ -139,8 +139,6 @@ The following options can be passed to this control:
   * @includeSelector - selector for the page element which includes the content to be
     printed. This allows the PDF generation to ignore parts of the page such as
     navigation, sidebars and footers etc. Defaults to #content.
-  * @excludeSelector - selector for any elements inside the element being printed which
-    should be hidden.
   * @maxRecords - maximum number of records to load per report table. Default 200.
   * @fileName - default name given to download PDF files. Defaults to report.pdf.
   * @addToSelector - if specified, then the button generated will be added to the element
@@ -148,3 +146,6 @@ The following options can be passed to this control:
     generation button anywhere on the page you want to.
   * @titleSelector - set to the selector used for the page title element to include in the
     report. Defaults to #page-title.
+
+The control adds the `printing` CSS class to the page element whilst generating the PDF
+output, allowing the customisation of the generation of PDF files.
