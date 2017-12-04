@@ -2,9 +2,9 @@ Using the Indicia2Recorder addin for Recorder 6
 ===============================================
 
 The Indicia2Recorder addin is an extension to Recorder 6 which allows download of the
-records you have access to from an Indicia powered online recording website. The 
+records you have access to from an Indicia powered online recording website. The
 addin depends on modules existing on the website which are currently only available for
-Drupal, this means that the addin can only download Indicia records via a Drupal 6 or 
+Drupal, this means that the addin can only download Indicia records via a Drupal 6 or
 Drupal 7 website such as iRecord at present.
 t
 If you already have the addin installed and configured, then jump straight to the section
@@ -18,9 +18,9 @@ Download the addin file from the `Indicia Downloads page
 then install it into Recorder 6 as normal. This adds a new **Indicia2Recorder** menu item
 to the Recorder 6 Tools menu.
 
-If you are the administrator of the Drupal/Indicia website and are setting it up for 
+If you are the administrator of the Drupal/Indicia website and are setting it up for
 Indicia2Recorder for the first time, then you will need to ensure that the Indicia Mobile
-Auth and Indicia Remote Download modules are installed. You should also visit the 
+Auth and Indicia Remote Download modules are installed. You should also visit the
 configuration page for Indicia Mobil Auth via the menu at **Site configuration > IForm >
 Mobile Auth Settings** in order to configure an shared secret (app secret) which you will
 need later.
@@ -28,14 +28,14 @@ need later.
 Configuration
 -------------
 
-Because the Indicia2Recorder addin uses a secure connection to the Indicia website where 
-the records are stored, it needs to be configured to know how to authenticate onto the 
+Because the Indicia2Recorder addin uses a secure connection to the Indicia website where
+the records are stored, it needs to be configured to know how to authenticate onto the
 website. There are 2 possible ways of creating this configuration:
 
   * Use an existing connection configuration file.
   * If you are the administrator of the website then you can create your own connection
     configuration file.
-    
+
 Existing connection configuration files
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -44,7 +44,7 @@ connecting to. This may be available from the website administrator. For iRecord
 a connection file available from the `Indicia Google Code Downloads page
 <http://code.google.com/p/indicia/downloads/list>`_.
 
-Save this file to your Public Documents folder or personal My Documents folder in a 
+Save this file to your Public Documents folder or personal My Documents folder in a
 sub-folder called Indicia2Recorder.
 
 Creating your own configuration connection file
@@ -54,61 +54,61 @@ You can create a configuration file only if you have access to the following inf
 
   * The URL of the website you are connecting to, e.g. http://www.brc.ac.uk/irecord
   * The Shared App Secret configured on this website using the Indicia Mobile Auth module
-  * The Site ID that will be used by Recorder 6 to identify records belonging to the 
+  * The Site ID that will be used by Recorder 6 to identify records belonging to the
     remote site.
-    
-The configuration file stores these encrypted connection settings. When the configuration 
+
+The configuration file stores these encrypted connection settings. When the configuration
 file cannot be found, then the addin will assist you in creating a new one as follows:
 
   #. Start Recorder 6 and access the addin via **Tools > Indicia2Recorder** on the menu.
   #. The addin will detect that the configuration file is not present and will ask you
-     **There is no configuration file available to define connection settings for the 
-     remote site. If you are an administrator wanting to create a connection file then 
+     **There is no configuration file available to define connection settings for the
+     remote site. If you are an administrator wanting to create a connection file then
      please answer the following questions.**
-  
+
   #. Click OK and a popup will appear asking you to fill in the site URL. Fill in the full
      domain name of the site including ``http://`` but excluding any trailing slashes or
-     specific page details. If the website is operating in a sub-folder, include that 
+     specific page details. If the website is operating in a sub-folder, include that
      subfolder in the URL. For example, you might specify ``http://www.mysite.com`` or
      ``http://www.brc.ac.uk/irecord``.
-     
+
   #. Click OK and a further popup will appear asking you to fill in the Shared App Secret
      of the application. This setting is defined on the Indicia Mobile Auth settings page
-     (under Site configuration > IForm > Mobile Authentication). You need to click the 
+     (under Site configuration > IForm > Mobile Authentication). You need to click the
      link to add a mobile application and fill in the form fields and save it. One of the
      fields is called **Shared Secret**. Copy the shared secret into the popup in Recorder
      6 and click OK.
-     
-  #. A further popup will appear asking you to fill in the Site ID for records to be 
+
+  #. A further popup will appear asking you to fill in the Site ID for records to be
      created in Recorder. You should obtain a new Site ID for your remote site in the same
      way that you can obtain Recorder 6 site IDs, from Recorder resellers. It should be
      an 8 character string consisting of uppercase characters and digits only.
-     
+
   #. Click OK and a final popup appears asking for the name of the site. This will be
      used to create appropriate labels on the addin's dialog. Click OK when you are done
      and the configuration file will be created.
-     
+
 .. tip::
 
-  If you want to change the settings in your connection configuration, just delete the 
-  existing file from the disk (Public Documents or My Documents, the file you want is 
+  If you want to change the settings in your connection configuration, just delete the
+  existing file from the disk (Public Documents or My Documents, the file you want is
   ``Indicia2Recorder\indiciaConnection.txt``. Now restart the addin and it will guide you
   through creating the file again.
-  
+
 Configuring known people
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-During the import process, where a record can be attributed to a definite person (i.e. there 
-is a link to a record in the people table), then the person's ID will be used to create a 
+During the import process, where a record can be attributed to a definite person (i.e. there
+is a link to a record in the people table), then the person's ID will be used to create a
 unique local ID in your Recorder 6 database. However, in the circumstance that the person
 already exists in the Recorder 6 database, the addin cannot associate the records with the
-correct Recorder 6 NAME_KEY because a match on name alone is not guaranteed to be unique. 
+correct Recorder 6 NAME_KEY because a match on name alone is not guaranteed to be unique.
 There is also the circumstance where a name has been filled in against a record in free text,
 either in the Recorder or Determiner field.
 
-So, to allow these names to be easily resolved to known people in your Recorder 6 database you 
+So, to allow these names to be easily resolved to known people in your Recorder 6 database you
 can create a file called ``knownPeople.txt`` in your configuration file folder. In this file
-put details of a person on each line, in the format ``surname,firstname=NAME_KEY``. You can 
+put details of a person on each line, in the format ``surname,firstname=NAME_KEY``. You can
 enter several permutations of a name on separate lines if required, e.g. to match the first
 name Dave and David to the same person. Note that where you are aware of 2 active recorders
 with a possible name clash, you cannot use this technique so may be best post-processing the
@@ -128,7 +128,7 @@ which describes them.
   You will need to be able to run queries against the Recorder 6 database in order to
   perform this configuration task.
 
-In Recorder 6, the approach to extensible data is via the measurements system, with 
+In Recorder 6, the approach to extensible data is via the measurements system, with
 equivalent tables to capture measurements against both the sample and occurrence. The
 main difference though is that Recorder 6 measurements are described by 3 properties:
 
@@ -152,23 +152,23 @@ create the required measurement types, units and qualifiers in Recorder to captu
 data. You can do this via Recorder 6's **Tools > Termlists** screen. Once you have done
 this, follow the steps below to configure the import.
 
-  #. In your ``Public`` or ``My Documents\Indicia2Recorder`` folder, alongside the 
-     indiciaConnection.txt file, create a text file called config.txt and open it in a 
+  #. In your ``Public`` or ``My Documents\Indicia2Recorder`` folder, alongside the
+     indiciaConnection.txt file, create a text file called config.txt and open it in a
      text editor.
   #. In this file, you can insert mappings from an Indicia custom attribute to a Recorder
      6 measurement. To do this. start by typing ``smpAttr:`` or ``occAttr:`` for a sample
-     attribute or an occurrence attribute respectively. Follow this with the ID of the 
-     custom attribute (read from the warehouse user interface screen which lists the 
-     attributes), then an equals sign. 
-  #. The mapping does not need to know the measurement type, since if you tell it the 
-     measurement unit or qualifier these both have pointers in the database to the 
-     correct measurement type. So, you need to find the respective keys for the 
+     attribute or an occurrence attribute respectively. Follow this with the ID of the
+     custom attribute (read from the warehouse user interface screen which lists the
+     attributes), then an equals sign.
+  #. The mapping does not need to know the measurement type, since if you tell it the
+     measurement unit or qualifier these both have pointers in the database to the
+     correct measurement type. So, you need to find the respective keys for the
      measurement units and qualifiers that you have set up using a database query tool
-     such as SQL Server Management Studio. Here is an example of the querying steps you 
+     such as SQL Server Management Studio. Here is an example of the querying steps you
      might follow:
-     
+
      .. code-block:: sql
-       
+
        SELECT MEASUREMENT_TYPE_KEY FROM MEASUREMENT_TYPE WHERE SHORT_NAME='Abundance'
        -- this returned MEASUREMENT_TYPE_KEY='NBNSYS0000000004' so we copy that into the next 2 queries
 
@@ -176,16 +176,16 @@ this, follow the steps below to configure the import.
        -- this returned MEASUREMENT_UNIT_KEY='NBNSYS0000000009'
 
        SELECT MEASUREMENT_QUALIFIER_KEY FROM MEASUREMENT_QUALIFIER WHERE SHORT_NAME='Adult' AND MEASUREMENT_TYPE_KEY='NBNSYS0000000004'
-       -- this returned MEASUREMENT_QUALIFIER_KEY='NBNSYS0000000025'  
-       
+       -- this returned MEASUREMENT_QUALIFIER_KEY='NBNSYS0000000025'
+
   #. Now all you need to do is to paste the MEASUREMENT_UNIT_KEY after the equals sign,
      then add a comma and finally paste in the MEASUREMENT_QUALIFIER_KEY.
   #. Repeat steps 2-4 on a new line for each additional custom attribute then save it.
-     
+
 Usage
 -----
 
-To use the addin, you will first need a login to iRecord. A standard login will allow you 
+To use the addin, you will first need a login to iRecord. A standard login will allow you
 to download your own records only, but if you are an LRC or verifier then you will be able
 to download records within your area or iRecord expertise settings respectively. Currently
 sensitive records are excluded from the download.
@@ -195,12 +195,12 @@ use the **Tools > Termlists** screen to create a survey type term called Indicia
 
   #. Click on **Tools** then select the **Termlists** menu item.
   #. In the **Select List** box, choose Survey Type.
-  #. Check if Indicia appears in the list of terms. If not, then continue with the 
+  #. Check if Indicia appears in the list of terms. If not, then continue with the
      following steps.
   #. Click the **Add** button.
   #. In the **Short Name** box, type Indicia.
   #. Click **Save**.
-  
+
 Once you have the survey type setup, you can create a survey and set the Survey Type to
 Indicia, ready to import records into.
 
@@ -210,8 +210,8 @@ In Recorder 6, start the addin by selecting **Tools > Indicia2Recorder** from th
   :width: 600px
   :alt: The addin dialog
 
-The first step required is for you to fill in your email address that you registered on 
-the Indicia website with and your account password, then click **Login**. The addin will 
+The first step required is for you to fill in your email address that you registered on
+the Indicia website with and your account password, then click **Login**. The addin will
 then connect to the Indicia website and check your access rights. It can then populate the
 various options for what you are able to download below.
 
@@ -221,6 +221,30 @@ records from, the date range, and the target survey then click **OK**. The addin
 the rest.
 
 Click the **Cancel** button to close the dialog when you are finished.
+
+Importing batches of surveys
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As it can be laborious to import several surveys one at a time, if you know the Indicia
+survey IDs and the Recorder survey keys for a list of surveys you want to import and their
+destinations, you can preconfigure batches of surveys which will import in one go. Here
+are the steps required to configure this:
+
+  1. In your ``Public`` or ``My Documents\Indicia2Recorder`` folder, alongside the
+     indiciaConnection.txt file, create a text file with a name that describes the batch
+     of surveys and with a suffix `.batch` and open it in a text editor.
+  2. Each pairing of an Indicia survey dataset to the Recorder 6 survey it will import
+     into needs to go on its own line in the file. Start with the ID of the survey
+     dataset in Indicia (available from **Lookup lists > Survey datasets** on the
+     warehouse). Follow this with an equals sign, then the Recorder 6 survey key this will
+     import into. For example::
+
+       14=MYRECKEY01234567
+       16=MYRECKEY76543210
+
+  3. Now, the file name of the batch will appear in the list of surveys available to
+     import - if you pick this survey and import it, the batch file will instruct
+     Indicia2Recorder to import the full set of surveys you have configured.
 
 Record Management
 ^^^^^^^^^^^^^^^^^
