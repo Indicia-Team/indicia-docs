@@ -118,8 +118,8 @@ set of parameters. The report will automatically support the following list of p
     particular term (e.g. a habitat or resource), provide a list of the
     taxa_taxon_list_attributes record IDs which will be searched in to determine which
     attributes to include in the query. Must be used in conjunction with
-    ``taxa_taxon_list_attribute_term_ids``.
-  * ``taxa_taxon_list_attribute_term_ids`` - to filter for species which are tagged with a
-    particular term (e.g. a habitat or resource), provide a list of termlist_term IDs
-    which will be searched for. Must be used in conjunction with
+    ``taxa_taxon_list_attribute_termlist_term_ids``.
+  * ``taxa_taxon_list_attribute_termlist_term_ids`` - to filter for species which are
+    tagged with a particular term (e.g. a habitat or resource), provide a list of
+    termlist_term IDs which will be searched for. Must be used in conjunction with
     ``taxa_taxon_list_attribute_ids``.
