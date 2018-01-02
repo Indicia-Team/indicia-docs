@@ -64,8 +64,11 @@ set of parameters. The report will automatically support the following list of p
 
       * R - released records only (default)
       * U - unreleased records only
+      * RU - released plus unreleased records only
       * P - records pending a "peer review" check requested by the recorder
+      * RP - released plus records pending a "peer review" check requested by the recorder
       * RM - release records and also all records input by the user (My records)
+      * A - all records irrespective of release status.
 
   * ``marine_flag`` - include or exclude species flagged as marine in the dictionary data.
     The following options are available:
