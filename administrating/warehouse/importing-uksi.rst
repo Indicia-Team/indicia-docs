@@ -32,9 +32,11 @@ in Design View by following these steps:
 * Close the Show Table dialog.
 * Use the Views toolbutton to change to SQL View.
 * Then paste the query in and save the query with the appropriate title.
-* Repeat until all 8 queries are created.
+* Repeat until all 9 queries are created.
 
 **Query 1 - title=all_designation_kinds**
+
+This query gets the list of terms used to populate the categories of taxon designations.
 
 .. code-block:: sql
 
@@ -43,6 +45,9 @@ in Design View by following these steps:
   FROM TAXON_DESIGNATION_TYPE_KIND;
 
 **Query 2 - title=all_names**
+
+This query gets all taxon names, excluding those which are explicitly marked as redundant
+or deleted. Contains basic name data and a link to the preferred name.
 
 .. code-block:: sql
 
@@ -62,6 +67,9 @@ in Design View by following these steps:
   AND TAXON_VERSION.DELETED_DATE Is Null;
 
 **Query 3 - title=preferred_names**
+
+This query gets a list of the preferred taxon names, excluding those which are explicitly
+marked as redundant or deleted.
 
 .. todo::
 
@@ -91,6 +99,8 @@ in Design View by following these steps:
 
 **Query 4 - title=taxa_taxon_designations**
 
+Retrieves a list of the links between all taxon names and their designations.
+
 .. code-block:: sql
 
   SELECT TAXON_DESIGNATION_TYPE.SHORT_NAME, TAXON_DESIGNATION.DATE_FROM, TAXON_DESIGNATION.DATE_TO,
@@ -104,6 +114,9 @@ in Design View by following these steps:
 
 **Query 5 - title=taxon_designations**
 
+Retrieves a list of all the available taxon designations that can be linked to taxon
+concepts.
+
 .. code-block:: sql
 
   SELECT TAXON_DESIGNATION_TYPE.TAXON_DESIGNATION_TYPE_KEY, TAXON_DESIGNATION_TYPE.SHORT_NAME,
@@ -112,6 +125,8 @@ in Design View by following these steps:
   FROM TAXON_DESIGNATION_TYPE;
 
 **Query 6 - title=taxon_groups**
+
+Retrieves a list of all the taxon groups (reporting categories).
 
 .. code-block:: sql
 
@@ -124,12 +139,18 @@ in Design View by following these steps:
 
 **Query 7 - title=taxon_ranks**
 
+Retrieves a list of all possible taxon ranks, e.g. Phylum, Family, Species.
+
 .. code-block:: sql
 
   SELECT TAXON_RANK.SEQUENCE, TAXON_RANK.SHORT_NAME, TAXON_RANK.LONG_NAME, TAXON_RANK.LIST_FONT_ITALIC
   FROM TAXON_RANK;
 
 **Query 8 - title=tcn_duplicates**
+
+Where there are multiple common names and it is otherwise not possible to pick a single
+default one to use in reports, this table provides a link from the organims to a taxon
+record containing a common name to use.
 
 .. code-block:: sql
 
@@ -139,7 +160,16 @@ in Design View by following these steps:
   INNER JOIN TCN_DUPLICATE_FIX ON TAXON_LIST_ITEM.TAXON_LIST_ITEM_KEY = TCN_DUPLICATE_FIX.TAXON_LIST_ITEM_KEY)
   ON ORGANISM_MASTER.TAXON_VERSION_KEY = TAXON_LIST_ITEM.TAXON_VERSION_KEY;
 
-The next step is to export the query results for each of the 8 queries as a text file.
+**Query 9 - title=all_taxon_version_keys**
+
+Retrieves a list of all taxon version keys and the associated recommended key, including
+deleted and redundant names. Can be used to work out the context of any names which have
+now been removed from the online recording copy of UKSI.
+
+  SELECT INPUT_TAXON_VERSION_KEY, RECOMMENDED_TAXON_VERSION_KEY
+  FROM NAMESERVER;
+
+The next step is to export the query results for each of the 9 queries as a text file.
 Prepare a folder on your hard disk into which you will export the files (I used
 ``c:\tmp``). These instructions are for Microsoft Access 2007 but the steps should be
 similar for other versions. For each query:
