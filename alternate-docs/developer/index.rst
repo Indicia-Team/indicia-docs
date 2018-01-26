@@ -6,12 +6,10 @@ Indicia Developer Training
 
   Before embarking on this course you should:
 
-  * Have completed the Instant Indicia tutorials, or have a good understanding
-    of using the Indicia warehouse and Drupal IForm module.
+  * Have a good understanding of using the Indicia warehouse and Drupal IForm module.
   * Have basic programming skills in PHP, JavaScript and SQL.
   * Have access to a development warehouse
-  * Have access to a development installation of Drupal with the IForm module, 
-    e.g. Instant Indicia
+  * Have access to a development installation of Drupal with the IForm module.
 
 .. only:: html
 
@@ -19,8 +17,8 @@ Indicia Developer Training
     :width: 400px
     :alt: Indicia solves your online recording puzzles
 
-Welcome to the Indicia Developer Training course. This course is aimed at PHP 
-developers who want to learn about developing code for the Indicia online 
+Welcome to the Indicia Developer Training course. This course is aimed at PHP
+developers who want to learn about developing code for the Indicia online
 recording toolkit, including core code changes, extension modules and custom
 recording forms. Through the course you will cover:
 
@@ -34,8 +32,8 @@ recording forms. Through the course you will cover:
 
 .. tip::
 
-  All the course material is available via the new documentation website on 
-  `Read the Docs <http://indicia-docs.readthedocs.org>`_. This is a work in 
-  progress, so we will be posting lots of new documentation over the next few 
+  All the course material is available via the new documentation website on
+  `Read the Docs <http://indicia-docs.readthedocs.org>`_. This is a work in
+  progress, so we will be posting lots of new documentation over the next few
   months.
 

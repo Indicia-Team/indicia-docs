@@ -4,7 +4,7 @@ Drupal Site Permissions
 Principles
 ----------
 
-When using :doc:`../../site-building/iform/index` to provide integration between Drupal 
+When using :doc:`../../site-building/iform/index` to provide integration between Drupal
 and Indicia forms & reports, you will be dependent on the Drupal login mechanisms and
 permissions infrastructure to control access to the various facilities.
 
@@ -26,25 +26,25 @@ You can add roles to the Drupal site yourself. Obviously you must have sufficien
 permissions to do this, such as when logged in with the site admin account. Select **User
 management > Roles** from the menu to view or add to the list of roles. There are also
 links to **edit role** (i.e. change the role name) and **edit permissions** - there will
-be more on this topic in a moment. 
+be more on this topic in a moment.
 
 .. image:: ../../images/screenshots/drupal/roles.png
   :width: 700px
   :alt: Drupal roles configuration
-  
-Note that Instant Indicia creates some generally useful roles for you such as **site
-editor** and **verifier**. Adding a user to a role is simply a matter of editing their
-user account (as long as you have the correct permissions to do this of course). Select
-**User management > Users** from the admin menu then find the appropriate user and click
-the **edit** link. This includes various settings for the user account; the one we want to
-focus on at the moment is the list of roles that the user belongs to. Note that the user
-can of course belong to several roles – they could be a site editor and a record verifier
-at the same time for example.
+
+Note that Indicia creates some generally useful roles for you such as **site editor** and
+**verifier**. Adding a user to a role is simply a matter of editing their user account (as
+long as you have the correct permissions to do this of course). Select **User management >
+Users** from the admin menu then find the appropriate user and click the **edit** link.
+This includes various settings for the user account; the one we want to focus on at the
+moment is the list of roles that the user belongs to. Note that the user can of course
+belong to several roles – they could be a site editor and a record verifier at the same
+time for example.
 
 .. image:: ../../images/screenshots/drupal/edit-user.png
   :width: 700px
   :alt: Editing a Drupal user account
-  
+
 Just click the **Save** button to apply any changes to the user’s roles.
 
 The next task is to decide which of the many possible tasks can be performed by each
@@ -56,11 +56,11 @@ top and each individual permission as a row.
 .. image:: ../../images/screenshots/drupal/permissions.png
   :width: 700px
   :alt: Editing permissions in Drupal
-  
+
 It's simply a matter of finding the permissions that you are interested in and checking or
 unchecking them for each role, then pressing **Save**. The permissions are organised by
 module and many of them may not be familiar, so just make sure you only change the
-settings for the permissions which you understand the purpose of. 
+settings for the permissions which you understand the purpose of.
 
 Indicia permissions specifics
 -----------------------------
@@ -76,7 +76,7 @@ user** role and save the permissions:
 .. image:: ../../images/screenshots/drupal/permissions-anon-iform-access.png
   :width: 700px
   :alt: Setting anonymous IForm access
-  
+
 You may of course want more fine-grained control over permissions than this, e.g. if you
 want anonymous users to be able to submit ad-hoc records, logged in users to submit lists
 of records and a report to be available only to members of an expert role. In this case,
@@ -89,7 +89,7 @@ configuration.
 .. image:: ../../images/screenshots/drupal/iform-view-access-control.png
   :width: 700px
   :alt: IForm view access control configuration
-  
+
 Now, if you visit the Permissions page as before you will find a new permission has been
 created specifically for this page (it uses the page’s unique identifier, known as a Node
 ID in Drupal):
@@ -97,7 +97,7 @@ ID in Drupal):
 .. image:: ../../images/screenshots/drupal/iform-page-level-control.png
   :width: 700px
   :alt: Controlling IForm permissions at the per-page level
-  
+
 So, in the example above we have created an Indicia page which is ID 5, that only
 verifiers are able to see.
 
@@ -110,4 +110,4 @@ an example you might specify the permission "data entry" for an ad-hoc input for
 record list input form, a specific form for plant entry, plus a My Dot Map to show people
 their records after submission. Then you can grant access to all these pages in one go
 using the single row created on the permissions grid for "data entry" in the IForm module
-section.  
+section.
