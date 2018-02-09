@@ -88,6 +88,8 @@ set of parameters. The report will automatically support the following list of p
 
   * ``has_photos`` - supply '1' to only include records with photos or '0' to exclude
     records with photos.
+  * ``zero_abundance``` - supply '1' to only include zero abundance/negative presence
+    records with photos or '0' to exclude zero abundance/negative presence records.
   * ``user_id`` - the current user's ID on the warehouse. Does not filter directly but may
     be used by other filter parameters.
   * ``my_records`` - supply 't' to only include records input by the current user.
