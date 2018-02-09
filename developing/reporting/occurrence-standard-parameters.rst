@@ -24,6 +24,10 @@ set of parameters. The report will automatically support the following list of p
     ``spatial_index_builder`` warehouse module. Much faster, especially for complex
     boundaries. Optionally supply a parameter called ``indexed_location_list_op`` to
     specify 'in' or 'not in' as the filter operation.
+  * ``output_sref_systems`` - supply a comma separated list of spatial reference system
+    codes, e.g. OSGB,OSIE. Limits the records to those where the record's geographic
+    location is such that the preferred output spatial reference system matches one in the
+    supplied list.
   * ``date_from`` - filter to records that were recorded on or after this date.
   * ``date_to`` - filter to records that were recorded on or before this date.
   * ``date_age`` - include records that were recorded after a date defined by an age.
