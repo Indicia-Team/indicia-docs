@@ -611,6 +611,9 @@ Attributes
   that the map report can have the exact same filter applied when the grid is filtered
   without impacting on the performance of the map load.
 * **internal_sql**
+* **term** can be populated with the URL of a term defined in a known schema, for example
+  set to http://rs.tdwg.org/dwc/terms/individualCount to link a column to the Darwin core
+  individualCount attribute.
 * **template** provides an HTML template to put the column information in. It is not limited
   to the column tag it is hosted in and so can use the information from all the columns in
   the report. Format is ``{column name}``. The simpliest form showing the column value looks
