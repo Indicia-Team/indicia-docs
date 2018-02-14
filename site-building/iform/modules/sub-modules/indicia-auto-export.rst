@@ -31,10 +31,17 @@ rights and should follow the steps below:
   * Report path - path to the report file to use on the warehouse. The default is
     suitable for export to the NBN Atlas in Dwc-A format.
   * Indicia filter - search for and select the filter you created earlier.
+  * The fields for last export date, export due on date and status will all be populated
+    by the system so can be left blank.
 
 * Save the content when ready.
 * The content will be triggered as appropriate for the schedule and will be saved to your
   Drupal file folder (private is used if configured), in the indicia/exports subfolder.
+  Note that the exports use the Drupal Queue system which means they are only generated
+  when the cron background process is run. If there are several items in the queue, Drupal
+  may opt to only process some of them on each cron run to avoid overloading the server.
+  You can view the status of each export content node in the Status field which will be
+  "Queued" for exports that are waiting to be picked up by cron.
 * To trigger a manual export, visit the path indicia_auto_export/process/nid, replacing
   nid with the ID of your Drupal export content node.
 
