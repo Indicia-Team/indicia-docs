@@ -13,7 +13,7 @@ boundaries and triggers against incoming data generating notifications.
 Instead of running these processes each time data is added, a task is scheduled to run
 on a periodic basis (e.g. once per hour) which sweeps up all the records since the last
 time it was ran. This is done by setting up an operating system task on the server which
-simply accesses the URL ``/index.php/scheduled_task`` on your warehouse server. On a
+simply accesses the URL ``/index.php/scheduled_tasks`` on your warehouse server. On a
 Linux Apache server, the best way to do this is using `Cron
 <http://en.wikipedia.org/wiki/Cron>`_ whereas on Windows you may like to consider using
 the `Task Scheduler <http://en.wikipedia.org/wiki/Task_Scheduler>`_. You can also use
