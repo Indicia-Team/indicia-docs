@@ -401,9 +401,15 @@ following script replacing indicia_user with your username:
   ALTER USER indicia_user SET search_path = indicia, public, pg_catalog; 
 
 You will also need to do this for your report user's username if you have a separate
-one. Now, open the indicia.php file in the application/config folder using a text editor.
+one, e.g.
+
+.. code-block:: sql
+
+  ALTER USER indicia_report_user SET search_path = indicia, public, pg_catalog; 
+  
+Now, open the indicia.php file in the application/config folder using a text editor.
 Find the entry called apply_schema and set it to false. You can create the entry if it is
-not already present and do this for the report configuration as well:
+not already present:
 
 .. code-block:: php
 
