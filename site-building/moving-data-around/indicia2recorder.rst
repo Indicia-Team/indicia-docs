@@ -182,6 +182,31 @@ this, follow the steps below to configure the import.
      then add a comma and finally paste in the MEASUREMENT_QUALIFIER_KEY.
   #. Repeat steps 2-4 on a new line for each additional custom attribute then save it.
 
+Mapping custom attribute values
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Because Recorder 6 has a limit of 20 characters for data values, sometimes Indicia data
+values can be too long to import into Recorder 6. If so then you can create a mapping file
+to force Indicia2Recorder to map values to a shortened version when imported into Recorder
+6. To do this:
+
+  #. Find the Indicia name of the attribute you want to map values for. This will be one
+     of the keys in your config.txt file, e.g. occAttr:314 for the occurrence attribute
+     with ID 314.
+  #. Create a file in the ``Public`` or ``My Documents\Indicia2Recorder`` folder,
+     alongside the indiciaConnection.txt file, with the same name as your Indicia
+     attribute but without the colon and with TermMappings.txt appended, e.g.
+     `occAttr314TermMappings.txt`.
+  #. Edit this file and add 1 mapping per line. Put the Indicia value first, followed by
+     an equals sign, then the equivalent you want imported into Recorder 6. For example
+     the file might contain::
+
+       Winter bat roost in a tree=roost (wntr, tree)
+       Summer bat roost in a building=roost (smr, blding)
+
+  #. Save the file and Indicia2Recorder will map the values next time you import. Any
+     values not in the mappings file will be imported in their original form.
+
 Usage
 -----
 
