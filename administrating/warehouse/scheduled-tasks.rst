@@ -22,13 +22,13 @@ for development and testing purposes as you would need to do this regularly thro
 the day.
 
 When using cron to run the scheduled tasks link, it is common practice to call PHP
-directly via the command line, rather than call it by visiting the URL. The command to 
+directly via the command line, rather than call it by visiting the URL. The command to
 execute will be in the form:
 
   php path/to/file/index.php scheduled_tasks
 
 You will need to insert your path to the Kohana index.php file, enclosing it in inverted
-commas if it contains spaces. 
+commas if it contains spaces.
 
 .. tip::
 
@@ -37,7 +37,7 @@ commas if it contains spaces.
   file on the warehouse, the file has the correct ownership. If you cannot do this, then
   rather than invoke PHP directly as above, you can run the scheduled_tasks link with the
   following command:
-  
+
     wget -0 - -q -t 1 http://my.warehouse.url/index.php/scheduled_tasks
 
 Controlling which task is run
@@ -49,10 +49,11 @@ modules are run by appending a **tasks** URL parameter containing a comma separa
 of task names. The task names available are:
 
 * **notifications** - fires the triggers and notifications system.
+* **work_queue** - fires the work queue processor.
 * **all_modules** - fires all the scheduled modules.
 * **_module name_** - provide the folder name for a module to fire it specifically.
 
-As an example the following URL triggers just the cache builder and data cleaner module to 
+As an example the following URL triggers just the cache builder and data cleaner module to
 fire::
 
   http://www.example.com/indicia/index.php/scheduled_tasks?tasks=cache_builder,data_cleaner
@@ -61,25 +62,43 @@ Using this approach it is possible to set up several different tasks which are r
 at different frequencies, e.g. to run the notifications system once an hour, the data
 cleaner once a night and the cache_builder every five minutes.
 
+.. tip::
+
+  The work_queue task is a recent addition to the Indicia warehouse for version 2. It
+  examines the work_queue table to find tasks that have been queued and which need to be
+  performed. The tasks are sorted by priority and the procesor is designed to be aware of
+  your server's load and to avoid intensive tasks during periods of high load. Therefore
+  it is safe to run the scheduled_tasks with a parameter `&tasks=work_queue` as frequently
+  as you like. You can further control the work queue processor by setting the following
+  parameters:
+
+    * maxPriority - set to 1 (high priority) or 2 (medium priority) tasks only.
+    * maxCost - set to a value from 1 to 100 to define the maximum cost of tasks. E.g.
+      set to 80 to skip tasks that are very costly.
+
+  Note that you should run the work_queue task without a maxPriority or maxCost parameter
+  regularly at some point to ensure all tasks get processed, though you could limit these
+  to certain times of the day for example.
+
 Warehouse functionality dependent on scheduled tasks
 ----------------------------------------------------
 
-The following functions require the scheduled tasks to be run at least periodically in 
+The following functions require the scheduled tasks to be run at least periodically in
 order to work:
 
-* The warehouse :doc:`modules/cache-builder`. This module prepares simplified flat tables 
+* The warehouse :doc:`modules/cache-builder`. This module prepares simplified flat tables
   of the occurrences, taxa and term parts of the data model to significantly improve
   reporting performance.
-* The warehouse :doc:`modules/data-cleaner`. This runs automated verification checks 
+* The warehouse :doc:`modules/data-cleaner`. This runs automated verification checks
   against the incoming records.
 * The warehouse :doc:`modules/spatial-index-builder` module. This preempts the need to perform
-  spatial joins to build lists of records in complex vice county and other similar 
+  spatial joins to build lists of records in complex vice county and other similar
   boundaries.
 * The warehouse :doc:`modules/notify-verifications-and-comments`. This sends notifications of
   automated verifications and record comments back to the original recorder of the record.
 * The warehouse :doc:`modules/notify-pending-groups-users`. This sends notifications when
   a user requests membership of a group to the group's administrators.
-* The warehouse :doc:`modules/notification-emails`. This module sends notifications as 
+* The warehouse :doc:`modules/notification-emails`. This module sends notifications as
   emails or digest emails according to the settings in the `user_email_notification_settings`
   table for each user.
 * The warehouse functionality for :doc:`triggers-actions`.
