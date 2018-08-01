@@ -22,9 +22,7 @@ recording sites. Indicia is not a fixed, off the shelf system, instead it
 provides an infrastructure and tools for rapidly developing online recording
 websites that fit your exact needs. Indicia provides a set of services, tools
 and examples that can be added to almost any website to provide rich online
-recording functionality. Or, if you are starting from scratch then Instant
-Indicia gives you a ready to configure website installation that can be set up
-as you require without any coding.
+recording functionality.
 
 Because Indicia allows complete flexibility in the data entry forms
 that can be created, it is suitable for anything from public participation

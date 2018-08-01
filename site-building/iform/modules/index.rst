@@ -6,7 +6,8 @@ sibling modules extending its functionality. These are all described in the link
 
 .. toctree::
 
+  indicia-features/index
   sub-modules/index
   mobile-auth/index
 
-  
+

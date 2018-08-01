@@ -2,9 +2,9 @@
 Upgrading the Indicia warehouse
 *******************************
 
-Upgrades for Indicia, including the warehouse, are released periodically and announced on 
-`the forum <http://forums.nbn.org.uk/viewforum.php?id=25>`_. The files required for the 
-upgrade will be made available `on the downloads page 
+Upgrades for Indicia, including the warehouse, are released periodically and announced on
+`the forum <http://forums.nbn.org.uk/viewforum.php?id=25>`_. The files required for the
+upgrade will be made available `on the downloads page
 <https://code.google.com/p/indicia/downloads/list>`_, note that the files required for an
 upgrade are the same as the files required for a fresh installation.
 
@@ -26,14 +26,14 @@ are required.
    warehouse.
 #. Take careful note of any messages shown to ensure that the upgrade ran successfully. In
    particular, there may be scripts which you need to run against the warehouse database
-   using the *postgres* user account if full database permissions are required - in this 
+   using the *postgres* user account if full database permissions are required - in this
    case we suggest you log in to pgAdmin and paste the supplied scripts into a query
    window to run them.
 #. Re-enable access to the warehouse if you had denied it.
 
 .. note::
 
-  If upgrading from version 0.2.3 of the warehouse or earlier, you will first need to 
+  If upgrading from version 0.2.3 of the warehouse or earlier, you will first need to
   upgrade using 0.9.x of the warehouse before upgrading to versions after version 1.0.0.
 
 That's it!
@@ -42,8 +42,8 @@ Developer Notes
 ===============
 
 If you are maintaining an Indicia Warehouse which is being kept up to date from the
-:doc:`Subversion repository <../../developing/subversion>` rather than downloaded releases,
-you won't see the upgrade notification on the home page after an SVN update unless the
+:doc:`Github repository <../../developing/github>` rather than downloaded releases,
+you won't see the upgrade notification on the home page after an Git pull unless the
 application version has changed. However, there are a couple of options for upgrading your
 database on a more ad-hoc basis:
 
@@ -52,23 +52,23 @@ database on a more ad-hoc basis:
    affect on performance though it should not be too significant. To do this, copy the
    file modules/indicia_setup/config/upgrade.php.example and name the new file
    upgrade.php.
-  
+
 #. Rather than automatically running any scripts that have been added to the setup when
    you performed SVN update, you can manually ask Indicia to bring the database fully up
    to date. To do this, just log in then visit the URL /index.php/home/upgrade. The
    advantage of this approach is that Indicia does not have to scan for upgrade scripts
-   each time it is accessed, so the performance will be better. 
+   each time it is accessed, so the performance will be better.
 
 The upgrade process places each set of scripts required for upgrade in a folder called
-modules/indicia_setup/db/version_x_x_x, where x_x_x reflects the version number. If a 
+modules/indicia_setup/db/version_x_x_x, where x_x_x reflects the version number. If a
 script needs to be run with superuser privileges, then insert the following comment on the
-first line of the script so that the upgrader can provide instructions to the user to 
+first line of the script so that the upgrader can provide instructions to the user to
 manually run the scripts using the postgres user:
 
 .. code-block:: sql
 
   -- #postgres user#
-  
+
 Similarly, tag any scripts that are likely to be slow (such as those which do data
 manipulations) with the comment below so that the script can be given to the user to run
 manually after the upgrade:

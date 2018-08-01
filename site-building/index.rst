@@ -9,8 +9,6 @@ website using Indicia.
 
   building-your-website
   iform/index
-  instant-indicia/index
   warehouse/index
   moving-data-around/index
   drupal-upgrading
-  
