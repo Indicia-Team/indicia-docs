@@ -109,6 +109,9 @@ set of parameters. The report will automatically support the following list of p
   * ``input_form_list`` - a comma separated list of input form paths to filter against.
     Specify ``input_form_list_op`` to either ``in`` (default) or ``not in`` to define how
     the filter is applied.
+  * ``import_guid_list`` - a comma separated list of import GUIDS to filter against. Each
+    import of occurrence data generates a unique GUID that allows the records to be
+    located at a later date.
   * ``taxon_group_list`` - a comma separated list of taxon group IDs to filter against.
   * ``taxa_taxon_list_list`` - a comma separated list of taxa_taxon_list record IDs to
     include, allowing filtering at the species or taxon level. Do not use this filter for
