@@ -4,9 +4,10 @@ Using the Indicia2Recorder addin for Recorder 6
 The Indicia2Recorder addin is an extension to Recorder 6 which allows download of the
 records you have access to from an Indicia powered online recording website. The
 addin depends on modules existing on the website which are currently only available for
-Drupal, this means that the addin can only download Indicia records via a Drupal 6 or
-Drupal 7 website such as iRecord at present.
-t
+Drupal, this means that the addin can only download Indicia records via a Drupal 7 or
+Drupal 8 website such as iRecord at present (Drupal 6 is possible but no longer
+supported).
+
 If you already have the addin installed and configured, then jump straight to the section
 on usage further down the page.
 
@@ -16,14 +17,29 @@ Installation
 Download the addin file from the `Indicia Downloads page
 <http://www.indicia.org.uk/downloads>`_ and unzip it into a temporary folder,
 then install it into Recorder 6 as normal. This adds a new **Indicia2Recorder** menu item
-to the Recorder 6 Tools menu.
+to the Recorder 6 Tools menu. Upgrades can be performed by simply copying the file to
+replace the older version of the addin, though this must be done when Recorder 6 is not
+running.
 
 If you are the administrator of the Drupal/Indicia website and are setting it up for
-Indicia2Recorder for the first time, then you will need to ensure that the Indicia Mobile
-Auth and Indicia Remote Download modules are installed. You should also visit the
-configuration page for Indicia Mobil Auth via the menu at **Site configuration > IForm >
-Mobile Auth Settings** in order to configure an shared secret (app secret) which you will
-need later.
+Indicia2Recorder for the first time, then you will need to ensure that the following
+modules installation and configuration has been performed depending on your version of
+Drupal:
+
+  * Drupal 7 requirements:
+
+    * Install and enable the Indicia Mobile Auth module
+    * Install and enable the Indicia Remote Download module
+    * Visit the configuration page for Indicia Mobil Auth via the menu at **Site
+      configuration > IForm > Mobile Auth Settings** in order to configure an shared
+      secret (app secret) which you will need later.
+
+  * Drupal 8 requirements:
+
+    * Install and enable the Indicia Remote Download module
+    * Visit the configuration page for this module and specify a shared app secret
+      (Configuration > Indicia integration > Indicia remote download settings.
+
 
 Configuration
 -------------
@@ -87,6 +103,9 @@ file cannot be found, then the addin will assist you in creating a new one as fo
   #. Click OK and a final popup appears asking for the name of the site. This will be
      used to create appropriate labels on the addin's dialog. Click OK when you are done
      and the configuration file will be created.
+
+  #. Click OK and a final popup appears asking for the Drupal version - enter either 7 or
+     8.
 
 .. tip::
 
