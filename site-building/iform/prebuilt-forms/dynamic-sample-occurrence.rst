@@ -13,3 +13,4 @@ Some example ideas for setting up this form are provided in the following links:
   dynamic-sample-occurrence/tutorial/index
   dynamic-sample-occurrence/local-nature-reserve-form
   dynamic-sample-occurrence/record-species-link
+  dynamic-sample-occurrence/dynamic-attrs
