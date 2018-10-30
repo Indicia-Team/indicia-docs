@@ -28,14 +28,33 @@ execute will be in the form:
   php path/to/file/index.php scheduled_tasks
 
 You will need to insert your path to the Kohana index.php file, enclosing it in inverted
-commas if it contains spaces.
+commas if it contains spaces. The specifics of setting up Cron will differ depending on
+the operating system. The following illustration shows the required steps, taken from a
+working Ubuntu installation:
+
+First, Find the user that Apache is running as:
+
+.. code-block:: console
+
+  $ ps -ef | egrep '(httpd|apache2|apache)' | grep -v `whoami` | grep -v root | head -n1
+
+The first column in the response is the user, in our case "daemon".Now, open the crontab
+file for editing, using the same user as apache. Replace "daemon" if your username is
+different.
+
+.. code-block:: console
+
+  $ sudo crontab -u daemon -e
+
+Edit the file that appears, adding the following to the end, replacing the path to the
+Warehouse index.php file as necessary::
+
+  */15 * * * * php /opt/lampp/htdocs/warehouse/index.php scheduled_tasks
 
 .. tip::
 
-  If using the command line then you must ensure that the task is run using the same user
-  as the web-server process (e.g. Apache or IIS) so that if the task creates a new log
-  file on the warehouse, the file has the correct ownership. If you cannot do this, then
-  rather than invoke PHP directly as above, you can run the scheduled_tasks link with the
+  You can also run the task directly by invoking Apache, solving the issues described with
+  user accounts. To do this you can run the scheduled_tasks link with the
   following command:
 
     wget -0 - -q -t 1 http://my.warehouse.url/index.php/scheduled_tasks
