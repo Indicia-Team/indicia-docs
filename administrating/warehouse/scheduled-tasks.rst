@@ -46,8 +46,8 @@ different.
 
   $ sudo crontab -u daemon -e
 
-Edit the file that appears, adding the following to the end, replacing the path to the
-Warehouse index.php file as necessary::
+Enter your password then edit the file that appears, adding the following to the end,
+replacing the path to the Warehouse index.php file as necessary::
 
   */15 * * * * php /opt/lampp/htdocs/warehouse/index.php scheduled_tasks
 
