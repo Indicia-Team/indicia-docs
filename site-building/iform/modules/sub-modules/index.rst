@@ -6,5 +6,6 @@ The Drupal IForm module is provided with several submodules, described in the li
 .. toctree::
 
   iform-ajax-proxy
+  iform-licences
   iform-user-ui-options
   indicia-auto-export
