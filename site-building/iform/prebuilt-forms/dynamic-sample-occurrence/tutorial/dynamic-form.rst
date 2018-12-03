@@ -42,7 +42,7 @@ you to tweak the page's behaviour.
 
    .. image:: ../../../../../images/screenshots/prebuilt-forms/picking-dynamic-form.png
      :width: 700px
-     :alt: Choosing the **Sample with occurrences form**.
+     :alt: Choosing the **Enter a single record or list of records (customisable) form**.
 
    .. tip::
 
@@ -85,10 +85,10 @@ you to tweak the page's behaviour.
 Basic Form configuration
 ------------------------
 
-There are a huge number of configuration options for the Sample with Occurrences Form and
-they are all described in the hints below each option in the edit form. Rather than go
-through them all, in this tutorial we'll take a look at a few useful options to get a feel
-for the configuration process.
+There are a huge number of configuration options for the Enter a single record or list of
+records (customisable) Form and they are all described in the hints below each option in
+the edit form. Rather than go through them all, in this tutorial we'll take a look at a
+few useful options to get a feel for the configuration process.
 
 At the top of the page, you should see a **View** tab and an **Edit** tab. Drupal adds
 these to the page automatically if your user account has permissions to edit the current

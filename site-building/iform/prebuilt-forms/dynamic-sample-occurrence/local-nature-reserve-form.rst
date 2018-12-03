@@ -43,8 +43,8 @@ Setting up the initial form
 * Set the following values on the form:
 
   * **Page title** - Worts Meadow Record List
-  * **Select Form Category** - General Purpose Data Entry Forms
-  * **Select Form** - Sample with occurrences form
+  * **Select Form Category** - Data entry forms
+  * **Select Form** - Enter a single record or list of records (customisable)
 
 * Then, click the **Load Settings Form** button. Set the following options on
   the form that appears:
