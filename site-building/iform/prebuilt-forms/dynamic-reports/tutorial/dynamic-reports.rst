@@ -5,9 +5,9 @@ In this next tutorial we are going to look at ways of adding a page for explorin
 records. As this is an advanced tutorial we'll be building a page with a map plus grid
 of records and putting them on 2 separate tabs. There are a few possible approaches to
 building such a page, but the one that combines simplicity with the most flexibility is
-to use the **Dynamic Report Explorer** prebuilt form. This form takes a similar approach
-to the **Form Structure** configuration options of the **Sample and Occurrences Form**
-but instead of laying out form components, you are laying out report components.
+to use the **Reporting page (customisable)** prebuilt form. This form takes a similar
+approach to the **Form Structure** configuration options of the **Sample and Occurrences
+Form** but instead of laying out form components, you are laying out report components.
 
 Setting up a website agreement
 ------------------------------
@@ -59,7 +59,7 @@ agreements, we will need to set one up before proceeding. Here are the steps:
   to visit the link yourself to force the tables to populate. On my development machine
   this link is ``http://localhost/indicia/index.php/scheduled_tasks``.
 
-Adding the Dynamic Report Explorer page
+Adding the report page
 ---------------------------------------
 
 #. Select **Content > Add content > Indicia pages** from the admin menu of your Drupal
@@ -69,7 +69,7 @@ Adding the Dynamic Report Explorer page
    Records" to add it to the menu. You can reorganise the exact layout of the menu
    after saving the form if you like.
 #. In the **Form Selection** section, set the **Form Category** to **Reporting** and the
-   **Select Form** drop down to **Dynamic Report Explorer**.
+   **Select Form** drop down to **Reporting page (customisable)**.
 #. Click the **Load Settings Form** button.
 #. Let's just do the minimum to get the form working for now. Expand the **Base Map
    Layers** section and tick the **Google Streets** and **Google Satellite** base layer
@@ -84,7 +84,7 @@ make:
      :align: center
      :alt: The default dynamic reports page output
 
-Configuring the Dynamic Report Explorer page
+Configuring the report page
 --------------------------------------------
 
 The report page already has lots of functionality:
