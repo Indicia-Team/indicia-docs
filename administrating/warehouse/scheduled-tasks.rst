@@ -81,23 +81,80 @@ Using this approach it is possible to set up several different tasks which are r
 at different frequencies, e.g. to run the notifications system once an hour, the data
 cleaner once a night and the cache_builder every five minutes.
 
-.. tip::
+Work queue
+----------
 
-  The work_queue task is a recent addition to the Indicia warehouse for version 2. It
-  examines the work_queue table to find tasks that have been queued and which need to be
-  performed. The tasks are sorted by priority and the procesor is designed to be aware of
-  your server's load and to avoid intensive tasks during periods of high load. Therefore
-  it is safe to run the scheduled_tasks with a parameter `&tasks=work_queue` as frequently
-  as you like. You can further control the work queue processor by setting the following
-  parameters:
+The work_queue task is a recent addition to the Indicia warehouse for version 2. It
+examines the work_queue table to find tasks that have been queued and which need to be
+performed. The tasks are sorted by priority and the procesor is designed to be aware of
+your server's load and to avoid intensive tasks during periods of high load. Therefore
+it is safe to run the scheduled_tasks with a parameter `&tasks=work_queue` as frequently
+as you like. You can further control the work queue processor by setting the following
+parameters:
 
-    * maxPriority - set to 1 (high priority) or 2 (medium priority) tasks only.
-    * maxCost - set to a value from 1 to 100 to define the maximum cost of tasks. E.g.
-      set to 80 to skip tasks that are very costly.
+  * maxPriority - set to 1 (high priority) or 2 (medium priority) tasks only.
+  * maxCost - set to a value from 1 to 100 to define the maximum cost of tasks. E.g.
+    set to 80 to skip tasks that are very costly.
 
-  Note that you should run the work_queue task without a maxPriority or maxCost parameter
-  regularly at some point to ensure all tasks get processed, though you could limit these
-  to certain times of the day for example.
+Note that you should run the work_queue task without a maxPriority or maxCost parameter
+regularly at some point to ensure all tasks get processed, though you could limit these
+to certain times of the day for example.
+
+You can also append tasks manually to the work queue table where you want to trigger a
+process or set of processes. For example, you can trigger a bulk update of the cache
+tables for occurrences data to refresh all the content using the following query:
+
+.. code-block:: sql
+
+  insert into work_queue(task, entity, record_id, params, cost_estimate, priority, created_on)
+  select 'task_cache_builder_update', 'occurrence', id, null, 100, 2, now()
+  from occurrences where deleted=false order by id;
+
+Work queue tasks
+^^^^^^^^^^^^^^^^
+
+The following list of tasks can be inserted into the work_queue table:
+
+*task_cache_builder_attrs_occurrence*
+Updates the cache_occurrences_nonfunctional.attrs_json data (a JSON representation of all
+the attribute values) for an occurrence record. The entity must be set to occurrence.
+
+*task_cache_builder_attrs_sample*
+Updates the cache_samples_nonfunctional.attrs_json data (a JSON representation of all
+the attribute values) for a sample record. The entity must be set to sample.
+
+*task_cache_builder_attrs_taxa_taxon_list*
+Updates the cache_taxa_taxon_lists_nonfunctional.attrs_json data (a JSON representation of
+all the attribute values) for a taxa_taxon_list record. The entity must be set to
+taxa_taxon_list.
+
+*task_cache_builder_path_occurrence*
+Provide an occurrence ID in record_id and set the entity to occurrence to update that
+occurrences taxon path data (the indexing for it's taxonomic hierarchy).
+
+*task_cache_builder_update*
+Performs an update of the tables for a record identified by entity (sample, occurrence or
+taxa_taxon_list) and record_id. Set params to `'{"deleted":true}'::json` to remove a
+deleted record from the cache.
+
+*task_cache_builder_user_privacy*
+Provide the id of a user in record_id and set entity to 'user' to update that user's
+sharing privacy settings in their cache entries. These settings are defined in the users
+table fields named like allow_share_for_*.
+
+*task_spatial_index_builder_location_delete*
+If a record from the locations table is deleted for an indexed location, set entity to
+location and the ID in record_id to ensure it is removed from the location_ids[] fields in
+the cache tables.
+
+*task_spatial_index_builder_location*
+Updates the spatial indexing for a location identified by record_id.
+
+*task_spatial_index_builder_occurrence*
+Updates the spatial indexing for an occurrence identified by record_id.
+
+*task_spatial_index_builder_sample*
+Updates the spatial indexing for a sample identified by record_id.
 
 Warehouse functionality dependent on scheduled tasks
 ----------------------------------------------------
