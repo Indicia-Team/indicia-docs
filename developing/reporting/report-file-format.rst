@@ -366,7 +366,21 @@ Attributes
   within the main query by adding -unprocessed to the parameter name, for example for a
   parameter called "higher_taxon" the processed list of species would be replaced for a
   token called #higher_taxon# and the unprocessed original parameter would be available
-  in #higher_taxon-unprocessed#.
+  in #higher_taxon-unprocessed#. The preprocess value can contain one of the following:
+
+  * A single SQL statement which has the parameter name as a token (surrounded by #
+    characters) which will be replaced by the original parameter value, plus optionally
+    #website_ids# and #master_list_id# tokens which will be replaced as appropriate. The
+    query should return a string which will be replaced into the parameter's SQL,
+    replacing the token with the same name as the parameter.
+  * An array of several SQL statements, keyed by the name of the token which should be
+    replaced in the parameter's SQL. For example, the taxa_taxon_list_list parameter
+    uses 2 preprocess queries, one to convert the input taxa_taxon_list_ids into
+    taxon_meaning_ids (which can be used to easily search the taxon hierarchy), plus a
+    second which identifies the taxon_group_ids. Providing a list of taxon_meaning_ids
+    as well as a list of taxon_group_ids gives the query planner a better chance to use
+    indexes when optimising the query, since the taxon_group_ids is likely to be a much
+    simpler case with a smaller list of IDs.
 
 .. _idlist-label:
 
