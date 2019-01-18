@@ -8,3 +8,4 @@ Indicia now provides a limited RESTful API for reading data.
 
   resources
   authentication
+  elasticsearch
