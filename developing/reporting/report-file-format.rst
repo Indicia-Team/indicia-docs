@@ -42,6 +42,9 @@ Attributes
   therefore can be accessed without concern for whether raw data is being made available.
   The REST API uses this flag to limit reports available to users who shouldn't have raw
   data access.
+* **restricted** - optional. Set to true for any reports that should not be exposed for
+  public access. These reports will only be available for access via the RESTful API
+  if authorised explicitly for a client project.
 
 Child elements
 ^^^^^^^^^^^^^^

@@ -1,4 +1,4 @@
 {
-  "restructuredtext.confPath": "/Users/john/Documents/Git repos/indicia-docs",
+  "restructuredtext.confPath": "${workspaceFolder}",
   "restructuredtext.workspaceRoot": "/Users/john/Documents/Git repos/indicia-docs"
 }
