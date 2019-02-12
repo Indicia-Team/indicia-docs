@@ -43,6 +43,10 @@ set of parameters. The report will automatically support the following list of p
   * ``verified_date_from`` - filter to records that were verified on or after this date.
   * ``verified_date_to`` - filter to records that were verified on or before this date.
   * ``verified_date_age`` - include records that were verified after a date defined by an age.
+  * ``tracking_from`` - filter to only include records after a given update tracking ID.
+    Can be used to retrieve a feed of changes.
+  * ``tracking_to`` - filter to only include records before a given update tracking ID.
+    Can be used to retrieve a feed of changes.
   * ``quality`` - defines the quality criteria to apply. The following options are available:
 
       * V - verified as correct by an expert only
