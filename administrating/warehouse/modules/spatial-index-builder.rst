@@ -9,49 +9,30 @@ against each vice county boundary. As these boundaries are very complex, testing
 record might be very fast but when scaled up to the entire dataset this query is just
 too complex to run on a live server.
 
-The Spatial Index Builder module introduces a new table to the data model that keeps a
-"hard link" between samples and locations. This link is created using the scheduled_tasks
-process in the background, so although it is not created immediately a new record is input
-it has little effect on performance and is ideal for this sort of summary reporting. Also
-note that the link only needs to be created once per sample so you are not asking the
-web server to repeatedly re-perform the same intensive spatial querying tasks. The module
-creates links to the samples rather than the occurrences table since this results
-in a smaller index table and it is a simple one step join from samples to occurrences
-anyway.
+The Spatial Index Builder module uses the Work Queue to create tasks for all inserted
+and updated samples and locations. It then runs a spatial query to look for intersections
+between sample and location polygons and then stores the results of the query in the
+`cache_samples_functional.location_ids` and `cache_occurrences_functional.location_ids`
+fields, both of which hold arrays of integers. Once this "hard link" is created, the
+data linked to a location can be located using the @> or && PostgreSQL operators, e.g.
+
+.. code-block: sql
+
+  -- Find records for location where id=123.
+  SELECT * FROM cache_occurrences_functional
+  WHERE location_ids @> ARRAY[123];
+
+This is much faster than repeating the spatial query each time a report query is run.
 
 The module can be restricted to only indexing certain location types by the use of a
-configuration setting, described below.
-
-Report Support
-^^^^^^^^^^^^^^
-
-The Spatial Index Builder module is required if you plan to use any of the following
-reports:
-
-* ``library/occurrences/explore_list_using_spatial_index_builder.xml`` - used to filter
-  the explore output to the user's locality set in their preferences.
-* ``library/occurrence_images/explore_list_using_spatial_index_builder.xml`` - used to
-  filter the explore output to the user's locality set in their preferences.
-* ``library/occurrences/nbn_exchange.xml`` - used to attach a Vice County to the NBN
-  Exchange Format download, therefore the location type **Vice County** must be one of the
-  indexed location types.
-* ``library/locations/occurrence_counts_mappable_summary.xml`` - used to increase
-  performance of report output when grouped by locations.
-* ``library/locations/species_counts_mappable_summary.xml`` - used to increase
-  performance of report output when grouped by locations.
-
-Database notes
-^^^^^^^^^^^^^^
-
-This module adds the following to the database:
-
-* A table called **index_locations_samples** which joins between samples and locations.
+configuration setting, described below. It also allows indexing to automatically include
+the parents of any found location, e.g. you can index against a layer of counties and
+automatically include the links to the associated countries, which saves time during the
+background task processing.
 
 Installation notes
 ^^^^^^^^^^^^^^^^^^
 
-#. Once the module is enabled, log into the warehouse and visit ``index.php/home/upgrade``
-   in order to install the new database tables.
 #. You must ensure that the :doc:`../scheduled-tasks` are configured for the warehouse.
 #. If you want to limit the location types that are indexed, then you must duplicate the
    file ``modules/spatial-index-builder/config/spatial_index_builder.php.example`` and
@@ -65,9 +46,24 @@ Installation notes
      <?php
      $config['location_types']=array(
        'National Parks',
-       'National Nature Reserves'
+       'National Nature Reserves',
      );
      ?>
+
+#. If you have an indexed layer (e.g. National Parks) where the location records have the
+   `parent_id` field set to point to a parent location such as a country, then you can
+   specify the `hierarchical_location_types` configuration to include these parent
+   locations in the indexed data. E.g.
+
+   .. code-block:: php
+
+     <?php
+     $config['hierarchical_location_types']=array(
+       'National Parks',
+     );
+     ?>
+
+
 
 #. You can further restrict the indexing for a given location type to records captured from
    a particular survey dataset or list of survey dataset. To do this, you need to add a
