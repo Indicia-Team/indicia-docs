@@ -77,7 +77,7 @@ for the configuration section. Take particular care over the `allowed` section. 
 declares a list of HTTP methods that are allowed (lowercase, e.g. get, put, post, delete),
 and for each a list of regular expressions for the end-points within the elasticsearch
 server that may be accessed. These will be appended to the configured index or alias name
-so allowing you to selectively expose your Elasticsearch instance to only particular
+so allowing you to selectively expose your Elasticsearch instance via a restricted set of
 APIs. The above example is limited to the Search API for example.
 
 This configuration sets up the Elasticsearch index for use in Indicia and links it to a
@@ -91,6 +91,7 @@ might enable Elasticsearch via the /index.php/services/rest/es end-point using h
 authentication by setting up the configuration as follows:
 
 .. code-block:: php
+
   $config['authentication_methods'] = [
     'hmacWebsite' => [
       ...
@@ -103,12 +104,16 @@ authentication by setting up the configuration as follows:
   ];
 
 If using client authentication (directClient or hmacClient) then there is one more step -
-you need to attach the appropriate Elasticsearch end-points to the projects by adding
-a configuration key, similar to the way you attached them to the authentication methods:
+you need to attach the appropriate Elasticsearch end-points to the client by adding
+a configuration key, similar to the way you attached them to the authentication methods.
+This is done by adding an `elasticsearch` configuration entry to the `$config['clients']`
+entry for the client you are enabling access for, which contains an array of the
+config entries defined in `$config['elasticsearcg']` which you wish this client to be able
+to access:
 
-... code-block:: php
+.. code-block:: php
 
-  $config['authentication_methods'] = [
+  $config['clients'] = [
     'ABC' => [
       'shared_secret' => 'password',
       'projects' => [
