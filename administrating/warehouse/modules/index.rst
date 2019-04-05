@@ -71,6 +71,7 @@ Module List
   occurrence-associations
   people-tidier
   phpunit
+  request-logging
   rest-api
   spatial-index-builder
   sref-channel-islands
