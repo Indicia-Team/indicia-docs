@@ -45,7 +45,7 @@ files or using a module to import from the list of reporting categories used by 
 Species Dictionary. In our case we only need one taxon group called Damselflies so we will
 create it by hand.
 
-#. Select **Lookup Lists > Taxon Groups** from the menu in the warehouse to view the list
+#. Select **Taxonomy > Taxon Groups** from the menu in the warehouse to view the list
    of existing taxon groups.
 #. If your warehouse already has some taxon groups populated into it, it is a good idea to
    first check that the taxon group does not already exist using the Filter For box at the
@@ -65,7 +65,7 @@ list has a concept of ownership – it is either owned by the warehouse and avai
 use by all websites, or it can be owned by a registered website and only available for
 use by that website.
 
-#. Select **Lookup Lists > Species Lists** from the menu in the warehouse then click the 
+#. Select **Taxonomy > Species Lists** from the menu in the warehouse then click the 
    **New species list** button.
 
 #. Fill in the title of the list as Damselflies and provide an optional description.
@@ -215,6 +215,19 @@ The list of database attributes you can select from is broken down by database t
 our case we want to map to the Taxon field (which stores the taxon/species name), part of 
 the definition of a Taxon. Once you have selected the mapping, the message on the right 
 hand side will disappear and you can press the Upload button.
+
+.. note::
+
+  The list of table attributes you see could be different from the above. The
+  important thing is that you look for the 'Taxon' attribute within the 'Taxon'
+  table.
+
+You may also see a drop-down list like that pictured below. This can help you to manage
+what happens if you want the list of records you are uploading to be linked to others. If
+you are just uploading a simple list, normally you can leave this as 'do not look up existing records'.
+
+.. image:: ../../images/screenshots/warehouse/taxonlist-upload-lookup-existing.png
+  :alt: Lookup of existing records dropd-down.
 
 With any luck you will get a message that the upload was successful. Otherwise, the 
 Indicia uploader will upload the rows from your CSV file which it could accept, and keeps 

@@ -31,7 +31,7 @@ Follow these steps to register a new survey for recording on the warehouse.
 #. Login using the warehouse login you created in the previous step, who has admin rights 
    to the website registration you have created for your website. If you have not already 
    setup the website and user, please see the Setting up a website registration tutorial.
-#. Select Lookup lists > Surveys from the warehouse’s menu. You should now be on a page 
+#. Select Observation data > Surveys from the warehouse’s menu. You should now be on a page 
    that shows a grid of surveys that already exist. Like the websites list, there is a 
    demonstration item added to the list during installation to provide somewhere to add 
    records which are for demo and testing purposes.
