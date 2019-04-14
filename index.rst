@@ -30,45 +30,45 @@ Introduction
 ============
 
 If you are still deciding whether to use Indicia or just want an overview of the
-project, then why not :doc:`read an introduction to the project
-</introduction/index>` here.
+project, then why not :doc:`read an introduction to the project here
+</introduction/index>`.
 
 Building an online recording website
 ====================================
 
 If you are about to build an online recording website or are in the process of
-site building, then earn how to go about
-:doc:`building a site using Indicia here.</site-building/index>`.
+site building, then 
+:doc:`learn how to build a site using Indicia here</site-building/index>`.
 
 Administration
 ==============
 
 If you are planning to set up an Indicia website or already have one but need
-to know more about administration, then find out how to
-:doc:`install and administer Indicia websites here </administrating/index>`.
+to know more about administration, then 
+:doc:`learn how to install and administer Indicia websites here</administrating/index>`.
 
 Developing Indicia
 ==================
 
-If you are planning to learn to develop using the Indicia PHP client helpers
+If you are planning to develop using the Indicia PHP client helpers
 API, report writing system or would like to help develop the code for Indicia,
-then you can :doc:`get information for developers of Indicia
+then you can :doc:`get information for developers of Indicia here
 </developing/index>`.
 
-Getting Help
+Getting More Help
 ============
 
-:doc:`Find out about the various places you can get help<help>` on using,
+:doc:`Find out about other places you can get help<help>` on using,
 building and developing biological recording websites using Indicia.
 
 Supporters
 ==========
 
 Indicia is a community owned project whose code development is supported by a number of
-organisations. View the :doc:`list of supporting organisations<supporters>`.
+organisations. View the :doc:`list of supporting organisations here<supporters>`.
 
 .. note::
 
   Like all other parts of the Indicia ecosystem, the Indicia manual is a free
-  and open source project. :doc:`Find out about how you can contribute
+  and open source project. :doc:`Find out about how you can contribute here
   <contributing/index>`.

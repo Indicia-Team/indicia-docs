@@ -17,8 +17,10 @@ perform the steps :ref:`install-postgres` and to check that the **pgsql** and
 :ref:`install-php`.
 
 Here is a 
-`screencast of this installation process on a Mac <http://www.youtube.com/watch?v=wSfRJK9q2gs>`_.
-The steps are similar for Windows.
+`screencast of installation process of the Indicia Warehouse 
+on a Mac <http://www.youtube.com/watch?v=wSfRJK9q2gs>`_
+which commences at the point after which PostreSQL and PostGIS
+have been installed. The steps are similar for Windows.
 
 .. _install-postgres:
 
@@ -43,46 +45,74 @@ following links extremely useful:
 
 Next, create a PostGIS database on your server. You don't need to put any 
 content in the database yet. There are several possible ways of doing this, but 
-the easiest is to run pgAdmin III which is supplied in the PostgreSQL 
-installation. In the tree on the left, there is a node called Servers, and 
-underneath that is your server. Double click this and enter your password if it 
-asks you. Now, expand the Databases node, select "postgres", then click the icon 
-in the toolbar that looks like a document titled SQL with a pencil. Now, in the 
-editor that appears, enter the following SQL script and click the green run 
-button in the toolbar, which creates a PostGIS database called indicia.::
+the easiest is to run pgAdmin which is supplied in the PostgreSQL 
+installation. Exactly what you do can vary between different versions of
+the database and how installation was carried out. There are several examples below that
+describe different ways that this has been carried out successfully. You might
+find it useful to look at one which matches your own environment as closely
+as possible and use it for guidance.
 
-  CREATE DATABASE indicia TEMPLATE=template_postgis;
+.. tip::
 
-A word of warning. After choosing the 'Server' from the left hand pane within 
-pgAdmin, a list of existing databases will be displayed for that server, 
-including the 'template_postgis'. One of these databases will be opened by 
-default - unfortunately for a blank installation this will be the 
-'template_postgis' database as there are no others. In order for the above 
-statement to work, this must not be active (i.e. it must have a red cross over 
-its icon) - pgAdmin will complain that another user (in this case itself) has 
-the template database open. In this case, the problem may be circumvented by 
-creating a blank database with no template (e.g. called 'X'), shutting down 
-pgAdmin, and then restarting it. On reopening the relevant server, the dummy 
-database should be active, and the 'template_postgis' one not. The above 
-statement should now be able to be run without issue. The dummy database may 
-then be deleted.
+  **Example from before 2016**
 
+  In the tree on the left of pgAdmin, there is a node called Servers, and 
+  underneath that is your server. Double click this and enter your password if it 
+  asks you. Now, expand the Databases node, select "postgres", then click the icon 
+  in the toolbar that looks like a document titled SQL with a pencil. Now, in the 
+  editor that appears, enter the following SQL script and click the green run 
+  button in the toolbar, which creates a PostGIS database called indicia.::
 
-Note from March 2016. 
+    CREATE DATABASE indicia TEMPLATE=template_postgis;
 
-After installing PostGreSQL 9.3.11 on Windows the bundled Stack Builder
-was run to install PostGIS 2.1.7. The SQL required to create the database was ::
-  
-  CREATE DATABASE indicia;
-  
-Then, having switched to that database ::
-  
-  CREATE EXTENSION postgis;
-  CREATE EXTENSION postgis_topology;
-  
-template_postgis did not exist.
+  A word of warning. After choosing the 'Server' from the left hand pane within 
+  pgAdmin, a list of existing databases will be displayed for that server, 
+  including the 'template_postgis'. One of these databases will be opened by 
+  default - unfortunately for a blank installation this will be the 
+  'template_postgis' database as there are no others. In order for the above 
+  statement to work, this must not be active (i.e. it must have a red cross over 
+  its icon) - pgAdmin will complain that another user (in this case itself) has 
+  the template database open. In this case, the problem may be circumvented by 
+  creating a blank database with no template (e.g. called 'X'), shutting down 
+  pgAdmin, and then restarting it. On reopening the relevant server, the dummy 
+  database should be active, and the 'template_postgis' one not. The above
+  statement should now be able to be run without issue. The dummy database may
+  then be deleted.
 
-End of note.
+.. tip::
+
+  **Example from March 2016**
+
+  After installing PostGreSQL 9.3.11 on Windows the bundled Stack Builder
+  was run to install PostGIS 2.1.7. The database template_postgis did
+  not exist. The following SQL was run to set up the indicia database ::
+    
+    CREATE DATABASE indicia;
+    
+  Then, having switched to that database ::
+    
+    CREATE EXTENSION postgis;
+    CREATE EXTENSION postgis_topology;
+    
+
+.. tip::
+
+  **Example from March 2019**
+
+  After installing PostGreSQL 9.6.3 on Windows, Stack Builder was
+  used to install PostGIS 2.5.1. Right-clicked on the 'Databases'
+  icon and selected 'Create > Database' to invole database creation
+  dialog. You can either use the 'General' tab to create the 'indicia'
+  database, or use the 'SQL' tab to run the following SQL ::
+
+    CREATE DATABASE indicia;
+
+  Right-clicked the new 'indicia' database and selected 'Query Tool'. Used
+  the query tab that appeared to enter and run these three SQL commands ::
+
+    CREATE EXTENSION postgis;
+    CREATE EXTENSION postgis_topology;
+    CREATE EXTENSION btree_gin;
 
 You can use the postgres super-user account to run Indicia if you like, which is
 the easiest but least secure method. Please do **NOT** use the super-user account 
@@ -151,24 +181,33 @@ Whichever you choose, please make sure you install a version which includes PHP 
 After installation, all installations of a PHP web server will have 2 things you are going
 to need to find before going on:
 
-#. Your website's *root* folder. This is the folder on your hard disk which will be 
-mapped to a base URL in your browser such as ``http://localhost``. You will place files in 
-here to create content on your websites. For XAMPP you need to look for a folder called
-**htdocs**, which by default is inside your XAMPP installation folder. For WampServer look
-for a folder called **www**.
-#. Your **php.ini** file, the configuration settings file for your PHP environment. 
+#.  Your website's *root* folder. This is the folder on your hard disk which will be 
+    mapped to a base URL in your browser such as ``http://localhost``. You will place files in 
+    here to create content on your websites. For XAMPP you need to look for a folder called
+    **htdocs**, which by default is inside your XAMPP installation folder. For WampServer look
+    for a folder called **www**.
+#.  Your **php.ini** file, the configuration settings file for your PHP environment. 
 
 After installing PHP, edit your php.ini file and uncomment the following two 
-lines by removing the semi-colon at the start. This enables the pgsql module 
+lines by removing the semi-colon at the start (if they are commented out).
+This enables the pgsql module 
 required for PHP to access the PostgreSQL database, and the cURL module which 
 the demonstration site pages use to access the web services. After you've 
 changed and saved the file, restart your Apache web server. ::
 
+  extension=curl
+  extension=pgsql
+
+On some installations the lines may be: ::
+
   extension=php_curl.dll
   extension=php_pgsql.dll
 
-Once you have done this, it's a good idea to check that the cURL and pgsql 
-libraries have been installed successfully for PHP. You can do this by creating 
+Stop and restart your web server (e.g. using the XAMPP control panel if you
+installed via XAMPP) and then check that the cURL and pgsql 
+libraries have been installed successfully for PHP. 
+
+You can do this by creating 
 a file called phpinfo.php in the root html directory of your webserver, and 
 editing it with a text editor. If you installed XAMPP, then you will find this 
 folder under XAMPP/htdocs. Enter the following text into the file and save it:
@@ -180,9 +219,15 @@ folder under XAMPP/htdocs. Enter the following text into the file and save it:
   ?>
 
 Now go to a web browser, and enter the root of your webserver followed by 
-phpinfo.php (for example http://localhost/phpinfo.php). The page you see should detail 
+phpinfo.php (for example 'http://localhost/phpinfo.php'). The page you see should detail 
 your PHP configuration, and if you look down the page you should see that the 
 cURL and pgsql libraries are loaded.
+
+.. tip::
+
+  In a XAMPP installation made in March 2019, there was already a phpinfo.php file
+  in the folder 'dashboard', so there was no need to create a new one - instead
+  just enter the URL 'http://localhost/dashboard/phpinfo.php').
 
 .. tip::
 
@@ -199,16 +244,62 @@ cURL and pgsql libraries are loaded.
 Get the Warehouse code
 ======================
 First, create yourself a folder inside your web server's root folder, for example
-htdocs\indicia. Now, download the `Indicia warehouse code <http://www.indicia.org.uk/downloads>`_
-and unzip it. Copy the contents of this zip file into the folder you have just created on your 
-webserver. Please note, if you are re-installing the Indicia Warehouse for whatever reason, 
-always remove the contents of the previous installation from the folder completely before 
-copying over the new files, otherwise the configuration files created during installation will 
-be still present and you won't be able to reinstall from scratch.
+htdocs/indicia. Now, download the 
+latest indicia warehouse release `Indicia warehouse code <https://github.com/Indicia-Team/warehouse/releases/latest>`_
+from GitHub. 
 
-If you are running on a hosted server, it may be easiest to download and unzip the code
-into a local folder then use an FTP tool to upload it into a folder created on your web
-server account.
+If the GitHub release page includes an 'asset' labelled with a name similar to this: warehouse-n.n.n.zip, then
+this contains everything, including all the submodules, required for the Warehouse. But if
+you only see assets called 'Source code' then you will have to use Git to install the Warehouse and its submodules
+(see Installing the Warehouse with Git below).
+
+If you download the GitHub asset labelled  something like 'warehouse-n.n.n.zip', unzip it to your
+computer. Go into the innermost folder that reflects the name of the zipfile and copy all the files
+into your htdocs/indicia folder.
+
+.. tip::
+
+  If you are running on a hosted server, it may be easiest to download and unzip the code
+  into a local folder then use an FTP tool to upload it into a folder created on your web
+  server account.
+
+.. tip::
+
+  If you are re-installing the Indicia Warehouse, for whatever reason, be sure to log out
+  of the Warehouse first. If you need to do a complete re-install
+  remove the contents of the previous installation from the folder completely before 
+  copying the new files, otherwise the configuration files created during installation will 
+  be still present and you won't be able to reinstall from scratch. But if you are just trying
+  to fix an installation problem and do not need to do a complete re-install, simply copy
+  the files over any that are there already. If you see an error relating to 
+  mySQL on restarting, you may need to restart your computer. If you see an error relating 
+  to mySQL on restarting, you may need to restart your computer.
+
+Installing the Warehouse with Git
+=================================
+
+If you haven't installed Git globally on your computer, then first do so. 
+Open a command tool window on the htdocs/indicia folder and type: ::
+
+  git clone https://github.com/Indicia-Team/warehouse.git -b v2.11.0
+
+Replace v2.11.0 with the tag name of the current release. This will have created a folder
+called warehouse. Go into this folder and type the following git
+command to install all the submodules: ::
+
+  git submodule update --init --recursive
+
+That will install all the required submodules into the folder. Next move all the files and
+folders in htdocs/indicia/warehouse to htdocs/indicia and delete the warehouse folder.
+(Another way to do this would be not to create the empty indicia folder in the first 
+place, but just clone the warehouse into the htdocs folder and then rename the warehouse folder
+to indicia).
+
+.. tip::
+
+  If you are running on a hosted server, you can do all this on your own computer,
+  then zip up the contents of indicia and then use an FTP tool to upload it into a 
+  folder created on your web server account.
 
 Run the Setup
 =============
@@ -228,7 +319,7 @@ http://localhost/indicia/index.php, and load the page.
 The Indicia Setup Check page should be displayed which, with any luck, will show something 
 similar to the following:
 
-.. image:: ../../images/screenshots/warehouse/setup_check.png
+.. image:: ../../images/screenshots/warehouse/setup_check-2.png
   :width: 700px
   :alt: The warehouse installation setup check screen.
   
@@ -251,27 +342,6 @@ If you are installing a server for development or private purposes then it is sa
 ignore the fact that the reports and trigger templates folders are writeable. Click the
 Acknowledge button and confirm that you are happy to ignore this on the next screen to
 allow you to proceed with the installation.
-
-Demo configuration
-------------------
-
-Click the Configure Demo Pages button, then you will be presented with the Demo
-Configuration page:
-
-.. image:: ../../images/screenshots/warehouse/setup_demo.png
-  :width: 700px
-  :alt: The warehouse demo setup installation page.
-  
-This page allows you to provide a link to a `GeoServer <http://geoserver.org/>`_
-installation on your server which can provide access to the spatial data in your
-Warehouse. If you don't have one, don't worry as this is only required for some
-distribution mapping functionality and can be added later.
-
-In addition, this page allows you to specify API keys for various web services used by the
-Indicia demo pages. If you don't specify them now, they can be entered later by editing
-the file ``client_helpers/helper_config.php``. Also note that these settings are only for
-the demo pages on the warehouse, so it is safe to save this page with blank settings if
-you are not going to use the demo pages.
 
 Email Configuration
 -------------------
@@ -376,7 +446,7 @@ Security
 --------
 
 To secure your Indicia installation, you need to prevent directory access to each of the
-folders. In addition you should block all access to the application\cache folder since
+folders. In addition you should block all access to the application/cache folder since
 this is where requested authentication details from data entry pages are stored. To do
 this on Apache, assuming that .htaccess is supported on your server and mod_rewrite is
 installed, rename the file example.htaccess in the root of the indicia installation folder

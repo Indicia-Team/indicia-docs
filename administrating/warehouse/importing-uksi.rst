@@ -193,26 +193,33 @@ Starting with the exported text files
 -------------------------------------
 
 #. If you don't already have a species list on the warehouse ready to import the taxa
-   into, then create one now. You can use the normal Warehouse user interface to do this.
+   into, then create one now. You can use the normal Warehouse user interface to do this
+   (Taxonomy > Species lists).
    Make a note of the ID of the list.
-#. As the UKSI data includes taxon designation information, ensure that the
-   **taxon_designations** extension module is enabled on the warehouse. To do this:
+#. As the UKSI data is structurally complex you need to add a number of extension
+   modules to add the necessary tables. To do this:
 
    #. Find the file ``application/config/config.php`` in your warehouse installation
       folder and open it in a text editor.
    #. Find the list of modules at the bottom of the page.
-   #. Add an entry for the taxon_designations module by adding the following line into the
+   #. Add an entry for several modules by adding the following lines into the
       list:
 
     .. code-block:: php
-
+    
         MODPATH.'taxon_designations',
-
+        MODPATH.'taxon_associations',
+        MODPATH.'species_alerts',
+        MODPATH.'data_cleaner_without_polygon',
+        MODPATH.'data_cleaner_period_within_year'
+        
    #. Log into your warehouse and visit the ``index.php/home/upgrade`` page to ensure that
       database upgrade scripts are run.
 
 #. Grab a copy of the files from https://github.com/Indicia-Team/support_files/tree/master/UKSI
    and follow the instructions in readme file. If you generated your own copy of the files
    from the Access database make sure you replace the downloaded copies with your
-   versions.
+   versions. You will have to supply a user ID when you run the scripts (as described in
+   the readme file). Look in the users table of your indicia schema to get the id. If you
+   use the id of your main admin account the number is likely to be 1.
 

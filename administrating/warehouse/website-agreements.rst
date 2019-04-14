@@ -21,7 +21,7 @@ website.
 
 The way this is achieved is via a **website agreement**. Website agreements are a
 powerful mechanism for reducing the overall effort required for managing online
-recording. In addition by website agreements can increase the feeling of belonging to a
+recording. In addition, website agreements can increase the feeling of belonging to a
 wider community by sharing records across the boundaries between different client
 websites, as long as the client websites share a single warehouse. A website agreement is
 created on the warehouse. Think of the agreements as pools of data which also define the
@@ -32,7 +32,7 @@ verification data for example, only an administrator can set that up). The rules
 putting data into or taking data out of the pool of data are further divided into the
 type of task being performed, so an agreement may define different rules for reporting on
 data vs verification of data. For example, an agreement could define that all
-participating∑ websites must provide their records to other participating websites for
+participating websites must provide their records to other participating websites for
 reporting purposes, or that providing records to other websites for reporting is
 optional. The agreement can define the possible providing and receiving of records for
 each of the following tasks:

@@ -9,7 +9,9 @@ site). Whilst Indicia exposes the spatial data via its own data services making 
 relatively easy for "Indicia Aware" applications to use the data, other spatial
 applications do not understand the format. There are a number of standards for exchanging
 and querying spatial data over the web, provided by the `Open Geospatial Consortium
-<http://www.opengeospatial.org/>`_. GeoServer is a web-server application which connects
+<http://www.opengeospatial.org/>`_. 
+
+GeoServer is a web-server application which connects
 spatial data in a variety of formats to the web, by supporting the OGC standards.
 Fortunately GeoServer has built in support for PostGIS data. This makes it easy to link
 Indicia data to GIS applications, Google Earth or other similar maps.
@@ -17,12 +19,20 @@ Indicia data to GIS applications, Google Earth or other similar maps.
 Installation
 ============
 
-There's a quick guide to installing GeoServer `here
-<http://geoserver.org/display/GEOSDOC/Quickstart>`_, and links to more detailed
-information if you have specific requirements as to how you wish to install it. The rest
+There's a guide to installing GeoServer `here
+<https://docs.geoserver.org/stable/en/user/installation/>`_, and links to more detailed
+information if you have specific requirements as to how you wish to install it, e.g.
+for different operating systems.
+
+Note that before you can install GeoServer, you
+will need to make sure that you have the Javascript Runtime Environment (JRE) installed
+on the computer. 
+
+The rest
 of this document assumes you have access to a working GeoServer installation and are able
-to login to the GeoServer administrative interface. This documentation applies to
-GeoServer 2.
+to login to the GeoServer administrative interface (e.g. at http:localhost:8080/geoserver).
+
+This documentation applies to GeoServer 2.
 
 Configuration for Indicia
 =========================
@@ -45,7 +55,7 @@ The basic steps are:
 
 #. Go to **Data > Workspaces** and click on the **Add New Workspace** link
 
-#. Enter an appropriate name for the Workspace (which can contain spaces) and also enter a
+#. Enter an appropriate name for the Workspace (which must not contain spaces) and also enter a
    URI (Uniform Resource Identifier). A URI is nothing more than a string of characters
    that uniquely identify a resource on the Internet (see `this Wikipedia article
    <http://en.wikipedia.org/wiki/Uniform_Resource_Identifier>`_ for more details).
@@ -71,10 +81,10 @@ The basic steps are:
   
    Then "Connection Parameters":
   
-   **dbtype**: postgis
+   **dbtype**: postgis (not present in some versions)
   
    **host**: the host address for your Geoserver installation (often it will be 
-   "localhost").
+   "localhost")
    
    **port**: the port of the host on which Geoserver is running - usually 5432
   
@@ -92,14 +102,14 @@ The basic steps are:
 #. Click Save to save your new data Store - this will take you directly to the **New Layer 
    Chooser**. You are presented here with a list of available tables and views (which are
    predefined queries stored in the database which can be accessed just like views) from
-   your Indicia database. Choose the "detail_occurrences" view.
+   your Indicia database. Choose the "detail_occurrences" view (click the 'publish' link).
    
 #. On the next screen you'll see two tabs - **Data** and **Publishing**. Data is selected 
    by default and you are presented with a set of fields to fill in.
 
    **Name**: this is the name that you will use to access the layer from other 
    applications and for clarity we'd advice that this matches the database table or view 
-   which is being published, e.g. "cache_occurrences".
+   which is being published, e.g. "detail_occurrences".
 
    **Title**: A "human-readable" description to briefly identify the layer to WMS/WFS
    clients. This can be more descriptive than the name - e.g. "Based on the
