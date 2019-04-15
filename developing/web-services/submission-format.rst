@@ -234,6 +234,11 @@ which describes a hierarchy of records. This can be achieved as in the following
     }]
   }
 
+Each submodel entry declares the field in the subModel table which holds the foreign key
+linking the created row to the parent table in the `fkId` field. It will normally be set
+to the parent table's `id` field but can be set to a different field's value by providing
+the field name in an entry called `fkField`.
+
 Note that the entry within the "model" property is a submission structure just like the
 submission at the top level. This can be hierarchical, so you could for example submit
 a transect with a parent sample containing a sub sample for each recorded point along the
