@@ -25,3 +25,7 @@ can be specified:
     development, testing or training purposes where it is easier to be able to create URLs
     manually rather than to write code which sets the HTTP header data with the request.
   * **clients**
+
+.. todo::
+  Complete documentation including autofeed (tracking and tracking dates) and max_time
+  information.

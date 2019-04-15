@@ -1,5 +1,5 @@
 Using the REST API to serve Elasticsearch data
-===============================================
+==============================================
 
 Whilst PostgreSQL and PostGIS combine to provide a robust, flexible and powerful solution
 for Indicia's data storage needs, reporting on very large datasets can slow down. This is
