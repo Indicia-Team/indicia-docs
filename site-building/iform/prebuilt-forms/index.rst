@@ -6,8 +6,10 @@ The Prebuilt Form Library
   generic-settings
   dynamic-forms
   dynamic-sample-occurrence
+  dynamic-taxon
   dynamic-weekly-counts
   dynamic-reports
+  dynamic-elasticsearch
   importer
   easy-download
   easy-download-2
