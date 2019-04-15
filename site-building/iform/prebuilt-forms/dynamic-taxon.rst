@@ -33,75 +33,113 @@ Controls availabe are as follows:
 [taxon]
 """""""
 
-An input for the accepted taxon name.
+An input for the accepted taxon name. Has the following common options:
+
+* label - Override the control label.
+* helpText - Override the control help text.
 
 [language]
 """"""""""
 
 A drop down for selecting the language of the accepted name. Or, provide an option
 @code=lat (or other ISO code for a supported language) to force the name to saved as a
-particular language.
+particular language. Has the following common options:
+
+* label - Override the control label.
+* helpText - Override the control help text.
 
 [attribute]
 """""""""""
 
-An input for the taxon attribute (e.g. sensu lato).
+An input for the taxon attribute (e.g. sensu lato). Has the following common options:
+
+* label - Override the control label.
+* helpText - Override the control help text.
 
 [authority]
 """""""""""
-A text input for the taxon name's authority information.
+A text input for the taxon name's authority information. Has the following common options:
+
+* label - Override the control label.
+* helpText - Override the control help text.
 
 [common names]
 """"""""""""""
 
-A text area for inputting a list of common names into.
+A text area for inputting a list of common names into. Has the following common options:
+
+* label - Override the control label.
+* helpText - Override the control help text.
 
 [synonyms]
 """"""""""
 
-A text area for inputting a list of synonyms.
+A text area for inputting a list of synonyms. Has the following common options:
+
+* label - Override the control label.
+* helpText - Override the control help text.
 
 [parent]
+""""""""
 
 A search box for choosing the taxon's parent. Alternatively the parent's ID can be forced
 by providing a URL parameter parent_id containing the parent's taxa_taxon_list_id.
 
 [taxon group]
+"""""""""""""
 
 A drop down for choosing the taxon group.
 
 [taxon rank]
+""""""""""""
 
 A drop down for choosing the taxon rank.
 
+[photos]
+""""""""
+
+An uploader for photos of the taxon. Has the following common options:
+
+* resizeWidth - set the maximum width in pixels that images will be resized to before
+  uploading to save bandwidth. Defaults to 1600.
+* resizeHeight - set the maximum height in pixels that images will be resized to before
+  uploading to save bandwidth. Defaults to 1600.
+
 [description]
+"""""""""""""
 
 A text area for inputting a description which will be stored against the taxon.
 
 [description in list]
+"""""""""""""""""""""
 
 A text area for inputting a description which will be stored against the taxon within the
 context of this list.
 
 [external key]
+""""""""""""""
 
 An input for an externally provided key where the taxon is derived from an external
 source.
 
 [search code]
+"""""""""""""
 
 An input for a taxon search code.
 
 [sort order]
+""""""""""""
 
 An input for a taxonomic sort order numeric value.
 
 [taxon dynamic attributes]
+""""""""""""""""""""""""""
 
 A placeholder where any dynamically linked attributes will be placed, e.g. attributes that
 are associated with one of the taxon's parents.
 
 [taxon associations]
+""""""""""""""""""""
 
 Provides a grid for adding, editing and deleting associations between taxa. Has the
 following options:
