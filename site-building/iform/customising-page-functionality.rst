@@ -12,11 +12,11 @@ Indicia forms module can find and use them.
 
 .. note::
 
-  Previously, the recommendation was to place custom CSS and JS files under
-  sites/all/modules/iform/client_helpers/prebuilt_forms. Although this still works in
-  Drupal 7 (not Drupal 8) the result is your module folder containing custom changes which
-  makes upgrading messy, so using the client_helpers/prebuilt_forms subfolders to hold
-  custom code files is no longer recommended.
+  Previously, the recommendation was to place custom CSS and JS files in the path
+  client_helpers/prebuilt_forms inside your IForm module folder. Although this still works
+  in Drupal 7 (not Drupal 8) the result is your module folder containing custom changes
+  which makes upgrading messy, so using the client_helpers/prebuilt_forms subfolders to
+  hold custom code files is no longer recommended.
 
 Add your own CSS stylesheets
 ----------------------------
