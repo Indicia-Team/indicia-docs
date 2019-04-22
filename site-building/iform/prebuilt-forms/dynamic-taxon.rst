@@ -156,3 +156,12 @@ following options:
   the other taxon affected by this association.
 * impact_termlist_id - if specified then a column is added for selecting the impact on the
   other taxon of this association.
+
+[taxon designations]
+""""""""""""""""""""
+
+Provides a grid for adding, editing and deleting designations linked to the currently
+edited taxon (conservation statuses). Designations need to be configured on the warehouse
+first.
+
+There are no options for this control.
