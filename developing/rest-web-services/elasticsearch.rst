@@ -4,8 +4,12 @@ Using the REST API to serve Elasticsearch data
 Whilst PostgreSQL and PostGIS combine to provide a robust, flexible and powerful solution
 for Indicia's data storage needs, reporting on very large datasets can slow down. This is
 mainly because it is impossible to create an indexing strategy which caters for the wide
-range of filtering options required. PostgreSQL prioritises robustness over sheer speed
-which makes sense for a primary data store.
+range of filtering options required. Unless you create indices which cover all possible
+combinations of filtering, sometimes you will find a query is unable to limit the records
+sufficiently using an index and resorts to either a table scan, or scanning and filtering
+a large results set returned from an index filter where the index wasn't effective at
+reducing the number of records. Also, note that PostgreSQL prioritises robustness over
+sheer speed, a strategy which makes sense for a primary data store.
 
 `Elasticsearch <https://www.elastic.co>`_, on the other hand, is a reporting and analysis
 solution that approaches things from the perspective of optimisation for performance.
@@ -14,13 +18,31 @@ structures data and the possibility of data loss, it makes an excellent secondar
 store to support reporting. The free, open-source version of Elasticsearch does not
 provide any authentication or authorisation which can be a problem for biological records
 data, especially if you choose to include confidential or sensitive records in your
-search index. It does, however, allow indexes to be accessed via aliases which support
-basic filters (e.g. exclude full precision versions of sensitive records). The Indicia
-REST API can then be used to provide an authentication layer which restricts requests to
-the appropriate, filtered search index aliases. If the Elasticsearch server is configured
-to only receive requests from the Indicia warehouse server, then the Elasticsearch index
-can only be accessed via Indicia's warehouse REST API, limiting the chance that restricted
-data will be accessed inappropriately.
+search index. Therefore, Indicia includes the tools required to set up proxies to your
+Elasticsearch server which restricts access to the data appropriately. The following
+points explain how this works:
+
+* Your Elasticsearch cluster is populated with all data at both full precision with a
+  second copy of sensitive records in a "public friendly" blurred version. It is also
+  populated with confidential records. Therefore the public should not have direct access
+  to this cluster.
+* Elasticsearch aliases are configured with appropriate filters so that there are aliases
+  which provide appropriate levels of access. E.g. a public alias which excludes the full
+  precision versions of sensitive records and excludes all confidential records.
+* To avoid direct access, all access to the Elasticsearch cluster must be channelled via
+  the Indicia warehouse which takes responsibility for ensuring that requests go via an
+  alias with an appropriate level of access. To achieve this, at the very least the IP
+  address of the cluster is kept secret. Ideally though either:
+  * The cluster is set up on the same local area network with the Indicia warehouse but
+    only the warehouse is accessible from outside the firewall.
+  * The cluster is set up on another network (e.g. a cloud installation) and IP address
+    blocking is used to ensure that only the warehouse and other authorised static IP
+    addresses can access it.
+* The Indicia REST API can then be used to provide an authentication layer which restricts
+requests to the appropriate, filtered search index aliases. If the Elasticsearch server is
+configured to only receive requests from the Indicia warehouse server, then the
+Elasticsearch index can only be accessed via Indicia's warehouse REST API, limiting the
+chance that restricted data will be accessed inappropriately.
 
 Documentation on configuring an Elasticsearch index to link to your warehouse is available
 at https://github.com/Indicia-Team/support_files/tree/master/Elasticsearch. This includes
