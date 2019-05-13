@@ -43,6 +43,8 @@ requests to the appropriate, filtered search index aliases. If the Elasticsearch
 configured to only receive requests from the Indicia warehouse server, then the
 Elasticsearch index can only be accessed via Indicia's warehouse REST API, limiting the
 chance that restricted data will be accessed inappropriately.
+* An additional layer of proxy code in the Drupal site provides a redirect to the
+  warehouse proxy which integrates with the user's Drupal permissions.
 
 Documentation on configuring an Elasticsearch index to link to your warehouse is available
 at https://github.com/Indicia-Team/support_files/tree/master/Elasticsearch. This includes
