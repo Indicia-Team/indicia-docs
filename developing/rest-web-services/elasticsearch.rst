@@ -33,16 +33,18 @@ points explain how this works:
   the Indicia warehouse which takes responsibility for ensuring that requests go via an
   alias with an appropriate level of access. To achieve this, at the very least the IP
   address of the cluster is kept secret. Ideally though either:
+
   * The cluster is set up on the same local area network with the Indicia warehouse but
     only the warehouse is accessible from outside the firewall.
   * The cluster is set up on another network (e.g. a cloud installation) and IP address
     blocking is used to ensure that only the warehouse and other authorised static IP
     addresses can access it.
+
 * The Indicia REST API can then be used to provide an authentication layer which restricts
-requests to the appropriate, filtered search index aliases. If the Elasticsearch server is
-configured to only receive requests from the Indicia warehouse server, then the
-Elasticsearch index can only be accessed via Indicia's warehouse REST API, limiting the
-chance that restricted data will be accessed inappropriately.
+  requests to the appropriate, filtered search index aliases. If the Elasticsearch server
+  is configured to only receive requests from the Indicia warehouse server, then the
+  Elasticsearch index can only be accessed via Indicia's warehouse REST API, limiting the
+  chance that restricted data will be accessed inappropriately.
 * An additional layer of proxy code in the Drupal site provides a redirect to the
   warehouse proxy which integrates with the user's Drupal permissions.
 
