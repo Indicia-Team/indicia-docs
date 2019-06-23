@@ -8,6 +8,22 @@ view of a record's quality.
 
   Complete documentation.
 
+Managing permissions
+--------------------
+
+By default, a verifier can see all records. In this situation they can create their own
+filters for any subsets of the records but are able to view anything. For most verifiers
+though, you want to create a filter e.g. to limit the butterfly expert to butterfly
+records. If you do this using a permissions filter, they will only be able to see
+butterfly records so cannot verify any other data. They can still create their own
+filters, but they won't be able to filter to see any records outside the group they are
+restricted to. This is the typical setup you want for most verifiers I think. However, in
+some cases you may have someone who is verifying more than one set of records, e.g. the
+butterfly expert might also do bumblebees, in which case you can create several
+permissions filters for the one person. In this situation, they get an extra "Context"
+drop down, which allows them to select from the different permissions filters, so they
+might spend one working session on butterflies and another on bumblebees
+
 Occurrence metadata
 -------------------
 
