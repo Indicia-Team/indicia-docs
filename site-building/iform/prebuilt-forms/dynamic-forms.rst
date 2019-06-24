@@ -43,12 +43,30 @@ Here's an example of the control configuration::
 [extra_data_entry_controls.associated_occurrence]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following example shows a species input control with a
-2nd control to inputting the associated occurrence.
+A species input control for inputting an associated occurrence's species name. This
+results in a 2nd occurrence being created when the form is saved and an
+`occurrence_association` record joining the 2. The following options are available:
+
+  * association_type_id - ID of the association type term to tag against the association.
+  * copy_attributes - comma separated list of occurrence attribute IDs
+    whose values are to be cloned from the main occurrence to the association.
+  * taxon_list_id - ID of the species list to search if not the same as the main list
+    configured for the form.
+  * index - if there are multiple associated occurrence controls on the page, then give
+    each a unique number in the index to allow them to function separately.
+  * extraParams - parameters to pass through to the taxon_search service for species name
+    lookup.
+
+The following example shows a species input control with a 2nd control for inputting the
+associated occurrence.
+
+... code-block::
 
   [species]
+
   [extra_data_entry_controls.associated_occurrence]
   @label=Associated organism
+  @taxon_list_id=3
   @association_type_id=123
   @copy_attributes=4
   @fieldname=occurrence:associated_taxa_taxon_list_id
