@@ -100,7 +100,7 @@ any taxonomic information - we'll cover that in a moment.
   order by o.id desc
   limit 1
 
-A key aspect of thee occurrences table is the ability to easily track the status of a
+A key aspect of the occurrences table is the ability to easily track the status of a
 record especially with respect to quality. This is achieved using 2 fields, record_status
 and record_substatus. The record_status field provides the broad status of the record and
 the optional record_substatus field provides a greater level of granularity. The
@@ -214,7 +214,7 @@ refer to database records in different ways:
     checklists across all lists.
   * The taxa.external_key field is often used to store an externally recognised identifier
     for the taxon. In the UK it is used to store the preferred Taxon Version Key as used
-    by the NBN.
+    in the UK Species Inventory (UKSI). TVKs are also used by the NBN to identify taxa.
 
 taxon_groups
 ------------
@@ -565,11 +565,6 @@ against and inserts this into the report query for you.
 
 Locations and sites
 ===================
-
-.. image:: ../images/diagrams/indicia-species-observations-erd.png
-  :alt: Entity Relationship Diagram for the species observations module of the database.
-  :width: 100%
-
 locations
 ---------
 
