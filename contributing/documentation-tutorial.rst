@@ -30,9 +30,7 @@ during the development of our documentation.
 
 There's really no way round the fact that to contribute to
 the Indicia documentation, you will need to get to grips
-with Git.
-
-To contribute to the Indicia documentation, you need to
+with Git. You will need to
 work with GitHub and a Git client on your
 computer. These are two different but related things
 as you will see.
@@ -93,36 +91,33 @@ this tutorial sticks with the Git command line interface.
 
 Clone your fork to your local computer
 ======================================
-Once you have installed VS Code on your coputer, you will also
+Once you have installed VS Code on your computer, you will also
 have installed Git. So now we can take a local copy of our
-fork or the Indicia documentation.
-
-Open a command tool (or terminal - whatever your operating
-system calls it) on a convenient folder on your computer
-where 
+fork of the Indicia documentation.
 
 Find a folder on your computer where you want to copy
 the indicia-docs folder from your fork and open VS Code there.
-In VS code, open a Terminal window. If the working directory
+In VS code, open a **Terminal** window. If the working directory
 of your terminal window is not the folder where you want
 to create the indicia-docs folder, first change into 
 that folder.
 
-Now type the folloiwng command in the terminal::
+Now type the following command in the terminal::
 
   git clone path_to_your_fork
 
 To get the value for 'path_to_your_fork' go to your GitHub
 repo (your forked repo) and click on the green 'Clone or
-download' button. You sill see there the path the your repo
+download' button. You sill see the URL of your repo
 which you can copy and paste into the terminal window. So
 your actual command will look something like this::
 
   git clone https://github.com/burkmarr/indicia-docs.git
 
-But it will reference your own fork.
+(But it will reference your own fork.)
 
-This will result in a folder called 'indicia-docs' on
+Running this command will result in a folder
+called 'indicia-docs' on
 your computer which is 'tracked' by Git.
 
 Add a remote to link with the original repo
@@ -132,7 +127,7 @@ In your terminal window, move into the new indicia-docs folder::
   cd indicia-docs
 
 The repo on your
-computer is already linked to your GitHub fork. Your fork is a known
+computer is already linked to your GitHub fork. Your fork is known
 as a **remote** of the local repo on your computer. To pull from 
 the original repo you must also add that as a remote of your local
 repo. The following git command will do that::
@@ -165,7 +160,7 @@ a Git merge). It is beyond the scope of this tutorial to
 cover dealing with merge conflicts, but there are plenty
 of Git resources on the web to help with that. In any case,
 if you undertake the pull and push *before* you start work,
-you may never need to deal with a merge conflict - Instead
+you may never need to deal with a merge conflict - instead
 the administrator of the documentation will sort out any
 conflicts when processing your **pull request** (covered later).
 
@@ -198,11 +193,12 @@ master branch. To commit all the changes you made, type::
 
 An editor will appear in VS Code with text that summarises
 the changes you have made. You must now edit the first
-line of this to git a **commit message**. Keep is short - no
+line of this to create a git **commit message**. Keep
+this short - no
 more than 50 characters. Underneath this, you can insert
 lines to give a more detailed explanation of your changes.
 Each of these lines should be no more than 72 characters.
-(These line length limits enable Git to be able to format
+(These line length limits enable Git to format
 commit messages nicely. Longer line lengths look bad.)
 
 When you are happy with your commit message, save the
@@ -212,14 +208,14 @@ commit complete in the terminal window.
 Note that you can actually make as many commits as you
 like as your work progresses - there's no need to wait
 and do one big commit at the end. The more you use Git
-and understand its other features, e.g. for rolling back
+and understand its features, e.g. for rolling back
 changes, the more likely you will want to commit smaller
 chunks of work. Note that we have also glossed over a
 step called **adding** or **staging** changes which you
 can do before committing (the 'commit -a' command stages
 and commits in one fell swoop). Again the more you use
 Git, the more likely you are to want to learn about
-the subtelties of separate staging and commiting.
+the subtleties of separate staging and committing.
 
 Push your new branch to your forked repo
 ========================================
@@ -234,10 +230,42 @@ the changes you committed.
 
 Open a pull request on the main repo
 ====================================
-From your GitHub account, go to you forked repo and find
-the branch that you've just pushed.
+From your GitHub account, go to you forked repo and click
+the on the 'branches' link. You should see a list of branches
+that includes the default 'master' branch and the branch you
+just created (which will be listed twice - once under 'your branches'
+and once under 'active branches'). Click on the **new pull request**
+button next to your branch (it doesn't matter which one of the
+two).
 
+That will take you to a GitHub window like the one shown below.
 
+.. image:: images/github-doc-pull-request.jpg
+  :alt: Making a GitHub pull request.
 
+Look at this part in particular:
 
+.. image:: images/github-doc-pull-request-detail.jpg
+  :alt: GitHub pull request detail.
+
+GitHub has taken us to the pages of the original repo from which
+you forked. A pull request has been created against this original
+repository from the branch you created in your fork.
+
+Edit the title of the pull request and, where it says 'write',
+explain the changes you have made. Don't skimp on this - you want
+your changes to be accepted so give the administrator - the person
+that will process the pull request - as much information as
+they need to help them decide whether or not to accept it.
+
+Of course they can review the detail of the changes you have
+actually made, but your description will help put that detail
+in context. 
+
+Note that the green 'Able to merge' text tells the project
+administrator that none of the changes in this pull request
+conflict with other changes already committed to the project
+which means that it can be easily merged if they decide to accept it.
+If there are merge conflicts, the administrator will decide
+how to deal with those if the pull request is accepted.
 
