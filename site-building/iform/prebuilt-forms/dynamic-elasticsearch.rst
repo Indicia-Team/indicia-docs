@@ -716,15 +716,52 @@ default false.
 """""""""""
 
 This control allows you to configure how the page uses parameters in the URL to filter the
-output shown on the page. It currently only enables a parameter `taxon_scratchpad_list_id`
+output shown on the page.
+
+It currently only enables a parameter `taxon_scratchpad_list_id`
 which takes the ID of a `scratcphad_list` as a parameter and creates a hidden filter
 parameter which limits the returned records to those in the scratchpad list. For example,
 a report page which lists scratchpad lists could have an action in the grid that links to
 an Elasticsearch outputs page passing the list ID as a parameter.
 
-Options available are:
+By default, the following filter parameters are supported:
 
-* @taxon_scratchpad_list_id - set to false to disable this parameter.
+  * taxa_in_scratchpad_list_id - takes the ID of a `scratcphad_list` as a parameter and
+    creates a hidden filter parameter which limits the returned records to those of
+    species in the scratchpad list. For example, a report page which lists scratchpad
+    lists could have an action in the grid that links to an Elasticsearch outputs page
+    passing the list ID as a parameter.
+  * sample_id - takes the ID of a `sample` as a parameter and creates a hidden
+    filter parameter which limits the returned records to those in the sample.
+  * taxa_in_sample_id - takes the ID of a `sample` as a parameter and creates a hidden
+    filter parameter which limits the returned records to those of taxa in the sample.
+    Note that records will be included from other samples as long as they are for the same
+    taxa.
+
+For example, a report page which lists samples or scratchpad lists could have an action
+in the grid that links to an Elasticsearch outputs page passing the ID as a parameter.
+
+Additional filters can be configured via the @fieldFilters option.
+
+Options can include:
+
+  * @fieldFilters - use this option to override the list of simple mappings from URL
+    parameters to Elasticsearch index fields. Pass an array keyed by the URL parameter
+    name to accept, where the value is an array of configuration items where each item
+    defines how that parameter is to be interpreted. Therefore multiple filters may result
+    from a single parameter. Each configuration item has the following data values:
+
+    * name - Elasticsearch field name to filter
+    * type - optional. If set to integer then validates that the field supplied is an
+      integer. Other data types may be supported in future.
+    * process - optional. possible values are:
+
+      * taxonIdsInScratchpad - the value is used as a scratchpad_list_id which is used to
+        look up a list of taxa. The value is replaced by a list of taxon.taxon_ids for
+        filtering to the entire list.
+      * taxonIdsInSample - the value is used as a sample_id which is used to look up a
+        list of taxa. The value is replaced by a list of taxon.taxon_ids for filtering to
+        the entire list.
 
 Using controls directly
 =======================
