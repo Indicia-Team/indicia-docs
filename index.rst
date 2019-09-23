@@ -37,14 +37,14 @@ Building an online recording website
 ====================================
 
 If you are about to build an online recording website or are in the process of
-site building, then 
+site building, then
 :doc:`learn how to build a site using Indicia here</site-building/index>`.
 
 Administration
 ==============
 
 If you are planning to set up an Indicia website or already have one but need
-to know more about administration, then 
+to know more about administration, then
 :doc:`learn how to install and administer Indicia websites here</administrating/index>`.
 
 Developing Indicia
@@ -56,7 +56,7 @@ then you can :doc:`get information for developers of Indicia here
 </developing/index>`.
 
 Getting More Help
-============
+=================
 
 :doc:`Find out about other places you can get help<help>` on using,
 building and developing biological recording websites using Indicia.
