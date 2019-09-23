@@ -808,6 +808,24 @@ layer objects can have the following properties:
   * sourceUrl - the URL of the WMS service if using type WMS.
   * wmsOptions - any additional options to pass to the WMS web service.
 
+.. _elasticsearch-report-helper-permissionFilters:
+
+ElasticsearchReportHelper::permissionFilters
+""""""""""""""""""""""""""""""""""""""""""""
+
+Output a selector for various high level permissions filtering options.
+
+Permission sets available in the selector will depend on the permissions set on the
+Permissions section of the Edit tab in combination with the settings passed in the
+options parameter. Options available are:
+
+  * my_records_permission - set to true to enable the option to filter for a user's own
+    records.
+  * all_records_permission - set to true to enable the option to filter for all records.
+  * location_collation_records_permission - set to true to enable the option to filter for
+    records in a location that the user has a Drupal permission to collate for (e.g. an
+    LRC).
+
 .. _elasticsearch-report-helper-templatedOutput:
 
 ElasticsearchReportHelper::templatedOutput
@@ -848,3 +866,16 @@ is received.
 
 A piece of HTML that will be inserted into a div at the bottom of the control when a
 response is received.
+
+.. _elasticsearch-report-helper-userFilters:
+
+ElasticsearchReportHelper::userFilters
+""""""""""""""""""""""""""""""""""""""
+
+Provides a drop down populated with the user's saved report filters. Selecting a filter
+applies that filter to the current page's outputs.
+
+Options available are:
+
+  * @sharingCode - type of task the filters to load are for. Default R.
+  * @definesPermissions

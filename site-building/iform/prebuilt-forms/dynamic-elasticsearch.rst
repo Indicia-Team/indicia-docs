@@ -107,21 +107,29 @@ Elasticsearch. See :ref:`elasticsearch-report-helper-source`.
   Implement an indiciaSource control to make this code data source independent.
 
 [dataGrid]
+""""""""""
 
 Generates a table containing Elasticsearch data. See
 :ref:`elasticsearch-report-helper-dataGrid`.
 
 [download]
+""""""""""
 
 A button with associated progress display for generating downloadable zip files of CSV
 data from an associated [source] control. See
 :ref:`elasticsearch-report-helper-download`.
 
 [leafletMap]
+""""""""""""
 
 A map panel which uses the leaflet library that can display occurrence data from
 Elasticsearch in a variety of ways. See
 :ref:`elasticsearch-report-helper-leafletMap`.
+
+[permissionFilters]
+
+Output a selector for various high level permissions filtering options. See
+:ref:`elasticsearch-report-helper-permissionFilters`.
 
 [templatedOutput]
 """""""""""""""""
@@ -129,8 +137,12 @@ Elasticsearch in a variety of ways. See
 A flexible output of ES data which uses templates to build the HTML. See
 :ref:`elasticsearch-report-helper-templatedOutput`.
 
+[userFilters]
+"""""""""""""
 
-
+Provides a drop down populated with the user's saved report filters. Selecting a filter
+applies that filter to the current page's outputs. See
+:ref:`elasticsearch-report-helper-userFilters`.
 
 
 *Filter controls*
@@ -145,10 +157,7 @@ Attributes, diff query types
 * data-es-query
 * data-es-bool-clause
 
-*[userFilters]*
 
-* @sharingCode - type of task the filters to load are for. Default R.
-* @definesPermissions
 
 `[verificationButtons]`
 
