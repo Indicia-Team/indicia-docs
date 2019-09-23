@@ -315,16 +315,21 @@ Attributes
 
   * direct:<table name>:<value field>:<caption field>
   * report:<report name>:<value field>:<caption field>
+  * autocomplete:species
 
-  The first part of the value is set to direct or report to indicate loading
-  data from a table or report respectively. This is followed by the table name
-  or report name (including path), then the name of the field which provides
-  the underlying parameter value to pass into the report, then finally the name
-  of the field which provides the caption to display to the user for this value
-  in the drop down. Examples include "direct:survey:id:title" or
-  "report:my_reports/taxon_groups:id:title" where my_reports/taxon_groups.xml
-  is a report which must return fields named id and title. At the moment
-  additional parameters cannot be provided.
+  The first part of the value is set to direct or report to indicate loading data from a
+  table or report respectively. This is followed by the table name or report name
+  (including path), then the name of the field which provides the underlying parameter
+  value to pass into the report, then finally the name of the field which provides the
+  caption to display to the user for this value in the drop down. Examples include
+  "direct:survey:id:title" or "report:my_reports/taxon_groups:id:title" where
+  `my_reports/taxon_groups.xml` is a report which must return fields named id and title.
+  You can optionally append an additional colon, then a list of report parameters, comma-
+  separate in form `param=value`.
+
+  Use the `autocomplete:species` value in population_call to invoke a species autocomplete
+  control for the parameter.
+
 * **lookup_values** -
   Allows specification of a fixed list of values for a parameter with the lookup
   datatype. This is an alternative to using population_call to populate the
