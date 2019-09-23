@@ -88,6 +88,8 @@ Data access methods
 
 Methods provided by this helper are listed below:
 
+.. _elasticsearch-report-helper-source:
+
 ElasticsearchReportHelper::source
 """""""""""""""""""""""""""""""""
 
@@ -512,6 +514,8 @@ For example::
 Data output methods
 -------------------
 
+.. _elasticsearch-report-helper-dataGrid:
+
 ElasticsearchReportHelper::dataGrid
 """""""""""""""""""""""""""""""""""
 
@@ -686,6 +690,8 @@ fixed.
 
 Set to false to disable use of cookies to remember the selected columns and their
 ordering.
+
+.. _elasticsearch-report-helper-download:
 
 ElasticsearchReportHelper::download
 """""""""""""""""""""""""""""""""""

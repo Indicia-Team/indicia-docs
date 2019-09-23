@@ -1,7 +1,6 @@
 Elasticsearch outputs (customisable)
 ====================================
 
-
 This prebuilt page is designed to provide a flexible combination of outputs from an
 Elasticsearch instance, if one is configured and linked to the warehouse according to the
 instructions at https://github.com/Indicia-Team/support_files/tree/master/Elasticsearch.
@@ -21,8 +20,7 @@ should know or be able to find out the following settings:
     unique ID on the Elasticsearch cluster.
 
 If you do not have the above available and therefore need to set up the REST API access
-on the warehouse, then follow the instructions at
-https://indicia-docs.readthedocs.io/en/latest/developing/rest-web-services/elasticsearch.html.
+on the warehouse, then follow the instructions at :doc:`../../../developing/rest-web-services/elasticsearch`.
 
 It would be beneficial to have a basic understanding of the Elasticsearch Query API before
 proceeding.
@@ -41,6 +39,9 @@ settings* section of the Edit tab.
 
 Filter settings
 ^^^^^^^^^^^^^^^
+
+Not yet implemented. Currently, you can control page filtering by adding hidden inputs to
+the Form Structure.
 
 Permission settings
 ^^^^^^^^^^^^^^^^^^^
@@ -90,364 +91,13 @@ example::
     baz
   -->
 
-Common options
-""""""""""""""
-
-The following options are available for all the controls.
-
-**@id**
-
-**@attachToId**
-
-If the page contains an element with this `id` then attaches the output to this element
-rather than outputing a new `div` inline.
-
-The following example shows how a single aggregation request can be injected as rows into
-a table elsewhere on the page.
-
-.. code-block::
-
-  [source]
-  @id=sample-agg
-  @size=0
-  @aggregation=<!--{
-    "per_sample": {
-      "terms": {
-        "field": "event.event_id",
-        "min_doc_count": 5,
-        "size": 10000,
-        "order": {
-          "_count": "desc"
-        }
-      }
-    },
-    "stats_per_sample": {
-      "stats_bucket": {
-        "buckets_path": "per_sample._count"
-      }
-    }
-  }-->
-
-  [templatedOutput]
-  @attachToId=sampleAgg
-  @source=sample-agg
-  @repeatField=aggregations.per_sample.buckets
-  @content=<tr><th>Count for {{ key }}</th><td>{{ doc_count }}</td></tr>
-
-  [templatedOutput]
-  @attachToId=sampleTotal
-  @source=sample-agg
-  @content=<div>Count of samples {{ aggregations.stats_per_sample.count }}</div>
-
-  <table>
-    <tbody id="sampleAgg">
-    </tbody>
-  </table>
-  <div id="sampleTotal"></div>
-
 The controls available for addition to the page are as follows:
 
 [source]
 """"""""
 
-The source control acts as a link from other controls on the page to a set of data from
-Elasticsearch. A source can declare it's own query restrictions (in addition to those
-specified on the page) and can also declare an Elasticsearch aggregation if needed. On its
-own, a `[source]` control does nothing. Its only when another output control is linked to
-it that data will be fetched and shown on the page.
-
-The following options are available:
-
-**@id**
-
-All `[source]` controls require a unique ID which allows other data bound controls to
-refer to it.
-
-**@size**
-
-Number of documents matching the current query to return. Typically set this to zero for
-aggregations where only summary data are required.
-
-**@sort**
-
-For non-aggregated output, object where the properties are the field names to sort by and
-the values are either "asc" or "desc" as appropriate. Sets the initial sort order on the
-table. E.g.::
-
-  @sort={"id":"desc"}
-
-**@from**
-
-Number of documents to offset by. Defaults to 0.
-
-**@filterPath**
-
-Allows configuration of the Elasticsearch response filter, i.e. to limit the content
-returned in the response. See https://www.elastic.co/guide/en/elasticsearch/reference/7.0/common-options.html#common-options-response-filtering.
-
-**@initialMapBounds**
-
-Set to true to use this source's dataset to define the bounds of the map on initial
-loading.
-
-**@aggregation**
-
-Use this property to declare one or more Elasticsearch aggregations in JSON format. See
-`https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html`_.
-You can use Kibana to build an aggregation then inspect the request to extract the
-required JSON data. The value provided should be a JSON object where the property names
-are the keys given for each aggregation (i.e. the contents of the "aggregations" or "aggs"
-element in your query).
-
-The value for `@aggregation` can contain tokens which are replaced at runtime. Tokens are
-of the format `{{ name }}` where the name can be one of the following:
-* indicia_user_id - the user's warehouse user ID.
-* a parameter from the URL query string.
-
-**@aggregationMapMode**
-
-When an aggregated source is used to provide map output, the following aggregation types
-are supported:
-
-* geoHash - a geo_hash aggregation on the location.point (default)
-* gridSquare - an aggretion on location.grid_square.srid then one of the grid square
-  centre fields to build an atlas style map based on grid squares.
-
-.. code-block::
-
-  [source]
-  @id=mapData
-  @size=0
-  @initialMapBounds=true
-  @filterBoundsUsingMap=map
-  @aggregationMapMode=gridSquare
-  @aggregation=<!--
-    {
-      "filter_agg": {
-        "filter": {
-          "geo_bounding_box": {}
-        },
-        "aggs": {
-          "by_srid": {
-            "terms": {
-              "field": "location.grid_square.srid",
-              "size": 1000,
-              "order": {
-                "_count": "desc"
-              }
-            },
-            "aggs": {
-              "by_square": {
-                "terms": {
-                  "field": "location.grid_square.10km.centre",
-                  "size": 10000,
-                  "order": {
-                    "_count": "desc"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  -->
-
-  [map]
-  @id=map
-  @source=<!--{
-    "mapData": "All records"
-  }-->
-  @styles=<!--{
-    "mapData":{
-      "type":"gridSquare",
-      "options":{"color":"#333333","weight":1,"size":10000}
-    }
-  }-->
-
-**@buildTableXY**
-
-Where a source contains aggregations, this property can be used to autogenerate a table
-of data from the response making usage of the data in output controls simpler. Specify
-a JSON object where the property names are the names of the tables you wish to
-autogenerate and each table name points to an array where the first element is the name
-of the outer aggregation (used to generate X axes or columns) and the second is the name
-of the inner aggregation (used to generate the Y axes or rows). The latter must be nested
-within the former. The outer aggregation's keys will become the columns with an additional
-column called 'key' which will contain the keys of the inner aggregation alongside the
-generated data values for the row.
-
-For example, where a `[source]` control has the following aggregation, it can create a
-data table where the columns are record statuses and the rows are locations using this
-`@buildTableXY` property value::
-
-  @aggregation=<!--
-  {
-    "by_status": {
-      "terms": {
-        "field": "identification.verification_status",
-        "size": 100,
-        "order": {
-          "_count": "desc"
-        }
-      },
-      "aggs": {
-        "by_loc": {
-          "terms": {
-            "field": "location.name.keyword",
-            "size": 100,
-            "order": {
-              "_count": "desc"
-            }
-          }
-        }
-      }
-    }
-  }
-  -->
-  @buildTableXY=<!--
-  {
-    "table": ["by_status","by_loc"]
-  }
-  -->
-
-Note that the generated table will always have a column called key which are the keys of
-the inner aggregation (location names in this case).
-
-Where the aggregations are deeply nested, the second value passed to the `@buildTableXY`
-property can be comma separated to provide the nesting path to drill down into for the
-rows. Here's an example::
-
-  [source]
-  @id=aggData
-  @size=0
-  @aggregation=<!--
-    {
-      "by_status": {
-        "terms": {
-          "field": "identification.verification_status",
-          "size": 10,
-          "order": {
-            "_count": "desc"
-          }
-        },
-        "aggs": {
-          "by_nested": {
-            "nested": {
-              "path": "location.higher_geography"
-            },
-            "aggs": {
-              "filtered": {
-                "filter" : {
-                  "match" : {
-                    "location.higher_geography.type": "Butterfly Conservation branch"
-                  }
-                },
-                "aggs": {
-                  "by_loc": {
-                    "terms": {
-                      "field": "location.higher_geography.name.keyword",
-                      "size": 200,
-                      "order": {
-                        "_key": "asc"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  -->
-  @buildTableXY=<!--{
-    "table": ["by_status","by_nested,filtered,by_loc"]
-  }-->
-
-**@filterSourceGrid**
-
-If set to the ID of a grid on the same page which is linked to a different source, then
-this `[source]` can apply an additional filter to the returned data depending on the
-selected row. In this case you should also set the following:
-
-  * `@filterSourceField` to determine which field/column in the output dataset to use as a
-    source for the filter value. This is normally the same as the field name in
-    Elasticsearch but will be different if the value is being obtained from an aggregation
-    bucket.
-  * `@filterField` to determine the name of the field in Elasticsearch to match the filter
-    value against.
-
-For example you might have a 2 grids and a map where the map shows all the verified records
-of the species selected in the grid. This requires 2 `[source]` controls, a `[dataGrid]`
-and a `[leafletMap]`::
-
-  [source]
-  @id=gridData
-  @size=30
-
-  [source]
-  @id=mapData
-  @size=0
-  @filterSourceGrid=records-grid
-  @filterSourceField=taxon.accepted_taxon_id
-  @filterField=taxon.accepted_taxon_id
-  @aggregation=<!--
-    {
-      "filter_agg": {
-        "filter": {
-          "geo_bounding_box": {}
-        },
-        "aggs": {
-          "geo_agg": {
-            "geohash_grid": {},
-            "aggs": {
-              "point_agg": {
-                "geo_centroid": {
-                  "field": "location.point"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  -->
-
-  [dataGrid]
-  @id=records-grid
-  @source=gridData
-  @columms=
-
-  [leafletMap]
-  @id=map
-  @source=<!--{
-    "mapData": "Verified records of selected species"
-  }-->
-
-Can also be set to a JSON array of table IDs, in which case the @filterSourceField and
-@filterField parameters should also be JSON arrays of matching fields names, allowing the
-datasource to obtain it's filter data from more than one dataGrid. In this case, the last
-grid row clicked on is applied as a filter.
-
-**@filterSourceField**
-
-**@filterField**
-
-**@filterBoolClauses**
-
-**@filterBoundsUsingMap**
-
-'id',
-      'from',
-      'size',
-      'aggregation',
-      'buildTableXY',
-      'initialMapBounds',
-      'filterBoolClauses',
-      'filterSourceGrid',
-      'filterField',
-      'filterBoundsUsingMap',
+The `source` control acts as a link from other controls on the page to a set of data from
+Elasticsearch. See :ref:`elasticsearch-report-helper-source`.
 
 [indiciaSource]
 """""""""""""""
@@ -457,107 +107,15 @@ grid row clicked on is applied as a filter.
   Implement an indiciaSource control to make this code data source independent.
 
 [dataGrid]
-""""""""""
 
-The following options are available:
+Generates a table containing Elasticsearch data. See
+:ref:`elasticsearch-report-helper-dataGrid`.
 
-**@source**
+[download]
 
-ID of the `[source]` control this dataGrid is populated from.
-
-**@sourceTable**
-
-Where the linked `[source]` control builds a table from it's aggregations (using
-`@buildTableXY`, this can be set to the name of the table to use that table's output as
-the source of data for this dataGrid.
-
-**@aggregation**
-
-Options:
-  * simple
-  * composite
-
-**@columns**
-  * field - can be the name of a field in the Elasticsearch document (e.g.
-    `metadata.created_by_id`) or one of the following special field names:
-    * #status_icons#
-    * #data_cleaner_icons#
-    * #event_date#
-    * #higher_geography#
-    * #locality#
-    * #lat_lon#
-    * #datasource_code#
-  * rangeField - name of a second field in the Elasticsearch document which defines a
-    range when combined with the field's value. If the value of the field pointed to
-    by `rangeField` is different to the value pointed to by `field` then the output will
-    be of the form `value1 to value2`.
-  * ifEmpty - string to output when the field value is empty. May contain HTML.
-  * caption
-  * description
-  * handler
-  * multiselect
-  * hide-breakpoints - Comma separated list of breakpoints. When a breakpoint is specified
-    the column is hidden for pixel sizes between this breakpoint (or zero in the case of
-    the smallest breakpoint) and the next highest breakpoint. So, setting a value of "sm"
-    makes a column disappear between 760 and 992 pixels. Therefore it is more likely that
-    you want to set it to "xs,sm" which means anything under 992 pixels. Following this
-    logic, setting "lg" hides the column for any device over 1200 pixels.
-    "xs,sm" to . The default breakpoints are:
-    * xs: 480 (extra small)
-    * sm: 760 (small)
-    * md: 992 (medium)
-    * lg: 1200 (large)
-    These defaults can be set by specifying responsiveOptions.breakpoints.
-  * data-type="date|numeric"
-
-
-**@availableColumns**
-
-**@availableColumns**
-
-**@actions**
-
-**@includeColumnHeadings**
-
-**@includeFilterRow**
-
-**@includePager**
-
-**@applyFilterRowToSources**
-
-If a filter row is present in the grid, then changing the filter row contents will
-automatically apply the filter to the source the dataGrid is linked to. If any additional
-sources should also be filtered (e.g. sources driving maps or charts from the same data)
-then supply a JSON array of source IDs in this parameter.
-
-**@responsive**
-
-Defaults to true but can be disabled by setting to false.
-
-**@responsiveOptions**
-
-Options for responsive behaviour which will be passed to the Footable component that makes
-the table responsive. Can include:
-* breakpoints - a JSON object where the properties are breakpoint names and the values are
-  the number of pixels below which the breakpoint is triggered. The default is:
-  ```json
-  {
-    "xs": 480,
-    "sm": 760,
-    "md": 992,
-    "lg": 1200
-  }
-  ```
-
-**@sortable**
-
-**@scrollY**
-
-Set to a CSS height in pixels (e.g. "800px") to display a scrollbar on the table body with
-this as the maximum height. Allows the data to be scrolled whilst leaving the header
-fixed.
-
-**@cookies**
+A button with associated progress display for generating downloadable zip files of CSV
+data from an associated [source] control. See
+:ref:`elasticsearch-report-helper-download`.
 
 [leafletMap]
 """"""""""""
@@ -576,27 +134,25 @@ Options available are:
 
 **@layerConfig**
 
-A JSON object defining the data driven layers to add to the map. Each property is the ID
+A JSON object defining the foreground layers to add to the map. Each property is the ID
 of a layer which contains a sub-object containing the configuration for that layer. The
 layer objects can have the following properties:
 
 * source - ID of a source that provides the data.
   @todo Document different aggregation types that are supported.
-*
-
-the objects contained in each property define the styling of the layer for that source.
-The style objects have the following properties:
-
-* type - the type of feature to add to the map. One of:
+* type - one of the following:
   * circle
   * square
+  * marker (default)
   * heat
-  * marker (default).
+  * WMS
 * options - object to pass to leaflet as options for the feature. For circle and square
   feature types, set any option to "metric" to use the calculated metric as a value for
   that option. Supports fillOpacity, size and radius at the moment. Size is available as
   alternative to radius, where size is the full width of the object typically used for
   grid square sizing.
+* sourceUrl - the URL of the WMS service if using type WMS.
+* wmsOptions - any additional options to pass to the WMS web service.
 
 [templatedOutput]
 """""""""""""""""
@@ -658,17 +214,6 @@ Options available are:
 * **@viewPath** if a Drupal page path for a record details page is specified then a
   button is added to allow record viewing.
 
-[download]
-""""""""""
-
-A button with associated progress display for generating downloadable zip files of CSV
-data from an associated [source] control. Files are added to a list of downloads and are
-kept available on the server for a period of time.
-
-Options available are:
-
-* **@source**
-
 [higherGeographySelect]
 """""""""""""""""""""""
 
@@ -680,6 +225,7 @@ for more info.
 
 Options available are:
 
+**@readAuth**
 * **@label** - Attaches the given label to the control.
 * **@blankText** - Text shown for the option which corresponds to no location filter.
 * **@locationTypeId** - The ID of the locations layer to pick locations from.
@@ -692,6 +238,8 @@ one for comments logged against the record and one to show the recorder's level 
 experience for this and similar taxa.
 
 Options available are:
+
+**@readAuth**
 
 **@showSelectedRow**
 
