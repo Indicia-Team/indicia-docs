@@ -450,8 +450,8 @@ if the ownGroups param is checked.
 
   <param name="taxon_groups" display="Taxon Groups"
       description="Comma separated list of taxon group IDs to filter the report by, if
-      any"/>
-  <param name="ownGroups"
+      any" />
+  <param name="ownGroups">
     <where operator="equal" value="true">
       o.taxon_group_id in (#taxon_groups#)
     </where>

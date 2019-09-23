@@ -52,7 +52,9 @@ following in your JSON fields list:
 
 .. code-block:: json
 
-  "smpAttr:14" : {"value" : 3}
+  {
+    "smpAttr:14" : {"value" : 3}
+  }
 
 If you need to re-submit an existing custom attribute value, then simply specify the
 ID of the existing custom attribute record in the field name (with each token separated
@@ -60,7 +62,9 @@ by colons). For example:
 
 .. code-block:: json
 
-  "smpAttr:14:12345" : {"value" : 3}
+  {
+    "smpAttr:14:12345" : {"value" : 3}
+  }
 
 If you are submitting a value for an attribute which has the allow ranges flag set so that
 the value can store a lower and upper range value, then there are 2 methods of submitting
@@ -69,15 +73,19 @@ values. Submission can occur in a single text string with the 2 range values sep
 
 .. code-block:: json
 
-  "smpAttr:14" : {"value" : "3 - 5"}
+  {
+    "smpAttr:14" : {"value" : "3 - 5"}
+  }
 
 Or, submit 2 separate values adding ":upper" to the key for the 2nd. This approach is
 useful where your form has 2 inputs for the from ... and to ... values:
 
 .. code-block:: json
 
-  "smpAttr:14" : {"value" : 3}
-  "smpAttr:14:upper" : {"value" : 5}
+  {
+    "smpAttr:14" : {"value" : 3},
+    "smpAttr:14:upper" : {"value" : 5}
+  }
 
 Finally, if you are submitting multiple values for a single custom attribute such as from
 a list of checkboxes, then the 4th part of the fieldname can be a unique index for each
@@ -85,16 +93,20 @@ value (or anything you like to make the fieldname unique:
 
 .. code-block:: json
 
-  "smpAttr:14::0" : {"value" : 3}
-  "smpAttr:14::1" : {"value" : 8}
-  "smpAttr:14::2" : {"value" : 13}
+  {
+    "smpAttr:14::0" : {"value" : 3},
+    "smpAttr:14::1" : {"value" : 8},
+    "smpAttr:14::2" : {"value" : 13}
+  }
 
 Alternatively, on initial submission of a multi-valued custom attribute you can simply
 pass an array of the values, so the above could be written as:
 
 .. code-block:: json
 
-  "smpAttr:14" : {"value" : [3, 8, 13]}
+  {
+    "smpAttr:14" : {"value" : [3, 8, 13]}
+  }
 
 This shorthand approach doesn't work when re-submitting existing custom value attributes
 after loading a record to edit, because you need to pass through the existing record IDs
@@ -105,9 +117,11 @@ above data might look like:
 
 .. code-block:: json
 
-  "smpAttr:14:98" : {"value" : 3}
-  "smpAttr:14:99" : {"value" : 8}
-  "smpAttr:14:100" : {"value" : 13}
+  {
+    "smpAttr:14:98" : {"value" : 3},
+    "smpAttr:14:99" : {"value" : 8},
+    "smpAttr:14:100" : {"value" : 13}
+  }
 
 If you need to delete custom attribute values you have to resubmit only the values you want to
 keep, eg. if you want to delete the attribute with the value "13" from the above example you
@@ -115,14 +129,18 @@ have to have a submission like this:
 
 .. code-block:: json
 
-  "smpAttr:14:98" : {"value" : 3}
-  "smpAttr:14:99" : {"value" : 8}
+  {
+    "smpAttr:14:98" : {"value" : 3},
+    "smpAttr:14:99" : {"value" : 8}
+  }
 
 Note, that if you wan to delete all values you need a submission like:
 
 .. code-block:: json
 
-  "smpAttr:14" : {"value" : ""}
+  {
+    "smpAttr:14" : {"value" : ""}
+  }
 
 else the values keep untouched.
 

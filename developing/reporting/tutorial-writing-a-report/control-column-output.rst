@@ -17,9 +17,9 @@ like:
     ...
     </query>
     <columns>
-      <column ... />
-      <column ... />
-      <column ... />
+      <column attr="value" />
+      <column attr="value" />
+      <column attr="value" />
     </columns>
   </report>
 

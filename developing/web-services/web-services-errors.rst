@@ -1,18 +1,18 @@
 Web services - errors
 =====================
 
-When an error occurs as a result of a call to the web services, the response will 
+When an error occurs as a result of a call to the web services, the response will
 be a JSON or XML formatted documented (depending on the format of your call) containing
 the error message and an error code:
 
 .. code-block:: xml
-  
+
   <?xml  version="1.0" encoding="UTF-8"?>
   <error>
     <message>...</message>
     <code>...</code>
   </error>
-  
+
 or alternatively as JSON:
 
 .. code-block:: json
@@ -21,8 +21,8 @@ or alternatively as JSON:
     "error": "...",
     "code": "..."
   }
-  
-For the JSON response format, an unexpected error will also contain the file the error 
+
+For the JSON response format, an unexpected error will also contain the file the error
 occurred in, line number and a trace of the error stack:
 
 .. code-block:: json
@@ -32,7 +32,7 @@ occurred in, line number and a trace of the error stack:
     "code": "...",
     "file": "...",
     "line": "...",
-    "trace": [...]
+    "trace": []
   }
 
 When a validation error occurs, the JSON contains a single summary error message as well
@@ -50,7 +50,7 @@ as individual messages with keys indicating the fields that the errors occurred 
   }
 
 Note that if the ``application/config/indicia.php`` file contains a setting
-``http_status_responses=true;`` then HTTP status codes will be set on the response. This 
+``http_status_responses=true;`` then HTTP status codes will be set on the response. This
 is not enforced for backwards compatibility reasons.
 
 Error codes
@@ -68,7 +68,7 @@ Code Description
 1004 Read failure - requested an entity not restricted to a website but without full access
 2001 Write authorisation failure - website ID of written data does not match request
 2002 Write failure - entity not writeable
-2003 Validation failure on a submission 
+2003 Validation failure on a submission
 2004 Validation failure on an import
 3001 Internal error in secure message system - should not occur
 4001 Incorrect spatial reference format in spatial services request

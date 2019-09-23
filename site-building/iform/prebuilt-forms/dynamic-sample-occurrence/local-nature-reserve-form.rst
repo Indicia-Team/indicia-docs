@@ -214,10 +214,7 @@ Theming
 
   .two .column p.inline-error {
     margin: 0;
-    display:-moz-inline-stack;
     display:inline-block;
-    zoom:1;
-    *display:inline;
   }
 
 Survey Summary
