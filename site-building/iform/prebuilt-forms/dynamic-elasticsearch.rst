@@ -187,8 +187,8 @@ report output.
 The data attributes you can specify are:
 
   * data-es-bool-clause - set to `must`, `must_not`, `should` or `filter`. Normally you
-    will set this to `must` or `must_not` but see
-    `https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html`_
+    will set this to `must` or `must_not` but see `Elasticsearch Bool Query documentation
+    <https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html>`_
     for more info.
   * data-es-field - when this filter applies to a specific field, set to the Elasticsearch
     field name you want to filter against.
