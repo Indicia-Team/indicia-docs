@@ -126,16 +126,6 @@ table. E.g.::
   @id=sorted-data
   @sort={"id":"desc"}
 
-or:
-
-.. code-block:: php
-
-  <?php
-  echo ElasticsearchReportHelper::source([
-    'id' => 'sorted-data',
-    'sort' => '{"id":"desc"}',
-  ]);
-
 **from**
 
 Optional number of documents to offset by. Defaults to 0.
@@ -728,3 +718,86 @@ document, or a definition of special processing that is required.
 Define columns from the selected column template to be removed from the CSV download. An
 array of the column titles to remove.
 
+.. _elasticsearch-report-helper-leafletMap:
+
+ElasticsearchReportHelper::leafletMap
+"""""""""""""""""""""""""""""""""""""
+
+A map panel which uses the leaflet library that can display occurrence data from
+Elasticsearch in a variety of ways.
+
+Options available are:
+
+**cookies**
+
+Set to false to disable use of cookies to remember the selected layers plus the current
+map viewport.
+
+**initialLat**
+
+Latitude the map will pan to on initial load, if not overridden by a saved cookie or the
+map being set up to display the bounding box of a report's output. Defaults to the
+configuration setting for the IForm module.
+
+**initialLng**
+
+Longitude the map will pan to on initial load, if not overridden by a saved cookie or the
+map being set up to display the bounding box of a report's output. Defaults to the
+configuration setting for the IForm module.
+
+**initialZoom**
+
+Level the map will zoom to on initial load, if not overridden by a saved cookie or the
+map being set up to display the bounding box of a report's output. Defaults to the
+configuration setting for the IForm module.
+
+**showSelectedRow**
+
+To make the map highlight the feature associated with a selected row in a `dataGrid`, set
+showSelectedRow to the `id` of that grid. The map will also zoom in to the feature when
+the grid row is double clicked.
+
+**layerConfig**
+
+A JSON object defining the foreground layers to add to the map. Each property is the ID
+of a layer which contains a sub-object containing the configuration for that layer. The
+layer objects can have the following properties:
+
+  * title - Display title of the layer.
+  * source - ID of a `source` that provides the data. This source can either provide
+    un-aggregated raw data or one of the aggregation types defined for the
+    `aggregationMapMode` setting for the `source`.
+  * enabled - set to false if you want this layer to be initially hidden and only
+    available via the layer switcher. Once enabled, the state of the layer will be
+    remembered in a cookie unless cookies are explicitly disabled.
+  * type - one of the following:
+
+      * circle - see `Leaflet circle <https://leafletjs.com/reference-1.5.0.html#circle>`_
+      * square - see `Leaflet rectangle <https://leafletjs.com/reference-1.5.0.html#rectangle>`_
+      * marker (default) - see
+        `Leaflet marker <https://leafletjs.com/reference-1.5.0.html#marker>`_.
+      * heat - heat map generated using `Leaflet.heat <http://leaflet.github.io/Leaflet.heat>`_.
+      * WMS - A Web Mapping Service layer.
+
+  * options - for circles, squares and markers, an object to pass to leaflet as options
+    for the feature as described in the links for each feature type above, e.g.
+    `fillOpacity` or `radius`.
+
+    A special option called `size` can be specified for circles
+    and squares which defines the size of the feature in metres (similar to radius but the
+    latter is calculated as a number of pixels). For non-aggregated data, the size
+    defaults to the `location.coordinate_uncertainty_in_meters` field value so features
+    reflect their known accuracy. `Size` can be set to the special value
+    `autoGridSquareSize` so that it matches the current map grid square aggregation as you
+    zoom the map in, showing 10km features when zoomed out, then 2km, then 1km when zoomed
+    in.
+
+    A special value called `metric` can be specified for any option. For non-aggregated
+    data, this is the `location.coordinate_uncertainty_in_meters` value. For aggregated
+    data, this value is set to an indication of the number of documents in the current
+    bucket (i.e. the number of occurrences represented by the current feature). It is
+    set to a scale from 0 - 20000, or for fillOpacity options it is set on a scale from
+    0 - 1.
+
+  * sourceUrl - the URL of the WMS service if using type WMS.
+  * wmsOptions - any additional options to pass to the WMS web service.

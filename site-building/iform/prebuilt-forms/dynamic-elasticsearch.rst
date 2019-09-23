@@ -118,41 +118,10 @@ data from an associated [source] control. See
 :ref:`elasticsearch-report-helper-download`.
 
 [leafletMap]
-""""""""""""
 
-Options available are:
-
-**@cookies**
-
-**@initialLat**
-
-**@initialLng**
-
-**@initialZoom**
-
-**@showSelectedRow**
-
-**@layerConfig**
-
-A JSON object defining the foreground layers to add to the map. Each property is the ID
-of a layer which contains a sub-object containing the configuration for that layer. The
-layer objects can have the following properties:
-
-* source - ID of a source that provides the data.
-  @todo Document different aggregation types that are supported.
-* type - one of the following:
-  * circle
-  * square
-  * marker (default)
-  * heat
-  * WMS
-* options - object to pass to leaflet as options for the feature. For circle and square
-  feature types, set any option to "metric" to use the calculated metric as a value for
-  that option. Supports fillOpacity, size and radius at the moment. Size is available as
-  alternative to radius, where size is the full width of the object typically used for
-  grid square sizing.
-* sourceUrl - the URL of the WMS service if using type WMS.
-* wmsOptions - any additional options to pass to the WMS web service.
+A map panel which uses the leaflet library that can display occurrence data from
+Elasticsearch in a variety of ways. See
+:ref:`elasticsearch-report-helper-leafletMap`.
 
 [templatedOutput]
 """""""""""""""""
