@@ -932,6 +932,20 @@ Set to false to disable saving of filters.
 Which sharing mode to save and load filters for. Set to reporting, verification,
 data_flow, editing, moderation or peer_review. Default reporting.
 
+**taxon_list_id**
+
+ID of the taxon list that species and other taxon names are selectable from.
+
+**indexedLocationTypeIds**
+
+An array of location_type_id values to define the list of indexed location types to make
+available for filtering. These are filtered by a higher geography query.
+
+**otherLocationTypeIds**
+
+An array of location_type_id values to define the list of non-indexed location types to
+make available for filtering. These are filtered by a polygon query.
+
 Other options are described in the PHP documentation for the
 `client_helpers/prebuilt_forms/includes/reports.php` `report_filter_panel()` method.
 
@@ -1077,3 +1091,75 @@ record editing.
 
 If a Drupal page path for a record details page is specified then a button is added to
 allow record viewing.
+
+Using the Elasticsearch controls
+
+Using controls directly from JS
+-------------------------------
+
+As all the functionality in the ElasticsearchReportHelper's output controls is driven by
+JavaScript in the client, it is possible to write JS directly with minimal PHP. `source`
+controls are defined by appending an object containing the options to the
+`indiciaData.esSources` array. Other controls are provided as jQuery plugins where the
+plugin name is 'idc' plus the method name, e.g. `ElasticsearchReportHelper::leafletMap`
+is represented by the jQuery plugin `idcLeafletMap`. The option are passed as a parameter.
+
+Example code:
+
+**HTML**
+
+.. code-block:: html
+
+  <div id="dataGrid1" class="idc-output idc-output-dataGrid"></div>
+
+**JavaScript**
+
+.. code-block:: javascript
+
+  jQuery(document).ready(function docReady($) {
+    indiciaData.esSources.push({
+      id: 'source-league',
+      size: 0,
+      aggregation: {
+        recorder_agg: {
+          terms: {
+            field: "event.recorded_by.keyword",
+            size: 100,
+            order: {
+              _count: "desc"
+            }
+          },
+          aggs: {
+            species_count: {
+              cardinality: {
+                field: "taxon.species_taxon_id"
+              }
+            }
+          }
+        }
+      }
+    });
+    $('#dataGrid1').idcDataGrid({
+      id: 'dataGrid1',
+      source: {'source-league': 'League table'},
+      aggregation: simple,
+      columns: [
+        {"caption":"Recorder name", "field":"key"},
+        {"caption":"Number of records", "field":"doc_count"},
+        {"caption":"Number of species", "field":"species_count.value"}
+      ]
+    });
+    indiciaFns.populateDataSources();
+  });
+
+**PHP**
+
+.. code-block:: php
+
+  <?php
+
+  iform_load_helpers(['ElasticsearchProxyHelper']);
+  ElasticsearchReportHelper::enableElasticsearchProxy();
+  handle_resources();
+
+  ?>

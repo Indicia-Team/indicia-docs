@@ -174,7 +174,62 @@ output shown on the page. See
 Outputs a panel containing action buttons for verification tasks. See
 :ref:`elasticsearch-report-helper-verificationButtons`.
 
+Adding filters to the page using HTML hidden inputs
+---------------------------------------------------
 
+It is possible to define filters for the entire page by adding hidden inputs to the form
+structure which define each filter value. These filters can be hidden with a fixed value
+that is always applied, or visible, e.g. a text input that the user can use to search. We
+use HTML5 data attributes to define the filter behaviour and set the class to
+`es-filter-param` so the code detects changes to the value and applied the filter to the
+report output.
+
+The data attributes you can specify are:
+
+  * data-es-bool-clause - set to `must`, `must_not`, `should` or `filter`. Normally you
+    will set this to `must` or `must_not` but see
+    `https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html`_
+    for more info.
+  * data-es-field - when this filter applies to a specific field, set to the Elasticsearch
+    field name you want to filter against.
+  * data-es-query-type - set to one of the following:
+
+      match_all
+      match_none
+      term
+      terms
+      match
+      match_phrase
+      match_phrase_prefix
+      query_string
+      simple_query_string
+
+    All of the above map to the query with the same name in the `Elasticsearch Query DSL
+    documentation <https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html>`_.
+
+Some examples follow:
+
+.. code-block:: HTML
+
+  <!--A text input for search-->
+  <input type="text"
+    id="filter-search"
+    class="es-filter-param"
+    data-es-bool-clause="must"
+    data-es-query-type="query_string" />
+
+  <!--Record status filter select-->
+  <label for="filter-status">Status:</label>
+  <select id="filter-status" class="es-filter-param" data-es-bool-clause="must" data-es-query-type="query_string">
+    <option value="NOT identification.verification_status:R">All records excluding not accepted</option>
+    <option value="">All records</option>
+    <option value="identification.verification_status:C AND identification.verification_substatus:0 AND NOT identification.query:Q">Pending</option>
+    <option value="identification.verification_status:V">Accepted</option>
+    <option value="identification.verification_status:R">Not accepted</option>
+    <option value="identification.verification_status:C AND identification.verification_substatus:3">Plausible</option>
+    <option value="identification.verification_status:C AND identification.query:Q">Queried</option>
+    <option value="identification.verification_status:C AND identification.query:A">Answered</option>
+  </select>
 
 
 *Filter controls*
@@ -191,54 +246,3 @@ Attributes, diff query types
 
 
 
-Using controls directly
-=======================
-
-Example code:
-
-.. code-block:: php
-
-  <div id="dataGrid1" class="idc-output idc-output-dataGrid"></div>
-
-  <?php
-
-  require_once iform_client_helpers_path() . 'ElasticsearchProxyHelper.php';
-  iform_load_helpers([]);
-  ElasticSearchProxyHelper::enableElasticsearchProxy();
-  helper_base::$javascript .= <<<JS
-  indiciaData.esSources.push({
-    id: 'source-league',
-    size: 0,
-    aggregation: {
-      recorder_agg: {
-        terms: {
-          field: "event.recorded_by.keyword",
-          size: 100,
-          order: {
-            _count: "desc"
-          }
-        },
-        aggs: {
-          species_count: {
-            cardinality: {
-              field: "taxon.species_taxon_id"
-            }
-          }
-        }
-      }
-    }
-  });
-  $('#dataGrid1').idcDataGrid({
-    id: 'dataGrid1',
-    source: {'source-league': 'League table'},
-    aggregation: simple,
-    columns: [
-      {"caption":"Recorder name", "field":"key"},
-      {"caption":"Number of records", "field":"doc_count"},
-      {"caption":"Number of species", "field":"species_count.value"}
-    ]
-  });
-  indiciaFns.populateDataSources();
-  JS;
-  handle_resources();
-  ?>
