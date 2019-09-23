@@ -126,30 +126,12 @@ Elasticsearch in a variety of ways. See
 [templatedOutput]
 """""""""""""""""
 
-**@source**
+A flexible output of ES data which uses templates to build the HTML. See
+:ref:`elasticsearch-report-helper-templatedOutput`.
 
-ID of the `[source]` control this templatedOutput is populated from.
 
-**@content**
 
-Replacements are field names {{ this.that }} within the path specified by repeatField.
 
-**@repeatField**
-
-Where the response from Elasticsearch contains an array of values that should be repeated
-in the output specify the path to the field containing the array here. A good example is
-the `buckets` list for an aggregation. E.g. `aggregations.per_sample.buckets` allows
-iteration over the response for an aggregation called `per_sample`.
-
-**@header**
-
-A piece of HTML that will be inserted into a div at the top of the control when a response
-is received.
-
-**@footer**
-
-A piece of HTML that will be inserted into a div at the bottom of the control when a
-response is received.
 
 *Filter controls*
 
