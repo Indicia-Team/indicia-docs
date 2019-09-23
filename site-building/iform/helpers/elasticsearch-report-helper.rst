@@ -29,6 +29,10 @@ becomes:
     'sort' => '{"id":"desc"}',
   ]);
 
+Note that when using PHP directly you should also call the
+`ElasticsearchReportHelper::enableElasticsearchProxy()` method as well to ensure that the
+required configuration for accessing Elasticsearch is added to he page.
+
 Control elements
 ----------------
 
@@ -82,6 +86,20 @@ a table elsewhere on the page::
 
 You could also set `attachToId` to the id of a `div` element output elsewhere on the page,
 e.g. part of the theme's header.
+
+Initialisation methods
+----------------------
+
+.. _elasticsearch-report-helper-enableElasticsearchProxy:
+
+ElasticsearchReportHelper::enableElasticsearchProxy
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Prepares the page for interacting with the Elasticsearch proxy.
+
+If coding in PHP directly, this method should be called before adding any other
+ElasticsearchReportHelper controls to the page. It is not necessary to call
+`enableElasticsearchProxy` if using the prebuilt form.
 
 Data access methods
 -------------------
@@ -718,6 +736,42 @@ document, or a definition of special processing that is required.
 Define columns from the selected column template to be removed from the CSV download. An
 array of the column titles to remove.
 
+.. _elasticsearch-report-helper-higherGeographySelect:
+
+ElasticsearchReportHelper::higherGeographySelect
+""""""""""""""""""""""""""""""""""""""""""""""""
+
+A select box for choosing from a list of higher geography boundaries (indexed locations).
+May either act as a single control, or a linked set of select controls if multiple nested
+location types are specified where child locations are linked to their parent via the
+`parent_id` field in the databaes.
+
+When a location is chosen, the map will show the boundary, pan and zoom to the boundary
+and the results are filtered to records intersecting the boundary.
+
+Locations must be from an indexed location layer. See :doc:`../../../administrating/warehouse/modules/spatial-index-builder`
+for more info.
+
+Options are:
+
+**blankText**
+
+Text shown for the option which corresponds to no location filter.
+
+**label**
+
+Attaches the given label to the control.
+
+**locationTypeId**
+
+Either a single ID of the location type of the locations to list, or an array of IDs of
+location types where the locations are hierarchical (parent first). Each type ID must be
+indexed by the spatial index builder module.
+
+**readAuth**
+
+Read authorisation tokens. Not required when used via the prebuilt form.
+
 .. _elasticsearch-report-helper-leafletMap:
 
 ElasticsearchReportHelper::leafletMap
@@ -826,6 +880,61 @@ options parameter. Options available are:
     records in a location that the user has a Drupal permission to collate for (e.g. an
     LRC).
 
+.. _elasticsearch-report-helper-recordDetails:
+
+ElasticsearchReportHelper::recordDetails
+""""""""""""""""""""""""""""""""""""""""
+
+A tabbed panel showing key details of the record. Includes a tab for record field values,
+one for comments logged against the record and one to show the recorder's level of
+experience for this and similar taxa.
+
+Options available are:
+
+**showSelectedRow**
+
+ID of the grid whose selected row should be shown. Required.
+
+**explorePath**
+
+Path to an Explore all records page that can be used to show filtered records, e.g. the
+records underlying the data on the experience tab. Optional.
+
+**locationTypes**
+
+The record details pane will show all indexed location types unless you provide an array
+of the type names that you would like included, e.g. ["Country","Vice County"]. Optional.
+
+**allowRedetermination**
+
+If true then provides tools for changing the detemination of the viewed record. Optional,
+default false.
+
+**readAuth**
+
+Read authorisation tokens. Not required when used via the prebuilt form.
+
+.. _elasticsearch-report-helper-standardParams:
+
+ElasticsearchReportHelper::standardParams
+"""""""""""""""""""""""""""""""""""""""""
+
+A toolbar allowing the building of filters to be applied to the page's report data.
+
+Options available are:
+
+**allowSave**
+
+Set to false to disable saving of filters.
+
+**sharing**
+
+Which sharing mode to save and load filters for. Set to reporting, verification,
+data_flow, editing, moderation or peer_review. Default reporting.
+
+Other options are described in the PHP documentation for the
+`client_helpers/prebuilt_forms/includes/reports.php` `report_filter_panel()` method.
+
 .. _elasticsearch-report-helper-templatedOutput:
 
 ElasticsearchReportHelper::templatedOutput
@@ -867,6 +976,64 @@ is received.
 A piece of HTML that will be inserted into a div at the bottom of the control when a
 response is received.
 
+.. _elasticsearch-report-helper-urlParams:
+
+ElasticsearchReportHelper::urlParams
+""""""""""""""""""""""""""""""""""""
+
+This control allows you to configure how the page uses parameters in the URL to filter the
+output shown on the page. By default, the following filter parameters are supported:
+
+  * taxa_in_scratchpad_list_id - takes the ID of a `scratcphad_list` as a parameter and
+    creates a hidden filter parameter which limits the returned records to those of
+    species in the scratchpad list. For example, a report page which lists scratchpad
+    lists could have an action in the grid that links to an Elasticsearch outputs page
+    passing the list ID as a parameter.
+  * sample_id - takes the ID of a `sample` as a parameter and creates a hidden
+    filter parameter which limits the returned records to those in the sample.
+  * taxa_in_sample_id - takes the ID of a `sample` as a parameter and creates a hidden
+    filter parameter which limits the returned records to those of taxa in the sample.
+    Note that records will be included from other samples as long as they are for the same
+    taxa.
+
+For example, a report page which lists samples or scratchpad lists could have an action
+in the grid that links to an Elasticsearch outputs page passing the ID as a parameter.
+
+Additional filters can be configured via the `fieldFilters` option.
+
+Options can include:
+
+**fieldFilters**
+
+Use this option to override the list of simple mappings from URL parameters to
+Elasticsearch index fields. Pass an array keyed by the URL parameter name to accept, where
+the value is an array of configuration items where each item defines how that parameter is
+to be interpreted. Therefore multiple filters may result from a single parameter. Each
+configuration item has the following data values:
+
+  * name - Elasticsearch field name to filter
+  * type - optional. If set to `integer` then validates that the field supplied is an
+    integer. Other data types may be supported in future.
+  * process - optional. possible values are:
+
+    * taxonIdsInScratchpad - the value is used as a scratchpad_list_id which is used to
+      look up a list of taxa. The value is replaced by a list of taxon.taxon_ids for
+      filtering to the entire list.
+    * taxonIdsInSample - the value is used as a sample_id which is used to look up a
+      list of taxa. The value is replaced by a list of taxon.taxon_ids for filtering to
+      the entire list.
+
+    If the process is not specified then the value is used as is.
+
+An example where a page is configured to filter by `&genus=...` in the URL::
+
+  [urlParams]
+  @fieldFilters=<!--{
+    "genus": {
+      "name": "taxon.genus"
+    }
+  }-->
+
 .. _elasticsearch-report-helper-userFilters:
 
 ElasticsearchReportHelper::userFilters
@@ -879,3 +1046,34 @@ Options available are:
 
   * @sharingCode - type of task the filters to load are for. Default R.
   * @definesPermissions
+
+.. _elasticsearch-report-helper-verificationButtons:
+
+ElasticsearchReportHelper::verificationButtons
+""""""""""""""""""""""""""""""""""""""""""""""
+
+Outputs a panel containing action buttons for verification tasks, including changing the
+record status, querying the record and accessing the record edit page. Effectively allows
+an Elasticsearch report page to be converted into a verification tool.
+
+Options available are:
+
+**id**
+
+ID of the HTML element. If not specified, a unique ID will be autogenerated which cannot
+be relied on.
+
+**showSelectedRow**
+
+Specify the element ID of a `[dataGrid]` control which the buttons will source the
+selected row from.
+
+**editPath**
+
+If a Drupal page path for a generic edit form is specified then a button is added to allow
+record editing.
+
+**viewPath**
+
+If a Drupal page path for a record details page is specified then a button is added to
+allow record viewing.
