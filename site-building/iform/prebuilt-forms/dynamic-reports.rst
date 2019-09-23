@@ -5,8 +5,9 @@ Dynamic Reports provides a highly configurable reporting page which uses a simil
 technique to other dynamic forms to allow you to configure exactly what is output onto the
 page. You can include maps, charts and data grids.
 
-:doc:`Read a tutorial on how to set up your own dynamic reports
-<dynamic-reports/tutorial/dynamic-reports>`.
+.. toctree::
+
+  dynamic-reports/tutorial/dynamic-reports
 
 Setting up a dynamic report page involves configuring the default view of the map (same
 process as for other forms), providing a set of report parameter values in the **Report
