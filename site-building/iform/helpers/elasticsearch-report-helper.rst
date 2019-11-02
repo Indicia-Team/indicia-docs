@@ -772,6 +772,22 @@ download file. An associative array where the keys are the titles of each column
 values are strings which either hold the name of a field in the Elasticsearch occurrence
 document, or a definition of special processing that is required.
 
+Special processing options available are as follows:
+
+* `[attr value](entity=<entity>,id=<id>)` - returns an attribute value (or semi-colon
+   separated list if multiple), for the entity defined by `<entity>` and for attribute ID
+   defined by `<id>`.
+* `[date string]` - converts event.date_from and event.date_to to a readable date string.
+* `[higher geography](field=<field>,text=<text>,type=<type>)` - Converts
+   location.higher_geography to a string. Configurable output by passing parameters:
+   * `<type>` - limit output to this location type term.
+   * `<field>` - limit output to content of this field (name, id, type or code).
+   * `<text>` - set to true to convert the resultant JSON to text.
+   E.g. pass type=Country, field=name, text=true to convert to a plaintext Country name.
+* `[media]' - concatenates media to a comma separated string.
+* `[null if zero](field=<fieldname>)` - returns the value given in the field identified by
+  `<fieldname>`, or null if the value is zero.
+
 **removeColumns**
 
 Define columns from the selected column template to be removed from the CSV download. An
