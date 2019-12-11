@@ -755,6 +755,10 @@ Options available are:
 
 ID of the [source] control that provides the data for download.
 
+**aggregation**
+
+simple|composite
+
 **attachToId**
 
 Alternative `id` of a CSS element to output the control into as described previously.
