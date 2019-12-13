@@ -41,6 +41,7 @@ name of the control you want to output. The following controls are available:
   parameters.
 * ``[map]`` - Outputs a report map.
 * ``[reportgrid]`` - Outputs a grid of records for a report.
+* ``[report download link] - Outputs a simple link for downloading a CSV file.
 * ``[reportchart]`` - Outputs a chart of the output of a report (line, bar or pie).
 
 You can provide options to each of the controls on the subsequent lines in the form
