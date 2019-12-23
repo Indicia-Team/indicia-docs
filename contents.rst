@@ -5,6 +5,8 @@ Contents
   :maxdepth: 2
 
   index
+  dive-in
+  supporters
   introduction/index
   site-building/index
   administrating/index

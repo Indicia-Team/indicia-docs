@@ -29,7 +29,7 @@ Drupal content, except Indicia pages generally have quite a few configuration op
 you to tweak the page's behaviour.
 
 #. On the admin toolbar, select **Content**, then click **Add content**, then **Indicia
-   page*.
+   page**.
 #. Set the **Title** to "Enter a list of records".
 #. If you require introductory text at the top of the page then you can enter it in the
    **Page introductory text** box. Otherwise expand the **Menu settings** section and tick

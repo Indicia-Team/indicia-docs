@@ -717,6 +717,7 @@ the table responsive. Can include:
         "md": 992,
         "lg": 1200
       }
+
 **autoResponsiveCols** - set to true to automatically hide columns responsively when below
 each breakpoint. Priority is set by position in the grid with columns on the right being
 hidden first. Overrides `hideBreakpoints` setting for each column.
@@ -784,11 +785,13 @@ Special processing options available are as follows:
 * `[date string]` - converts event.date_from and event.date_to to a readable date string.
 * `[higher geography](field=<field>,text=<text>,type=<type>)` - Converts
    location.higher_geography to a string. Configurable output by passing parameters:
-   * `<type>` - limit output to this location type term.
-   * `<field>` - limit output to content of this field (name, id, type or code).
-   * `<text>` - set to true to convert the resultant JSON to text.
+
+    * `<type>` - limit output to this location type term.
+    * `<field>` - limit output to content of this field (name, id, type or code).
+    * `<text>` - set to true to convert the resultant JSON to text.
+
    E.g. pass type=Country, field=name, text=true to convert to a plaintext Country name.
-* `[media]' - concatenates media to a comma separated string.
+* `[media]` - concatenates media to a comma separated string.
 * `[null if zero](field=<fieldname>)` - returns the value given in the field identified by
   `<fieldname>`, or null if the value is zero.
 

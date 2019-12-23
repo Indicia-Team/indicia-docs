@@ -20,8 +20,8 @@ Class: http://rs.tdwg.org/dwc/terms/Event
 In Indicia, DwC events map to the samples entity. Here's an example text file containing
 a single record from our example DwC archive::
 
-id	eventID	samplingProtocol	eventDate	countryCode	decimalLatitude	decimalLongitude	geodeticDatum
-2010-3-27:858	2010-3-27:858	Point/Punkt	2010-03-27 11:00:00+00	SE	59.0329	17.31623	WGS84
+  id	eventID	samplingProtocol	eventDate	countryCode	decimalLatitude	decimalLongitude	geodeticDatum
+  2010-3-27:858	2010-3-27:858	Point/Punkt	2010-03-27 11:00:00+00	SE	59.0329	17.31623	WGS84
 
 Columns
 ^^^^^^^
