@@ -1,4 +1,5 @@
 Enter a single record or list of records (customisable) tutorial
+================================================================
 
 .. sidebar:: Prerequisites
 

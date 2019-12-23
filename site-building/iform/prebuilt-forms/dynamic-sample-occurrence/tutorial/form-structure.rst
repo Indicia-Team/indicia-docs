@@ -21,7 +21,7 @@ the following:
 
 The message you have typed in will appear, since anything you put into the form structure
 which Indicia cannot recognise is simply output as is, a useful tip for adding custom
-HTML into your forms. There is a green bar following the message in this example, because
+HTML into your forms. There is a grey bar following the message in this example, because
 the form is configured to show the output on tabs, so this is the empty tab header.
 
 So, let's build a form from the ground up to see how it works. We'll add a "Visit" tab to
@@ -54,9 +54,6 @@ Plus there are some options specific to a date picker, for example:
 
 * **default** - set a default value for the control, e.g. this might be a appropriate when
   creating a form for a bioblitz on a set date.
-* **showButton** - if set to true, then instead of dropping down the picker panel when
-  you click in the control, there is a button to the right of the control to drop down
-  the panel. This makes typing in dates by hand easier.
 
 We can set options in the Form Structure box, by putting a line of the form
 "@option=value" on the line after the [date] control definition. You can add multiple
@@ -67,7 +64,6 @@ change the Form Structure to the following::
   [date]
   @label=Visit Date
   @lockable=true
-  @showButton=true
   @helpText=Type in a date in dd/mm/yyyy format, or click the button to drop down the
   date picker to select a date.
 
@@ -114,7 +110,6 @@ Form Structure setting now looks like::
   [date]
   @label=Visit Date
   @lockable=true
-  @showButton=true
   @helpText=Type in a date in dd/mm/yyyy format, or click the button to drop down the date
   picker to select a date.
   [location name]
