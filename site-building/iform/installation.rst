@@ -38,7 +38,14 @@ website's admin toolbar (logged in as admin) and enable the following modules:
 Now, visit **Configuration > Indicia integration > Indicia settings** on the admin toolbar
 and set the following options:
 
-  * Indicia warehouse = Other
-  * Warehouse URL = URL of your warehouse installation
-  * Indicia website ID = ID of your website registration. See :doc:`Setting up a website
-    registration <../warehouse/websites>`
+  * **Indicia warehouse** = Other
+  * **Warehouse URL** = URL of your warehouse installation
+  * **Indicia website ID** = ID of your website registration. See :doc:`Setting up a
+    website registration <../warehouse/websites>` if you've not already done this.
+  * **Password** and **Confirm password** for your website registration.
+  * Further down the page, pan and zoom the map to cover the approximate area you will be
+    recording in.
+  * **List of spatial or grid reference systems** - tick GPS Latitude and Longitude (WGS84)
+    and any others you feel are relevant.
+
+Click **Submit** when done.

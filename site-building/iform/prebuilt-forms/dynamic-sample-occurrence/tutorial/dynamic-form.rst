@@ -7,15 +7,18 @@ Creating a survey
 The "Enter a single record or list of records (customisable)" form gives us a whole bunch
 of configuration possibilities and is the most flexible way of creating recording forms
 in Drupal with Indicia. Before we add the form, let's visit the warehouse and create a
-survey to capture our records. Here's a brief refresher on how to do this:
+survey to capture our records if you haven't already created one for this purpose. Here's
+a brief refresher on how to do this:
 
 #. Log into the warehouse with at least admin rights to the website registration you are
    using.
-#. Go to **Lookup Lists > Surveys** on the menu.
-#. Click the **New Survey** button.
+#. Go to **Observations data > Survey datasets** on the menu.
+#. Click the **New Survey dataset** button.
 #. Fill in the **Title**, for example "General Records".
 #. Fill in a survey description, then set the **Website** to the one you are using.
 #. Click **Save**.
+
+See :doc:`Survey datasets<../../../../warehouse/surveys>` for more info.
 
 Adding a data entry form
 ------------------------
@@ -25,8 +28,8 @@ Adding an Indicia page to Drupal using the IForm module is just like adding any 
 Drupal content, except Indicia pages generally have quite a few configuration options for
 you to tweak the page's behaviour.
 
-#. On the admin toolbae, select **Content**, then click **Add content**, then **Indicia
-   pages*.
+#. On the admin toolbar, select **Content**, then click **Add content**, then **Indicia
+   page*.
 #. Set the **Title** to "Enter a list of records".
 #. If you require introductory text at the top of the page then you can enter it in the
    **Page introductory text** box. Otherwise expand the **Menu settings** section and tick
@@ -36,7 +39,7 @@ you to tweak the page's behaviour.
    is where all the Indicia goodness begins as it allows us to pick from one of a library
    of ready made pieces of functionality, called :doc:`prebuilt forms <../../index>`.
    We want a general purpose way of inputting records, so as good a place to start as any
-   is to set the **Page Category** to "Data entry forms" and **Page type** to "Enter
+   is to set **Select page category** to "Data entry forms" and **Page type** to "Enter
    single record or list of records (customisable)", that is, a form designed for
    inputting a single sample, containing a list of any number of occurrence records.
 
@@ -51,15 +54,15 @@ you to tweak the page's behaviour.
      configurable and can automatically add controls to the input form to reflect the
      custom attributes you have attached to your survey.
 
-#. Once you have selected the correct form, click the **Load Settings Form** button to
+#. Once you have selected the correct form, click the **Load settings form** button to
    send a request to the server for the configuration required to set this type of form
    up. The additional configuration options will appear on the page below the button.
    These are grouped into sections in boxes which you can expand by clicking on the title
    of the box. We'll start by doing the minimum required to get our form running:
 
-   * In the **Other IForm Parameters** section, select the **Survey** you plan to submit
-     records to.
-   * In the **Base Map Layers** section, tick the **Google Hybrid** layer.
+   * In the **Other IForm Parameters** section, select the **Survey dataset** you plan to
+     submit records to.
+   * In the **Base Map Layers** section, tick the **OpenStreetMap** layer.
    * In the **Species** section, set the **Extra Species List** to the species list you
      are recording against.
 
@@ -85,10 +88,10 @@ you to tweak the page's behaviour.
 Basic Form configuration
 ------------------------
 
-There are a huge number of configuration options for the Enter a single record or list of
-records (customisable) Form and they are all described in the hints below each option in
-the edit form. Rather than go through them all, in this tutorial we'll take a look at a
-few useful options to get a feel for the configuration process.
+There are a huge number of configuration options for the **Enter a single record or list
+of records (customisable)** form and they are all described in the hints below each
+option in the edit form. Rather than go through them all, in this tutorial we'll take a
+look at a few useful options to get a feel for the configuration process.
 
 At the top of the page, you should see a **View** tab and an **Edit** tab. Drupal adds
 these to the page automatically if your user account has permissions to edit the current
@@ -110,14 +113,6 @@ expand the **Species** section of the configuration form. Set the following opti
   species group, you may as well disable this option.
 * **Occurrence Images** - tick this box to allow photos to be uploaded.
 
-.. tip::
-
-  Since the cache tables are not updated immediately on editing a species on the
-  warehouse, you need to ensure that any species in your warehouse are populated into
-  the cache. You can do this by visiting the path ``index.php/scheduled_tasks`` within
-  your warehouse. This task can be automated on a schedule, for more information see
-  :doc:`../../../../../administrating/warehouse/scheduled-tasks`.
-
 Once you've applied these settings, save the form. The changes you've applied can all
 be found on the first tab, in particular note how the name "Magpie" is no longer
 ambiguous:
@@ -131,5 +126,5 @@ once we have input a species name we can upload photos to go with the record. Th
 we've looked at so far only scratch the surface of what can be done, but even so, are
 limited to the configuration options that the programmer of this prebuilt form envisaged
 would be useful. In the next section we'll take a look at the most powerful of all the
-options available, the **Form Structure** which provides deep configuration
+options available, the **Form structure** which provides deep configuration
 possibilities even the programmer did not envisage.

@@ -33,6 +33,11 @@ If you are still deciding whether to use Indicia or just want an overview of the
 project, then why not :doc:`read an introduction to the project here
 </introduction/index>`.
 
+Dive straight in
+================
+
+Just want to get started? :doc:`Dive in here.<quick-start>`.
+
 Building an online recording website
 ====================================
 
