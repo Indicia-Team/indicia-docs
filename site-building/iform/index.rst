@@ -4,6 +4,7 @@ The Indicia Forms module
 
 .. toctree::
 
+  installation
   user-identification
   helpers/index
   customising-page-functionality
