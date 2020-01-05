@@ -19,22 +19,70 @@ Attributes** menu item to access the list of existing attributes.
 Attribute basic settings
 ------------------------
 
-Click the **New sample attribute** button. Set the **Caption** to "Postcode" (remember
-this is only the default caption, as we can override the label output in the form
-configuration). Set the **Data Type** to "Text". When you do this, note that the panel
-of **Validation Rules** will reconfigure itself to show controls which are appropriate to
-the data type of custom attribute you are creating. Since the postcode is something which
-could be said to be an attribute of the site, we can tick the **Applies to location** box.
+Click the **New sample attribute** button. Set the following options and leave the other
+options in the form at their default value:
 
-.. tip::
+  * **Caption** - set to "Postcode" (remember this is only the default caption, as we can
+    override the label output in the form configuration).
+  * **Data type** - set to "Text". When you do this, note that the region containing
+    **Validation rules** will reconfigure itself to show controls which are appropriate to
+    the data type of custom attribute you are creating. Since the postcode is something
+    which could be said to be an attribute of the site, we can tick the **Applies to
+    location** box. This is generally true of attributes which describe a persistent
+    property of a site, as opposed to attributes which describe a transient property such
+    as an environmental measurement.
 
-  **Applies to location** is merely a hint to the system that this attribute is something
-  recorded about the site as opposed to something specific to this sample. An example of
-  the former might be an altitude measurement, whereas something specific to the sample
-  might be a temperature measurement. At the moment you could use this flag in custom
-  reports to build information about the site, but in future Indicia will support site
-  based recording where the attributes which have this flag ticked will default to the
-  values recorded the last time this site was visited.
+The full list of fields available in the attribute data entry form are:
+
+  * **Caption** - the default caption for this attribute's associated control. This can be
+    overridden in the client configuration.
+  * **Caption in other languages** - allows you to provide localisations of the attribute
+    caption. Instructions are provided beneath the control.
+  * **Unit** - where appropriate, provide the unit for the measurement, e.g. "mm".
+    Typically used when building natural language outputs describing data.
+  * **Term name** and **Term identifier** can be used to link a custom attribute to a
+    known vocabulary such as Darwin Core.
+  * **Description** - provides a description of the attribute for the administration
+    interface. This can also be used to provide help text beneath the attribute's
+    associated control by setting the @useDescriptionAsHelpText property to `true` in the
+    client configuration for the control.
+  * **Description in other languages** - allows you to provide localisations of the
+    attribute description. Instructions are provided beneath the control and works with
+    the `@useDescriptionAsHelpText` client configuration option.
+  * **Image** - upload an image to associate with this attribute's associated control. Set
+    the `@attrImageSize` client configuration option on the control to enable the image
+    display.
+  * **System function** - where an attribute has "meaning" to the Indicia system beyond
+    being just a simple piece of data, the system function option allows you to declare
+    that meaning. For example an attribute might hold the recorder's email, or an
+    occurrence's abundance value. This allows multiple attributes to capture different
+    data values which all describe the same attribute of the record, so a DAFOR abundance
+    and a count value can be treated as abundance data for the purposes of reporting.
+  * **Data type** - type of data value to store in this attribute. When adding an
+    attribute using the Lookup datatype you can link the attribute to a pre- existing
+    termlist in order to create a drop-down list of terms to pick from. For simple lists
+    of terms you can do this in one step - click the **Create a new termlist** option
+    which appears when you pick the Lookup data type. You can then enter the list of terms
+    into the box which appears, one per line. A termlist will then be created for you with
+    the same name as the attribute.
+  * **Termlist** - only for attributes where the data type is lookup - allows the termlist
+    holding lookup values to be specified. See the tip below for more information on
+    setting this up.
+  * **Allow multiple values** - tick this box where an attribute can hold more than one
+    value per record. E.g. a "site features" attribute might have a list of checkboxes
+    for different types of feature allowing the user to tick multiple.
+  * **Available to other websites** - where an attribute is to be published and
+    discoverable for addition to survey datasets in other websites on the warehouse, tick
+    this box. Typically used for relatively standard attributes only.
+  * **Applies to location** - a hint to the system that this attribute is something
+    recorded about the site as opposed to something specific to this sample. An example of
+    the former might be an altitude measurement, whereas something specific to the sample
+    might be a temperature measurement. The latter would be expected to change at each
+    visit whereas the former remains the same at each visit. You can use this flag in
+    custom reports to build information about the site. Additionally, when a user visits a
+    site repeatedly, after entering the "applies to location" attribute values when
+    inputting the first visit's data, these values are recalled and filled in
+    automatically when inputting subsequent visits.
 
 .. tip::
   When adding an attribute using the Lookup datatype you can link the attribute to a pre-
@@ -90,12 +138,7 @@ making sure you don't introduce any carriage returns.
 
 Before saving your attribute, one last task is to add the attribute to our survey. All the
 surveys you have access to are listed at the bottom of the page, so tick the option for
-the survey you are working on. Your page should look something like this:
-
-.. image:: ../../images/screenshots/warehouse/setup-postcode-attribute.png
-     :width: 300pt
-     :align: center
-     :alt: Adding a postcode attribute to the warehouse
+the survey you are working on.
 
 Finally, save the attribute.
 
