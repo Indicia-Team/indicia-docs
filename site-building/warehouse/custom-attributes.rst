@@ -179,3 +179,8 @@ on the form according to the following conditions:
 
 However note that the control will only appear after you clear the Indicia cache on the
 Drupal website.
+
+.. note::
+
+  See :doc:`../iform/prebuilt-forms/dynamic-sample-occurrence/tutorial/dynamic-form` for
+  details on configuration of this type of data entry form in Drupal.
