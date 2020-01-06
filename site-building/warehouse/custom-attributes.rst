@@ -106,8 +106,9 @@ powerful option, the **Regular Expression**.
   want the postcode to be required, but making it required at this point means that other
   surveys which want an optional postcode input cannot use your attribute. On the other
   hand, adding a format check to ensure that the postcode is valid would be useful in all
-  cases, so it is good practice to define this rule at this point. We'll see how to make
-  the attribute mandatory for each specific survey later.
+  cases, so it is good practice to define this rule at this point. It's possible to then
+  enable the required validation rule for this attributes survey dataset specific
+  settings.
 
 A regular expression is a tool used in many programming environments for pattern matching
 in pieces of text. It can be a bit bewildering at first, but by allowing regular
@@ -142,7 +143,39 @@ the survey you are working on.
 
 Finally, save the attribute.
 
-If you are using the Drupal IForm module, then many of the forms Indicia provides for you
+If you are using the Drupal IForm module, then some of the forms Indicia provides for you
 to add to the page will automatically show a control allowing a value for this attribute
-to be input. However note that the control will only appear after you clear the Indicia
-cache on the Drupal website.
+to be input. If using the "Enter single record or list of records (customisable)" form
+which is one of the most common options, then sample and occurrence attributes will appear
+on the form according to the following conditions:
+
+  * If the attribute is an occurrence attribute, it is shown if the form is configured to
+    allow a list of occurrences to be added into a grid. The attribute is added as a
+    column in the grid.
+  * Both sample and occurrence attributes can be organised onto blocks (**Observations >
+    Survey datasets > Setup attributes** link on the warehouse). The attribute will be
+    shown if the form configuration contains a section (i.e. a tab) with the same name as
+    the block containing the attribute, which itself contains a control `[*]`. E.g.
+    create a block called "Conditions" in the Setup attributes section of the warehouse
+    and add an attribute to it. In our example, we'll assume the attribute is a sample
+    attribute with ID 123 so you'll need to change the example as appropriate. Then
+    configure a section in the data entry form's **Form structure** as follows::
+
+      =Conditions=
+
+      [smpAttr:123]
+
+  * As above, but instead of specifying each control explicitly, you can output a list of
+    all the controls required to complete a form section using the following::
+
+    =Conditions=
+
+    [*]
+
+  * Alternatively, you can add the `=*=` control to the end of your form structure, which
+    will output form sections (or tabs) containing all the controls required to ensure
+    that every attribute is represented on the form. Although this option is useful for
+    quickly building a form, it's less flexible and precise than the other options.
+
+However note that the control will only appear after you clear the Indicia cache on the
+Drupal website.
