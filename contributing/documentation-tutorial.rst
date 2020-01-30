@@ -4,118 +4,268 @@
 Contributing to the Documentation - a Tutorial
 **********************************************
 
-Let's run through the steps needed for you to start contributing to the documentation. It is worth noting that this tutorial has been written on a Mac using Mac OS X (10.7 Lion), some of the steps you perform may vary if your computer configuration is different, however the basic principles will still be the same.
-
-You should have read the overview, :ref:`documentation`, first. To reiterate, We hold a repository of all the ReStructureed Text (RST) documents we are working on in Git. The administrator of the documentation website then converts the RST into HTML for use on the public website. We'll install a **Git client** to allow us to add our RST format documentation to the controlled central repository. We'll use **Sphinx** to create a preview of what the final HTML of any documentation we create will look like as all the documentation we upload to Git is in RST format.
+Let's run through the steps needed for you to start
+contributing to the documentation.
+You should have read the overview, :ref:`documentation`,
+first. To reiterate, We hold a repository ('repo' for
+short) of all the
+ReStructureed Text (RST) documents that comprise
+the Indicia documentation on the GitHub website.
+The administrator of the documentation website
+converts the RST into HTML for use on the `public
+website <https://indicia-docs.readthedocs.io/en/latest/>`_.
 
 Getting to Grips with Git
 =========================
 
-Let's start by taking a look at Git. Git is a source control system used for organising and controlling files. It gives us a way of controlling and organising the documentation we are writing. For instance, we need to avoid people overwriting other contributors' work by accident and it is also useful to track who has changed a particular document. In reality this is just a small selection of the kinds of control that need to be applied during the development of our documentation.
+Let's start by taking a look at Git. Git is a source control
+system used for organising and controlling files.
+It gives us a way of controlling and organising the
+documentation we are writing. For instance, we need to
+avoid people overwriting other contributors' work by
+accident and it is also useful to track who has changed
+a particular document. In reality this is just a small
+selection of the kinds of control that need to be applied
+during the development of our documentation.
 
-The documentation is hosted on a website called **github** so our first task to is to register and get a login for that website.
+There's really no way round the fact that to contribute to
+the Indicia documentation, you will need to get to grips
+with Git. You will need to
+work with GitHub and a Git client on your
+computer. These are two different but related things
+as you will see.
+
+A good explanation of the general workflow we are recommedning is 
+given in this blog: `The beginner's guide to contributing to a GitHub
+project <https://akrabat.com/the-beginners-guide-to-contributing-to-a-github-project>`_.
+
+Get a GitHub account and fork Indica-docs
+=========================================
+
+The GitHub website implements Git version control and
+acts as a cloud-hosted hub where open source projects can
+hold their source code.
+Your first task to is to register and get an account for
+that website. This is very straightforward and, needless
+to say, free!
 
 https://github.com/
 
-Once registered, you will you need to post a request to join in the documentation on the `forum <http://forums.nbn.org.uk/viewforum.php?id=25>`_ so you can be added to the project team. When working with documentation you won't be logging onto the website directly, you will use a **Git Client**. Before downloading a Git client, let’s have a quick look at how GIT works.
+Members of the Indicia project team can work directly with
+the `indicia-docs GitHub repo 
+<https://github.com/Indicia-Team/indicia-docs>`_, but you
+don't have to be a member of the project team to contribute
+to the documentation. Instead you can use the **Fork** button
+(top-right on the indicia-docs GitHub rep page) to
+copy the entire repo to your own account. The workflow
+is that you will modify this fork and then make a **pull request**
+to have your changes merged into the original repo. So
+if you haven't yet forked the repo
+to your own GitHub account, do that now.
 
-The central RST documentation repository is held on the Internet on the github website. When you install a Git client you are actually taking a **copy** of the whole file repository for the project on your computer. You can then make changes to the documentation in the local repository and when you are happy with the changes, you can **commit** the changes to the local repository. Once committed we can **push** these changes to the main repository on github.
+Although you can edit files directly on your fork on
+the GitHub website,
+it is much more convenient to make a copy on your local computer,
+work there and then update your fork before requesting that
+your updates be merged into the main repo.
 
-.. image:: images/git_workflow.*
+This is where you need a Git client of some sort on 
+your computer. 
 
-**Push** – Any changes you have made to your local repository are placed in the main repository held on the Internet.
+Set up your Git client
+======================
 
-**Pull** – If anyone else has made changes to the main repository, then these are moved onto your local repository.
+There are many Git clients out there, but
+we recommend that you install 
+`Visual Studio Code (VS Code) <https://code.visualstudio.com/>`_. 
+Not only is it a fully featured code editor that you can use to
+edit your Indicia RST files, but it is also a *Git client*.
 
-**Commit** – When you complete a change, you “commit” it to the local repository. By doing this we ensure the local repository doesn’t become full of half-finished work. At a convenient point when all your changes are finished you can **push** them to the internet.
+If you use VS Code you can choose whether to use its GUI
+to interact with Git or to use Git from the command line
+(which you can do through the Terminal window from within
+VS Code if you like). Or you can used a mixture of the
+two. Sometimes using the Git command line
+interface is unavoidable, so for the sake of simplicity
+this tutorial sticks with the Git command line interface.
 
-In reality these actions can be broken down into even smaller actions such as **fetch** and **merge**. It is beyond the scope of these document to cover all the actions that can be performed with Git, however there is plenty of information available about Git on the Internet when you are ready to further your understanding.
+Clone your fork to your local computer
+======================================
+Once you have installed VS Code on your computer, you will also
+have installed Git. So now we can take a local copy of our
+fork of the Indicia documentation.
 
-There are many GIT client applications available, so feel free choose your own one to use.
-We will take a look at the client called `GitHub <http://mac.github.com/>`_. This client only works in Mac Os X Lion (10.7) or above, but the principles of this tutorial apply to other clients as well. `Source Tree <https://www.atlassian.com/software/sourcetree>`_ is a suitable client for Windows.
+Find a folder on your computer where you want to copy
+the indicia-docs folder from your fork and open VS Code there.
+In VS code, open a **Terminal** window. If the working directory
+of your terminal window is not the folder where you want
+to create the indicia-docs folder, first change into 
+that folder.
 
-.. tip:: Don't get confused between the github website and the GitHub client software even though they have the same name.
+Now type the following command in the terminal::
 
-Once downloaded, double-click on the GitHub application, it will ask you to enter your login name and password for the github website. Once you have entered this information, GitHub will open. You need to then check the settings in your Git client to make sure they are correct.  Make sure your Primary Remote Repository (under the Settings tab in GitHub) is pointing at the following URL, if it is different then you need to change it (some GIT clients may not fill it in at all for you)
+  git clone path_to_your_fork
 
-https://github.com/Indicia-Team/indicia-docs.git
+To get the value for 'path_to_your_fork' go to your GitHub
+repo (your forked repo) and click on the green 'Clone or
+download' button. You sill see the URL of your repo
+which you can copy and paste into the terminal window. So
+your actual command will look something like this::
 
-At the top of the GitHub window click on **Repositories** *(next to the green, yellow, red button window controls)*. Go to **My Repositories** in the side menu and right-click *(or ctrl-click on a one-button mouse)* on any existing repositories and select to remove the item. You might have already been linked to the correct repository, but for the purposes of this document it ensures we are all starting from the same point.
-In the side menu, click on **Indicia-Team** (If you cannot see this, it means the request you made on the `forum <http://forums.nbn.org.uk/viewforum.php?id=25>`_ to join the documentation team has not been accepted yet). Click on the **Clone to Computer** button. Select a suitable place to save the file. This makes a copy of the documentation and holds it on your computer, you can then edit the documentation on your computer before uploading it when you are happy with it.
-Click on My Repositories and you will see the single repository you downloaded. Double-click on the repository and then click on the Changes tab. You will see a Commit button.
+  git clone https://github.com/burkmarr/indicia-docs.git
 
-.. image:: images/changes_tab.*
+(But it will reference your own fork.)
 
-Let's make some changes to the documentation. In the GitHub client, double-click on the indicia-docs folder underneath the "Select All" checkbox. This will open a window allowing you to browse for files associated with the documentation repository.
+Running this command will result in a folder
+called 'indicia-docs' on
+your computer which is 'tracked' by Git.
 
-.. image:: images/documentation_tree.*
+Add a remote to link with the original repo
+===========================================
+In your terminal window, move into the new indicia-docs folder::
 
-We are going to edit a file, we only need to make a very small change *(such as changing a single character)*. Do not change any text which has been marked as "todo" as this text is automatically omitted from view on the central repository.
-Have a look on the documentation site for a suitable page to edit and find the equivalent .rst file in the documentation files tree window that opened on your local machine *(see image above)*. Open the file in a plain text editor, make your small change and save and close the file.
+  cd indicia-docs
 
-Return to the GitHub "Changes" tab. You will see a preview of the change you made. You are now going to "Commit" the change. Don't forget the change doesn't appear in the main repository even after the **Commit** as we have not pushed it to the Internet yet.
+The repo on your
+computer is already linked to your GitHub fork. Your fork is known
+as a **remote** of the local repo on your computer. To pull from 
+the original repo you must also add that as a remote of your local
+repo. The following git command will do that::
 
-In the **Commit summary** box, type in "Small change to test GitHub". In the **Extended description**, write a description of what you have changed. Also mention that it is just a test so the administrator knows not to include the change when the HTML is built.
-When you have done this, click on the Commit button.
+  git remote add upstream https://github.com/Indicia-Team/indicia-docs.git
 
-Our next task is to click on the **Sync** button, when you do this you may be asked to enter your username and password. The Sync button pulls any changes from the main repository into your local repository and pushes the change you make back to the main repository. This is a specific feature of the GitHub client, other client's might not have a Sync button at all and instead might only implement push and pull separately.
+Now your local repo has two remotes: 'origin' which is your fork and
+'upstream' which is the main repo.
 
-Once we have done this, our change will have been uploaded to the main repository held on the Internet. Navigate to the `repository <https://github.com/indicia-team/indicia-docs/>`_ in your web-browser. A page will be displayed showing the contents of the repository in a tree structure.
+Bringing your remote and local repos into line
+==============================================
 
-.. image:: images/repository.*
+To keep your local repo and your remote forked repo up to date with
+work done by other people, you will periodically need to **pull**
+down changes made by others from the main repo into your local
+repo and **push** these to your forked repo.
+To update your local repo and your fork with the latest changes
+from the main repo, you perform these git commands::
 
-Locate the file you edited in the tree, notice that the structure of the tree of files actually mirrors the documentation tree on your computer so the document will be easy to find. Open the file to see your change.
-Remember that once you have pushed the documentation change to the internet, it doesn’t appear on the Indicia documentation website until the project documentation leader builds the HTML *(in a similar way you build HTML using Sphinx on your local machine)*.
+  git pull upstream master
+  git push origin master
 
-.. tip:: RST needs to be written in a plain text file (not .rtf or any other format). When you save the file with the .rst extension make sure the computer doesn’t add an extra .txt extension on the end automatically. This may be hidden from view and will stop Sphinx from processing the file *(On the Mac you can see a hidden extension by click on the file and going to the File menu and selecting “Get Info”)*.
+This is normally something you'd do before undertaking a piece
+of work of your own.
 
-Creating HTML with Sphinx
-=========================
+Note that if you have carried out work on files which have not
+yet been incorporated into the main repo, you might at this
+point get 'merge conflicts' (pulling actually carries out
+a Git merge). It is beyond the scope of this tutorial to
+cover dealing with merge conflicts, but there are plenty
+of Git resources on the web to help with that. In any case,
+if you undertake the pull and push *before* you start work,
+you may never need to deal with a merge conflict - instead
+the administrator of the documentation will sort out any
+conflicts when processing your **pull request** (covered later).
 
-The documentation we write in RST is converted to HTML with Sphinx. To install Sphinx, refer to :ref:`documentation-mac` or :ref:`documentation-windows`
+Create a branch to work in and do some work!
+============================================
+Branching is a fundamental part of the Git workflow. It helps
+us isolate changes we make from the main source until we
+(or the project administrator) chooses to merge them in.
 
-Let’s create some content for Sphinx to process. Create a file called page1.rst with the following RST inside it. ::
+Create and **checkout** a branch like so::
 
+  git checkout -b your_branch_name
 
-   my header
-   =========
-   Plain text, *italic text*, **bold text**.
+Keep branch names short and descriptive. Because you where
+already in indicia-docs 'master' branch, you have just created
+a complete copy of the master branch and checked it out - which
+means that any changes you make to files now will occur in 
+that branch.
 
-This file needs to be placed in the root folder of the documentation. We aren’t quite ready to process the file yet though, we still need to edit the contents.rst file that can be found in the same folder.
+Now you can use VS Code to edit and save files etc. You can use
+and extension like 'reStructuredText' to preview changes
+you make to files.
 
-.. note::
+When you have completed the work you wanted to do in that
+branch you can **commit** the changes you made. Note that
+this only updates your new branch - it doesn't change the
+master branch. To commit all the changes you made, type::
 
-   The contents.rst is a special file holding the top-level table of contents (..toctree:: in Sphinx-speak). In general, every folder has an index.rst file which contains a table of contents for that section.
+  git commit -a
 
-When you initially open the file it will look something like this,
+An editor will appear in VS Code with text that summarises
+the changes you have made. You must now edit the first
+line of this to create a git **commit message**. Keep
+this short - no
+more than 50 characters. Underneath this, you can insert
+lines to give a more detailed explanation of your changes.
+Each of these lines should be no more than 72 characters.
+(These line length limits enable Git to format
+commit messages nicely. Longer line lengths look bad.)
 
-.. image:: images/initial_index.*
+When you are happy with your commit message, save the
+file and close the edit window. You will now see the
+commit complete in the terminal window.
 
-We just need to add an extra line so it looks like this,
+Note that you can actually make as many commits as you
+like as your work progresses - there's no need to wait
+and do one big commit at the end. The more you use Git
+and understand its features, e.g. for rolling back
+changes, the more likely you will want to commit smaller
+chunks of work. Note that we have also glossed over a
+step called **adding** or **staging** changes which you
+can do before committing (the 'commit -a' command stages
+and commits in one fell swoop). Again the more you use
+Git, the more likely you are to want to learn about
+the subtleties of separate staging and committing.
 
-.. image:: images/index_altered.*
+Push your new branch to your forked repo
+========================================
+Now that you have committed your changes in your local work
+branch, you can push these to your forked repo like this::
 
-Pay attention to make sure you enter the indentation and the blank lines correctly.
+  git push -u origin your_branch_name
 
-Go to the command line and navigate to the root folder  and run the following command ::
+This will create a new branch on your GitHub forked repo
+with the same name as your local branch and include all
+the changes you committed.
 
-   sphinx-build . _build
+Open a pull request on the main repo
+====================================
+From your GitHub account, go to you forked repo and click
+the on the 'branches' link. You should see a list of branches
+that includes the default 'master' branch and the branch you
+just created (which will be listed twice - once under 'your branches'
+and once under 'active branches'). Click on the **new pull request**
+button next to your branch (it doesn't matter which one of the
+two).
 
-.. tip:: If you have "make" installed on your computer, this command can be replaced with "make html". If you have configured PHP Storm with file watchers (see :ref:`documentation-windows`) to run the build then it will have happened automatically on saving the file.
+That will take you to a GitHub window like the one shown below.
 
-This will create the HTML files for the documentation inside a folder called **_build/html** which can be found inside the root folder. Once processing is completed, double-click the contents.html file in this folder. A HTML page will open in your default browser, in the Contents section of the page there will be a link called “my header” which will link to your new page.
+.. image:: images/github-doc-pull-request.jpg
+  :alt: Making a GitHub pull request.
 
-Overview
-========
+Look at this part in particular:
 
-On completion of this tutorial you should:
+.. image:: images/github-doc-pull-request-detail.jpg
+  :alt: GitHub pull request detail.
 
-* Have an appreciation of how RST documents are structured.
+GitHub has taken us to the pages of the original repo from which
+you forked. A pull request has been created against this original
+repository from the branch you created in your fork.
 
-* Understand how to install the RST document convertor **Sphinx** and what it is used for.
+Edit the title of the pull request and, where it says 'write',
+explain the changes you have made. Don't skimp on this - you want
+your changes to be accepted so give the administrator - the person
+that will process the pull request - as much information as
+they need to help them decide whether or not to accept it.
 
-* Have a good understanding of what **github** does and understand the document workflow from raw RST on your home computer to HTML on a live public-facing website.
+Of course they can review the detail of the changes you have
+actually made, but your description will help put that detail
+in context. 
 
-* How to install and use the GitHub Git client software.
-
+Note that the green 'Able to merge' text tells the project
+administrator that none of the changes in this pull request
+conflict with other changes already committed to the project
+which means that it can be easily merged if they decide to accept it.
+If there are merge conflicts, the administrator will decide
+how to deal with those if the pull request is accepted.
 

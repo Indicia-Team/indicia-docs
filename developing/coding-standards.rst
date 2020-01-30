@@ -40,4 +40,4 @@ file.
 #. For JavaScript, we recommend using ESLint to apply coding standards to
    [https://github.com/airbnb/javascript Airbnb rules]. There is an .eslintrc configuration
    file in the root of the iform module code to assist with this and it is possible to
-   configure many IDEs including PhpStorm to apply ESLint automatically as you work.
+   configure many IDEs including VS Code, PhpStorm to apply ESLint automatically as you work.

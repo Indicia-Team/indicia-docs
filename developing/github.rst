@@ -46,8 +46,7 @@ Key Points
     code exists in several “branches” - at least a master and a develop branch. The master
     branch should always reflect the stable production ready code. The develop branch
     contains development changes to the code which may not be production ready. Other
-    branches may exist either as a result of the migration from Google code or for current
-    development needs.
+    branches may exist to meet current development needs.
 
 Glossary
 ========
@@ -62,8 +61,9 @@ The list below covers some of the key ones we'll be using for Indicia code manag
     code from GitHub to a local development environment. Because Git is a distributed
     version control system as opposed to a centralised one, each clone is a full copy
     of the repository and you can commit changes to it, work on it offline etc. Clones
-    remain synced with the repository they were copied from and can be easily synced.
-  * Checkout -
+    remain linked with the repository they were copied from and can be easily synced.
+  * Checkout - to create and/or change the working directory to a different
+    branch of a project.
   * Commit - an individual change to a file or a set of files which create a new revision
     of those files.
   * Fork - to copy a repository to a different GitHub account. The fork can then be worked
@@ -182,13 +182,6 @@ the steps to create the pull request, check the changes then merge it.
 Repeat the last step to merge the hotfix into the develop branch as well.
 
 In GitHub, add a release to tag the new version number against the code.
-
-.. tip::
-
-  Merging into the develop branch might not work without many conflicts, due to the legacy
-  of migration from Google Code. This issue should disappear once we start doing full
-  releases from the GitHub code. If that is the case, then you can simply repeat the
-  bugfix commit and version bump into the develop branch.
 
 ...develop a new feature
 ------------------------

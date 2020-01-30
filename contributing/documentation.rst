@@ -41,8 +41,6 @@ http://indicia-docs.readthedocs.io/en/latest/contents.html
 
 For additional information see
 
-* :ref:`documentation-windows`
-
-* :ref:`documentation-mac`
+* :ref:`documentation-vscode`
 
 * :ref:`documentation-tutorial`

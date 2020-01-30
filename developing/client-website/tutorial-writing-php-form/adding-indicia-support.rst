@@ -8,8 +8,8 @@ pieces of code we just need to glue together to build our forms is of course
 one of the attractions of Indicia and just because we are writing PHP code by 
 hand does not mean we should not benefit from all this Indicia goodness. The 
 libraries of code that we need to use in our PHP are contained within a download
-called Client Helpers, available from the `Google Code site's download page 
-<http://code.google.com/p/indicia/downloads/list>`_. Follow these steps to set
+called Client Helpers, available from the `Indicia client_helpers GitHub repo
+<https://github.com/Indicia-Team/client_helpers>`_. Follow these steps to set
 it up:
 
 #. Download the latest version of the Client Helpers library and unzip it into 
