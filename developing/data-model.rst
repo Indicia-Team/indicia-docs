@@ -565,8 +565,10 @@ against and inserts this into the report query for you.
 
 Locations and sites
 ===================
-locations
----------
+
+.. image:: ../images/diagrams/indicia-locations-erd.png
+  :alt: Entity Relationship Diagram for the locations module of the database.
+  :width: 60%
 
 When a polygon (e.g. a grid square or transect line) does not need to be re-used in the
 database, it may be appropriate to simply store the polygon in the geom attribute of the
