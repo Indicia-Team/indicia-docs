@@ -642,9 +642,14 @@ Each action entry can have the following properties:
   * title - text to add to the button's title attribute, shown on hover as a tooltip.
   * iconClass - class to attach which should define the icon. Normally a FontAwesome class
     is used.
-  * path - base path to the page to navigate to. Can contain the token {rootFolder} which
-    will be replaced by the root folder of the site. Also, field values from the row's
-    Elasticsearch document can be specified by putting the field name in square brackets.
+  * path - base path to the page to navigate to. Tokens will be replaced as follows:
+    * {rootFolder} will be replaced by the root folder of the site, allowing links to be
+      specified as "{rootFolder}path" where the path is a Drupal alias (without leading
+      slash).
+    * {language} will be replaced by the current user's 2 character selected language
+      code.
+    * Field values from the row's Elasticsearch document can be specified by putting the
+      field name in square brackets, e.g. [taxon.taxon_name] or [id].
   * urlParams - additional parameters to add to the URL as key/value pairs. Can also
     contain field value replacements by putting the field name in square brackets.
 
@@ -734,7 +739,8 @@ Set to false to disable sorting by clicking the sort indicator icons in the head
 
 Set to a CSS height in pixels (e.g. "800px") to display a scrollbar on the table body with
 this as the maximum height. Allows the data to be scrolled whilst leaving the header
-fixed.
+fixed. Set to a negative height (e.g. "-50px") to set the table body to occupy all
+available space to the bottom of the screen minus the height given.
 
 **cookies**
 
@@ -791,7 +797,9 @@ Special processing options available are as follows:
     * `<text>` - set to true to convert the resultant JSON to text.
 
    E.g. pass type=Country, field=name, text=true to convert to a plaintext Country name.
-* `[media]` - concatenates media to a comma separated string.
+* `[media]` - concatenates media to a semi-colon separated string. Each item is
+  represented by the path (within the warehouse upload folder), followed by '|', the
+  caption, then '|' then the licence code if present.
 * `[null if zero](field=<fieldname>)` - returns the value given in the field identified by
   `<fieldname>`, or null if the value is zero.
 
@@ -971,10 +979,11 @@ records underlying the data on the experience tab. Optional.
 The record details pane will show all indexed location types unless you provide an array
 of the type names that you would like included, e.g. ["Country","Vice County"]. Optional.
 
-**allowRedetermination**
+**extraLocationTypes**
 
-If true then provides tools for changing the detemination of the viewed record. Optional,
-default false.
+As for **locationTypes**, but will be shown in the Derived Info block at the bottom of the
+pane rather than in the first block of attribute values. Therefore suitable for location
+types with a lower priority.
 
 **readAuth**
 
