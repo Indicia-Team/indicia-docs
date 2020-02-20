@@ -5,7 +5,7 @@ Importing Data
 Indicia provides a general purpose importing tool which supports importing
 data of any type from CSV (comma separated values) files. The import tool is
 available for addition to any Indicia enabled Drupal site using a prebuilt form
-(under the **Miscellaneous** form category, select the **Importer** form) or
+(under the **Utilities** form category, select the **Importer** form) or
 via the warehouse user interface using the upload functionality offered at the
 bottom of each data grid. It's the same tool in both cases.
 
