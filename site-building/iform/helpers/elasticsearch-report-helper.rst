@@ -558,6 +558,12 @@ ElasticsearchReportHelper::dataGrid
 Generates a table containing Elasticsearch data. The `dataGrid` control has built in
 support for sorting, filtering, column configuration and pagination.
 
+Table rows holding data have the class `data-row` to identify them within the code. They
+also have a class added `selected` when the row is selected (e.g. showing the associated
+feature on the map). For rows linking to raw Elasticsearch documents, as opposed to
+aggregated data, there is a class `absence-record` added when the record is a record of
+absence. Finally, additional classes can be added to rows using the `@rowClasses` option.
+
 The following options are available:
 
 **id**
@@ -755,7 +761,7 @@ wrapping the field name in square brackets. For example::
 
   @rowClasses=<!--[
     "table-row",
-    "zero-abundance-[occurrence.zero_abundance]"
+    "status-[identification.verification_status]"
   ]-->
 
 Since rows always have a class called `data-row` the above configuration might output the
@@ -763,7 +769,7 @@ following:
 
 .. code-block:: html
 
-  <tr class="data-row table-row zero-abundance-false">...</tr>
+  <tr class="data-row table-row status-V">...</tr>
 
 .. _elasticsearch-report-helper-download:
 
