@@ -747,6 +747,24 @@ available space to the bottom of the screen minus the height given.
 Set to false to disable use of cookies to remember the selected columns and their
 ordering. Cookies are only enabled when there is a specific `id` option set for this grid.
 
+**rowClasses**
+
+An array of classes that will be included in the `class` attribute for each `<tr>` element
+in the grid's body. Each may contain token replacements for the fields in the row's document by
+wrapping the field name in square brackets. For example::
+
+  @rowClasses=<!--[
+    "table-row",
+    "zero-abundance-[occurrence.zero_abundance]"
+  ]-->
+
+Since rows always have a class called `data-row` the above configuration might output the
+following:
+
+.. code-block:: html
+
+  <tr class="data-row table-row zero-abundance-false">...</tr>
+
 .. _elasticsearch-report-helper-download:
 
 ElasticsearchReportHelper::download
