@@ -561,7 +561,7 @@ support for sorting, filtering, column configuration and pagination.
 Table rows holding data have the class `data-row` to identify them within the code. They
 also have a class added `selected` when the row is selected (e.g. showing the associated
 feature on the map). For rows linking to raw Elasticsearch documents, as opposed to
-aggregated data, there is a class `absence-record` added when the record is a record of
+aggregated data, there is a class `zero-abundance` added when the record is a record of
 absence. Finally, additional classes can be added to rows using the `@rowClasses` option.
 
 The following options are available:
