@@ -600,13 +600,19 @@ Options:
   * field - required - can be the name of a field in the Elasticsearch document (e.g.
     `metadata.created_by_id`) or one of the following special field names:
 
-    * #status_icons#
-    * #data_cleaner_icons#
-    * #event_date#
-    * #higher_geography#
-    * #locality#
-    * #lat_lon#
-    * #datasource_code#
+    * #status_icons# - icons representing the record status, confidential, sensitive and
+      zero_abundance status of the record.
+    * #data_cleaner_icons# - icons representing the results of data cleaner rule checks.
+    * #event_date# - event (sample) date or date range.
+    * #higher_geography:<type>:<field># - provides the value of a field from one of the
+      associated higher geography locations. Specify the location type term you want to
+      retrieve in `<type>` (e.g. "Country") and the field name to retrieve in `<field>`,
+      one of `id`, `name`, `code`.
+    * #locality# - a summary of location information including the given location name
+      and a list of higher geography locations.
+    * #lat_lon# - a formatted latitude and longitude value.
+    * #datasource_code# - outputs the website and survey ID, with tooltips to show the 
+      website and survey dataset name.
 
   * rangeField - name of a second field in the Elasticsearch document which defines a
     range when combined with the field's value. If the value of the field pointed to
