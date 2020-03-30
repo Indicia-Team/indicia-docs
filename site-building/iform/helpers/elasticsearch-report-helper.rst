@@ -600,6 +600,10 @@ Options:
   * field - required - can be the name of a field in the Elasticsearch document (e.g.
     `metadata.created_by_id`) or one of the following special field names:
 
+    * #associations# - a list of the species names linked to this record as associated
+      occurrences.
+    * #attr_value:<entity>:<id># - a single custom attribute value. Specify the entity
+      name (event (=sample) or occurrence) plus the custom attribute ID as parameters.
     * #status_icons# - icons representing the record status, confidential, sensitive and
       zero_abundance status of the record.
     * #data_cleaner_icons# - icons representing the results of data cleaner rule checks.
@@ -611,7 +615,7 @@ Options:
     * #locality# - a summary of location information including the given location name
       and a list of higher geography locations.
     * #lat_lon# - a formatted latitude and longitude value.
-    * #datasource_code# - outputs the website and survey ID, with tooltips to show the 
+    * #datasource_code# - outputs the website and survey ID, with tooltips to show the
       website and survey dataset name.
 
   * rangeField - name of a second field in the Elasticsearch document which defines a
