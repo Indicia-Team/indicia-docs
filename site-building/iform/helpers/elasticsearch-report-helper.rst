@@ -945,6 +945,7 @@ layer objects can have the following properties:
       * marker (default) - see
         `Leaflet marker <https://leafletjs.com/reference-1.5.0.html#marker>`_.
       * heat - heat map generated using `Leaflet.heat <http://leaflet.github.io/Leaflet.heat>`_.
+      * geom - a polygon representing the record's original geometry. 
       * WMS - A Web Mapping Service layer.
 
   * options - for circles, squares and markers, an object to pass to leaflet as options
