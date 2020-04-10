@@ -205,6 +205,29 @@ Here's an example aggregation that lists samples in the current filter::
   }
   -->
 
+**countAggregation**
+
+When using a composite aggregation, the Elasticsearch request provides no information
+regarding the total records count, preventing useful information from being shown in a
+dataGrid's footer. To overcome this, provide a 2nd value_count aggregation which
+identifies the total count of rows based on the unique identifier for each row. For
+example in the example given for the aggregation option above, the unique identifier for
+each row is `event.event_id`. Therefore the following could be used::
+
+  @countAggregation=<!--
+    {
+      "samples": {
+        "value_count": {
+          "field": "event.event_id"
+        }
+      }
+    }
+  -->
+
+Now, when the grid is initially populated or the filter populating the grid is updated,
+a request is sent to Elasticsearch to get the value count output and the grid's footer is
+updated.
+
 **aggregationMapMode**
 
 An Indicia occurrence document in Elasticsearch contains several pieces of spatial data.
@@ -945,7 +968,7 @@ layer objects can have the following properties:
       * marker (default) - see
         `Leaflet marker <https://leafletjs.com/reference-1.5.0.html#marker>`_.
       * heat - heat map generated using `Leaflet.heat <http://leaflet.github.io/Leaflet.heat>`_.
-      * geom - a polygon representing the record's original geometry. 
+      * geom - a polygon representing the record's original geometry.
       * WMS - A Web Mapping Service layer.
 
   * options - for circles, squares and markers, an object to pass to leaflet as options
