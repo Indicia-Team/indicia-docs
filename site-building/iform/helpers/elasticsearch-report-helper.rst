@@ -616,7 +616,28 @@ When linking a `dataGrid` to a `source`, specify the nature of the aggregation.
 Options:
 
   * simple
-  * composite
+  * composite - use Elasticsearch `composite` aggregation with a list of fields specified
+    in the `_source` option to group by with other values calculated by sub-aggregations.
+    This is a very fast way of aggregating data and paging through grouped data but it has
+    some limitations:
+      * The aggregation response includes no information about the total count of buckets
+        (grouped values) so it is necessary to specify a 2nd `@countAggregation` option
+        which counts the distinct values (e.g. using `cardinality` aggregations). This can
+        normally be done on just one key field.
+      * It is not possible to sort a composite aggregation by the sub-aggregations which
+        provide additional calculated values. For example, if a composite aggregation is
+        used to list species with a count of records, then the aggregation `_source` can
+        list fields such as the species name or taxonomy data which can be sorted on. It
+        is not possible to sort on the count of records since that is provided in a sub-
+        aggregation.
+  * autoAggregationTable - if set then expects the linked source to use the
+    `autoAggregationTable` to generate its aggregation data. This provides a simpler
+    way of generating a table of data that outputs aggregated data grouped by a key
+    field. See the description below, however note that the method used (to aggregate
+    on a simple terms aggregation, use a top-hits aggregation to retrieve additional field
+    data, plus sub-aggregations for stats) has the following limits:
+      * There is no facility for retrieving the 2nd or subsequent pages of data - you can
+        only view a single page.
 
 **columns**
 
@@ -641,6 +662,14 @@ Options:
     * #datasource_code# - outputs the website and survey ID, with tooltips to show the
       website and survey dataset name.
 
+  * agg - name of the aggregation whose output is to be displayed in this column when
+    using the `autoAggregationTable` aggregation option.
+  * path - where fields are nested in the document response, it may be cleaner to set the
+    field to the path to where to find the field in the document in this option. So,
+    rather than set the field to `fieldlist.hits.hits.0._source.my_count_agg.value` for
+    example, set the `path` to `fieldlist.hits.hits.0._source` and the field to
+    `my_count_agg.value`, resulting in cleaner class names in the code among other
+    benefits.
   * rangeField - name of a second field in the Elasticsearch document which defines a
     range when combined with the field's value. If the value of the field pointed to
     by `rangeField` is different to the value pointed to by `field` then the output will
@@ -803,6 +832,111 @@ following:
 .. code-block:: html
 
   <tr class="data-row table-row status-V">...</tr>
+
+.. _elasticsearch-report-helper-autoAggregationTable:
+
+Automatically generating aggregations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Generating tabular data from Elasticsearch aggregations is complex and getting the
+settings correct can be tricky, especially where the implications for sorting by different
+columns in the output grid are considered. Therefore the `dataGrid` and `source` controls
+have settings to automate the generation of the correct aggregation data for the request.
+This takes the following approach:
+
+  * A `unique_field` is defined. One row per value in this field will be returned. For
+    example, to list samples you might set this to `event.event_id`, or to list taxa you
+    might set this to `taxon.accepted_taxon_id`.
+  * Additional fields can be added to the response. Rather than use nested
+    sub-aggregations which result in a lot of nesting in the response data, a single
+    sub-aggregation is specified which uses the `top_hits` aggregation to find a single
+    hit per unique field value, then retrieve fields from that hit using the document
+    `_source` option. As long as the fields specified have a single value per unique_field
+    value, it doesn't actually matter which Elasticsearch document is used to obtain the
+    field values.
+  * Additional sub-aggregations (not nested) are added for each calculated value, e.g.
+    the count of records.
+  * The aggregation autogeneration code will automatically handle sorting, adding
+    an extra `max` aggregation to find a single value for the field being sorted on when
+    sorting on a field from the top_hits output. The aggregation being sorted on can then
+    be specified in the outermost aggregation to define the overall sort order.
+
+The `source` configuration contains a `@autoAggregationTable` setting which defines the
+following:
+  * `unique_field` - the field name from the document structure to group rows on.
+  * `size` - the number of buckets to load (resulting in a grid row each).
+  * `fields` - array of additional fields to load which should be fields that have only 1
+    distinct value per unique field value.
+  * `aggS` - list of Elasticsearch aggregation definitions for additional columns. This
+    might, for example, be `cardinality` aggregations to find the count of a field's
+    unique values.
+  * `orderby_aggs` - where an agg can result in memory problems in Elasticsearch, it is
+    possible to specify a less resource-intensive agg of the same name in the
+    `orderby_aggs` option which performs the sort. For example, the cardinality agg type
+    has a `precision_threshold` option which reduces memory requirements, useful when to
+    sort accurately requires a count across the entire dataset.
+
+Once the source is configured, all that remains is to specify columns in the `dataGrid`
+with a list of fields, or using the `agg` option of the column when pointing to one of the
+aggregations.
+
+Here's an example configuration:
+
+```
+<label for="filter-search">Search:</label>
+<input type="text" id="filter-search" class="es-filter-param" data-es-bool-clause="must" data-es-query-type="query_string" />
+
+[source]
+@id=samplesData
+@autoAggregationTable=<!--
+{
+  "unique_field": "event.event_id",
+  "size": 20,
+  "fields": [
+    "event.date_start",
+    "event.date_end"
+  ],
+  "aggs": {
+    "occs_count": {
+      "cardinality": {
+        "field": "id"
+      }
+    },
+    "species_count": {
+      "cardinality": {
+        "field": "taxon.species_taxon_id"
+      }
+    }
+  },
+  "orderby_aggs": {
+    "species_count": {
+      "cardinality": {
+        "field": "taxon.species_taxon_id",
+        "precision_threshold": 100
+      }
+    }
+  }
+}
+-->
+
+[dataGrid]
+@id=samples-grid
+@source=samplesData
+@aggregation=autoAggregationTable
+@columns=<!--[
+  {
+    "caption": "ID",
+    "field": "event.event_id"
+  },
+  {
+    "caption": "Date",
+    "field": "#event_date#"
+  },
+  {"caption": "Records", "agg": "occs_count"},
+  {"caption": "Species", "agg": "species_count"}
+]-->
+```
+
 
 .. _elasticsearch-report-helper-download:
 
