@@ -880,63 +880,60 @@ Once the source is configured, all that remains is to specify columns in the `da
 with a list of fields, or using the `agg` option of the column when pointing to one of the
 aggregations.
 
-Here's an example configuration:
+Here's an example configuration::
 
-```
-<label for="filter-search">Search:</label>
-<input type="text" id="filter-search" class="es-filter-param" data-es-bool-clause="must" data-es-query-type="query_string" />
+  <label for="filter-search">Search:</label>
+  <input type="text" id="filter-search" class="es-filter-param" data-es-bool-clause="must" data-es-query-type="query_string" />
 
-[source]
-@id=samplesData
-@autoAggregationTable=<!--
-{
-  "unique_field": "event.event_id",
-  "size": 20,
-  "fields": [
-    "event.date_start",
-    "event.date_end"
-  ],
-  "aggs": {
-    "occs_count": {
-      "cardinality": {
-        "field": "id"
+  [source]
+  @id=samplesData
+  @autoAggregationTable=<!--
+  {
+    "unique_field": "event.event_id",
+    "size": 20,
+    "fields": [
+      "event.date_start",
+      "event.date_end"
+    ],
+    "aggs": {
+      "occs_count": {
+        "cardinality": {
+          "field": "id"
+        }
+      },
+      "species_count": {
+        "cardinality": {
+          "field": "taxon.species_taxon_id"
+        }
       }
     },
-    "species_count": {
-      "cardinality": {
-        "field": "taxon.species_taxon_id"
-      }
-    }
-  },
-  "orderby_aggs": {
-    "species_count": {
-      "cardinality": {
-        "field": "taxon.species_taxon_id",
-        "precision_threshold": 100
+    "orderby_aggs": {
+      "species_count": {
+        "cardinality": {
+          "field": "taxon.species_taxon_id",
+          "precision_threshold": 100
+        }
       }
     }
   }
-}
--->
+  -->
 
-[dataGrid]
-@id=samples-grid
-@source=samplesData
-@aggregation=autoAggregationTable
-@columns=<!--[
-  {
-    "caption": "ID",
-    "field": "event.event_id"
-  },
-  {
-    "caption": "Date",
-    "field": "#event_date#"
-  },
-  {"caption": "Records", "agg": "occs_count"},
-  {"caption": "Species", "agg": "species_count"}
-]-->
-```
-
+  [dataGrid]
+  @id=samples-grid
+  @source=samplesData
+  @aggregation=autoAggregationTable
+  @columns=<!--[
+    {
+      "caption": "ID",
+      "field": "event.event_id"
+    },
+    {
+      "caption": "Date",
+      "field": "#event_date#"
+    },
+    {"caption": "Records", "agg": "occs_count"},
+    {"caption": "Species", "agg": "species_count"}
+  ]-->
 
 .. _elasticsearch-report-helper-download:
 
