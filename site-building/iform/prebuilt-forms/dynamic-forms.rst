@@ -106,6 +106,29 @@ associated occurrence.
 [misc_extensions.group_link_popup]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+[misc_extensions.query_locations_on_map_click]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Add this control to a data entry form to enable detection of locations under a clicked map
+point. Details of the found locations are then displayed in a `div` element on the page.
+The following options are available:
+
+  * id - HTML id attribute for the div which will contain the location details. A unique
+    default will be assigned if not specified.
+  * template - HTML to output for each intersecting location. Field value replacement
+    tokens are specified as {{ fieldname }}. The following fields are available:
+
+    * location_id
+    * name
+    * comment
+    * location_type_id
+    * location_type
+    * centroid_sref
+    * centroid_sref_system
+
+  * locationTypeIds - an array of location type IDs to consider when looking for locations
+    which intersect the click point.
+
 [misc_extensions.area_picker]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
