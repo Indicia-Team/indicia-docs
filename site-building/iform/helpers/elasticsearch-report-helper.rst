@@ -1078,6 +1078,59 @@ To make the map highlight the feature associated with a selected row in a `dataG
 showSelectedRow to the `id` of that grid. The map will also zoom in to the feature when
 the grid row is double clicked.
 
+**baseLayerConfig**
+
+A JSON object defining the base layers to make available for addition to the map. Each
+property is the title of a base layer which contains a sub-object with configuration for
+that layer. The layer configuration options are:
+
+* type - OpenStreetMap, OpenTopoMap, Google or WMS.
+* config - a nested object containing configuration depending on the layer type.
+
+For OpenStreetMap and OpenTopoMap, the config object is not used.
+
+For Google layers, the config object can contain the following:
+
+* subType - roadmap, satellite, terrain or hybrid.
+
+For WMS layers, the config object can contain the following:
+
+* sourceUrl - the URL of the WMS service if using type WMS.
+* wmsOptions - any additional options to pass to the WMS web service, which will normally
+  at least include a `layers` property.
+
+Defaults to OpenStreetMap and OpenTopoMap.
+
+Example configuration::
+
+  @baseLayerConfig=<!--{
+    "OpenStreetMap": {
+      "type": "OpenStreetMap"
+    },
+    "Google Streets": {
+      "type": "Google",
+      "config": {
+        "subType": "roadmap"
+      }
+    },
+    "Google Satellite": {
+      "type": "Google",
+      "config": {
+        "subType": "satellite"
+      }
+    },
+    "Mundialis": {
+      "type": "WMS",
+      "config": {
+        "sourceUrl": "http://ows.mundialis.de/services/service?",
+        "wmsOptions": {
+          "layers": "TOPO-OSM-WMS"
+        }
+      }
+    }
+  }-->
+
+
 **layerConfig**
 
 A JSON object defining the foreground layers to add to the map. Each property is the ID
