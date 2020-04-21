@@ -136,13 +136,19 @@ aggregations where only summary data are required.
 
 **sort**
 
-For non-aggregated output, object where the properties are the field names to sort by and
-the values are either "asc" or "desc" as appropriate. Sets the initial sort order on the
-table. E.g.::
+For non-aggregated output or autoAggregationTables, object where the properties are the
+field names to sort by and the values are either "asc" or "desc" as appropriate. Sets the
+initial sort order on the table. E.g.::
 
   [source]
   @id=sorted-data
   @sort={"id":"desc"}
+
+If using autoAggregationTables and sorting by an aggregate column, then the name given
+should be the name of the aggregate, not the name of the underlying field in the document.
+In autoAggregationTables mode it is also possible to specify either the field specified
+in the `unique_field` option or any of the fields specified in the additional `fields`
+array option.
 
 **from**
 
