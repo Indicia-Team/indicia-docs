@@ -1185,6 +1185,15 @@ layer objects can have the following properties:
   * sourceUrl - the URL of the WMS service if using type WMS.
   * wmsOptions - any additional options to pass to the WMS web service.
 
+**selectedFeatureStyle**
+
+Object containint style options to apply to the selected feature. For example::
+
+  @selectedFeatureStyle=<!--{
+    "color": "#00FF00"
+    "opacity": "0.6"
+  }-->
+
 .. _elasticsearch-report-helper-permissionFilters:
 
 ElasticsearchReportHelper::permissionFilters
