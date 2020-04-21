@@ -669,7 +669,8 @@ Options:
       website and survey dataset name.
 
   * agg - name of the aggregation whose output is to be displayed in this column when
-    using the `autoAggregationTable` aggregation option.
+    using the `autoAggregationTable` aggregation option. Specify the value "doc_count"
+    to use the count of documents in this row's bucket.
   * path - where fields are nested in the document response, it may be cleaner to set the
     field to the path to where to find the field in the document in this option. So,
     rather than set the field to `fieldlist.hits.hits.0._source.my_count_agg.value` for
