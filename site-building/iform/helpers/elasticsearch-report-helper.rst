@@ -306,105 +306,8 @@ To make this map dynamic so the grid square size changes from 10km to 2km, then 
 zoom in, change the field name for the grid square aggregation from
 `location.grid_square.10km.centre` to `autoGridSquareField`.
 
-**buildTableXY**
-
-Where a source contains aggregations, this property can be used to autogenerate a table
-of data from the response making usage of the data in output controls simpler. Specify
-a JSON object where the property names are the names of the tables you wish to
-autogenerate and each table name points to an array where the first element is the name
-of the outer aggregation (used to generate X axes or columns) and the second is the name
-of the inner aggregation (used to generate the Y axes or rows). The latter must be nested
-within the former. The outer aggregation's keys will become the columns with an additional
-column called 'key' which will contain the keys of the inner aggregation alongside the
-generated data values for the row.
-
-For example, where a `[source]` control has the following aggregation, it can create a
-data table where the columns are record statuses and the rows are locations using this
-`@buildTableXY` property value::
-
-  @aggregation=<!--
-  {
-    "by_status": {
-      "terms": {
-        "field": "identification.verification_status",
-        "size": 100,
-        "order": {
-          "_count": "desc"
-        }
-      },
-      "aggs": {
-        "by_loc": {
-          "terms": {
-            "field": "location.name.keyword",
-            "size": 100,
-            "order": {
-              "_count": "desc"
-            }
-          }
-        }
-      }
-    }
-  }
-  -->
-  @buildTableXY=<!--
-  {
-    "table": ["by_status","by_loc"]
-  }
-  -->
-
 Note that the generated table will always have a column called key which are the keys of
 the inner aggregation (location names in this case).
-
-Where the aggregations are deeply nested, the second value passed to the `@buildTableXY`
-property can be comma separated to provide the nesting path to drill down into for the
-rows. Here's an example::
-
-  [source]
-  @id=aggData
-  @size=0
-  @aggregation=<!--
-    {
-      "by_status": {
-        "terms": {
-          "field": "identification.verification_status",
-          "size": 10,
-          "order": {
-            "_count": "desc"
-          }
-        },
-        "aggs": {
-          "by_nested": {
-            "nested": {
-              "path": "location.higher_geography"
-            },
-            "aggs": {
-              "filtered": {
-                "filter" : {
-                  "match" : {
-                    "location.higher_geography.type": "Butterfly Conservation branch"
-                  }
-                },
-                "aggs": {
-                  "by_loc": {
-                    "terms": {
-                      "field": "location.higher_geography.name.keyword",
-                      "size": 200,
-                      "order": {
-                        "_key": "asc"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  -->
-  @buildTableXY=<!--{
-    "table": ["by_status","by_nested,filtered,by_loc"]
-  }-->
 
 **filterBoolClauses**
 
@@ -610,12 +513,6 @@ then specify that ID here. This must match the `id` option if specified.
 
 ID of the `source` this dataGrid is populated from.
 
-**sourceTable**
-
-Where the linked `[source]` control builds a table from it's aggregations (using
-`@buildTableXY`, this can be set to the name of the table to use that table's output as
-the source of data for this dataGrid.
-
 **aggregation**
 
 When linking a `dataGrid` to a `source`, specify the nature of the aggregation.
@@ -647,6 +544,9 @@ Options:
 
 **columns**
 
+  An array of column definition objects for the grid's columns, with each object having
+  the following properties:
+
   * field - required - can be the name of a field in the Elasticsearch document (e.g.
     `metadata.created_by_id`) or one of the following special field names:
 
@@ -654,23 +554,44 @@ Options:
       occurrences.
     * #attr_value:<entity>:<id># - a single custom attribute value. Specify the entity
       name (event (=sample) or occurrence) plus the custom attribute ID as parameters.
-    * #status_icons# - icons representing the record status, confidential, sensitive and
-      zero_abundance status of the record.
     * #data_cleaner_icons# - icons representing the results of data cleaner rule checks.
+    * #datasource_code# - outputs the website and survey ID, with tooltips to show the
+      website and survey dataset name.
     * #event_date# - event (sample) date or date range.
-    * #higher_geography:<type>:<field># - provides the value of a field from one of the
-      associated higher geography locations. Specify the location type term you want to
-      retrieve in `<type>` (e.g. "Country") and the field name to retrieve in `<field>`,
-      one of `id`, `name`, `code`.
+    * #higher_geography:<type>:<field>:<format># - provides the value of a field from one
+      of the associated higher geography locations. The following parameter options are
+      available:
+      * With no additional parameters, provides all available higher geography data.
+      * With the first `<type>` parameter set to the location type term you want to
+        retrieve (e.g. "Country") to provide all field values for that location type
+        (i.e. the `id`, `name`, `code` and `type`).
+      * Additionally provide a second `<field>` parameter to limit the response for the
+        chosen type to a single field. This must be one of `id`, `name`, `code` or `type`.
+      * The output will be formatted as readable text unless the optional third `<format>`
+        parameter is set to `json` in which case JSON is returned.
     * #locality# - a summary of location information including the given location name
       and a list of higher geography locations.
     * #lat_lon# - a formatted latitude and longitude value.
-    * #datasource_code# - outputs the website and survey ID, with tooltips to show the
-      website and survey dataset name.
+    * #null_if_zero:<field># - returns the field value, unless 0 when will be treated as
+      null.
+    * #status_icons# - icons representing the record status, confidential, sensitive and
+      zero_abundance status of the record.
+    * Path to an aggregation's output when using aggregated data.
+
+  When defining the path to a field in the Elasticsearch document, if the path contains
+  aggregation buckets which holds an array, the index of the required bucket can be
+  inserted in the path, for example `by_group.buckets.0.species_count.value`. Or, instead
+  of an index a filter on the bucket contents can be used to select an item at any index
+  by putting a key=value pair in square brackets, e.g.
+  `by_group.buckets.[key=flowering plant].species_count.value`.
 
   * agg - name of the aggregation whose output is to be displayed in this column when
-    using the `autoAggregationTable` aggregation option. Specify the value "doc_count"
-    to use the count of documents in this row's bucket.
+    using the `autoAggregationTable` aggregation option. ****Specify the value "doc_count"
+    to use the count of documents in this row's bucket.*****
+
+
+
+
   * path - where fields are nested in the document response, it may be cleaner to set the
     field to the path to where to find the field in the document in this option. So,
     rather than set the field to `fieldlist.hits.hits.0._source.my_count_agg.value` for
@@ -684,7 +605,8 @@ Options:
   * ifEmpty - string to output when the field value is empty. May contain HTML.
   * caption - title for the column.
   * description
-  * handler
+  * handler - for date and datetime fields, set to `date` or `datetime` to ensure correct
+    formatting.
   * hideBreakpoints - Comma separated list of breakpoints. When a breakpoint is specified
     the column is hidden for pixel sizes between this breakpoint (or zero in the case of
     the smallest breakpoint) and the next highest breakpoint. So, setting a value of "sm"
@@ -705,6 +627,8 @@ Defines which columns are available using the column configuration tool for the
 `dataGrid`. By default all known columns are made available but you may wish to simplify
 the list of columns in some circumstances. Specify an array of field names from the
 Elasticsearch index.
+
+**pivotColumns**
 
 **actions**
 
@@ -845,6 +769,7 @@ following:
 Automatically generating aggregations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+NEEDS REWRITE!
 Generating tabular data from Elasticsearch aggregations is complex and getting the
 settings correct can be tricky, especially where the implications for sorting by different
 columns in the output grid are considered. Therefore the `dataGrid` and `source` controls
@@ -870,11 +795,13 @@ This takes the following approach:
 
 The `source` configuration contains a `@autoAggregationTable` setting which defines the
 following:
-  * `unique_field` - the field name from the document structure to group rows on.
-  * `size` - the number of buckets to load (resulting in a grid row each).
+  * `unique_field` - the field name from the document structure to group rows on. Do not
+     include the `.keyword` suffix for fields with keyword mappings.
   * `fields` - array of additional fields to load which should be fields that have only 1
-    distinct value per unique field value.
-  * `aggS` - list of Elasticsearch aggregation definitions for additional columns. This
+    distinct value per unique field value. Do not include the `.keyword` suffix for fields
+    with keyword mappings.
+  * `size` - the number of buckets to load (resulting in a grid row each).
+  * `agggregation` - list of Elasticsearch aggregation definitions for additional columns. This
     might, for example, be `cardinality` aggregations to find the count of a field's
     unique values.
   * `orderby_aggs` - where an agg can result in memory problems in Elasticsearch, it is
@@ -955,11 +882,28 @@ Options available are:
 
 **source**
 
-ID of the [source] control that provides the data for download.
+ID of the [source] control that provides the data for download. Required unless the
+**linkToDataGrid** option is specified.
+
+**linkToDataGrid**
+
+If specified, uses a dataGrid control to obtain the source and columns configuration.
+
+**caption**
+
+Button caption. Defaults to "Download" but will be translated.
+
+**title**
+
+Button title. Defaults to "Run the download" but will be translated.
 
 **aggregation**
 
-simple|composite
+When downloading aggregated data set to `simple` for nested terms aggregations or
+`composite` for composite aggregations.
+
+When using aggregations, set `@columnsTemplate` to blank to disable the default, then use
+the `@addColumns` option to configure the columns in the download.
 
 **attachToId**
 
@@ -974,29 +918,7 @@ sets may be provided on the warehouse in future.
 **addColumns**
 
 Define additional columns to those defined in the template that you want to include in the
-download file. An associative array where the keys are the titles of each column and the
-values are strings which either hold the name of a field in the Elasticsearch occurrence
-document, or a definition of special processing that is required.
-
-Special processing options available are as follows:
-
-* `[attr value](entity=<entity>,id=<id>)` - returns an attribute value (or semi-colon
-   separated list if multiple), for the entity defined by `<entity>` and for attribute ID
-   defined by `<id>`.
-* `[date string]` - converts event.date_from and event.date_to to a readable date string.
-* `[higher geography](field=<field>,text=<text>,type=<type>)` - Converts
-   location.higher_geography to a string. Configurable output by passing parameters:
-
-    * `<type>` - limit output to this location type term.
-    * `<field>` - limit output to content of this field (name, id, type or code).
-    * `<text>` - set to true to convert the resultant JSON to text.
-
-   E.g. pass type=Country, field=name, text=true to convert to a plaintext Country name.
-* `[media]` - concatenates media to a semi-colon separated string. Each item is
-  represented by the path (within the warehouse upload folder), followed by '|', the
-  caption, then '|' then the licence code if present.
-* `[null if zero](field=<fieldname>)` - returns the value given in the field identified by
-  `<fieldname>`, or null if the value is zero.
+download file. An array which uses the same format as the [dataGrid] @columns option.
 
 **removeColumns**
 

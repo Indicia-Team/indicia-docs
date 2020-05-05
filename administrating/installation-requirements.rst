@@ -16,7 +16,7 @@ For the Warehouse, the requirements are as follows:
 
 * PHP version 5.6, 7.0 or 7.1.
 * The cUrl PHP extension should be enabled.
-* PostgreSQL 9.3 or higher is required.
+* PostgreSQL 9.5 or higher is required.
 * The PostGIS extension for PostgreSQL must be installed.
 * If you want to expose spatial layers using standard web services then an
   installation of GeoServer alongside the Warehouse. This requires a Java SDK.

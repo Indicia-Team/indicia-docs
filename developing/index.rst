@@ -19,6 +19,7 @@ Developing
   client-website/index
   data-model
   locality-data
+  adding-spatial-support
   example-queries
   reporting/index
   web-services/index
