@@ -239,7 +239,6 @@ Helpers API or wishing to port the code to other development languages.
      * * params - array of field/value pairs to provide as a parameter to the report services request.
      * @return array Array of records, with each record being defined by an associative array of field values.
      * @throws exception If report parameter not provided.
-     * @link http://code.google.com/p/indicia/source/browse/#svn%2Fcore%2Ftrunk%2Freports List of report files in the code repository.
      */
     public function getReport($options) {
       if (!isset($options['report']))

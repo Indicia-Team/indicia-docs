@@ -4,9 +4,8 @@ Upgrading the Indicia warehouse
 
 Upgrades for Indicia, including the warehouse, are released periodically and announced on
 `the forum <http://forums.nbn.org.uk/viewforum.php?id=25>`_. The files required for the
-upgrade will be made available `on the downloads page
-<https://code.google.com/p/indicia/downloads/list>`_, note that the files required for an
-upgrade are the same as the files required for a fresh installation.
+upgrade are the same as the files for the latest stable release. The link for this is
+available on the `Github home page <https://github.com/Indicia-Team/warehouse>`_.
 
 If you have an existing Indicia warehouse which needs to be upgraded, the following steps
 are required.

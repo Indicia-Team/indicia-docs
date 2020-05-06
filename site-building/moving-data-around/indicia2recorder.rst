@@ -56,9 +56,7 @@ Existing connection configuration files
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You will need to obtain a file called **indiciaConnection.txt** for the website you are
-connecting to. This may be available from the website administrator. For iRecord, there is
-a connection file available from the `Indicia Google Code Downloads page
-<http://code.google.com/p/indicia/downloads/list>`_.
+connecting to. This may be available from the website administrator.
 
 Save this file to your Public Documents folder or personal My Documents folder in a
 sub-folder called Indicia2Recorder.
