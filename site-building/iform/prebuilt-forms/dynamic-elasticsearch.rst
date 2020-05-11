@@ -99,13 +99,6 @@ The controls available for addition to the page are as follows:
 The `source` control acts as a link from other controls on the page to a set of data from
 Elasticsearch. See :ref:`elasticsearch-report-helper-source`.
 
-[indiciaSource]
-"""""""""""""""
-
-.. todo::
-
-  Implement an indiciaSource control to make this code data source independent.
-
 [dataGrid]
 """"""""""
 

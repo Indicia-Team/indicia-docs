@@ -1,10 +1,16 @@
 Elasticsearch Report Helper
-===========================
+***************************
 
 This class provides functionality for generating reports and maps which use Elasticsearch
 as a datasource rather than the Indicia PostgreSQL database directly. For information on
 setting up Elasticsearch for Indicia see https://github.com/Indicia-Team/support_files/tree/master/Elasticsearch
 and :doc:`../../../developing/rest-web-services/elasticsearch`.
+
+The functionality is based on the principle of a source (a connector to Elasticsearch
+data) plus one or more output controls which provide various views of the data via the
+source. Output controls include data grids, maps and downloads. When constructing a page
+it is possible to build dashboard style functionality by having several sources, e.g. one
+for raw data and one for aggregated data, plus several output controls per source.
 
 This helper can be accessed:
 
@@ -33,67 +39,20 @@ Note that when using PHP directly you should also call the
 `ElasticsearchReportHelper::enableElasticsearchProxy()` method as well to ensure that the
 required configuration for accessing Elasticsearch is added to he page.
 
-Control elements
-----------------
+.. tip::
 
-All output controls (data grids, maps etc) will output their content at the appropriate
-location on the page into a `div` element whose ID matches the `id` option you specify.
-
-If you want to override the creation of a container div and, instead, inject the control
-content into an HTML element of your choice elsewhere on the page, then you can specify
-the CSS id of that element in the `attachToId` option.
-
-The following example shows how a single aggregation request can be injected as rows into
-a table elsewhere on the page::
-
-  [source]
-  @id=sample-agg
-  @size=0
-  @aggregation=<!--{
-    "per_sample": {
-      "terms": {
-        "field": "event.event_id",
-        "min_doc_count": 5,
-        "size": 10000,
-        "order": {
-          "_count": "desc"
-        }
-      }
-    },
-    "stats_per_sample": {
-      "stats_bucket": {
-        "buckets_path": "per_sample._count"
-      }
-    }
-  }-->
-
-  [templatedOutput]
-  @attachToId=sampleAgg
-  @source=sample-agg
-  @repeatField=aggregations.per_sample.buckets
-  @content=<tr><th>Count for {{ key }}</th><td>{{ doc_count }}</td></tr>
-
-  [templatedOutput]
-  @attachToId=sampleTotal
-  @source=sample-agg
-  @content=<div>Count of samples {{ aggregations.stats_per_sample.count }}</div>
-
-  <table>
-    <tbody id="sampleAgg">
-    </tbody>
-  </table>
-  <div id="sampleTotal"></div>
-
-You could also set `attachToId` to the id of a `div` element output elsewhere on the page,
-e.g. part of the theme's header.
+  A good way to use this documentation is to study the examples given for each control
+  and cross-reference to the list of options. Once you've grasped the basics of each
+  control's usage, the list of advanced options provides further configuration
+  possibilities.
 
 Initialisation methods
-----------------------
+======================
 
 .. _elasticsearch-report-helper-enableElasticsearchProxy:
 
 ElasticsearchReportHelper::enableElasticsearchProxy
-"""""""""""""""""""""""""""""""""""""""""""""""""""
+---------------------------------------------------
 
 Prepares the page for interacting with the Elasticsearch proxy.
 
@@ -101,75 +60,95 @@ If coding in PHP directly, this method should be called before adding any other
 ElasticsearchReportHelper controls to the page. It is not necessary to call
 `enableElasticsearchProxy` if using the prebuilt form.
 
-Data access methods
--------------------
+Data access control methods
+===========================
 
-Methods provided by this helper are listed below:
+Methods provided for accessing Elasticsearch data by this helper are listed below:
 
 .. _elasticsearch-report-helper-source:
 
 ElasticsearchReportHelper::source
-"""""""""""""""""""""""""""""""""
+---------------------------------
 
 The `source` control acts as a link from other controls on the page to a set of data from
-Elasticsearch. Think of the `source` as a way of defining your query - by default a
-filtered list of occurrence records but it can also generate data for aggregated reports,
-e.g. a count of records and species by country.
+Elasticsearch. Think of the `source` as a way of defining the output of a query - by
+default a list of occurrence records but it can also generate data for aggregated reports,
+e.g. a count of records and species by country or record counts by species.
 
-A source can declare it's own query filtering (in addition to those specified on the page)
-and can also define an Elasticsearch aggregation if needed. On its own, a source control
-does nothing. Its only when another output control is linked to it that data will be
-fetched and shown on the page.
+A `source` can declare it's own query filtering (in addition to those specified on the
+page) and can also define an Elasticsearch aggregation if needed. On its own, a `source`
+control does nothing. It's only when another output control is linked to it that data
+will be fetched and shown on the page.
+
+When configuring a `source` control the list of available document field names can be
+found in the `document structure documentation
+<https://github.com/Indicia-Team/support_files/blob/master/Elasticsearch/document-structure.md>`_.
+
+Typical configuration examples
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A minimally configured source which lists Elasticsearch documents (each describing an
+occurrence)::
+
+  [source]
+  @id=docs-list
+
+A source which provides geohashed data ready for heat mapping (change the mode to
+'mapGridSquare' for grid square based maps)::
+
+  [source]
+  @id=map-geohash-output
+  @mode=mapGeoHash
+
+A source which lists species using a term aggregation::
+
+  [source]
+  @id=species-list
+  @mode=termAggregation
+  @uniqueField=taxon.accepted_taxon_id
+  @fields=[
+    "taxon.kingdom",
+    "taxon.order",
+    "taxon.family",
+    "taxon.accepted_name"
+  ]
+
+A source which provides data aggregated to show species counts by recorder using an
+Elasticsearch composite aggregation. In this example, because of the potentially high
+number of recorders to aggregate on we use an alternative sort aggregation for this
+column which reduces the precision and associated memory requirements::
+
+  [source]
+  @id=recorder-summary
+  @sort={"event.recorded_by.keyword":"desc"}
+  @mode=compositeAggregation
+  @uniqueField=event.recorded_by
+  @size=30
+  @aggregation=<!--{
+    "species_count": {
+      "cardinality": {
+        "field": "taxon.species_taxon_id"
+      }
+    }
+  }-->
+  @sortAggregation=<!--{
+    "species_count": {
+      "cardinality": {
+        "field": "taxon.species_taxon_id",
+        "precision_threshold": 100
+      }
+    }
+  }-->
+
+Options
+^^^^^^^
 
 The following options are available:
 
-**id**
-
-All `source` controls require a unique ID which allows other data bound controls to
-refer to it.
-
-**size**
-
-Number of documents (each of which represents an occurrence) matching the current query to
-return. This might be the size of each page in a report grid, or set this to zero for
-aggregations where only summary data are required.
-
-**sort**
-
-For non-aggregated output or autoAggregationTables, object where the properties are the
-field names to sort by and the values are either "asc" or "desc" as appropriate. Sets the
-initial sort order on the table. E.g.::
-
-  [source]
-  @id=sorted-data
-  @sort={"id":"desc"}
-
-If using autoAggregationTables and sorting by an aggregate column, then the name given
-should be the name of the aggregate, not the name of the underlying field in the document.
-In autoAggregationTables mode it is also possible to specify either the field specified
-in the `unique_field` option or any of the fields specified in the additional `fields`
-array option.
-
-**from**
-
-Optional number of documents to offset by. Defaults to 0.
-
-**filterPath**
-
-By default, requests for documents from Elasticsearch contain the entire document stored
-for each occurrence record. This can result in larger network packets than necessary
-especially where only a few fields are required. The filter path allows configuration of
-the fields returned for each document using the Elasticsearch response filter.
-See https://www.elastic.co/guide/en/elasticsearch/reference/7.0/common-options.html#common-options-response-filtering.
-
-**initialMapBounds**
-
-When this source provides data to load onto a map, set to true to use this source's
-dataset to define the bounds of the map on initial loading.
-
 **aggregation**
 
-Use this property to declare one or more Elasticsearch aggregations in JSON format. See
+In `termAggregation` or `compositeAggregation` mode, provide a list of aggregations which
+provide the output for additional columns in the dataset in JSON format. See
 https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html.
 You can use Kibana to build an aggregation then inspect the request to extract the
 required JSON data. The value provided should be a JSON object where the property names
@@ -182,132 +161,124 @@ of the format `{{ name }}` where the `name` can be one of the following:
   * indicia_user_id - the user's warehouse user ID.
   * a parameter from the URL query string.
 
-Here's an example aggregation that lists samples in the current filter::
+When using termAggregation or compositeAggregation mode, the keys of this object represent
+additional calculated fields that will be added to the output dataset. Normally this means
+a single bucket aggregation per key but nested aggregations can be expanded into table
+columns using a `dataGrid` control.
 
-  [source]
-  @id=samples-data
-  @size=0
-  @aggregation=<!--
-    {
-      "samples": {
-        "composite" : {
-          "size": 50,
-          "sources" : [
-            { "event_id": { "terms" : { "field": "event.event_id" } } },
-            { "date_start": { "terms" : { "field": "event.date_start" } } },
-            { "date_end": { "terms" : { "field": "event.date_end" } } },
-            { "output_sref": { "terms" : { "field": "location.output_sref.keyword" } } },
-            { "recorded_by": { "terms" : { "field": "event.recorded_by.keyword" } } }
-          ]
-        },
-        "aggs": {
-          "count": {
-            "cardinality": {
-              "field": "taxon.accepted_taxon_id"
-            }
-          }
-        }
-      }
-  }
-  -->
+**fields**
 
-**countAggregation**
+An array of document field names to include in the output when using `termAggregation` or
+`compositeAggregation` mode. This list is for the non-aggregated fields, for calculated
+aggregated data fields use the `@aggregation` option.
 
-When using a composite aggregation, the Elasticsearch request provides no information
-regarding the total records count, preventing useful information from being shown in a
-dataGrid's footer. To overcome this, provide a 2nd value_count aggregation which
-identifies the total count of rows based on the unique identifier for each row. For
-example in the example given for the aggregation option above, the unique identifier for
-each row is `event.event_id`. Therefore the following could be used::
+**id**
 
-  @countAggregation=<!--
-    {
-      "samples": {
-        "value_count": {
-          "field": "event.event_id"
-        }
-      }
-    }
-  -->
+All `source` controls require a unique ID which allows other data bound controls to
+refer to it.
 
-Now, when the grid is initially populated or the filter populating the grid is updated,
-a request is sent to Elasticsearch to get the value count output and the grid's footer is
-updated.
+**mode**
 
-**aggregationMapMode**
+Set the `@mode` option to define the overall behaviour of the `source`.
 
 An Indicia occurrence document in Elasticsearch contains several pieces of spatial data.
 The ones which are relevant to aggregated data are the `location.point` field which
 contains a latidude and longitude, plus the `location.grid_square` fields which contain
 the center of the covering grid square in 1km, 2km and 10km sizes.
 
-When an aggregated source is used to provide map output, the following aggregation types
-are supported:
+* docs (default) - retrieve a set of Elasticsearch documents.
+* mapGeoHash - aggregates retrieved data using an Elasticsearch `geohash_grid` aggregation
+  based on the `location.point` field value, suitable for providing data to a heat map
+  layer. The precision of the aggregation is automatically controlled depending on the map
+  zoom.
+* mapGridSquare - aggregates retrieved data using an Elasticsearch `terms` aggregation on
+  `location.grid_square` field values. These contain the centres of grid squares covering
+  the record at 1km, 2km and 10km resolution. The default behaviour is to automatically
+  select the grid square size depending on map zoom but this can be overriden by setting
+  `@mapGridSquareSize` to the size of the required grid square in metres (10000, 2000 or
+  1000).
+* compositeAggregation - generates a composite aggregation from the `@uniqueField`,
+  `@fields` and `@aggregation` settings. Similar to the `termAggregation` mode but with
+  different restrictions.
+* termAggregation- generates a term aggregation from the `@uniqueField`, `@fields` and
+  `@aggregation` settings. Similar to the `compositeAggregation` mode but with different
+  restrictions.
 
-* geoHash - a geo_hash aggregation on the location.point (default)
-* gridSquare - an aggregation on `location.grid_square.srid` then one of the grid square
-  centre fields to build an atlas style map based on grid squares.
+**size**
 
-The following example illustrates a `source` that provides data to a 10km grid square map:
+Number of documents (each of which represents an occurrence) matching the current query to
+return. This might be the size of each page in a report grid for example. When `@mode` is
+set to `compositeAggregation` or `termAggregation` the size passed here is used to
+determine the number of aggregation buckets to retrieve and the number of documents to
+retrieve is set to zero.
 
-.. code-block:: none
+**sort**
+
+Sets the default sort order of the source. Object where the properties are the field
+names to sort by and the values are either "asc" or "desc" as appropriate. E.g.::
+
+  [source] @id=sorted-data @sort={"id":"desc"}
+
+If using autoAggregationTables and sorting by an aggregate column, then the name given
+should be the name of the aggregate, not the name of the underlying field in the document.
+In autoAggregationTables mode it is also possible to specify either the field specified
+in the `unique_field` option or any of the fields specified in the additional `fields`
+array option.
+
+**uniqueField**
+
+Used when the mode is `compositeAggregation` or `termAggregation`. Name of a field in the
+Elasticsearch document which has one unique value per row in the output. This will
+typically be a field containing an ID or key, for example when each row represents a taxon
+you might set `uniqueField` to `taxon.accepted_taxon_id`, or when each row represents a
+sample it could be set to `event.event_id`.
+
+Setting this value allows the source control to:
+* use the cardinality of this field as a quick way to count the output, since counting is
+  not directly possible using a composite aggregation.
+* For terms aggregations, this field is used as the outermost terms aggregation. Other
+  non-aggregated fields will be attached to the output using a top hits aggregation (see
+  https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-top-hits-aggregation.html)
+
+Advanced options
+^^^^^^^^^^^^^^^^
+
+**filterPath**
+
+By default, requests for documents from Elasticsearch contain the entire document stored
+for each occurrence record. This can result in larger network packets than necessary
+especially where only a few fields are required. The filter path allows configuration of
+the fields returned for each document using the Elasticsearch response filter.
+
+Use this option with care, since you need to understand the structure of the response and
+which parts are essential to the operation of the controls using the data. In the
+following example, data for a `dataGrid` are limited to information relating to the total
+row count and occurrence event::
 
   [source]
-  @id=mapData
-  @size=0
-  @initialMapBounds=true
-  @filterBoundsUsingMap=map
-  @aggregationMapMode=gridSquare
-  @aggregation=<!--
-    {
-      "filter_agg": {
-        "filter": {
-          "geo_bounding_box": {}
-        },
-        "aggs": {
-          "by_srid": {
-            "terms": {
-              "field": "location.grid_square.srid",
-              "size": 1000,
-              "order": {
-                "_count": "desc"
-              }
-            },
-            "aggs": {
-              "by_square": {
-                "terms": {
-                  "field": "location.grid_square.10km.centre",
-                  "size": 10000,
-                  "order": {
-                    "_count": "desc"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  -->
+  @id=grid-data
+  @filterPath=hits.total,hits.hits._source.event
 
-  [map]
-  @id=map
-  @source=<!--{
-    "mapData": "All records"
-  }-->
-  @styles=<!--{
-    "mapData":{
-      "type":"gridSquare",
-      "options":{"color":"#333333","weight":1,"size":10000}
-    }
-  }-->
+  [dataGrid]
+  @source=grid-data
 
-To make this map dynamic so the grid square size changes from 10km to 2km, then 1km as you
-zoom in, change the field name for the grid square aggregation from
-`location.grid_square.10km.centre` to `autoGridSquareField`.
+As the example uses the default columns which includes taxon and location based values,
+some data columns in the grid will be empty. Removing `hits.total` from the value will
+cause a JavaScript error since this would remove essential information required for grid
+operation.
 
-Note that the generated table will always have a column called key which are the keys of
-the inner aggregation (location names in this case).
+See https://www.elastic.co/guide/en/elasticsearch/reference/7.0/common-options.html#common-options-response-filtering.
+
+**from**
+
+In `docs` mode, optional number of documents to offset by. Defaults to 0 and is normally
+controlled by a `dataGrid`'s paging behaviour.
+
+**initialMapBounds**
+
+When this source provides data to load onto a map, set to true to use this source's
+dataset to define the bounds of the map on initial loading. This option is automatically
+set when using one of the map aggregation modes.
 
 **filterBoolClauses**
 
@@ -340,46 +311,25 @@ of the species selected in the grid. This requires 2 `[source]` controls, a `[da
 and a `[leafletMap]`::
 
   [source]
-  @id=gridData
+  @id=grid-data
   @size=30
 
   [source]
   @id=mapData
-  @size=0
   @filterSourceGrid=records-grid
   @filterSourceField=taxon.accepted_taxon_id
   @filterField=taxon.accepted_taxon_id
-  @aggregation=<!--
-    {
-      "filter_agg": {
-        "filter": {
-          "geo_bounding_box": {}
-        },
-        "aggs": {
-          "geo_agg": {
-            "geohash_grid": {},
-            "aggs": {
-              "point_agg": {
-                "geo_centroid": {
-                  "field": "location.point"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  -->
+  @mode=mapGeoHash
 
   [dataGrid]
   @id=records-grid
-  @source=gridData
+  @source=grid-data
   @columms=
 
   [leafletMap]
   @id=map
   @source=<!--{
-    "mapData": "Verified records of selected species"
+    "map-data": "Verified records of selected species"
   }-->
 
 Can also be set to a JSON array of table IDs, in which case the @filterSourceField and
@@ -397,11 +347,12 @@ See the description of `filterSourceGrid` above.
 
 **filterBoundsUsingMap**
 
-If source is for a geohash aggregation used to populate a map layer then you probably
-don't want the aggregation to calculate for the entire world view. For example, a heat
-map aggregation should increase its precision as you zoom the map in. In this case, set a
-filter for the geo_bounding_box to an empty object (`{}`). This will then automatically
-populate with the map's bounding box.
+This option is automatically set when using one of the map modes. If manually setting up
+the aggregation and the source is for a geohash aggregation used to populate a map layer
+then you probably don't want the aggregation to calculate for the entire world view. For
+example, a heat map aggregation should increase its precision as you zoom the map in. In
+this case, set a filter for the geo_bounding_box to an empty object (`{}`). This will
+then automatically populate with the map's bounding box.
 
 For example::
 
@@ -452,16 +403,17 @@ For example::
   }-->
 
 Data output methods
--------------------
+===================
 
 .. _elasticsearch-report-helper-customScript:
 
 ElasticsearchReportHelper::customScript
-""""""""""""""""""""""""""""""""""""""""""
+---------------------------------------
 
 A flexible output of ES data which uses a custom JavaScript function to build the HTML.
 
-Options available are:
+Options
+^^^^^^^
 
 **id**
 
@@ -484,10 +436,12 @@ formats the output. Takes 3 parameters:
 * sourceSettings - settings object for the source the control is linked to.
 * response - the response from Elasticsearch to be formatted by the function.
 
-ElasticsearchReportHelper::dataGrid
-"""""""""""""""""""""""""""""""""""
+.. _elasticsearch-report-helper-dataGrid:
 
-Generates a table containing Elasticsearch data. The `dataGrid` control has built in
+ElasticsearchReportHelper::dataGrid
+-----------------------------------
+
+Generates an HTML table containing Elasticsearch data. The `dataGrid` control has built in
 support for sorting, filtering, column configuration and pagination.
 
 Table rows holding data have the class `data-row` to identify them within the code. They
@@ -496,139 +450,78 @@ feature on the map). For rows linking to raw Elasticsearch documents, as opposed
 aggregated data, there is a class `zero-abundance` added when the record is a record of
 absence. Finally, additional classes can be added to rows using the `@rowClasses` option.
 
-The following options are available:
+Typical configuration examples
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**id**
+A minimal configuration for a `dataGrid` showing docs from a `source` with default
+columns::
 
-Optional. Specify an ID for the `dataGrid` control allowing you to refer to it from
-elsewhere, e.g. CSS. If not specified, then a unique ID is generated by the code which
-cannot be relied on.
+  [source]
+  @id=grid-data
 
-**attachToId**
+  [dataGrid]
+  @source=grid-data
 
-If you want to output the dataGrid in an existing element on the page with a known CSS ID
-then specify that ID here. This must match the `id` option if specified.
+Another minimal configuration of a `dataGrid`, this time auto-generating it's columns
+from a `source` in aggregation mode::
 
-**source**
+  [source]
+  @id=species-list
+  @mode=termAggregation
+  @uniqueField=taxon.accepted_taxon_id
+  @fields=<!--[
+    "taxon.kingdom",
+    "taxon.order",
+    "taxon.family",
+    "taxon.accepted_name"
+  ]-->
+  @aggregation=<!--{
+    "records": {
+      "cardinality": {
+        "field": "id"
+      }
+    }
+  }-->
 
-ID of the `source` this dataGrid is populated from.
+  [dataGrid]
+  @source=species-list
 
-**aggregation**
+A `dataGrid` linked to a `source` with a composite aggregation, this time specifying the
+columns to show::
 
-When linking a `dataGrid` to a `source`, specify the nature of the aggregation.
-Options:
+  [source]
+  @id=recorder-summary
+  @sort={"event.recorded_by.keyword":"desc"}
+  @mode=compositeAggregation
+  @uniqueField=event.recorded_by
+  @size=30
+  @aggregation=<!--{
+      "species_count": {
+        "cardinality": {
+          "field": "taxon.species_taxon_id"
+        }
+      }
+  }-->
+  @sortAggregation=<!--{
+    "species_count": {
+      "cardinality": {
+        "field": "taxon.species_taxon_id",
+        "precision_threshold": 100
+      }
+    }
+  }-->
 
-  * simple
-  * composite - use Elasticsearch `composite` aggregation with a list of fields specified
-    in the `_source` option to group by with other values calculated by sub-aggregations.
-    This is a very fast way of aggregating data and paging through grouped data but it has
-    some limitations:
-      * The aggregation response includes no information about the total count of buckets
-        (grouped values) so it is necessary to specify a 2nd `@countAggregation` option
-        which counts the distinct values (e.g. using `cardinality` aggregations). This can
-        normally be done on just one key field.
-      * It is not possible to sort a composite aggregation by the sub-aggregations which
-        provide additional calculated values. For example, if a composite aggregation is
-        used to list species with a count of records, then the aggregation `_source` can
-        list fields such as the species name or taxonomy data which can be sorted on. It
-        is not possible to sort on the count of records since that is provided in a sub-
-        aggregation.
-  * autoAggregationTable - if set then expects the linked source to use the
-    `autoAggregationTable` to generate its aggregation data. This provides a simpler
-    way of generating a table of data that outputs aggregated data grouped by a key
-    field. See the description below, however note that the method used (to aggregate
-    on a simple terms aggregation, use a top-hits aggregation to retrieve additional field
-    data, plus sub-aggregations for stats) has the following limits:
-      * There is no facility for retrieving the 2nd or subsequent pages of data - you can
-        only view a single page.
+  [dataGrid]
+  @id=recorders-grid
+  @source=recorder-summary
+  @columns=<!--[
+    {"caption": "Recorder", "field": "event.recorded_by"},
+    {"caption": "Records", "field": "doc_count"},
+    {"caption": "Species", "field": "species_count"}
+  ]-->
 
-**columns**
-
-  An array of column definition objects for the grid's columns, with each object having
-  the following properties:
-
-  * field - required - can be the name of a field in the Elasticsearch document (e.g.
-    `metadata.created_by_id`) or one of the following special field names:
-
-    * #associations# - a list of the species names linked to this record as associated
-      occurrences.
-    * #attr_value:<entity>:<id># - a single custom attribute value. Specify the entity
-      name (event (=sample) or occurrence) plus the custom attribute ID as parameters.
-    * #data_cleaner_icons# - icons representing the results of data cleaner rule checks.
-    * #datasource_code# - outputs the website and survey ID, with tooltips to show the
-      website and survey dataset name.
-    * #event_date# - event (sample) date or date range.
-    * #higher_geography:<type>:<field>:<format># - provides the value of a field from one
-      of the associated higher geography locations. The following parameter options are
-      available:
-      * With no additional parameters, provides all available higher geography data.
-      * With the first `<type>` parameter set to the location type term you want to
-        retrieve (e.g. "Country") to provide all field values for that location type
-        (i.e. the `id`, `name`, `code` and `type`).
-      * Additionally provide a second `<field>` parameter to limit the response for the
-        chosen type to a single field. This must be one of `id`, `name`, `code` or `type`.
-      * The output will be formatted as readable text unless the optional third `<format>`
-        parameter is set to `json` in which case JSON is returned.
-    * #locality# - a summary of location information including the given location name
-      and a list of higher geography locations.
-    * #lat_lon# - a formatted latitude and longitude value.
-    * #null_if_zero:<field># - returns the field value, unless 0 when will be treated as
-      null.
-    * #status_icons# - icons representing the record status, confidential, sensitive and
-      zero_abundance status of the record.
-    * Path to an aggregation's output when using aggregated data.
-
-  When defining the path to a field in the Elasticsearch document, if the path contains
-  aggregation buckets which holds an array, the index of the required bucket can be
-  inserted in the path, for example `by_group.buckets.0.species_count.value`. Or, instead
-  of an index a filter on the bucket contents can be used to select an item at any index
-  by putting a key=value pair in square brackets, e.g.
-  `by_group.buckets.[key=flowering plant].species_count.value`.
-
-  * agg - name of the aggregation whose output is to be displayed in this column when
-    using the `autoAggregationTable` aggregation option. ****Specify the value "doc_count"
-    to use the count of documents in this row's bucket.*****
-
-
-
-
-  * path - where fields are nested in the document response, it may be cleaner to set the
-    field to the path to where to find the field in the document in this option. So,
-    rather than set the field to `fieldlist.hits.hits.0._source.my_count_agg.value` for
-    example, set the `path` to `fieldlist.hits.hits.0._source` and the field to
-    `my_count_agg.value`, resulting in cleaner class names in the code among other
-    benefits.
-  * rangeField - name of a second field in the Elasticsearch document which defines a
-    range when combined with the field's value. If the value of the field pointed to
-    by `rangeField` is different to the value pointed to by `field` then the output will
-    be of the form `value1 to value2`.
-  * ifEmpty - string to output when the field value is empty. May contain HTML.
-  * caption - title for the column.
-  * description
-  * handler - for date and datetime fields, set to `date` or `datetime` to ensure correct
-    formatting.
-  * hideBreakpoints - Comma separated list of breakpoints. When a breakpoint is specified
-    the column is hidden for pixel sizes between this breakpoint (or zero in the case of
-    the smallest breakpoint) and the next highest breakpoint. So, setting a value of "sm"
-    makes a column disappear between 760 and 992 pixels. Therefore it is more likely that
-    you want to set it to "xs,sm" which means anything under 992 pixels. Following this
-    logic, setting "lg" hides the column for any device over 1200 pixels.
-    "xs,sm" to . The default breakpoints are:
-    * xs: 480 (extra small)
-    * sm: 760 (small)
-    * md: 992 (medium)
-    * lg: 1200 (large)
-    These defaults can be set by specifying responsiveOptions.breakpoints.
-  * dataType="date|numeric"
-
-**availableColumns**
-
-Defines which columns are available using the column configuration tool for the
-`dataGrid`. By default all known columns are made available but you may wish to simplify
-the list of columns in some circumstances. Specify an array of field names from the
-Elasticsearch index.
-
-**pivotColumns**
+Options
+^^^^^^^
 
 **actions**
 
@@ -677,6 +570,94 @@ page with a URL that might look like:
   ]
   -->
 
+**columns**
+
+  An array of column definition objects for the grid's columns, with each object having
+  the following properties:
+
+  * caption - title for the column.
+  * description - information displayed as a hint when hovering over the column title.
+  * field - required - can be the name of a field in the Elasticsearch document (e.g.
+    `metadata.created_by_id`) or one of the following special field names:
+
+    * #associations# - a list of the species names linked to this record as associated
+      occurrences.
+    * #attr_value:<entity>:<id># - a single custom attribute value. Specify the entity
+      name (event (=sample) or occurrence) plus the custom attribute ID as parameters.
+    * #data_cleaner_icons# - icons representing the results of data cleaner rule checks.
+    * #datasource_code# - outputs the website and survey ID, with tooltips to show the
+      website and survey dataset name.
+    * #event_date# - event (sample) date or date range.
+    * #higher_geography:<type>:<field>:<format># - provides the value of a field from one
+      of the associated higher geography locations. The following parameter options are
+      available:
+      * With no additional parameters, provides all available higher geography data.
+      * With the first `<type>` parameter set to the location type term you want to
+        retrieve (e.g. "Country") to provide all field values for that location type
+        (i.e. the `id`, `name`, `code` and `type`).
+      * Additionally provide a second `<field>` parameter to limit the response for the
+        chosen type to a single field. This must be one of `id`, `name`, `code` or `type`.
+      * The output will be formatted as readable text unless the optional third `<format>`
+        parameter is set to `json` in which case JSON is returned.
+    * #locality# - a summary of location information including the given location name
+      and a list of higher geography locations.
+    * #lat_lon# - a formatted latitude and longitude value.
+    * #null_if_zero:<field># - returns the field value, unless 0 when will be treated as
+      null.
+    * #status_icons# - icons representing the record status, confidential, sensitive and
+      zero_abundance status of the record.
+    * Path to an aggregation's output when using aggregated data.
+
+  When defining the path to a field in the Elasticsearch document, if the path contains
+  aggregation buckets which holds an array, the index of the required bucket can be
+  inserted in the path, for example `by_group.buckets.0.species_count.value`. Or, instead
+  of an index a filter on the bucket contents can be used to select an item at any index
+  by putting a key=value pair in square brackets, e.g.
+  `by_group.buckets.[key=flowering plant].species_count.value`.
+
+  * path - where fields are nested in the document response, it may be cleaner to set the
+    field to the path to where to find the field in the document in this option. So,
+    rather than set the field to `fieldlist.hits.hits.0._source.my_count_agg.value` for
+    example, set the `path` to `fieldlist.hits.hits.0._source` and the field to
+    `my_count_agg.value`, resulting in cleaner class names in the code among other
+    benefits.
+  * rangeField - name of a second field in the Elasticsearch document which defines a
+    range when combined with the field's value. If the value of the field pointed to
+    by `rangeField` is different to the value pointed to by `field` then the output will
+    be of the form `value1 to value2`.
+  * ifEmpty - string to output when the field value is empty. May contain HTML.
+  * handler - for date and datetime fields, set to `date` or `datetime` to ensure correct
+    formatting.
+  * hideBreakpoints - Comma separated list of breakpoints. When a breakpoint is specified
+    the column is hidden for pixel sizes between this breakpoint (or zero in the case of
+    the smallest breakpoint) and the next highest breakpoint. So, setting a value of "sm"
+    makes a column disappear between 760 and 992 pixels. Therefore it is more likely that
+    you want to set it to "xs,sm" which means anything under 992 pixels. Following this
+    logic, setting "lg" hides the column for any device over 1200 pixels.
+    "xs,sm" to . The default breakpoints are:
+    * xs: 480 (extra small)
+    * sm: 760 (small)
+    * md: 992 (medium)
+    * lg: 1200 (large)
+    These defaults can be set by specifying responsiveOptions.breakpoints.
+  * dataType="date|numeric"
+
+If not provided, the list of columns will default depending on the source settings.
+When the source mode is an aggregation, all the fields and aggregation outputs are
+included in the list of columns. When the source mode is docs, a principle attributes of
+the occurrence record are included.
+
+**cookies**
+
+Set to false to disable use of cookies to remember the selected columns and their
+ordering. Cookies are only enabled when there is a specific `id` option set for this grid.
+
+**id**
+
+Optional. Specify an ID for the `dataGrid` control allowing you to refer to it from
+elsewhere, e.g. CSS. If not specified, then a unique ID is generated by the code which
+cannot be relied on.
+
 **includeColumnHeadings**
 
 Set to false to disable column headings.
@@ -694,12 +675,68 @@ Set to false to disable the pager row at the bottom of the table.
 Set to include a multi-select tool which enables tickboxes for each row. Normally used
 to support multiple record verification.
 
+**rowClasses**
+
+An array of classes that will be included in the `class` attribute for each `<tr>` element
+in the grid's body. Each may contain token replacements for the fields in the row's document by
+wrapping the field name in square brackets. For example::
+
+  @rowClasses=<!--[
+    "table-row",
+    "status-[identification.verification_status]"
+  ]-->
+
+Since rows always have a class called `data-row` the above configuration might output the
+following:
+
+.. code-block:: html
+
+  <tr class="data-row table-row status-V">...</tr>
+
+**scrollY**
+
+Set to a CSS height in pixels (e.g. "800px") to display a scrollbar on the table body with
+this as the maximum height. Allows the data to be scrolled whilst leaving the header
+fixed. Set to a negative height (e.g. "-50px") to set the table body to occupy all
+available space to the bottom of the screen minus the height given.
+
+**source**
+
+ID of the `source` this dataGrid is populated from.
+
+**sortable**
+
+Set to false to disable sorting by clicking the sort indicator icons in the heading row.
+
+Advanced options
+^^^^^^^^^^^^^^^^
+
 **applyFilterRowToSources**
 
 If a filter row is present in the grid, then changing the filter row contents will
 automatically apply the filter to the source the dataGrid is linked to. If any additional
 sources should also be filtered (e.g. sources driving maps or charts from the same data)
 then supply a JSON array of source IDs in this parameter.
+
+**attachToId**
+
+If you want to output the dataGrid in an existing element on the page with a known CSS ID
+then specify that ID here. This must match the `id` option if specified.
+
+**autoResponsiveCols** - set to true to automatically hide columns responsively when below
+each breakpoint. Priority is set by position in the grid with columns on the right being
+hidden first. Overrides `hideBreakpoints` setting for each column.
+
+**autoResponsiveExpand** - set to true to automatically expand any additional information
+beneath the row when cells are dropped due to responsive hide behaviour. Otherwise the
+user has to click a + button to view the hidden information.
+
+**availableColumns**
+
+Defines which columns are available using the column configuration tool for the
+`dataGrid`. By default all known columns are made available but you may wish to simplify
+the list of columns in some circumstances. Specify an array of field names from the
+Elasticsearch index.
 
 **responsive**
 
@@ -722,213 +759,155 @@ the table responsive. Can include:
         "lg": 1200
       }
 
-**autoResponsiveCols** - set to true to automatically hide columns responsively when below
-each breakpoint. Priority is set by position in the grid with columns on the right being
-hidden first. Overrides `hideBreakpoints` setting for each column.
-
-**autoResponsiveExpand** - set to true to automatically expand any additional information
-beneath the row when cells are dropped due to responsive hide behaviour. Otherwise the
-user has to click a + button to view the hidden information.
-
-**sortable**
-
-Set to false to disable sorting by clicking the sort indicator icons in the heading row.
-
-**scrollY**
-
-Set to a CSS height in pixels (e.g. "800px") to display a scrollbar on the table body with
-this as the maximum height. Allows the data to be scrolled whilst leaving the header
-fixed. Set to a negative height (e.g. "-50px") to set the table body to occupy all
-available space to the bottom of the screen minus the height given.
-
-**cookies**
-
-Set to false to disable use of cookies to remember the selected columns and their
-ordering. Cookies are only enabled when there is a specific `id` option set for this grid.
-
-**rowClasses**
-
-An array of classes that will be included in the `class` attribute for each `<tr>` element
-in the grid's body. Each may contain token replacements for the fields in the row's document by
-wrapping the field name in square brackets. For example::
-
-  @rowClasses=<!--[
-    "table-row",
-    "status-[identification.verification_status]"
-  ]-->
-
-Since rows always have a class called `data-row` the above configuration might output the
-following:
-
-.. code-block:: html
-
-  <tr class="data-row table-row status-V">...</tr>
-
-.. _elasticsearch-report-helper-autoAggregationTable:
-
-Automatically generating aggregations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-NEEDS REWRITE!
-Generating tabular data from Elasticsearch aggregations is complex and getting the
-settings correct can be tricky, especially where the implications for sorting by different
-columns in the output grid are considered. Therefore the `dataGrid` and `source` controls
-have settings to automate the generation of the correct aggregation data for the request.
-This takes the following approach:
-
-  * A `unique_field` is defined. One row per value in this field will be returned. For
-    example, to list samples you might set this to `event.event_id`, or to list taxa you
-    might set this to `taxon.accepted_taxon_id`.
-  * Additional fields can be added to the response. Rather than use nested
-    sub-aggregations which result in a lot of nesting in the response data, a single
-    sub-aggregation is specified which uses the `top_hits` aggregation to find a single
-    hit per unique field value, then retrieve fields from that hit using the document
-    `_source` option. As long as the fields specified have a single value per unique_field
-    value, it doesn't actually matter which Elasticsearch document is used to obtain the
-    field values.
-  * Additional sub-aggregations (not nested) are added for each calculated value, e.g.
-    the count of records.
-  * The aggregation autogeneration code will automatically handle sorting, adding
-    an extra `max` aggregation to find a single value for the field being sorted on when
-    sorting on a field from the top_hits output. The aggregation being sorted on can then
-    be specified in the outermost aggregation to define the overall sort order.
-
-The `source` configuration contains a `@autoAggregationTable` setting which defines the
-following:
-  * `unique_field` - the field name from the document structure to group rows on. Do not
-     include the `.keyword` suffix for fields with keyword mappings.
-  * `fields` - array of additional fields to load which should be fields that have only 1
-    distinct value per unique field value. Do not include the `.keyword` suffix for fields
-    with keyword mappings.
-  * `size` - the number of buckets to load (resulting in a grid row each).
-  * `agggregation` - list of Elasticsearch aggregation definitions for additional columns. This
-    might, for example, be `cardinality` aggregations to find the count of a field's
-    unique values.
-  * `orderby_aggs` - where an agg can result in memory problems in Elasticsearch, it is
-    possible to specify a less resource-intensive agg of the same name in the
-    `orderby_aggs` option which performs the sort. For example, the cardinality agg type
-    has a `precision_threshold` option which reduces memory requirements, useful when to
-    sort accurately requires a count across the entire dataset.
-
-Once the source is configured, all that remains is to specify columns in the `dataGrid`
-with a list of fields, or using the `agg` option of the column when pointing to one of the
-aggregations.
-
-Here's an example configuration::
-
-  <label for="filter-search">Search:</label>
-  <input type="text" id="filter-search" class="es-filter-param" data-es-bool-clause="must" data-es-query-type="query_string" />
-
-  [source]
-  @id=samplesData
-  @autoAggregationTable=<!--
-  {
-    "unique_field": "event.event_id",
-    "size": 20,
-    "fields": [
-      "event.date_start",
-      "event.date_end"
-    ],
-    "aggs": {
-      "occs_count": {
-        "cardinality": {
-          "field": "id"
-        }
-      },
-      "species_count": {
-        "cardinality": {
-          "field": "taxon.species_taxon_id"
-        }
-      }
-    },
-    "orderby_aggs": {
-      "species_count": {
-        "cardinality": {
-          "field": "taxon.species_taxon_id",
-          "precision_threshold": 100
-        }
-      }
-    }
-  }
-  -->
-
-  [dataGrid]
-  @id=samples-grid
-  @source=samplesData
-  @aggregation=autoAggregationTable
-  @columns=<!--[
-    {
-      "caption": "ID",
-      "field": "event.event_id"
-    },
-    {
-      "caption": "Date",
-      "field": "#event_date#"
-    },
-    {"caption": "Records", "agg": "occs_count"},
-    {"caption": "Species", "agg": "species_count"}
-  ]-->
-
 .. _elasticsearch-report-helper-download:
 
 ElasticsearchReportHelper::download
-"""""""""""""""""""""""""""""""""""
+-----------------------------------
 
 A button with associated progress display for generating downloadable zip files of CSV
 data from an associated [source] control. Files are added to a list of downloads and are
 kept available on the server for a period of time.
 
-Options available are:
+Typical configuration examples
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**source**
+A minimal configuration to download a set of documents (occurrences)::
 
-ID of the [source] control that provides the data for download. Required unless the
-**linkToDataGrid** option is specified.
+  [source]
+  @id=data-to-download
 
-**linkToDataGrid**
+  [download]
+  @source=data-to-download
 
-If specified, uses a dataGrid control to obtain the source and columns configuration.
+A download for a limited columns set::
+
+  [source]
+  @id=data-to-download
+
+  [download]
+  @source=data-to-download
+  @columnsTemplate=
+  @addColumns=<!--[
+    {"caption": "Recorder", "field": "event.recorded_by"},
+    {"caption": "Date", "field": "#event_date#"},
+    {"caption": "Grid ref.", "field": "location.output_sref"},
+    {"caption": "Taxon", "field": "taxon.accepted_name"}
+  ]-->
+
+A `download` using a `source` in term aggregation mode::
+
+  [source]
+  @id=recorder-summary
+  @sort={"event.recorded_by.keyword":"desc"}
+  @mode=termAggregation
+  @uniqueField=event.recorded_by
+  @size=30
+  @aggregation=<!--{
+      "species_count": {
+        "cardinality": {
+          "field": "taxon.species_taxon_id"
+        }
+      }
+  }-->
+
+  [download]
+  @source=recorder-summary
+
+A `download` using a `dataGrid` to define the columns in the resulting file::
+
+  [source]
+  @id=recorder-summary
+  @sort={"event.recorded_by.keyword":"desc"}
+  @mode=compositeAggregation
+  @uniqueField=event.recorded_by
+  @size=30
+  @aggregation=<!--{
+      "species_count": {
+        "cardinality": {
+          "field": "taxon.species_taxon_id"
+        }
+      }
+  }-->
+  @orderbyAggregation=<!--{
+    "species_count": {
+      "cardinality": {
+        "field": "taxon.species_taxon_id",
+        "precision_threshold": 100
+      }
+    }
+  }-->
+
+  [dataGrid]
+  @id=recorders-grid
+  @source=recorder-summary
+  @columns=<!--[
+    {
+      "caption": "Recorder",
+      "field": "event.recorded_by"
+    },
+    {"caption": "Records", "field": "doc_count"},
+    {"caption": "Species", "field": "species_count"}
+  ]-->
+
+  [download]
+  @linkToDataGrid=recorders-grid
+  @caption=Grid download
+
+Options
+^^^^^^^
+
+**addColumns**
+
+Define additional columns to those defined in the template that you want to include in the
+download file. An array which uses the same format as the 'dataGrid' '@columns' option.
 
 **caption**
 
 Button caption. Defaults to "Download" but will be translated.
 
-**title**
-
-Button title. Defaults to "Run the download" but will be translated.
-
-**aggregation**
-
-When downloading aggregated data set to `simple` for nested terms aggregations or
-`composite` for composite aggregations.
-
-When using aggregations, set `@columnsTemplate` to blank to disable the default, then use
-the `@addColumns` option to configure the columns in the download.
-
-**attachToId**
-
-Alternative `id` of a CSS element to output the control into as described previously.
-
 **columnsTemplate**
 
-Named set of columns on the server which will be included in the download file. Options
+Named set of columns on the server which will be included in the download file. Default is
+"default" when the source is in `docs` mode, or blank for the aggregation modes. Options
 are currently "default" or can be set to blank to disable loading a predefined set. Other
 sets may be provided on the warehouse in future.
 
-**addColumns**
+**id**
 
-Define additional columns to those defined in the template that you want to include in the
-download file. An array which uses the same format as the [dataGrid] @columns option.
+Optional. Specify an ID for the `download` control allowing you to refer to it from
+elsewhere, e.g. CSS. If not specified, then a unique ID is generated by the code which
+cannot be relied on.
+
+**linkToDataGrid**
+
+If specified, uses a dataGrid control to obtain the source and columns configuration.
 
 **removeColumns**
 
 Define columns from the selected column template to be removed from the CSV download. An
 array of the column titles to remove.
 
+**source**
+
+ID of the [source] control that provides the data for download. Required unless the
+**linkToDataGrid** option is specified.
+
+**title**
+
+Title attribute of the HTML button, displayed as a hint when the mouse hovers over it.
+Defaults to "Run the download" but will be translated.
+
+Advanced options
+^^^^^^^^^^^^^^^^
+
+**attachToId**
+
+Alternative `id` of a CSS element to output the control into as described previously.
+
 .. _elasticsearch-report-helper-higherGeographySelect:
 
 ElasticsearchReportHelper::higherGeographySelect
-""""""""""""""""""""""""""""""""""""""""""""""""
+------------------------------------------------
 
 A select box for choosing from a list of higher geography boundaries (indexed locations).
 May either act as a single control, or a linked set of select controls if multiple nested
@@ -941,7 +920,8 @@ and the results are filtered to records intersecting the boundary.
 Locations must be from an indexed location layer. See :doc:`../../../administrating/warehouse/modules/spatial-index-builder`
 for more info.
 
-Options are:
+Options
+^^^^^^^
 
 **blankText**
 
@@ -964,48 +944,32 @@ Read authorisation tokens. Not required when used via the prebuilt form.
 .. _elasticsearch-report-helper-leafletMap:
 
 ElasticsearchReportHelper::leafletMap
-"""""""""""""""""""""""""""""""""""""
+-------------------------------------
 
 A map panel which uses the leaflet library that can display occurrence data from
 Elasticsearch in a variety of ways.
 
-Options available are:
+Typical configuration examples
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**id**
+A heat map::
 
-Optional. Specify an ID for the `leafletMap` control allowing you to refer to it from
-elsewhere, e.g. CSS. If not specified, then a unique ID is generated by the code which
-cannot be relied on.
+  [source]
+  @id=map-data
+  @mode=mapGeoHash
 
-**cookies**
+  [leafletMap]
+  @layerConfig=<!--{
+    "recordsHeatMap": {
+      "title": "All records heat map",
+      "source": "map-data",
+      "type": "heat"
+    }
+  }-->
 
-Set to false to disable use of cookies to remember the selected layers plus the current
-map viewport. Cookies are only enabled when there is a specific `id` option set for this
-map.
 
-**initialLat**
-
-Latitude the map will pan to on initial load, if not overridden by a saved cookie or the
-map being set up to display the bounding box of a report's output. Defaults to the
-configuration setting for the IForm module.
-
-**initialLng**
-
-Longitude the map will pan to on initial load, if not overridden by a saved cookie or the
-map being set up to display the bounding box of a report's output. Defaults to the
-configuration setting for the IForm module.
-
-**initialZoom**
-
-Level the map will zoom to on initial load, if not overridden by a saved cookie or the
-map being set up to display the bounding box of a report's output. Defaults to the
-configuration setting for the IForm module.
-
-**showSelectedRow**
-
-To make the map highlight the feature associated with a selected row in a `dataGrid`, set
-showSelectedRow to the `id` of that grid. The map will also zoom in to the feature when
-the grid row is double clicked.
+Options
+^^^^^^^
 
 **baseLayerConfig**
 
@@ -1059,6 +1023,35 @@ Example configuration::
     }
   }-->
 
+**cookies**
+
+Set to false to disable use of cookies to remember the selected layers plus the current
+map viewport. Cookies are only enabled when there is a specific `id` option set for this
+map.
+
+**id**
+
+Optional. Specify an ID for the `leafletMap` control allowing you to refer to it from
+elsewhere, e.g. CSS. If not specified, then a unique ID is generated by the code which
+cannot be relied on.
+
+**initialLat**
+
+Latitude the map will pan to on initial load, if not overridden by a saved cookie or the
+map being set up to display the bounding box of a report's output. Defaults to the
+configuration setting for the IForm module.
+
+**initialLng**
+
+Longitude the map will pan to on initial load, if not overridden by a saved cookie or the
+map being set up to display the bounding box of a report's output. Defaults to the
+configuration setting for the IForm module.
+
+**initialZoom**
+
+Level the map will zoom to on initial load, if not overridden by a saved cookie or the
+map being set up to display the bounding box of a report's output. Defaults to the
+configuration setting for the IForm module.
 
 **layerConfig**
 
@@ -1095,7 +1088,7 @@ layer objects can have the following properties:
     reflect their known accuracy. `Size` can be set to the special value
     `autoGridSquareSize` so that it matches the current map grid square aggregation as you
     zoom the map in, showing 10km features when zoomed out, then 2km, then 1km when zoomed
-    in.
+    in. This setting is automatic when using a map source mode.
 
     A special value called `metric` can be specified for any option. For non-aggregated
     data, this is the `location.coordinate_uncertainty_in_meters` value. For aggregated
@@ -1116,10 +1109,16 @@ Object containint style options to apply to the selected feature. For example::
     "opacity": "0.6"
   }-->
 
+**showSelectedRow**
+
+To make the map highlight the feature associated with a selected row in a `dataGrid`, set
+showSelectedRow to the `id` of that grid. The map will also zoom in to the feature when
+the grid row is double clicked.
+
 .. _elasticsearch-report-helper-permissionFilters:
 
 ElasticsearchReportHelper::permissionFilters
-""""""""""""""""""""""""""""""""""""""""""""
+--------------------------------------------
 
 Output a selector for various high level permissions filtering options.
 
@@ -1137,7 +1136,7 @@ options parameter. Options available are:
 .. _elasticsearch-report-helper-recordDetails:
 
 ElasticsearchReportHelper::recordDetails
-""""""""""""""""""""""""""""""""""""""""
+----------------------------------------
 
 A tabbed panel showing key details of the record. Includes a tab for record field values,
 one for comments logged against the record and one to show the recorder's level of
@@ -1145,19 +1144,10 @@ experience for this and similar taxa.
 
 Options available are:
 
-**showSelectedRow**
-
-ID of the grid whose selected row should be shown. Required.
-
 **explorePath**
 
 Path to an Explore all records page that can be used to show filtered records, e.g. the
 records underlying the data on the experience tab. Optional.
-
-**locationTypes**
-
-The record details pane will show all indexed location types unless you provide an array
-of the type names that you would like included, e.g. ["Country","Vice County"]. Optional.
 
 **extraLocationTypes**
 
@@ -1165,31 +1155,32 @@ As for **locationTypes**, but will be shown in the Derived Info block at the bot
 pane rather than in the first block of attribute values. Therefore suitable for location
 types with a lower priority.
 
+**locationTypes**
+
+The record details pane will show all indexed location types unless you provide an array
+of the type names that you would like included, e.g. ["Country","Vice County"]. Optional.
+
 **readAuth**
 
 Read authorisation tokens. Not required when used via the prebuilt form.
 
+**showSelectedRow**
+
+ID of the grid whose selected row should be shown. Required.
+
 .. _elasticsearch-report-helper-standardParams:
 
 ElasticsearchReportHelper::standardParams
-"""""""""""""""""""""""""""""""""""""""""
+-----------------------------------------
 
 A toolbar allowing the building of filters to be applied to the page's report data.
 
-Options available are:
+Options
+^^^^^^^
 
 **allowSave**
 
 Set to false to disable saving of filters.
-
-**sharing**
-
-Which sharing mode to save and load filters for. Set to reporting, verification,
-data_flow, editing, moderation or peer_review. Default reporting.
-
-**taxon_list_id**
-
-ID of the taxon list that species and other taxon names are selectable from.
 
 **indexedLocationTypeIds**
 
@@ -1201,27 +1192,94 @@ available for filtering. These are filtered by a higher geography query.
 An array of location_type_id values to define the list of non-indexed location types to
 make available for filtering. These are filtered by a polygon query.
 
+**sharing**
+
+Which sharing mode to save and load filters for. Set to reporting, verification,
+data_flow, editing, moderation or peer_review. Default reporting.
+
+**taxon_list_id**
+
+ID of the taxon list that species and other taxon names are selectable from.
+
+Advanced options
+^^^^^^^^^^^^^^^^
+
 Other options are described in the PHP documentation for the
 `client_helpers/prebuilt_forms/includes/reports.php` `report_filter_panel()` method.
 
 .. _elasticsearch-report-helper-templatedOutput:
 
 ElasticsearchReportHelper::templatedOutput
-""""""""""""""""""""""""""""""""""""""""""
+------------------------------------------
 
 A flexible output of ES data which uses templates to build the HTML.
 
-Options available are:
+Typical configuration examples
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This example using templated output and the `@attachToId` option to build an HTML table::
+
+  [source]
+  @id=sample-agg
+  @size=0
+  @aggregation=<!--{
+    "per_sample": {
+      "terms": {
+        "field": "event.event_id",
+        "min_doc_count": 5,
+        "size": 30,
+        "order": {
+          "_count": "desc"
+        }
+      }
+    },
+    "stats_per_sample": {
+      "stats_bucket": {
+        "buckets_path": "per_sample._count"
+      }
+    }
+  }-->
+
+  [templatedOutput]
+  @attachToId=sampleAgg
+  @source=sample-agg
+  @repeatField=aggregations.per_sample.buckets
+  @content=<tr><th>Count for {{ key }}</th><td>{{ doc_count }}</td></tr>
+
+  [templatedOutput]
+  @attachToId=sampleTotal
+  @source=sample-agg
+  @content=Count returned: {{ aggregations.stats_per_sample.count }}, average: {{ aggregations.stats_per_sample.avg }}
+
+  <table>
+    <tbody id="sampleAgg">
+    </tbody>
+  </table>
+  <div id="sampleTotal"></div>
+
+Options
+^^^^^^^
+
+**content**
+
+HTML to output for each item. Replacements are field names {{ this.that }} within the path
+specified by repeatField.
+
+**footer**
+
+A piece of HTML that will be inserted into a div at the bottom of the control when a
+response is received.
+
+**header**
+
+A piece of HTML that will be inserted into a div at the top of the control when a response
+is received.
 
 **id**
 
 Optional. Specify an ID for the `templatedOutput` control allowing you to refer to it from
 elsewhere, e.g. CSS. If not specified, then a unique ID is generated by the code which
 cannot be relied on.
-
-**source**
-
-ID of the `[source]` control this templatedOutput is populated from.
 
 **repeatField**
 
@@ -1230,25 +1288,14 @@ in the output specify the path to the field containing the array here. A good ex
 the `buckets` list for an aggregation. E.g. `aggregations.per_sample.buckets` allows
 iteration over the response for an aggregation called `per_sample`.
 
-**content**
+**source**
 
-HTML to output for each item. Replacements are field names {{ this.that }} within the path
-specified by repeatField.
-
-**header**
-
-A piece of HTML that will be inserted into a div at the top of the control when a response
-is received.
-
-**footer**
-
-A piece of HTML that will be inserted into a div at the bottom of the control when a
-response is received.
+ID of the `[source]` control this templatedOutput is populated from.
 
 .. _elasticsearch-report-helper-urlParams:
 
 ElasticsearchReportHelper::urlParams
-""""""""""""""""""""""""""""""""""""
+------------------------------------
 
 This control allows you to configure how the page uses parameters in the URL to filter the
 output shown on the page. By default, the following filter parameters are supported:
@@ -1270,7 +1317,20 @@ in the grid that links to an Elasticsearch outputs page passing the ID as a para
 
 Additional filters can be configured via the `fieldFilters` option.
 
-Options can include:
+Typical configuration examples
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+An example where a page is configured to filter by `&genus=...` in the URL::
+
+  [urlParams]
+  @fieldFilters=<!--{
+    "genus": {
+      "name": "taxon.genus"
+    }
+  }-->
+
+Options
+^^^^^^^
 
 **fieldFilters**
 
@@ -1294,38 +1354,42 @@ configuration item has the following data values:
 
     If the process is not specified then the value is used as is.
 
-An example where a page is configured to filter by `&genus=...` in the URL::
-
-  [urlParams]
-  @fieldFilters=<!--{
-    "genus": {
-      "name": "taxon.genus"
-    }
-  }-->
-
 .. _elasticsearch-report-helper-userFilters:
 
 ElasticsearchReportHelper::userFilters
-""""""""""""""""""""""""""""""""""""""
+--------------------------------------
 
 Provides a drop down populated with the user's saved report filters. Selecting a filter
 applies that filter to the current page's outputs.
 
-Options available are:
+Options
+^^^^^^^
 
-  * @sharingCode - type of task the filters to load are for. Default R.
-  * @definesPermissions
+**definesPermissions**
+
+Set to true if this control is to load permission filters such as those which define a
+verification context.
+
+**sharingCode**
+
+Code indicating the type of task the filters to load are for. Default R (=reporting).
 
 .. _elasticsearch-report-helper-verificationButtons:
 
 ElasticsearchReportHelper::verificationButtons
-""""""""""""""""""""""""""""""""""""""""""""""
+----------------------------------------------
 
 Outputs a panel containing action buttons for verification tasks, including changing the
 record status, querying the record and accessing the record edit page. Effectively allows
 an Elasticsearch report page to be converted into a verification tool.
 
-Options available are:
+Options
+^^^^^^^
+
+**editPath**
+
+If a Drupal page path for a generic edit form is specified then a button is added to allow
+record editing.
 
 **id**
 
@@ -1337,20 +1401,67 @@ be relied on.
 Specify the element ID of a `[dataGrid]` control which the buttons will source the
 selected row from.
 
-**editPath**
-
-If a Drupal page path for a generic edit form is specified then a button is added to allow
-record editing.
-
 **viewPath**
 
 If a Drupal page path for a record details page is specified then a button is added to
 allow record viewing.
 
-Using the Elasticsearch controls
+Positioning of control elements
+===============================
+
+All output controls (data grids, maps etc) will output their content at the appropriate
+location on the page into a `div` element whose ID matches the `id` option you specify.
+
+If you want to override the creation of a container div and, instead, inject the control
+content into an HTML element of your choice elsewhere on the page, then you can specify
+the CSS id of that element in the `attachToId` option.
+
+The following example shows how a single aggregation request can be injected as rows into
+a table elsewhere on the page::
+
+  [source]
+  @id=sample-agg
+  @size=0
+  @aggregation=<!--{
+    "per_sample": {
+      "terms": {
+        "field": "event.event_id",
+        "min_doc_count": 5,
+        "size": 30,
+        "order": {
+          "_count": "desc"
+        }
+      }
+    },
+    "stats_per_sample": {
+      "stats_bucket": {
+        "buckets_path": "per_sample._count"
+      }
+    }
+  }-->
+
+  [templatedOutput]
+  @attachToId=sampleAgg
+  @source=sample-agg
+  @repeatField=aggregations.per_sample.buckets
+  @content=<tr><th>Count for {{ key }}</th><td>{{ doc_count }}</td></tr>
+
+  [templatedOutput]
+  @attachToId=sampleTotal
+  @source=sample-agg
+  @content=<div>Count of samples {{ aggregations.stats_per_sample.count }}</div>
+
+  <table>
+    <tbody id="sampleAgg">
+    </tbody>
+  </table>
+  <div id="sampleTotal"></div>
+
+You could also set `attachToId` to the id of a `div` element output elsewhere on the page,
+e.g. part of the theme's header.
 
 Using controls directly from JS
--------------------------------
+===============================
 
 As all the functionality in the ElasticsearchReportHelper's output controls is driven by
 JavaScript in the client, it is possible to write JS directly with minimal PHP. `source`
