@@ -100,11 +100,11 @@ A source which provides geohashed data ready for heat mapping (change the mode t
   @id=map-geohash-output
   @mode=mapGeoHash
 
-A source which lists species using a term aggregation::
+A source which lists species using a composite aggregation::
 
   [source]
   @id=species-list
-  @mode=termAggregation
+  @mode=compositeAggregation
   @uniqueField=taxon.accepted_taxon_id
   @fields=[
     "taxon.kingdom",
@@ -114,14 +114,14 @@ A source which lists species using a term aggregation::
   ]
 
 A source which provides data aggregated to show species counts by recorder using an
-Elasticsearch composite aggregation. In this example, because of the potentially high
+Elasticsearch term aggregation. In this example, because of the potentially high
 number of recorders to aggregate on we use an alternative sort aggregation for this
 column which reduces the precision and associated memory requirements::
 
   [source]
   @id=recorder-summary
   @sort={"event.recorded_by.keyword":"desc"}
-  @mode=compositeAggregation
+  @mode=termAggregation
   @uniqueField=event.recorded_by
   @size=30
   @aggregation=<!--{
@@ -199,10 +199,20 @@ the center of the covering grid square in 1km, 2km and 10km sizes.
   1000).
 * compositeAggregation - generates a composite aggregation from the `@uniqueField`,
   `@fields` and `@aggregation` settings. Similar to the `termAggregation` mode but with
-  different restrictions.
+  different restrictions. Composite aggregations have the following features:
+    * Fast and efficient.
+    * Can be sorted on the unique field or any of the other fields.
+    * Does not support sorting by one of the aggregated outputs. This is a limitation of
+      Elasticsearch.
+    * Supports the next/previous buttons for paging in a `dataGrid`.
+  A separate count aggregation is automatically added to the request when required in
+  in order to provide proper information for a `dataGrid`'s pager, since composite
+  aggregations cannot themselves include a total buckets count.
 * termAggregation- generates a term aggregation from the `@uniqueField`, `@fields` and
   `@aggregation` settings. Similar to the `compositeAggregation` mode but with different
-  restrictions.
+  restrictions. Term aggregations have the following features:
+    * Can be sorted on any field or aggregated output.
+    * Does not support the next/previous buttons for paging in a `dataGrid`.
 
 **size**
 
