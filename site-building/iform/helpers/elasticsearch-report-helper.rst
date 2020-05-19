@@ -874,7 +874,10 @@ download file. An array which uses the same format as the 'dataGrid' '@columns' 
 
 **caption**
 
-Button caption. Defaults to "Download" but will be translated.
+Button caption. Defaults to "Download" but will be translated. Can include HTML, e.g. a
+Font Awesome icon if supported by your theme::
+
+  @caption=Download <span class="fas fa-file-download"></span>
 
 **columnsTemplate**
 
