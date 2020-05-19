@@ -728,10 +728,11 @@ automatically apply the filter to the source the dataGrid is linked to. If any a
 sources should also be filtered (e.g. sources driving maps or charts from the same data)
 then supply a JSON array of source IDs in this parameter.
 
-**attachToId**
+**containerElement**
 
-If you want to output the dataGrid in an existing element on the page with a known CSS ID
-then specify that ID here. This must match the `id` option if specified.
+If you want to output the dataGrid in an existing element on the page with a known CSS
+selector then specify the selector here. If the selector matches multiple elements then
+only the first will be used.
 
 **autoResponsiveCols** - set to true to automatically hide columns responsively when below
 each breakpoint. Priority is set by position in the grid with columns on the right being
@@ -910,9 +911,23 @@ Defaults to "Run the download" but will be translated.
 Advanced options
 ^^^^^^^^^^^^^^^^
 
-**attachToId**
+**buttonContainerElement**
 
-Alternative `id` of a CSS element to output the control into as described previously.
+Set @buttonContainerElement to the CSS selector of a container if you want to output the
+download button in a separate location on the page to the output control listing the
+download files. For example to add the button to the footer of a [dataGrid] alongside
+the pagination information::
+
+  [download]
+  @linkToDataGrid=recorders-grid
+  @caption=Grid download
+  @buttonContainerElement=#recorders-grid tfoot td
+
+**containerElement**
+
+If you want to output the download control in an existing element on the page with a known
+CSS selector then specify the selector here. If the selector matches multiple elements
+then only the first will be used.
 
 .. _elasticsearch-report-helper-higherGeographySelect:
 
@@ -1227,7 +1242,8 @@ A flexible output of ES data which uses templates to build the HTML.
 Typical configuration examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This example using templated output and the `@attachToId` option to build an HTML table::
+This example using templated output and the `@containerElement` option to build an HTML
+table::
 
   [source]
   @id=sample-agg
@@ -1251,21 +1267,21 @@ This example using templated output and the `@attachToId` option to build an HTM
   }-->
 
   [templatedOutput]
-  @attachToId=sampleAgg
+  @containerElement=#sample-table tbody
   @source=sample-agg
   @repeatField=aggregations.per_sample.buckets
   @content=<tr><th>Count for {{ key }}</th><td>{{ doc_count }}</td></tr>
 
   [templatedOutput]
-  @attachToId=sampleTotal
+  @containerElement=#sample-total
   @source=sample-agg
   @content=Count returned: {{ aggregations.stats_per_sample.count }}, average: {{ aggregations.stats_per_sample.avg }}
 
-  <table>
-    <tbody id="sampleAgg">
+  <table id="sample-table">
+    <tbody>
     </tbody>
   </table>
-  <div id="sampleTotal"></div>
+  <div id="sample-total"></div>
 
 Options
 ^^^^^^^
@@ -1424,7 +1440,7 @@ location on the page into a `div` element whose ID matches the `id` option you s
 
 If you want to override the creation of a container div and, instead, inject the control
 content into an HTML element of your choice elsewhere on the page, then you can specify
-the CSS id of that element in the `attachToId` option.
+the CSS selector of that element in the `@containerElement` option.
 
 The following example shows how a single aggregation request can be injected as rows into
 a table elsewhere on the page::
@@ -1451,24 +1467,24 @@ a table elsewhere on the page::
   }-->
 
   [templatedOutput]
-  @attachToId=sampleAgg
+  @containerElement=#sample-table tbody
   @source=sample-agg
   @repeatField=aggregations.per_sample.buckets
   @content=<tr><th>Count for {{ key }}</th><td>{{ doc_count }}</td></tr>
 
   [templatedOutput]
-  @attachToId=sampleTotal
+  @containerElement=#sample-total
   @source=sample-agg
   @content=<div>Count of samples {{ aggregations.stats_per_sample.count }}</div>
 
-  <table>
-    <tbody id="sampleAgg">
+  <table id="sample-table">
+    <tbody>
     </tbody>
   </table>
-  <div id="sampleTotal"></div>
+  <div id="sample-total"></div>
 
-You could also set `attachToId` to the id of a `div` element output elsewhere on the page,
-e.g. part of the theme's header.
+You could also set `@containerElement` to the selector of a `div` element output elsewhere
+on the page, e.g. part of the theme's header.
 
 Using controls directly from JS
 ===============================
