@@ -211,7 +211,8 @@ the center of the covering grid square in 1km, 2km and 10km sizes.
 * termAggregation- generates a term aggregation from the `@uniqueField`, `@fields` and
   `@aggregation` settings. Similar to the `compositeAggregation` mode but with different
   restrictions. Term aggregations have the following features:
-    * Can be sorted on any field or aggregated output.
+    * Can be sorted on any numeric or date field or any aggregated output.
+    * Can not be sorted on a text field's direct value.
     * Does not support the next/previous buttons for paging in a `dataGrid`.
 
 **size**
