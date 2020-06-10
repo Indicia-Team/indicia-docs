@@ -682,9 +682,17 @@ cannot be relied on.
 
 Set to false to disable column headings.
 
+**includeColumnSettingsTool**
+
+Set to false to disable the tool button for showing the column settings popup.
+
 **includeFilterRow**
 
 Set to false to disable the filter row at the top of the table.
+
+**includeFullScreenTool**
+
+Set to false to disable the tool button for enabling full screen mode.
 
 **includePager**
 
@@ -692,8 +700,8 @@ Set to false to disable the pager row at the bottom of the table.
 
 **includeMultiSelectTool**
 
-Set to include a multi-select tool which enables tickboxes for each row. Normally used
-to support multiple record verification.
+Set to true to include a multi-select tool button which enables tickboxes for each row.
+Normally used to support multiple record verification.
 
 **rowClasses**
 
