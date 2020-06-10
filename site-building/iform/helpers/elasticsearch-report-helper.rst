@@ -153,7 +153,8 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregati
 You can use Kibana to build an aggregation then inspect the request to extract the
 required JSON data. The value provided should be a JSON object where the property names
 are the keys given for each aggregation (i.e. the contents of the "aggregations" or "aggs"
-element in your query).
+element in your query). The aggregation names given should not have a leading hyphen as
+these names are reserved.
 
 The value for `@aggregation` can contain tokens which are replaced at runtime. Tokens are
 of the format `{{ name }}` where the `name` can be one of the following:
@@ -171,6 +172,11 @@ columns using a `dataGrid` control.
 An array of document field names to include in the output when using `termAggregation` or
 `compositeAggregation` mode. This list is for the non-aggregated fields, for calculated
 aggregated data fields use the `@aggregation` option.
+
+In addition to standard document field names, it is possible to include a custom attribute
+value in the list of available fields using the same format as for table columns, i.e.
+`#attr_value:<type>:<id>#` where `<type>` is event (sample) or occurrence and `<id>` is
+the attribute ID.
 
 **id**
 
@@ -436,8 +442,6 @@ cannot be relied on.
 
 ID of the `[source]` control this `customScript` is populated from.
 
-.. _elasticsearch-report-helper-dataGrid:
-
 **functionName**
 
 Name of a function that should be added to the JavaScript global `indiciaFns` which
@@ -638,7 +642,12 @@ page with a URL that might look like:
     be of the form `value1 to value2`.
   * ifEmpty - string to output when the field value is empty. May contain HTML.
   * handler - for date and datetime fields, set to `date` or `datetime` to ensure correct
-    formatting.
+    formatting if the date is displaying as a numeric value. This is not normally required
+    as document fields should format correctly. For aggregations such as min or max date
+    (which do generate a numeric value), specifying the `format` option in the aggregation
+    to provide a correctly formatted value is preferable because this approach will also
+    apply within downloaded datasets, whereas using the handler only affects the output
+    of the data cell in the `[dataGrid]`.
   * hideBreakpoints - Comma separated list of breakpoints. When a breakpoint is specified
     the column is hidden for pixel sizes between this breakpoint (or zero in the case of
     the smallest breakpoint) and the next highest breakpoint. So, setting a value of "sm"

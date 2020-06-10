@@ -148,6 +148,12 @@ A toolbar allowing filters to be applied to the page's report data. See
 A flexible output of ES data which uses templates to build the HTML. See
 :ref:`elasticsearch-report-helper-templatedOutput`.
 
+[customScript]
+"""""""""""""""""
+
+Allows a custom JavaScript to visualise the output of an Elasticsearch source. See
+:ref:`elasticsearch-report-helper-customScript`.
+
 [userFilters]
 """""""""""""
 
