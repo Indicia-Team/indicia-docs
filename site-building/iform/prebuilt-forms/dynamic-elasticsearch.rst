@@ -126,6 +126,7 @@ Elasticsearch in a variety of ways. See
 :ref:`elasticsearch-report-helper-leafletMap`.
 
 [permissionFilters]
+"""""""""""""""""""
 
 Output a selector for various high level permissions filtering options. See
 :ref:`elasticsearch-report-helper-permissionFilters`.
