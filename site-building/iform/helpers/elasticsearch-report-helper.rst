@@ -619,6 +619,8 @@ page with a URL that might look like:
     * #lat_lon# - a formatted latitude and longitude value.
     * #null_if_zero:<field># - returns the field value, unless 0 when will be treated as
       null.
+    * #occurrence_media# - returns thumbnails for the occurrence's uploaded media with
+      built in click to view at full size functionality.
     * #status_icons# - icons representing the record status, confidential, sensitive and
       zero_abundance status of the record.
     * Path to an aggregation's output when using aggregated data.
