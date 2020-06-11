@@ -888,7 +888,7 @@ Options
 **addColumns**
 
 Define additional columns to those defined in the template that you want to include in the
-download file. An array which uses the same format as the 'dataGrid' '@columns' option.
+download file. An array which uses the same format as the `dataGrid` `@columns` option.
 
 **caption**
 
