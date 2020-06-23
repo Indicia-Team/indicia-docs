@@ -175,8 +175,8 @@ aggregated data fields use the `@aggregation` option.
 
 In addition to standard document field names, it is possible to include a custom attribute
 value in the list of available fields using the same format as for table columns, i.e.
-`#attr_value:<type>:<id>#` where `<type>` is event (sample) or occurrence and `<id>` is
-the attribute ID.
+`#attr_value:<type>:<id>#` where `<type>` is event (sample), parent_event (sample
+identified by `samples.parent_id`) or occurrence and `<id>` is the attribute ID.
 
 **id**
 
@@ -598,7 +598,8 @@ page with a URL that might look like:
     * #associations# - a list of the species names linked to this record as associated
       occurrences.
     * #attr_value:<entity>:<id># - a single custom attribute value. Specify the entity
-      name (event (=sample) or occurrence) plus the custom attribute ID as parameters.
+      name (event (=sample), parent_event (sample identified by `samples.parent_id` or
+      occurrence) plus the custom attribute ID as parameters.
     * #data_cleaner_icons# - icons representing the results of data cleaner rule checks.
     * #datasource_code# - outputs the website and survey ID, with tooltips to show the
       website and survey dataset name.
