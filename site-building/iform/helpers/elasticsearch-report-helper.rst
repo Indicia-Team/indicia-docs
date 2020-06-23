@@ -1150,7 +1150,7 @@ layer objects can have the following properties:
 
 **selectedFeatureStyle**
 
-Object containint style options to apply to the selected feature. For example::
+Object containing style options to apply to the selected feature. For example::
 
   @selectedFeatureStyle=<!--{
     "color": "#00FF00"
@@ -1174,12 +1174,28 @@ Permission sets available in the selector will depend on the permissions set on 
 Permissions section of the Edit tab in combination with the settings passed in the
 options parameter. Options available are:
 
-  * my_records_permission - set to true to enable the option to filter for a user's own
-    records.
-  * all_records_permission - set to true to enable the option to filter for all records.
-  * location_collation_records_permission - set to true to enable the option to filter for
-    records in a location that the user has a Drupal permission to collate for (e.g. an
-    LRC).
+  * all_records_permission - set to the name of a Drupal permission which the user must
+    have to enable the option to access all records.
+  * includeFiltersForGroups - adds options for downloading records explicitly added to the
+    user's groups (activities). The user's own records are always available; in addition
+    group administrators can download the entire set of records for the group.
+  * includeFiltersForSharingCodes - allows filters which define a user's permissions, such
+    as a set of verifiable records, to be included in the list of options. JSON array
+    containing the sharing codes that are supported for filters which are available for
+    the user and where `defines_permissions=true`. Defaults to an empty array so none are
+    loaded. Possible options are 'R', 'V', 'D', 'M', 'P'.
+  * label - label given to the control. Default "Records to access".
+  * location_collation_records_permission - set to the name of a Drupal permission which the user must
+    have to enable the option to filter for records in a location that the user has a
+    Drupal permission to collate for (e.g. an LRC). To use this option, the user profile
+    must have a field called `location_collation` which contains the ID of an indexed
+    location from the Indicia `locations` table.
+  * my_records_permission - set to the name of a Drupal permission which the user must
+    have to enable the option to filter for a user's own records.
+  * useSharingPrefix - when `@includeFiltersForSharingCodes` is used to include filters
+    which define sets of records a user can access, setting this to true will include a
+    prefix for the entry in the selection list to clarify the sharing code (Verification,
+    Download, Reporting etc).
 
 .. _elasticsearch-report-helper-recordDetails:
 
@@ -1422,6 +1438,11 @@ verification context.
 **sharingCode**
 
 Code indicating the type of task the filters to load are for. Default R (=reporting).
+
+**label**
+
+Label for the control which will be translated before use. Set to empty string to exclude
+the label. Default is 'Filter', or 'Context' if `@definesPermissions` is true.
 
 .. _elasticsearch-report-helper-verificationButtons:
 
