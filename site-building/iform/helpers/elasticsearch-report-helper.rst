@@ -615,9 +615,11 @@ page with a URL that might look like:
         chosen type to a single field. This must be one of `id`, `name`, `code` or `type`.
       * The output will be formatted as readable text unless the optional third `<format>`
         parameter is set to `json` in which case JSON is returned.
+    * #lat# - a formatted latitude value.
+    * #lat_lon# - a formatted latitude and longitude value.
     * #locality# - a summary of location information including the given location name
       and a list of higher geography locations.
-    * #lat_lon# - a formatted latitude and longitude value.
+    * #lon# - a formatted longitude value.
     * #null_if_zero:<field># - returns the field value, unless 0 when will be treated as
       null.
     * #occurrence_media# - returns thumbnails for the occurrence's uploaded media with
