@@ -79,8 +79,8 @@ The square IDs are linked to the `map_sq_<size>km_id' fields in both
 The `map_squares` table's fields includes the following information:
 
   * `geom` - the geometry of the square.
-  * `x` - x coordinate of the centroid of the square in web mercator projection.
-  * `y` - y coordinate of the centroid of the square in web mercator projection.
+  * `x` - x coordinate of the centroid of the square in Web Mercator projection.
+  * `y` - y coordinate of the centroid of the square in Web Mercator projection.
   * `size` - size of the square in metres.
 
 Place names
