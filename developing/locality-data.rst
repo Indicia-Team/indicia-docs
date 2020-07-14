@@ -62,6 +62,27 @@ latitude and longitude but support could be added for other grid systems as requ
 `output_sref` is also always blurred to take account of sensitivity or privacy blurs or
 the accuracy of a record's grid reference or point reference.
 
+map_squares table
+-----------------
+
+The primary purpose of this table is to facilitate reporting on grid square data.
+The map squares table is populated with a list of all 1km, 2km and 10km grid squares in
+use for all records in the samples table. This includes grid squares which encapsulate
+point based records (e.g. GPS lat long) so they can be easily drawn on a 1km map for
+example. The grid squares are generated using Indicia's best understanding of the local
+preferred grid system, e.g. OSGB over Great Britain or OSIE over Ireland.
+
+The square IDs are linked to the `map_sq_<size>km_id' fields in both
+`cache_occurrences_functional` and `cache_samples_functional`, where <size> is 1, 2 or
+10 for ease of use when reporting.
+
+The `map_squares` table's fields includes the following information:
+
+  * `geom` - the geometry of the square.
+  * `x` - x coordinate of the centroid of the square in web mercator projection.
+  * `y` - y coordinate of the centroid of the square in web mercator projection.
+  * `size` - size of the square in metres.
+
 Place names
 ===========
 
