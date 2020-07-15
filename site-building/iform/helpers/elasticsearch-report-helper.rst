@@ -615,11 +615,23 @@ page with a URL that might look like:
         chosen type to a single field. This must be one of `id`, `name`, `code` or `type`.
       * The output will be formatted as readable text unless the optional third `<format>`
         parameter is set to `json` in which case JSON is returned.
-    * #lat# - a formatted latitude value.
-    * #lat_lon# - a formatted latitude and longitude value.
+    * #lat:<format># or #lat# - a formatted latitude value. If specified, `<format>` can
+      be one of:
+      * "decimal" - a decimal latitude is returned with negative values for locations
+        south of the equator.
+      * "nssuffix" - a latitude rounded to three decimal places with a suffix of
+        "N" or "S" location in relation to the equator.
+    * #lat_lon# - a formatted latitude and longitude value with number each rounded to three
+      decimal places plus  a suffix indicating location in relation to the equator and 
+      Greenwich meridian.
     * #locality# - a summary of location information including the given location name
       and a list of higher geography locations.
-    * #lon# - a formatted longitude value.
+    * #lon:<format># or #lon# - a formatted longitude value. If specified, `<format>` can
+      be one of:
+      * "decimal" - a decimal longitude is returned with negative values for locations
+        west of the Greenwich meridian.
+      * "ewsuffix" - a longitude rounded to three decimal places with a suffix of
+        "E" or "W" location in relation to the Greenwich meridian.
     * #null_if_zero:<field># - returns the field value, unless 0 when will be treated as
       null.
     * #occurrence_media# - returns thumbnails for the occurrence's uploaded media with
