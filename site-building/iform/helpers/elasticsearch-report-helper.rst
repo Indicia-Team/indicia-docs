@@ -1478,6 +1478,28 @@ Code indicating the type of task the filters to load are for. Default R (=report
 Label for the control which will be translated before use. Set to empty string to exclude
 the label. Default is 'Filter', or 'Context' if `@definesPermissions` is true.
 
+.. _elasticsearch-report-helper-statusFilters:
+
+ElasticsearchReportHelper::statusFilters
+----------------------------------------
+
+Provides a drop down record status filters. Selecting a filter
+applies that filter to the current page's outputs. The options mirror those available in 
+the ‘records to include’ drop-down in the quality part of the [permissionFilters] control.
+applies that filter to the current page's outputs. Changing the filter selected with this 
+control changes the selected option in the [permissionFilters] control, if there is one
+on the page, and visa versa.
+
+.. _elasticsearch-report-helper-filterSummary:
+
+ElasticsearchReportHelper::filterSummary
+----------------------------------------
+
+Provides a textual summary of all the filters applied on the page using any of the 
+following controls: [standardParams], [permissionFilters], [userFilters] and [statusFilters]. 
+This can be used to make it less likely that a user has a filter applied 
+that they are not aware of, or two conflicting filters for example. 
+
 .. _elasticsearch-report-helper-verificationButtons:
 
 ElasticsearchReportHelper::verificationButtons
