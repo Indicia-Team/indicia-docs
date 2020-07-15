@@ -608,7 +608,7 @@ page with a URL that might look like:
       of the associated higher geography locations. The following parameter options are
       available:
       * With no additional parameters, provides all available higher geography data.
-      * With the first `<type>` parameter set to the location type term you want to
+      * With the first `<type>` parameter set to the location type term you want to 
         retrieve (e.g. "Country") to provide all field values for that location type
         (i.e. the `id`, `name`, `code` and `type`).
       * Additionally provide a second `<field>` parameter to limit the response for the
@@ -622,8 +622,7 @@ page with a URL that might look like:
       * "nssuffix" - a latitude rounded to three decimal places with a suffix of
         "N" or "S" location in relation to the equator.
     * #lat_lon# - a formatted latitude and longitude value with number each rounded to three
-      decimal places plus  a suffix indicating location in relation to the equator and 
-      Greenwich meridian.
+      decimal places plus  a suffix indicating location in relation to the equator and Greenwich meridian.
     * #locality# - a summary of location information including the given location name
       and a list of higher geography locations.
     * #lon:<format># or #lon# - a formatted longitude value. If specified, `<format>` can
