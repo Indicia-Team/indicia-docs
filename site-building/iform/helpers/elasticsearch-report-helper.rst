@@ -898,6 +898,25 @@ A `download` using a `dataGrid` to define the columns in the resulting file::
   @linkToDataGrid=recorders-grid
   @caption=Grid download
 
+A download returning data in a format like that provided before Elasticsearch::
+
+  [source]
+  @id=data-to-download
+
+  [download]
+  @source=data-to-download
+  @columnsTemplate=easy-download
+  @caption="Download easy format"
+
+A download with a format selector::
+
+  [source]
+  @id=data-to-download
+
+  [download]
+  @source=data-to-download
+  @columnsTemplate=["default","easy-download"]
+
 Options
 ^^^^^^^
 
@@ -917,8 +936,9 @@ Font Awesome icon if supported by your theme::
 
 Named set of columns on the server which will be included in the download file. Default is
 "default" when the source is in `docs` mode, or blank for the aggregation modes. Options
-are currently "default" or can be set to blank to disable loading a predefined set. Other
-sets may be provided on the warehouse in future.
+are currently "default" or "easy-download". The latter is a format close to that provided
+by downloads before the use of Elasticsearch by Indicia. It can be set to blank to disable 
+loading a predefined set. Other sets may be provided on the warehouse in future.
 
 **id**
 
