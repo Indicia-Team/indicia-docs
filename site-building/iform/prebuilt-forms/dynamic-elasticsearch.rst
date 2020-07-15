@@ -163,14 +163,14 @@ applies that filter to the current page's outputs. See
 :ref:`elasticsearch-report-helper-userFilters`.
 
 [statusFilters]
-"""""""""""""
+"""""""""""""""
 
 Provides a drop down of record status filters. Selecting a filter
 applies that filter to the current page's outputs. See
 :ref:`elasticsearch-report-helper-statusFilters`.
 
 [filterSummary]
-"""""""""""""
+"""""""""""""""
 
 Provides a textual summary of all the filters applied on the page. See 
 :ref:`elasticsearch-report-helper-filterSummary`.
