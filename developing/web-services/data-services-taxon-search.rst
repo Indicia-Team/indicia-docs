@@ -44,6 +44,12 @@ The service accepts the following parameters:
     character species name abbreviations.
   * marine_flag - set to true for only marine associated species, false to exclude
     marine-associated species.
+  * freshwater_flag - set to true for only freshwater associated species, false to
+    exclude marine-associated species.
+  * terrestrial_flag - set to true for only terrestrial associated species, false to
+    exclude terrestrial-associated species.
+  * non_native_flag - set to true for only non-native species, false to exclude
+    non-native species.
   * searchAuthors - boolean, default false. Set to true to include author strings in the
     searched text.
   * wholeWords - boolean, default false. Set to true to only search whole words in the
