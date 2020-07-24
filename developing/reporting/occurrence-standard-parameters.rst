@@ -84,6 +84,24 @@ set of parameters. The report will automatically support the following list of p
       * Y - only marine
       * N - only non-marine
 
+  * ``freshwater_flag`` - include or exclude species flagged as freshwater in the dictionary
+    data. The following options are available:
+
+      * Y - only freshwater
+      * N - only non-freshwater
+
+  * ``terrestrial_flag`` - include or exclude species flagged as terrestrial in the
+    dictionary data. The following options are available:
+
+      * Y - only terrestrial
+      * N - only non-terrestrial
+
+  * ``non_native_flag`` - include or exclude species flagged as non-native in the dictionary
+    data. The following options are available:
+
+      * Y - only terrestrial
+      * N - only non-terrestrial
+
   * ``autochecks`` - filter based on automated verification rules applied to the records, with
     the following options:
 
