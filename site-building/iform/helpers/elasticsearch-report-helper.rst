@@ -607,30 +607,36 @@ page with a URL that might look like:
     * #higher_geography:<type>:<field>:<format># - provides the value of a field from one
       of the associated higher geography locations. The following parameter options are
       available:
+
       * With no additional parameters, provides all available higher geography data.
-      * With the first `<type>` parameter set to the location type term you want to 
+      * With the first `<type>` parameter set to the location type term you want to
         retrieve (e.g. "Country") to provide all field values for that location type
         (i.e. the `id`, `name`, `code` and `type`).
       * Additionally provide a second `<field>` parameter to limit the response for the
         chosen type to a single field. This must be one of `id`, `name`, `code` or `type`.
       * The output will be formatted as readable text unless the optional third `<format>`
         parameter is set to `json` in which case JSON is returned.
+
     * #lat:<format># or #lat# - a formatted latitude value. If specified, `<format>` can
       be one of:
+
       * "decimal" - a decimal latitude is returned with negative values for locations
         south of the equator.
       * "nssuffix" - a latitude rounded to three decimal places with a suffix of
         "N" or "S" location in relation to the equator.
+
     * #lat_lon# - a formatted latitude and longitude value with number each rounded to three
       decimal places plus  a suffix indicating location in relation to the equator and Greenwich meridian.
     * #locality# - a summary of location information including the given location name
       and a list of higher geography locations.
     * #lon:<format># or #lon# - a formatted longitude value. If specified, `<format>` can
       be one of:
+
       * "decimal" - a decimal longitude is returned with negative values for locations
         west of the Greenwich meridian.
       * "ewsuffix" - a longitude rounded to three decimal places with a suffix of
         "E" or "W" location in relation to the Greenwich meridian.
+
     * #null_if_zero:<field># - returns the field value, unless 0 when will be treated as
       null.
     * #occurrence_media# - returns thumbnails for the occurrence's uploaded media with
@@ -937,7 +943,7 @@ Font Awesome icon if supported by your theme::
 Named set of columns on the server which will be included in the download file. Default is
 "default" when the source is in `docs` mode, or blank for the aggregation modes. Options
 are currently "default" or "easy-download". The latter is a format close to that provided
-by downloads before the use of Elasticsearch by Indicia. It can be set to blank to disable 
+by downloads before the use of Elasticsearch by Indicia. It can be set to blank to disable
 loading a predefined set. Other sets may be provided on the warehouse in future.
 
 **id**
@@ -1484,9 +1490,9 @@ ElasticsearchReportHelper::statusFilters
 ----------------------------------------
 
 Provides a drop down record status filters. Selecting a filter
-applies that filter to the current page's outputs. The options mirror those available in 
+applies that filter to the current page's outputs. The options mirror those available in
 the ‘records to include’ drop-down in the quality part of the [permissionFilters] control.
-applies that filter to the current page's outputs. Changing the filter selected with this 
+applies that filter to the current page's outputs. Changing the filter selected with this
 control changes the selected option in the [permissionFilters] control, if there is one
 on the page, and visa versa.
 
@@ -1495,10 +1501,10 @@ on the page, and visa versa.
 ElasticsearchReportHelper::filterSummary
 ----------------------------------------
 
-Provides a textual summary of all the filters applied on the page using any of the 
-following controls: [standardParams], [permissionFilters], [userFilters] and [statusFilters]. 
-This can be used to make it less likely that a user has a filter applied 
-that they are not aware of, or two conflicting filters for example. 
+Provides a textual summary of all the filters applied on the page using any of the
+following controls: [standardParams], [permissionFilters], [userFilters] and [statusFilters].
+This can be used to make it less likely that a user has a filter applied
+that they are not aware of, or two conflicting filters for example.
 
 .. _elasticsearch-report-helper-verificationButtons:
 
