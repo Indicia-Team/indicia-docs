@@ -172,7 +172,7 @@ applies that filter to the current page's outputs. See
 [filterSummary]
 """""""""""""""
 
-Provides a textual summary of all the filters applied on the page. See 
+Provides a textual summary of all the filters applied on the page. See
 :ref:`elasticsearch-report-helper-filterSummary`.
 
 [urlParams]
@@ -219,6 +219,28 @@ The data attributes you can specify are:
 
     All of the above map to the query with the same name in the `Elasticsearch Query DSL
     documentation <https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html>`_.
+  * data-es-nested - allows a filter against data values which are in nested objects within the
+    JSON document (see `Nested data type documentation
+    <https://www.elastic.co/guide/en/elasticsearch/reference/current/nested.html>`_).
+    Some parts of the occurrence document on ES contain groups of values which relate together as a
+    single object, e.g. a geographical location's ID, name and type are grouped into a nested
+    object. Elasticsearch keeps these as separate mini-documents in the index so when you query the
+    main occurrence document, the nested object data is not in the scope of the query. Setting
+    data-es-nested allows you to define the path to nested objects and switches the context of the
+    query to the nested objects instead of the main document. See
+    `Nested query documentation
+    <https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html>`_.
+  * data-es-query - allows a custom Elasticsearch query to be defined as a JSON string. The token
+    `#value#` will be replaced by the value of the input control. For example:
+
+    .. code-block:: HTML
+
+      <label>Website ID:
+        <input type="number"
+          class="es-filter-param"
+          data-es-bool-clause="must"
+          data-es-query="{&quot;term&quot;: {&quot;metadata.website.id&quot;: #value#}}" />
+      </label>
 
 Some examples follow:
 
@@ -243,19 +265,5 @@ Some examples follow:
     <option value="identification.verification_status:C AND identification.query:Q">Queried</option>
     <option value="identification.verification_status:C AND identification.query:A">Answered</option>
   </select>
-
-
-*Filter controls*
-
-*HTML inputs*
-
-Attributes, diff query types
-    $fieldQueryTypes = ['term', 'match', 'match_phrase', 'match_phrase_prefix'];
-    $stringQueryTypes = ['query_string', 'simple_query_string'];
-
-* data-es-nested for nested fields.
-* data-es-query
-* data-es-bool-clause
-
 
 
