@@ -241,6 +241,20 @@ The data attributes you can specify are:
           data-es-bool-clause="must"
           data-es-query="{&quot;term&quot;: {&quot;metadata.website.id&quot;: #value#}}" />
       </label>
+  * data-es-summary - allows a summary string to be associated with control. If the control
+    is used, the summary string will be displayed by the [filterSummary] control if it is included on
+    the page. If you use the token `#value#` in the summary string it will be replaced by the
+    value of the input control. For example:
+
+    .. code-block:: HTML
+
+      <label>Records on or after:
+        <input type="date"
+          class="es-filter-param"
+          data-es-bool-clause="must"
+          data-es-query="{&quot;range&quot;: {&quot;event.date_start&quot;: {&quot;gte&quot;:&quot;#value#&quot;,&quot;lt&quot;:&quot;now&quot;}}}"
+          data-es-summary="Record date is on or after #value#"/>
+      </label>
 
 Some examples follow:
 
