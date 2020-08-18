@@ -83,3 +83,4 @@ Module List
   survey-structure-export
   taxon-designations
   taxon-groups-taxon-lists
+  workflow
