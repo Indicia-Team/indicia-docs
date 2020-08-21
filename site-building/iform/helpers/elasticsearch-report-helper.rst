@@ -946,6 +946,9 @@ are currently "default" or "easy-download". The latter is a format close to that
 by downloads before the use of Elasticsearch by Indicia. It can be set to blank to disable
 loading a predefined set. Other sets may be provided on the warehouse in future.
 
+If an array of template names is provided in this parameter then a control is shown allowing the
+user to choose the template to use.
+
 **id**
 
 Optional. Specify an ID for the `download` control allowing you to refer to it from

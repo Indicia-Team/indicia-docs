@@ -33,6 +33,151 @@ queries to be run against the database with parameters of your choice. The resou
   * return the list of parameters for a report, e.g. by calling
     /reports/library/occurrences/filterable_explore_list.xml/params.
 
+index.php/services/samples
+--------------------------
+
+Allows samples to be POSTed which are then created in the database. A JSON object should be
+included in the POST body with a values entry containing a list of field values for the sample
+entity. Additionally, child samples, occurrences and media can be specified using keys with the
+same name. For example::
+
+  POST /index.php/services/rest/samples
+  {
+    "values": {
+      "survey_id": 1,
+      "entered_sref": "SU1234",
+      "entered_sref_system": "OSGB",
+      "date": "01\/08\/2020"
+    },
+    "occurrences": [{
+      "values": {
+        "taxa_taxon_list_id": 2,
+        "occAttr:8": "4 adults",
+      },
+      "media": [{
+        "values": {
+          "queued": "5f36a6d2b51472.42086512.jpg",
+          "caption": "Occurrence image"
+        }
+      }]
+    }]
+  }
+
+  Response:
+  {
+    "values": {
+      "id": "3",
+      "created_on": "2020-08-14T17:57:32+02:00",
+      "updated_on": "2020-08-14T17:57:32+02:00"
+    },
+    "href": "http:\/\/localhost\/warehouse-test\/index.php\/services\/rest\/samples\/3",
+    "occurrences": [{
+      "values": {
+        "id": "3",
+        "created_on": "2020-08-14T17:57:32+02:00",
+        "updated_on": "2020-08-14T17:57:32+02:00"
+      },
+      "href": "http:\/\/localhost\/warehouse-test\/index.php\/services\/rest\/occurrences\/3",
+      "media": [{
+        "values": {
+          "id": "15",
+          "created_on": "2020-08-14T17:57:32+02:00",
+          "updated_on": "2020-08-14T17:57:32+02:00"
+        },
+        "href": "http:\/\/localhost\/warehouse-test\/index.php\/services\/rest\/occurrence_media\/15"
+      }]
+    }]
+  }
+
+index.php/services/samples/{id}
+-------------------------------
+
+Issue a GET request to retrieve a sample matching the provided ID. Currently restricted to samples
+created by the logged in user.
+
+Issue a PUT request to update a sample matching the provided ID. Currently restricted to samples
+created by the logged in user. The submission format is the same as that for POST, but you only
+need to provide field values that are actually changing.
+
+Issue a DELETE request to delete a sample matching the provided ID. Currently restricted to samples
+created by the logged in user.
+
+index.php/services/occurrences
+------------------------------
+
+Allows occurrences to be POSTed which are then created in the database. A JSON object should be
+included in the POST body with a values entry containing a list of field values for the occurrences
+entity. Additionally, child media can be specified using a key with the same name. For example::
+
+  POST /index.php/services/rest/occurrences
+  {
+    "values": {
+      "taxa_taxon_list_id": 2,
+      "occAttr:8": "4 adults",
+    },
+    "media": [{
+      "values": {
+        "sample_id": 123,
+        "queued": "5f36a6d2b51472.42086512.jpg",
+        "caption": "Occurrence image"
+      }
+    }]
+  }
+
+  Response:
+  {
+    "values": {
+      "id": "3",
+      "created_on": "2020-08-14T17:57:32+02:00",
+      "updated_on": "2020-08-14T17:57:32+02:00"
+    },
+    "href": "http:\/\/localhost\/warehouse-test\/index.php\/services\/rest\/occurrences\/3",
+    "media": [{
+      "values": {
+        "id": "15",
+        "created_on": "2020-08-14T17:57:32+02:00",
+        "updated_on": "2020-08-14T17:57:32+02:00"
+      },
+      "href": "http:\/\/localhost\/warehouse-test\/index.php\/services\/rest\/occurrence_media\/15"
+    }]
+  }
+
+index.php/services/occurrences/{id}
+-----------------------------------
+
+Issue a GET request to retrieve an occurrence matching the provided ID. Currently restricted to
+occurrences created by the logged in user.
+
+Issue a PUT request to update a occurrence matching the provided ID. Currently restricted to
+occurrences created by the logged in user. The submission format is the same as that for POST, but
+you only  need to provide field values that are actually changing.
+
+Issue a DELETE request to delete a occurrence matching the provided ID. Currently restricted to
+occurrences created by the logged in user.
+
+index.php/services/locations
+----------------------------
+
+Allows locations to be POSTed which are then created in the database. A JSON object should be
+included in the POST body with a values entry containing a list of field values for the locations
+entity. Additionally, child media can be specified using a key with the same name.
+
+index.php/services/locations/{id}
+---------------------------------
+
+Issue a GET request to retrieve an location matching the provided ID. Currently restricted to
+locations created by the logged in user.
+
+Issue a PUT request to update a location matching the provided ID. Currently restricted to
+locations created by the logged in user. The submission format is the same as that for POST, but
+you only  need to provide field values that are actually changing.
+
+Issue a DELETE request to delete a location matching the provided ID. Currently restricted to
+locations created by the logged in user.
+
+index.php/services/media-queue
+------------------------------
+
 index.php/services/taxon-observations
 -------------------------------------
 
