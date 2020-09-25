@@ -194,6 +194,59 @@ Example
   #idlist#
   </query>
 
+.. _count-query-label:
+
+Element <count_query>
+---------------------
+
+Indicia normally auto-generates a query to calculate the count of rows in the total dataset from
+the `<query>` element. In rare cases, however, it may be necessary to use an optimisation for the
+main query which breaks the default count query. In these cases, the `<count_query>` element can be
+used to provide an alternative query that avoids the breaking optimisation structure.
+
+An example might be a scenario where a complex aggregation query designed to populate a data table
+with a limited number of rows runs slowly, because the whole dataset needs to be constructed
+including aggregation calculations before PostgreSQL can sort, then finally limit the results. In
+these cases it can be much faster to perform an inner query with just the sort and limit, then
+join this sub-query to an outer query that calculates the aggregation data on just the limited set.
+This is too complex for Indicia to be able to auto-generate the count query and furthermore it is
+unnecessary as the count query does not need the aggregated column outputs, just to know the total
+number of distinct rows. The following illustrates this using a fictitious `occurrences_summary`
+table. Note how the inner query forces a limit which would affect any attempt to count using this
+structure.
+
+.. code-block:: xml
+
+  <query website_filter_field="">
+    SELECT #columns#
+    FROM (
+      SELECT DISTINCT o.accepted_name_taxon_version_key, o.species_group_name
+      FROM occurrences_summary o
+      WHERE 1=1
+      #filters#
+      #order_by#
+      LIMIT 21
+    ) sub
+    JOIN occurrences_summary o on o.accepted_name_taxon_version_key=sub.accepted_name_taxon_version_key
+    WHERE 1=1
+  </query>
+  <count_query>
+    SELECT #columns#
+    FROM occurrences_summary o
+    WHERE 1=1
+  </count_query>
+  <columns>
+    <column name="accepted_name_taxon_version_key" display="TVK" visible="false" sql="o.accepted_name_taxon_version_key"
+      datatype="text" in_count="true" />
+    <column name="species_group_name" display="Species group" sql="o.species_group_name" datatype="text" />
+    <column name="species_scientific_name" display="Scientific name" sql="o.species_scientific_name" datatype="text" />
+    <column name="species_vernacular_name" display="Common name" sql="o.species_vernacular_name" datatype="text" />
+    <column name="first_year" display="First year" sql="min(o.year)" datatype="integer" aggregate="true" />
+    <column name="last_year" display="Last year" sql="max(o.year)" datatype="integer" aggregate="true" />
+    <column name="tetrads" display="Tetrads" sql="count(distinct o.tetrad)" datatype="integer" aggregate="true" />
+    <column name="count" display="Count" sql="count(o.*)" datatype="integer" aggregate="true" />
+  </columns>
+
 .. _order-bys-label:
 
 Element <order_bys>
