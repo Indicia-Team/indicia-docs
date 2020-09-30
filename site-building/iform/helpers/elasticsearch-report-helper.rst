@@ -600,9 +600,20 @@ page with a URL that might look like:
     * #attr_value:<entity>:<id># - a single custom attribute value. Specify the entity
       name (event (=sample), parent_event (sample identified by `samples.parent_id` or
       occurrence) plus the custom attribute ID as parameters.
+    * #blank# - outputs a null value. Useful if you need an empty column.
     * #data_cleaner_icons# - icons representing the results of data cleaner rule checks.
-    * #datasource_code# - outputs the website and survey ID, with tooltips to show the
-      website and survey dataset name.
+    * #datasource_code:<format># or #datasource_code# - With no additional parameters 
+      this outputs the website and 
+      survey ID, with tooltips to show the website and survey dataset name. The optional
+      format parameter modifies the output. Currently there is only a single
+      option for format - `with_group` - which outputs the website title, data source title
+      and recording group separated by the pipe symbol.
+    * #datetime:<field>:<format># - converts a specified field, which must be of the
+      date/time type, to a given format. Specify formats using standard 
+      `PHP format strings. (https://www.php.net/manual/en/datetime.format.php)`_ 
+      If you want to use colons in the format string, e.g. `Y-m-d H:i:s`, they must
+      be escaped to avoid confusion with colons in the rest of the field definition,
+      e.g. `#datetime:metadata.created_on:Y-m-d H\:i\:s#`.
     * #event_date# - event (sample) date or date range.
     * #higher_geography:<type>:<field>:<format># - provides the value of a field from one
       of the associated higher geography locations. The following parameter options are
@@ -616,7 +627,12 @@ page with a URL that might look like:
         chosen type to a single field. This must be one of `id`, `name`, `code` or `type`.
       * The output will be formatted as readable text unless the optional third `<format>`
         parameter is set to `json` in which case JSON is returned.
-
+        
+    * #id:<format># - the Elasticsearch record ID modfied by the specified format.
+      Currently there is only one format - `easy` - which indicates that the ID is to be
+      formatted in a way consistent with the download format which preceeded the 
+      introduction of Elasticsearch. This will simply replace the prefix 'brc1|' with
+      'iBRC'.
     * #lat:<format># or #lat# - a formatted latitude value. If specified, `<format>` can
       be one of:
 
@@ -626,7 +642,10 @@ page with a URL that might look like:
         "N" or "S" location in relation to the equator.
 
     * #lat_lon# - a formatted latitude and longitude value with number each rounded to three
-      decimal places plus  a suffix indicating location in relation to the equator and Greenwich meridian.
+      decimal places plus a suffix indicating location in relation to the equator and Greenwich meridian.
+    * #life_stage:<format># - the value of the `occurrence.life_stage` field formatted as specified.
+      Currently there is only one format - `mapmate` - which translates values to 
+      values acceptable to MapMate, e.g. `adult female` to `Adult`.
     * #locality# - a summary of location information including the given location name
       and a list of higher geography locations.
     * #lon:<format># or #lon# - a formatted longitude value. If specified, `<format>` can
@@ -641,8 +660,47 @@ page with a URL that might look like:
       null.
     * #occurrence_media# - returns thumbnails for the occurrence's uploaded media with
       built in click to view at full size functionality.
+    * #organism_quantity:<format># - returns the value of the `occurrence.organism_quantity`
+      field formatted as specified. The value of `<format>` can
+      be one of:
+
+        * "integer" - the value is only returned if it is an integer.
+        * "non-integer" - the value is only returned if it is not an integer.
+        * "mapmate" - returns the value if it is an integer (other than zero). If the value
+          is a zero, or if the value of `occurrence.zero_abundance` is not false, then
+          a value of `-7` is returned (used by MapMate to indicate negative records).
+
+    * #query:<format># - the record query status formatted as specified.
+      The unmodified field `identification.query` outputs a single letter code. 
+      Currently there is only one format - `standard` - which translates codes to 
+      meaningful text,  `Q` to `Queried`, `A` to `Answered`.
+    * #record_date:<format># - takes the sample date (as returned by the special field event_date)
+      and formats it as specified. Currently there is only one format - `mapmate` - which 
+      provides an output date or date range in a format acceptable to MapMate.
+    * #sex:<format># - the value of the `occurrence.sex` field formatted as specified.
+      Currently there is only one format - `mapmate` - which translates codes to 
+      values acceptable to MapMate, e.g. `female` to `f` and `mixed` to `g`.
+    * #sref_system:<field>:<format># - a formatted spatial reference system. 
+      The field must indicate a spatial reference system, e.g. `location.input_sref_system`.
+      Currently there is only one format - `alphanumeric` - which replaces any values where
+      the spatial reference system is stored as a numberic EPSG code with the recognised
+      text equivalent (`4326` becomes `WGS84` and `27700` becomes `OSGB36`).
     * #status_icons# - icons representing the record status, confidential, sensitive and
       zero_abundance status of the record.
+    * #vc:<format># - the Vice County formatted as specified. Currently there is only one
+      formatter - `mapmate` - which indicates that the Vice County is to be represented by
+      its number but where no VC is found, or more than one is held against then record, 
+      then 0 is output. (Note that for
+      most purposes, VC name and or number, are best retrieved using the `higher_geography`
+      special field.)
+    * #verification_status:<format># - the record verification status formatted as specified.
+      The unmodified field `identification.verification_status` outputs a single letter code. 
+      Currently there is only one modifer - `standard` - which translates codes to 
+      meaningful text, e.g. `V` to `Accepted`, `C` to `Unconfirmed` etc.
+    * #verification_substatus:<format># - the record verification substatus formatted as specified.
+      The unmodified field `identification.verification_substatus` outputs a single letter code. 
+      Currently there is only one modifer - `standard` - which translates codes to 
+      meaningful text, e.g. `1` to `Correct`, `2` to `Considered correct` etc.
     * Path to an aggregation's output when using aggregated data.
 
   When defining the path to a field in the Elasticsearch document, if the path contains
