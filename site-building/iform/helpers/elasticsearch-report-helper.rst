@@ -912,7 +912,7 @@ A download returning data in a format like that provided before Elasticsearch::
   [download]
   @source=data-to-download
   @columnsTemplate=easy-download
-  @caption="Download easy format"
+  @caption="Download backward-compatible format"
 
 A download with a format selector::
 
@@ -921,7 +921,7 @@ A download with a format selector::
 
   [download]
   @source=data-to-download
-  @columnsTemplate=["default","easy-download"]
+  @columnsTemplate=["default","easy-download", "mapmate"]
 
 Options
 ^^^^^^^
@@ -940,14 +940,29 @@ Font Awesome icon if supported by your theme::
 
 **columnsTemplate**
 
-Named set of columns on the server which will be included in the download file. Default is
+Named template that defines set of columns on the server which will be included in the download file. 
+If an array of template names is provided in this parameter then a control is shown allowing the
+user to choose the template to use. The default value is
 "default" when the source is in `docs` mode, or blank for the aggregation modes. Options
-are currently "default" or "easy-download". The latter is a format close to that provided
-by downloads before the use of Elasticsearch by Indicia. It can be set to blank to disable
+are currently "default", "easy-download" and "mapmate".  
+It can be set to blank to disable
 loading a predefined set. Other sets may be provided on the warehouse in future.
 
-If an array of template names is provided in this parameter then a control is shown allowing the
-user to choose the template to use.
+The "default" format (corresponding to
+"Standard dowload format" in the download control's format selection drop-down) provides
+a standard set of download fields. 
+
+The "easy-download" format (corresponding to "Backward-compatible format" in the 
+download control's format selection drop-down) produces a set of columns and formats
+which is very close to that provided
+by downloads before the use of Elasticsearch by Indicia.
+
+The "mapmate" format (corresponding to "Mapmate-compatible format" in the 
+download control's format selection drop-down) produces a set of columns and formats
+that should allow for easy import into MapMate. Note that as well as the mandatory
+fields specified by `MapMate <https://www.mapmate.co.uk/guide/page19.htm>`_
+a number of additional columns are added which could potentially help with evaluation
+or further manipulation of the records before importing into MapMate.
 
 **id**
 
