@@ -1,17 +1,33 @@
 REST API Module
 ---------------
 
-The REST API module provides a RESTful web service to some aspects of Indicia's database,
-namely reports and resources required for synchronisation of a warehouse with other online
-recording databases. Support for other data types as well as data updates may be added in
-future.
+The REST API module provides a RESTful web service to the following:
 
-Once this module is enabled, visit /index.php/services/rest for dynamically generated
-information about the available API end-points.
+  * Key data operations for wildlife records data (occurrences, samples, locations).
+	* Metadata operations for survey data set structure including creating and modifying
+	  surveys and custom attributes.
+	* Access to data via reports.
+	* Access to data in Elasticsearch if configured for this warehouse.
+	* Access to a taxon-observations and annotations end-point, a prototype for data exchange
+	  between wildlife recording systems that is deprecated and likely to be replaced.
 
-The REST API is configured by copying the file /modules/rest_api/config/rest.example.php to
-/modules/rest_api/config/rest.php and editing it. The following configuration settings
-can be specified:
+Support for data operations on other data types may be added in future.
+
+Once this module is enabled, you need to create a configuration file to define authentication
+methods, resource endpoints and integration with Elasticsearch. The easiest way to do this is to
+copy the file `/modules/rest_api/config/rest.jwt-only.php` to `/modules/rest_api/config/rest.jwt-only.php`.
+Now open the file in a text editor and perform the following amendments:
+
+  * If not using Elasticsearch, then remove the whole line for the `elasticsearch` key under the
+	  jwtUser resource_options section. Also remove the entire entry for `$config['elasticsearch']`.
+	* If using Elasticsearch, replace `http://my.elastic.url:9200` with the URL of your Elasticsearch
+	  instance and `my-index` with the name of the index containing occurrence data.
+
+Once configured, visit /index.php/services/rest for dynamically generated information about
+the available API end-points.
+
+For a more complete set of configuration options refer to the examples in the `rest.example.php`
+config file. The following configuration settings can be specified:
 
   * **user_id** - when synchronising records with another system, each system must have a
     unique user ID specified here with which it will be identified on the other system.
@@ -29,6 +45,18 @@ can be specified:
 .. todo::
   Complete documentation including autofeed (tracking and tracking dates) and max_time
   information.
+
+.. tip::
+  Some default configurations of Apache do not pass the Authorization header through to PHP for
+	security reasons. This will prevent authorisation using JWT (the 'jwtUser' method). To fix this,
+	add the following lines to your .htaccess file::
+
+	  RewriteEngine On
+		RewriteCond %{HTTP:Authorization} ^(.*)
+		RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
+  See `this post <https://stackoverflow.com/questions/26475885/authorization-header-missing-in-php-post-request>`_
+	for more info.
 
 Examples
 ^^^^^^^^
