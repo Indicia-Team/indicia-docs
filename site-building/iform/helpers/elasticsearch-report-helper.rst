@@ -242,6 +242,14 @@ the document. In these modes it is also possible to specify either the field spe
 the `unique_field` option or any of the fields specified in the additional `fields` array
 option.
 
+**switchToGeomsAt**
+
+If the mode is `mapGridSquare`, then this can be set to a zoom level after which the layer
+will switch to show the geometries of the records as they were input, rather than the grid
+square or circle containing the record. Otherwise a record will only ever show at a maximum
+1km precision. The 1km layer starts showing at zoom level 11, so a setting of around 13 is
+a good starting point.
+
 **uniqueField**
 
 Used when the mode is `compositeAggregation` or `termAggregation`. Name of a field in the
