@@ -608,10 +608,32 @@ page with a URL that might look like:
     * #attr_value:<entity>:<id># - a single custom attribute value. Specify the entity
       name (event (=sample), parent_event (sample identified by `samples.parent_id` or
       occurrence) plus the custom attribute ID as parameters.
+    * #blank# - outputs a null value. Useful if you need an empty column.
     * #data_cleaner_icons# - icons representing the results of data cleaner rule checks.
-    * #datasource_code# - outputs the website and survey ID, with tooltips to show the
-      website and survey dataset name.
-    * #event_date# - event (sample) date or date range.
+    * #datasource_code:<format># or #datasource_code# - This outputs a datasource identifier
+      optionally composed from any of the following six elements (corresponding tokens are
+      shown in parentheses): website title (`<wt>`),
+      website id (`<wi>`), survey dataset title (`<st>`), survey dataset id (`<si>`),
+      recording group title (`<gt>`), recording group id (`<gi>`). The format consists
+      of a string containing one or more of the element tokens and any other characters
+      requried, e.g. `#datasource_code:<wt>-<gt>#`. If no format is specified, the following default
+      is used: `<wi> (<wt>) | <si> (<st>)`. A group may not always be present. When it is not
+      then `<gt>` and `<gi>` are replaced by empty strings. You can place any number of non-token 
+      characters before trailing group tokens within curly braces. Where a group is not present
+      the characters between the braces are not output. For example `<wt> | <st> {|} <gt>` will
+      ouput `website-title | survey-dataset-title | group-title` where a group is present
+      but otherwise just  `website-title | survey-dataset-title` - the training "|" is removed.
+      Curly braces are always removed from the output.
+    * #datetime:<field>:<format># - converts a specified field, which must be of the
+      date/time type, to a given format. Specify formats using standard 
+      `PHP format strings. (https://www.php.net/manual/en/datetime.format.php)`_ 
+      If you want to use colons in the format string, e.g. `Y-m-d H:i:s`, they must
+      be escaped to avoid confusion with colons in the rest of the field definition,
+      e.g. `#datetime:metadata.created_on:Y-m-d H\:i\:s#`.
+    * #event_date:<format># or #event_date# - where no format 
+      is specified, the event (sample) date or date range is output in a standard format.
+      If the format is set to `mapmate`, the date or date range is formatted in a way
+      that MapMate can handle for imports.
     * #higher_geography:<type>:<field>:<format># - provides the value of a field from one
       of the associated higher geography locations. The following parameter options are
       available:
@@ -624,7 +646,10 @@ page with a URL that might look like:
         chosen type to a single field. This must be one of `id`, `name`, `code` or `type`.
       * The output will be formatted as readable text unless the optional third `<format>`
         parameter is set to `json` in which case JSON is returned.
-
+      * If the third parameter can be set to `mapmate` where a vice county code is being
+        retrieved in which case if there is more than one VC code, or no VC code, associated
+        with the record, the output value is set to zero.
+        
     * #lat:<format># or #lat# - a formatted latitude value. If specified, `<format>` can
       be one of:
 
@@ -634,7 +659,10 @@ page with a URL that might look like:
         "N" or "S" location in relation to the equator.
 
     * #lat_lon# - a formatted latitude and longitude value with number each rounded to three
-      decimal places plus  a suffix indicating location in relation to the equator and Greenwich meridian.
+      decimal places plus a suffix indicating location in relation to the equator and Greenwich meridian.
+    * #life_stage:<format># - the value of the `occurrence.life_stage` field formatted as specified.
+      Currently there is only one format - `mapmate` - which translates values to 
+      values acceptable to MapMate, e.g. `adult female` to `Adult`.
     * #locality# - a summary of location information including the given location name
       and a list of higher geography locations.
     * #lon:<format># or #lon# - a formatted longitude value. If specified, `<format>` can
@@ -649,8 +677,38 @@ page with a URL that might look like:
       null.
     * #occurrence_media# - returns thumbnails for the occurrence's uploaded media with
       built in click to view at full size functionality.
+    * #organism_quantity:<format># - returns the value of the `occurrence.organism_quantity`
+      field formatted as specified. The value of `<format>` can
+      be one of:
+
+        * "integer" - the value is only returned if it is an integer.
+        * "exclude-integer" - the value is only returned if it is not an integer.
+        * "mapmate" - returns the value if it is an integer (other than zero). If the value
+          is a zero, or if the value of `occurrence.zero_abundance` is not false, then
+          a value of `-7` is returned (used by MapMate to indicate negative records).
+
+    * #query:<format># - the record query status formatted as specified.
+      The unmodified field `identification.query` outputs a single letter code. 
+      Currently there is only one format - `astext` - which translates codes to 
+      meaningful text,  `Q` to `Queried`, `A` to `Answered`.
+    * #sex:<format># - the value of the `occurrence.sex` field formatted as specified.
+      Currently there is only one format - `mapmate` - which translates codes to 
+      values acceptable to MapMate, e.g. `female` to `f` and `mixed` to `g`.
+    * #sref_system:<field>:<format># - a formatted spatial reference system. 
+      The field must indicate a spatial reference system, e.g. `location.input_sref_system`.
+      Currently there is only one format - `alphanumeric` - which replaces any values where
+      the spatial reference system is stored as a numberic EPSG code with the recognised
+      text equivalent (`4326` becomes `WGS84` and `27700` becomes `OSGB36`).
     * #status_icons# - icons representing the record status, confidential, sensitive and
       zero_abundance status of the record.
+    * #verification_status:<format># - the record verification status formatted as specified.
+      The unmodified field `identification.verification_status` outputs a single letter code. 
+      Currently there is only one modifer - `astext` - which translates codes to 
+      meaningful text, e.g. `V` to `Accepted`, `C` to `Unconfirmed` etc.
+    * #verification_substatus:<format># - the record verification substatus formatted as specified.
+      The unmodified field `identification.verification_substatus` outputs a single letter code. 
+      Currently there is only one modifer - `astext` - which translates codes to 
+      meaningful text, e.g. `1` to `Correct`, `2` to `Considered correct` etc.
     * Path to an aggregation's output when using aggregated data.
 
   When defining the path to a field in the Elasticsearch document, if the path contains
@@ -920,7 +978,7 @@ A download returning data in a format like that provided before Elasticsearch::
   [download]
   @source=data-to-download
   @columnsTemplate=easy-download
-  @caption="Download easy format"
+  @caption="Download backward-compatible format"
 
 A download with a format selector::
 
@@ -929,7 +987,7 @@ A download with a format selector::
 
   [download]
   @source=data-to-download
-  @columnsTemplate=["default","easy-download"]
+  @columnsTemplate=["default","easy-download", "mapmate"]
 
 Options
 ^^^^^^^
@@ -948,14 +1006,29 @@ Font Awesome icon if supported by your theme::
 
 **columnsTemplate**
 
-Named set of columns on the server which will be included in the download file. Default is
+Named template that defines set of columns on the server which will be included in the download file. 
+If an array of template names is provided in this parameter then a control is shown allowing the
+user to choose the template to use. The default value is
 "default" when the source is in `docs` mode, or blank for the aggregation modes. Options
-are currently "default" or "easy-download". The latter is a format close to that provided
-by downloads before the use of Elasticsearch by Indicia. It can be set to blank to disable
+are currently "default", "easy-download" and "mapmate".  
+It can be set to blank to disable
 loading a predefined set. Other sets may be provided on the warehouse in future.
 
-If an array of template names is provided in this parameter then a control is shown allowing the
-user to choose the template to use.
+The "default" format (corresponding to
+"Standard dowload format" in the download control's format selection drop-down) provides
+a standard set of download fields. 
+
+The "easy-download" format (corresponding to "Backward-compatible format" in the 
+download control's format selection drop-down) produces a set of columns and formats
+which is very close to that provided
+by downloads before the use of Elasticsearch by Indicia.
+
+The "mapmate" format (corresponding to "Mapmate-compatible format" in the 
+download control's format selection drop-down) produces a set of columns and formats
+that should allow for easy import into MapMate. Note that as well as the mandatory
+fields specified by `MapMate <https://www.mapmate.co.uk/guide/page19.htm>`_
+a number of additional columns are added which could potentially help with evaluation
+or further manipulation of the records before importing into MapMate.
 
 **id**
 
@@ -1247,6 +1320,18 @@ options parameter. Options available are:
     which define sets of records a user can access, setting this to true will include a
     prefix for the entry in the selection list to clarify the sharing code (Verification,
     Download, Reporting etc).
+  * notices - a JSON object with one or more keys that are matched against the start of the
+    text of the selected item in the permissions filter control. If a match is found, then
+    the value stored against the key - which can be an HTML string - is displayed below the
+    selection control. In the folloinw example if a filter is selected in the control which
+    starts with the text "LERC download - ", then the specified HTML is displayed below
+    the control::
+
+      @notices=<!--{
+        "LERC download - ": "<p><b>For LERC downloads, you must abide by the 
+        <a href='https://www.brc.ac.uk/irecord/lrc-tc'>
+        LERC Terms and Conditions</a>.</b></p>"
+      }-->
 
 .. _elasticsearch-report-helper-recordDetails:
 
