@@ -19,6 +19,9 @@ The service accepts the following parameters:
   * taxon_group_id - ID or array of IDs of taxon groups to limit the search to.
   * taxon_group - Taxon group name or array of taxon group names to limit the search to,
     an alternative to using taxon_group_id.
+  * scratchpad_list_id - ID of an entry in the `scratchpad_lists` table where the `entity`
+    is set to `taxa_taxon_list` and the entries are a list of taxa taxon_list recpords to
+    limit the search to.
   * taxon_meaning_id - ID or array of IDs of taxon meanings to limit the search to.
   * taxa_taxon_list_id - ID or array of IDs of taxa taxon list records to limit the
     search to.
