@@ -72,7 +72,7 @@ point based records (e.g. GPS lat long) so they can be easily drawn on a 1km map
 example. The grid squares are generated using Indicia's best understanding of the local
 preferred grid system, e.g. OSGB over Great Britain or OSIE over Ireland.
 
-The square IDs are linked to the `map_sq_<size>km_id' fields in both
+The square IDs are linked to the `map_sq_<size>km_id` fields in both
 `cache_occurrences_functional` and `cache_samples_functional`, where <size> is 1, 2 or
 10 for ease of use when reporting.
 

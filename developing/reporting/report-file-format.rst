@@ -50,6 +50,7 @@ Child elements
 ^^^^^^^^^^^^^^
 
 * :ref:`query <query-label>`
+* :ref:`count_query <count-query-label>`
 * :ref:`order-bys <order-bys-label>`
 * :ref:`field-sql <field-sql-label>`
 * :ref:`params <params-label>`
