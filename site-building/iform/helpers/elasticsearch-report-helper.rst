@@ -1237,8 +1237,10 @@ layer objects can have the following properties:
     `aggregationMapMode` setting for the `source`.
   * enabled - set to false if you want this layer to be initially hidden and only
     available via the layer switcher. Once enabled, the state of the layer will be
-    remembered in a cookie unless cookies are explicitly disabled or the map has no
-    specific `id` option set for this map.
+    remembered in a cookie unless cookies are explicitly disabled
+    or the map has no specific `id` option set for this map.
+  * forceEnabled - set to true if you want this layer to be enabled whenever the page
+    is initiased. This will override the value stored in a cookie.
   * type - one of the following:
 
       * circle - see `Leaflet circle <https://leafletjs.com/reference-1.5.0.html#circle>`_
