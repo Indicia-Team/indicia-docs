@@ -618,19 +618,19 @@ page with a URL that might look like:
       of a string containing one or more of the element tokens and any other characters
       requried, e.g. `#datasource_code:<wt>-<gt>#`. If no format is specified, the following default
       is used: `<wi> (<wt>) | <si> (<st>)`. A group may not always be present. When it is not
-      then `<gt>` and `<gi>` are replaced by empty strings. You can place any number of non-token 
+      then `<gt>` and `<gi>` are replaced by empty strings. You can place any number of non-token
       characters before trailing group tokens within curly braces. Where a group is not present
       the characters between the braces are not output. For example `<wt> | <st> {|} <gt>` will
       ouput `website-title | survey-dataset-title | group-title` where a group is present
       but otherwise just  `website-title | survey-dataset-title` - the training "|" is removed.
       Curly braces are always removed from the output.
     * #datetime:<field>:<format># - converts a specified field, which must be of the
-      date/time type, to a given format. Specify formats using standard 
-      `PHP format strings. (https://www.php.net/manual/en/datetime.format.php)`_ 
+      date/time type, to a given format. Specify formats using standard
+      `PHP format strings. (https://www.php.net/manual/en/datetime.format.php)`_
       If you want to use colons in the format string, e.g. `Y-m-d H:i:s`, they must
       be escaped to avoid confusion with colons in the rest of the field definition,
       e.g. `#datetime:metadata.created_on:Y-m-d H\:i\:s#`.
-    * #event_date:<format># or #event_date# - where no format 
+    * #event_date:<format># or #event_date# - where no format
       is specified, the event (sample) date or date range is output in a standard format.
       If the format is set to `mapmate`, the date or date range is formatted in a way
       that MapMate can handle for imports.
@@ -649,7 +649,7 @@ page with a URL that might look like:
       * If the third parameter can be set to `mapmate` where a vice county code is being
         retrieved in which case if there is more than one VC code, or no VC code, associated
         with the record, the output value is set to zero.
-        
+
     * #lat:<format># or #lat# - a formatted latitude value. If specified, `<format>` can
       be one of:
 
@@ -661,7 +661,7 @@ page with a URL that might look like:
     * #lat_lon# - a formatted latitude and longitude value with number each rounded to three
       decimal places plus a suffix indicating location in relation to the equator and Greenwich meridian.
     * #life_stage:<format># - the value of the `occurrence.life_stage` field formatted as specified.
-      Currently there is only one format - `mapmate` - which translates values to 
+      Currently there is only one format - `mapmate` - which translates values to
       values acceptable to MapMate, e.g. `adult female` to `Adult`.
     * #locality# - a summary of location information including the given location name
       and a list of higher geography locations.
@@ -688,13 +688,13 @@ page with a URL that might look like:
           a value of `-7` is returned (used by MapMate to indicate negative records).
 
     * #query:<format># - the record query status formatted as specified.
-      The unmodified field `identification.query` outputs a single letter code. 
-      Currently there is only one format - `astext` - which translates codes to 
+      The unmodified field `identification.query` outputs a single letter code.
+      Currently there is only one format - `astext` - which translates codes to
       meaningful text,  `Q` to `Queried`, `A` to `Answered`.
     * #sex:<format># - the value of the `occurrence.sex` field formatted as specified.
-      Currently there is only one format - `mapmate` - which translates codes to 
+      Currently there is only one format - `mapmate` - which translates codes to
       values acceptable to MapMate, e.g. `female` to `f` and `mixed` to `g`.
-    * #sref_system:<field>:<format># - a formatted spatial reference system. 
+    * #sref_system:<field>:<format># - a formatted spatial reference system.
       The field must indicate a spatial reference system, e.g. `location.input_sref_system`.
       Currently there is only one format - `alphanumeric` - which replaces any values where
       the spatial reference system is stored as a numberic EPSG code with the recognised
@@ -702,12 +702,12 @@ page with a URL that might look like:
     * #status_icons# - icons representing the record status, confidential, sensitive and
       zero_abundance status of the record.
     * #verification_status:<format># - the record verification status formatted as specified.
-      The unmodified field `identification.verification_status` outputs a single letter code. 
-      Currently there is only one modifer - `astext` - which translates codes to 
+      The unmodified field `identification.verification_status` outputs a single letter code.
+      Currently there is only one modifer - `astext` - which translates codes to
       meaningful text, e.g. `V` to `Accepted`, `C` to `Unconfirmed` etc.
     * #verification_substatus:<format># - the record verification substatus formatted as specified.
-      The unmodified field `identification.verification_substatus` outputs a single letter code. 
-      Currently there is only one modifer - `astext` - which translates codes to 
+      The unmodified field `identification.verification_substatus` outputs a single letter code.
+      Currently there is only one modifer - `astext` - which translates codes to
       meaningful text, e.g. `1` to `Correct`, `2` to `Considered correct` etc.
     * Path to an aggregation's output when using aggregated data.
 
@@ -1006,24 +1006,24 @@ Font Awesome icon if supported by your theme::
 
 **columnsTemplate**
 
-Named template that defines set of columns on the server which will be included in the download file. 
+Named template that defines set of columns on the server which will be included in the download file.
 If an array of template names is provided in this parameter then a control is shown allowing the
 user to choose the template to use. The default value is
 "default" when the source is in `docs` mode, or blank for the aggregation modes. Options
-are currently "default", "easy-download" and "mapmate".  
+are currently "default", "easy-download" and "mapmate".
 It can be set to blank to disable
 loading a predefined set. Other sets may be provided on the warehouse in future.
 
 The "default" format (corresponding to
 "Standard dowload format" in the download control's format selection drop-down) provides
-a standard set of download fields. 
+a standard set of download fields.
 
-The "easy-download" format (corresponding to "Backward-compatible format" in the 
+The "easy-download" format (corresponding to "Backward-compatible format" in the
 download control's format selection drop-down) produces a set of columns and formats
 which is very close to that provided
 by downloads before the use of Elasticsearch by Indicia.
 
-The "mapmate" format (corresponding to "Mapmate-compatible format" in the 
+The "mapmate" format (corresponding to "Mapmate-compatible format" in the
 download control's format selection drop-down) produces a set of columns and formats
 that should allow for easy import into MapMate. Note that as well as the mandatory
 fields specified by `MapMate <https://www.mapmate.co.uk/guide/page19.htm>`_
@@ -1075,6 +1075,36 @@ the pagination information::
 If you want to output the download control in an existing element on the page with a known
 CSS selector then specify the selector here. If the selector matches multiple elements
 then only the first will be used.
+
+.. _elasticsearch-report-helper-groupIntegration:
+
+ElasticsearchReportHelper::groupIntegration
+-------------------------------------------
+
+Links a reporting page to a recording group (activity). Applies a group_id filter to the data,
+either loading from the URL parameter or a preset ID. Optionally outputs a summary of the group
+and its pages.
+
+Options
+^^^^^^^
+
+**group_id**
+
+ID of the group to load data for, if fixed. If not set, then the group ID is obtained from a URL
+parameter called `group_id`.
+
+**missingGroupIdBehaviour**
+
+Defines what happens if a group ID is not provided either via a parameter or URL parameter. Default
+is "error" but can be set to "showAll" to allow the page to appear unfiltered.
+
+**showGroupSummary**
+
+If true, then a group summary panel is displayed including the group logo, title and description.
+
+**showGroupPages**
+
+If true, then a list of available group page links is shown.
 
 .. _elasticsearch-report-helper-higherGeographySelect:
 
@@ -1328,7 +1358,7 @@ options parameter. Options available are:
     the control::
 
       @notices=<!--{
-        "LERC download - ": "<p><b>For LERC downloads, you must abide by the 
+        "LERC download - ": "<p><b>For LERC downloads, you must abide by the
         <a href='https://www.brc.ac.uk/irecord/lrc-tc'>
         LERC Terms and Conditions</a>.</b></p>"
       }-->
