@@ -85,7 +85,7 @@ normal user, so is a good first choice.
 Captcha and reCaptcha
 """""""""""""""""""""
 
-The Drupal `Captcha <http://drupal.org/captcha>`_ and `reCaptcha <http://drupal.org/recaptcha>`_
+The Drupal `Captcha <http://drupal.org/project/captcha>`_ and `reCaptcha <http://drupal.org/project/recaptcha>`_
 modules both implement a challenge-response extension to the Drupal registration page. By
 displaying a graphical image of a code which is intentionally difficult for machine to 
 read and asking the user to type this code into a box, the idea is that non-human 
@@ -101,7 +101,7 @@ machine reading can often make the code hard for a human to read.
 Spamicide
 """""""""
 
-The Drupal `Spamicide <http://drupal.org/spamicide>`_ module takes a different approach
+The Drupal `Spamicide <http://drupal.org/project/spamicide>`_ module takes a different approach
 to the challenge response modules mentioned above. Rather than ask the user registering
 to do something which proves they are human, the Spamicide module does the reverse - it
 tricks the automated registrations performed by spambots into doing something which
@@ -116,7 +116,7 @@ Login Toboggan
 """"""""""""""
 
 Although not specifically an anti-spam solution, `Login Toboggan
-<http://drupal.org/logintoboggan>`_ does have a number of useful facilities for
+<http://drupal.org/project/logintoboggan>`_ does have a number of useful facilities for
 improving and managing the login process, including the facility to automatically remove
 user registration attempts where the user has not completed the registration after a
 configurable time period. This can save the manual task of removing unused user
