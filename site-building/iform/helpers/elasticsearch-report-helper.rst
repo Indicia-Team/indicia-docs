@@ -565,6 +565,13 @@ Each action entry can have the following properties:
       code.
     * Field values from the row's Elasticsearch document can be specified by putting the
       field name in square brackets, e.g. [taxon.taxon_name] or [id].
+  * tokenDefaults - allows a default value to be specified where the document doesn't hold
+    a value for the field used in a token replacement for an action's path. E.g. 
+    ```
+    "tokenDefaults":{
+      "[metadata.input_form]": "edit-generic-record"
+    }
+    ```
   * urlParams - additional parameters to add to the URL as key/value pairs. Can also
     contain field value replacements by putting the field name in square brackets.
 
