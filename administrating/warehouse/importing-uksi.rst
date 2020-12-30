@@ -64,7 +64,8 @@ or deleted. Contains basic name data and a link to the preferred name.
   WHERE NAMESERVER.DELETED_DATE Is Null
   AND ORGANISM_MASTER.DELETED_DATE Is Null
   AND ORGANISM_MASTER.REDUNDANT_FLAG Is Null
-  AND TAXON_VERSION.DELETED_DATE Is Null;
+  AND TAXON_VERSION.DELETED_DATE Is Null
+  AND TAXON_VERSION.DATE_TO IS NULL;
 
 **Query 3 - title=preferred_names**
 
@@ -96,7 +97,8 @@ marked as redundant or deleted.
   WHERE NAMESERVER.DELETED_DATE Is Null
   And ORGANISM_MASTER.REDUNDANT_FLAG Is Null
   And ORGANISM_MASTER.DELETED_DATE Is Null
-  And TAXON_VERSION.DELETED_DATE Is Null;
+  And TAXON_VERSION.DELETED_DATE Is Null
+  And TAXON_VERSION.DATE_TO Is Null;
 
 **Query 4 - title=taxa_taxon_designations**
 
