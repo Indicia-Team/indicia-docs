@@ -186,9 +186,9 @@ similar for other versions. For each query:
    extension, e.g. ``all_names.txt``.
 #. Click OK.
 #. On the **Export Text Wizard** select the **Delimited** text option then click Next.
-#. Set the delimiter to **Comma** and the **Text Qualifier** to a double quote character. Click Next.
+#. Set the delimiter to **Comma** and the **Text Qualifier** to a double quote character.
 #. Select the Advanced button and on the dialog that appears, change **Code Page** to **Unicode (UTF-8)** then click **OK**.
-#. Click Finish to export the file.
+#. Click Next then Finish to export the file.
 
 Now that you have exported the files, follow through the steps in the next section
 "Starting with the exported text files" to complete the import. You will need to replace
