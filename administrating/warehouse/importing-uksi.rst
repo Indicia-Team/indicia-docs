@@ -82,7 +82,8 @@ marked as redundant or deleted.
   TAXON.AUTHORITY, ORGANISM_MASTER.PARENT_TVK, ORGANISM_MASTER.PARENT_KEY, TAXON_VERSION.TAXON_RANK_KEY,
   TAXON_RANK.SEQUENCE, TAXON_RANK.LONG_NAME, TAXON_RANK.SHORT_NAME, ORGANISM_MASTER.MARINE_FLAG,
   ORGANISM_MASTER.FRESHWATER AS FRESHWATER_FLAG,
-  ORGANISM_MASTER.TERRESTRIAL_FRESHWATER_FLAG AS TERRESTRIAL_FLAG, ORGANISM_MASTER.NON_NATIVE_FLAG, NULL AS SORT_CODE
+  ORGANISM_MASTER.TERRESTRIAL_FRESHWATER_FLAG AS TERRESTRIAL_FLAG, ORGANISM_MASTER.NON_NATIVE_FLAG, 
+  NULL AS SORT_CODE
   FROM (((TAXON_LIST_ITEM
   INNER JOIN (TAXON
   INNER JOIN (TAXON_VERSION
@@ -186,6 +187,7 @@ similar for other versions. For each query:
 #. Click OK.
 #. On the **Export Text Wizard** select the **Delimited** text option then click Next.
 #. Set the delimiter to **Comma** and the **Text Qualifier** to a double quote character. Click Next.
+#. Select the Advanced button and on the dialog that appears, change **Code Page** to **Unicode (UTF-8)** then click **OK**.
 #. Click Finish to export the file.
 
 Now that you have exported the files, follow through the steps in the next section
