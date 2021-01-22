@@ -187,6 +187,14 @@ output shown on the page. See
 Outputs a panel containing action buttons for verification tasks. See
 :ref:`elasticsearch-report-helper-verificationButtons`.
 
+[groupIntegration]
+""""""""""""""""""
+
+Converts the page into a group-linked (activity) report. Responds to the
+`group_id` and `implicit` URL parameters added for links to activity pages,
+adding appropriate filtration to the report output to show that group's data.
+See :ref:`elasticsearch-report-helper-groupIntegration`.
+
 Adding filters to the page using HTML hidden inputs
 ---------------------------------------------------
 
