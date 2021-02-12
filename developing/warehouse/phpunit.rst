@@ -13,6 +13,7 @@ implemented.
      * The PostgreSQL database must be called 'indicia'.
      * The database connection user account must be called 'indicia_user' and the password set to
        'indicia_user_pass'.
+     * Run 'ALTER USER indicia_user SET search_path=indicia, public, pg_catalog;' in pgAdmin.
      * The warehouse MUST only be used for unit testing, since each test run may clear existing
        data from the database.
 #. Enable the following modules by adding them to the list in
@@ -51,6 +52,31 @@ Or you can run tests against a single class::
 
 More information on writing tests is available on `the phpUnit website
 <http://phpunit.de/manual/current/en/writing-tests-for-phpunit.html>`_.
+
+Using phpUnit phar
+------------------
+
+An easy way to setup phpUnit is to download the PHAR file. Unfortunately, Kohana is compatible with
+phpUnit versions prior to 6, but these versions have function signature compatibility problems that
+come to the fore in PHP 7.1 and higher. To get round this:
+
+  * Download phpunit-5.7.5.phar from `the phpUnit PHAR downloads page <https://phar.phpunit.de/>`_.
+  * From a command line, extract the contents to a local folder, for example::
+
+    $ C:\xampp\php\php.exe C:\xampp\php\pharcommand.phar extract -f C:\xampp\htdocs\warehousetest\phpunit-5.7.5.phar c:\localsource\phar
+
+  * Edit the phar folder.
+  * Search for all instances of "function assertEquals". Edit all the comparator class descendents and ensure that assertEquals method
+    has ", array &$processed = array()" as last parameter.
+  * Temporarily set phar.readonly to off in the php.ini file.
+  * Rebuild the *.phar file::
+
+    $ C:\xampp\php\php.exe C:\xampp\php\pharcommand.phar pack -f C:\xampp\htdocs\warehousetest\phpunit-5.7.5.phar c:\localsource\phar
+
+  * Reset php.ini file.
+  * You can now run unit tests, e.g. from the root folder of the warehouse installation::
+
+    $ c:\xampp\php\php.exe phpunit-5.7.5.phar --config=phpunit-tests.xml
 
 Continuous Integration
 ----------------------
