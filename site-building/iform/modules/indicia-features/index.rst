@@ -6,3 +6,4 @@ Drupal Indicia setup.
 
 .. toctree::
   easy-login
+  locations-shp-importer
