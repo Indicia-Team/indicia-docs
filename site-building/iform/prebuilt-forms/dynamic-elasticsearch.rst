@@ -12,15 +12,31 @@ verification.
 If you already have configured access to Elasticsearch via the warehouse's REST API, you
 should know or be able to find out the following settings:
 
+  * Authentication method. The authentication can be configured in one of 3 ways:
+    * As a client configured in the REST API configuration. This allows the warehouse administrator
+      to setup custom permissions for a project and to point requests at an Elasticsearch alias
+      which defines a very specific filter for the accessible records. The administrator will
+      provide the endpoing, user and secret.
+    * As a website - the website ID and password are used to authenticate. In this mode, the
+      purpose (sharing) option is important.
+    * As a user, using Java Web Tokens to authenticate.
+  * Purpose - the sharing mode used to identify the correct set of records when authenticating as
+    as website. For example a website may opt to share records to your site for verification but
+    not public reporting.
   * Endpoint - the path within the REST API's address which refers to your Elasticsearch
     access alias.
-  * User - a code for your user in the REST API configuration.
-  * Secret - a secret given for your user's access to the REST API Elasticsearch endpoint.
+  * User - when authenticating as a client - a code for your client (user) in the REST API
+    configuration.
+  * Secret - when authenticating as a client - a secret given for your user's access to the REST
+    API Elasticsearch endpoint.
   * Warehouse ID prefix - the prefix inserted before occurrence ID to make a globally
     unique ID on the Elasticsearch cluster.
 
 If you do not have the above available and therefore need to set up the REST API access
 on the warehouse, then follow the instructions at :doc:`../../../developing/rest-web-services/elasticsearch`.
+
+The settings can be entered onto the Indicia configuration settings page for site-wide settings, or
+overridden in the settings on the Edit tab of individual Elasticsearch outputs pages.
 
 It would be beneficial to have a basic understanding of the Elasticsearch Query API before
 proceeding.
@@ -215,15 +231,15 @@ The data attributes you can specify are:
     field name you want to filter against.
   * data-es-query-type - set to one of the following:
 
-      match_all
-      match_none
-      term
-      terms
-      match
-      match_phrase
-      match_phrase_prefix
-      query_string
-      simple_query_string
+      * match_all
+      * match_none
+      * term
+      * terms
+      * match
+      * match_phrase
+      * match_phrase_prefix
+      * query_string
+      * simple_query_string
 
     All of the above map to the query with the same name in the `Elasticsearch Query DSL
     documentation <https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html>`_.
@@ -287,5 +303,13 @@ Some examples follow:
     <option value="identification.verification_status:C AND identification.query:Q">Queried</option>
     <option value="identification.verification_status:C AND identification.query:A">Answered</option>
   </select>
+
+  <!--Using the terms query type with an array of values-->
+  <input type="hidden"
+    class="es-filter-param"
+    data-es-bool-clause="must"
+    data-es-query-type="terms"
+    data-es-field="metadata.survey.id"
+    value="[1,2,3]" />
 
 
