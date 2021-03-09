@@ -663,7 +663,8 @@ page with a URL that might look like:
     * #attr_value:<entity>:<id># - a single custom attribute value. Specify the entity
       name (event (=sample), parent_event (sample identified by `samples.parent_id` or
       occurrence) plus the custom attribute ID as parameters.
-    * #blank# - outputs a null value. Useful if you need an empty column.
+    * #constant:<value># - outputs a static value. Pass an empty string if you need an empty
+      column.
     * #data_cleaner_icons# - icons representing the results of data cleaner rule checks.
     * #datasource_code:<format># or #datasource_code# - This outputs a datasource identifier
       optionally composed from any of the following six elements (corresponding tokens are
