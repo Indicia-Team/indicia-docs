@@ -167,6 +167,17 @@ additional calculated fields that will be added to the output dataset. Normally 
 a single bucket aggregation per key but nested aggregations can be expanded into table
 columns using a `dataGrid` control.
 
+**disabled**
+
+Set to true to prevent the source from populating. You can then use JavaScript to change the
+setting:
+
+.. code-block:: js
+
+  var src = indiciaData.esSourceObjects['source_id'];
+  src.settings.disabled = false;
+  src.populate();
+
 **fields**
 
 An array of document field names to include in the output when using `termAggregation` or
@@ -427,8 +438,41 @@ For example::
     }
   }-->
 
+**proxyCacheTimeout**
+
+To enable caching of the Elasticsearch content loaded on a page's initial load, set
+`@proxyCacheTimeout=n` where n is the number of seconds after which the cached content will expire
+and therefore will refresh. Although performance of Elasticsearch is normally excellent, if a
+public facing reporting page is likely to receive a high volume of hits (e.g. the output of a
+citizen science project) then it can be pragmatic to set this value to prevent rapid identical
+Elasticsearch queries. A value of 300 would set the cache expiry to 5 minutes for example. Note
+that once a cached item expires, the chances of it refreshing on a page request are randomised,
+meaning that if there are multiple queries issued by a page, then they won't all get refreshed on
+the same page hit.
+
+Caching occurs in the Elasticsearch proxy layer and only applies to the initial load of each data
+source when the page loads. Subsequent hits are likely to be filtered AJAX requests so caching
+would not be relevant.
+
 Data output methods
 ===================
+
+
+.. _elasticsearch-report-helper-cardGallery:
+
+ElasticsearchReportHelper::cardGallery
+--------------------------------------
+
+Outputs a gallery of record cards.
+
+Options
+^^^^^^^
+
+**keyboardNavigation**
+
+Set to true to allow use of the following keyboard shortcuts:
+* arrow keys to navigate the selected card in the gallery.
+* i to show the first image in the current row as a popup.
 
 .. _elasticsearch-report-helper-customScript:
 
@@ -458,6 +502,10 @@ formats the output. Takes 3 parameters:
 * el - the element the output should be added to.
 * sourceSettings - settings object for the source the control is linked to.
 * response - the response from Elasticsearch to be formatted by the function.
+
+**template**
+
+Template for the content to add to the output div. Defaults to empty.
 
 .. _elasticsearch-report-helper-dataGrid:
 
@@ -566,12 +614,12 @@ Each action entry can have the following properties:
     * Field values from the row's Elasticsearch document can be specified by putting the
       field name in square brackets, e.g. [taxon.taxon_name] or [id].
   * tokenDefaults - allows a default value to be specified where the document doesn't hold
-    a value for the field used in a token replacement for an action's path. E.g.:: 
-   
+    a value for the field used in a token replacement for an action's path. E.g.::
+
       "tokenDefaults":{
         "[metadata.input_form]": "edit-generic-record"
       }
-    
+
   * urlParams - additional parameters to add to the URL as key/value pairs. Can also
     contain field value replacements by putting the field name in square brackets.
 
@@ -708,6 +756,8 @@ page with a URL that might look like:
       text equivalent (`4326` becomes `WGS84` and `27700` becomes `OSGB36`).
     * #status_icons# - icons representing the record status, confidential, sensitive and
       zero_abundance status of the record.
+    * #taxon_label# - a label for the taxon. This combines the accepted name and vernacular where
+      available. The rank is prefixed for higher taxa.
     * #verification_status:<format># - the record verification status formatted as specified.
       The unmodified field `identification.verification_status` outputs a single letter code.
       Currently there is only one modifer - `astext` - which translates codes to
@@ -797,6 +847,12 @@ Set to false to disable the pager row at the bottom of the table.
 
 Set to true to include a multi-select tool button which enables tickboxes for each row.
 Normally used to support multiple record verification.
+
+**keyboardNavigation**
+
+Set to true to allow use of the following keyboard shortcuts:
+* up and down arrow keys to navigate the selected row in the grid.
+* i to show the first image in the current row as a popup.
 
 **rowClasses**
 
@@ -1045,7 +1101,8 @@ cannot be relied on.
 
 **linkToDataGrid**
 
-If specified, uses a dataGrid control to obtain the source and columns configuration.
+If specified, uses a dataGrid control to obtain the source and columns configuration. Columns
+specified in **addColumns** will be appended to the end.
 
 **removeColumns**
 
@@ -1636,7 +1693,7 @@ on the page, and visa versa.
 ElasticsearchReportHelper::surveyFilter
 ----------------------------------------
 
-Provides a drop down list of surveys (datasets). Selecting a survey applies 
+Provides a drop down list of surveys (datasets). Selecting a survey applies
 a filter to the current page's outputs, limiting records to those belonging to the
 selected survey. It is anticipated that this control will be used on pages that
 provide dataset download facilities. When a survey is selected with this control,
@@ -1676,10 +1733,21 @@ record editing.
 ID of the HTML element. If not specified, a unique ID will be autogenerated which cannot
 be relied on.
 
+*keyboardNavigation*
+
+Enables the following shortcuts:
+* 1 = Verify current record (accepted as correct, or accepted when showing just tier 1 buttons).
+* 2 = Verify current record (accepted as considered correct).
+* 3 = Set current record as plausible.
+* 4 = Reject current record (unable to verify).
+* 5 = Verify current record (rejected as incorrect).
+* Q = Query current record.
+* R = Re-determine current record.
+
 **showSelectedRow**
 
-Specify the element ID of a `[dataGrid]` control which the buttons will source the
-selected row from.
+Specify the element ID of a `[dataGrid]` or `[cardGallery]` control which the buttons will source
+the selected occurrence from.
 
 **viewPath**
 
