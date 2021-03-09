@@ -15,5 +15,6 @@ The Prebuilt Form Library
   easy-download-2
   mnhnl-dynamic-1
   quick-species-maps
-  ad-hoc-cetaceans
   verification-5
+  record-details-2
+  ad-hoc-cetaceans
