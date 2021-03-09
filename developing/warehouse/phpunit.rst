@@ -22,6 +22,7 @@ implemented.
      * rest_api
      * sref_mtb
      * data_cleaner_period_within_year
+     * attribute_sets
 
 #. Copy the file `modules/rest_api/config/rest.php.travis` to `rest.php`.
 #. Enable the phpUnit warehouse module. You will need to disable it after running your
