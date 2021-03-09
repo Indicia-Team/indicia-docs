@@ -9,5 +9,7 @@ sibling modules extending its functionality. These are all described in the link
   indicia-features/index
   sub-modules/index
   mobile-auth/index
+  iform-layout-builder
+
 
 
