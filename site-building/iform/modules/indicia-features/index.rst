@@ -6,4 +6,5 @@ Drupal Indicia setup.
 
 .. toctree::
   easy-login
+  indicia-notification-emails
   locations-shp-importer

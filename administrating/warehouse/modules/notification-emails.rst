@@ -16,3 +16,6 @@ application/config/email.php as follows:
   $config['do_not_send'] = true;
 
   ?>
+
+Enable the **Indicia notification emails** module from the Indicia Features repository to allow the
+user to configure their notification settings from their Drupal user profile page.
