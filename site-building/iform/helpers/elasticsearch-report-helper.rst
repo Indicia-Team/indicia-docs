@@ -1755,19 +1755,29 @@ automatically applied to the records:
 
 The decision spreadsheet upload tool checks each record to ensure that it is one of the set of
 records returned by the current verification context filter. Therefore it is impossible to update
-records you are not a verifier for...
+records you are not a verifier for.
 
-A `[download]` control can be modified to include the columns required for verification by adding
-the following option to its form structure:
-```
-[download]
-@addColumns=<!--[
-  {"caption":"Status","field":"#verification_status:astext#"},
-  {"caption":"Sub-status","field":"#verification_substatus:astext#"},
-  {"caption":"*Decision status*","field":"#constant:#"},
-  {"caption":"*Decision comment*","field":"#constant:#"}
-]-->
-```
+In order to set the decisions spreadsheet functionality up, a `[download]` control can be modified
+to include the columns required for verification. It can also be configured to output the button
+and resulting download file link under the records grid by adding the following options::
+
+  [download]
+  @linkToDataGrid=records-grid
+  @buttonContainerElement=#records-grid tfoot td
+  @containerElement=#records-grid
+  @addColumns=<!--[
+    {"caption":"Status","field":"#verification_status:astext#"},
+    {"caption":"Sub-status","field":"#verification_substatus:astext#"},
+    {"caption":"*Decision status*","field":"#constant:#"},
+    {"caption":"*Decision comment*","field":"#constant:#"}
+  ]-->
+
+The verification buttons can be configured to output the upload decisions spreadsheet button into
+the report footer area as follows::
+
+  [verificationButtons]
+  @includeUploadButton=true
+  @uploadButtonContainerElement=#records-grid tfoot td
 
 *keyboardNavigation*
 
