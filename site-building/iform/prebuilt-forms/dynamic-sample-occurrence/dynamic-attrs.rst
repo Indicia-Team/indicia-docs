@@ -48,3 +48,16 @@ The [species dynamic attributes] control can be configured with the following op
     * survey_id
     * taxa_taxon_list_id
     * master_checklist_id (15 for the BRC warehouse1).
+
+Attributes that are not linked to a taxonomic branch
+----------------------------------------------------
+
+One possibility is to have attributes that are generic which then get replaced by specific versions
+when the taxon is chosen. For example, you might want a recording form with a generic Stage
+attribute with options such as "adult", "pre-adult", "other". Then when a taxon is chosen, if it is
+one of the groups that has a Stage attribute setup, the generic attribute's drop-down options can
+be replaced with the specific version of the attributes. In order to do this, you need to set up a
+Stage attribute that contains the generic options in a termlist, but do not link this to any taxon.
+Now, add a [species attributes] control onto the page and allow it to output the generic Stage
+attribute. Now, when a species is chosen, the Stage attribute will be replaced if the species has
+it's own Stage attribute.
