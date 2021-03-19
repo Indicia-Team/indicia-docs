@@ -21,7 +21,10 @@ file allows you to group sets of workflow rules into named groups and decide whi
 participate in each group. That allows you to have different behaviour depending on the website
 that the record was entered into, e.g. a sensitivity rule might only apply in a regional dataset.
 
-In the copied file, replace "NNSIP" with the code you'd like to give your group of rules which will
+The example config file demonstrates setting up a group of workflow rules called NNSIP, which is
+administered by admins of website_id 2. Websites 2, 3 and 4 will all have their records affected by
+rules in this workflow group when they are submitted. To replace this with your own workflow group
+configuration, replace "NNSIP" with the code you'd like to give your group of rules which will
 allow you to identify it in the user interface. Set `owner_website_id` to the website ID which
 administers this group; users who are admins of this website will be able to administer the rules.
 Set `member_website_ids` to an array of all the websites which will participate in the set of rules
@@ -29,6 +32,26 @@ attached to this group.
 
 Now, save your file, then enable the module in `application/config/config.php` and visit
 `/index.php/home/upgrade` on your warehouse in order to install the required tables.
+
+You can create additional groups simply by adding them to the array in the configuration file.
+Here's an example:
+
+.. code-block:: php
+
+  $config['groups'] = [
+    'NNSIP' => [
+      'owner_website_id' => 2,
+      'member_website_ids' => [2, 3, 4],
+    ],
+    'IRECORDSENSITIVE' => [
+      'owner_website_id' => 23,
+      'member_website_ids' => [23, 40, 41, 42, 44, 48, 55, 61],
+    ],
+    'MAMMALS' => [
+      'owner_website_id' => 126,
+      'member_website_ids' => [126],
+    ]
+  ];
 
 Creating a workflow event
 ^^^^^^^^^^^^^^^^^^^^^^^^^
