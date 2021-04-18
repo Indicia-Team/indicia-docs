@@ -300,6 +300,16 @@ that output occurrence data. This means it includes fields that are used for fil
 sorting and grouping the report output rather than the labels which are typically output
 in the report columns displayed to the user.
 
+Hierarchical taxonomic queries are supported by the ``taxon_path`` field which contains an array
+of ``taxon_meaning_ids`` for the taxon and all its taxonomic parents. E.g. to query for all mammal
+data, find the ``taxon_meaning_id`` for Mammalia on your warehouse's master list, then use an SQL
+where clause as follows:
+
+.. code-block:: sql
+
+  WHERE taxon_path && ARRAY[*taxon_meaning_id*]
+
+
 .. note::
 
   By keeping all the commonly filtered, sorted and grouped columns in a single table, the
@@ -320,6 +330,10 @@ Contains additional values for each record which are frequently useful to constr
 display output of a record but rarely used in filtering, grouping or sorting of the report
 output.
 
+Custom occurrence attribute values can be obtained from the `attrs_json` field which is an object
+keyed by attribute ID. This saves joins to ``occurrence_attribute_values`` and
+``cache_termlists_terms`` in order to get attribute values in query results.
+
 cache_samples_functional
 ------------------------
 
@@ -335,6 +349,10 @@ cache_samples_nonfunctional
 Contains additional values for each sample which are frequently useful to construct the
 display output of a sample or the sample elements of a record but rarely used in filtering,
 grouping or sorting of the report output.
+
+Custom sample attribute values can be obtained from the ``attrs_json`` field which is an object
+keyed by attribute ID. This saves joins to ``sample_attribute_values`` and
+``cache_termlists_terms`` in order to get attribute values in query results.
 
 cache_taxa_taxon_lists
 ----------------------
