@@ -53,29 +53,30 @@ assistance on the forum.
   :doc:`find out more about the technology <technology>` or
   :doc:`dive straight in to the developer documentation <../developing/index>`.
 
-Will the Indicia project be supported into the future?
+Will the Indicia project be maintained into the future?
 ------------------------------------------------------
 
-.. todo::
-
-  answer question about support in the future
+These FAQ were first drafted in 2012 and I am just adding an update in 2021.
+During that time Indicia has been in a state of continuous improvement. It now
+underpins the work of the Biological Records Centre at the UK Centre for 
+Ecology and Hydrology and has been adopted my numerous local record centres,
+recording schemes and surveys, both in the UK and abroad. So long as an
+interest remains in monitoring wildlife, tools will exist to facilitate that.
+Indicia is one of the best solutions currently available. The future is a 
+long time. If and when Indicia ceases to be worth maintaining it will most
+likely be because there is a better solution that the community have chosen
+to migrate to. 
 
 Is there a mobile interface for Indicia?
 ----------------------------------------
 
-There isn't a generic approach to building mobile applications in Indicia at the
-present time, however Indicia provides an excellent platform for building mobile
+Indicia provides an excellent platform for building mobile
 applications against since it provides the services required to store records,
 lookup species names and report on the data that a mobile application requires.
-`PlantTracker <http://planttracker.naturelocator.org>`_ is a good example of a
-mobile application written using Indicia as the platform for storing the
-records, thereby benefitting from the reporting, verification and other data
-management tools.
+`Numerous apps<https://www.brc.ac.uk/apps>` have been created using it.
 
-Currently, a mobile app is being developed for the `UK Ladybird Recording Scheme
-<http://www.ladybird-survey.org>`_ and as part of this project a generic
-approach to building mobile applications to run alongside Drupal websites is
-being developed.
+A `javascript library<https://github.com/Indicia-Team/indicia-js>` exists
+which provides useful functions to an app using Indicia.
 
 What do I need to do to setup my own online recording site?
 -----------------------------------------------------------
@@ -174,9 +175,8 @@ typically you will use one of the following:
 Which versions of Drupal does Indicia integrate with?
 -----------------------------------------------------
 
-At the time of writing (November 2012), the Indicia integration module is available for
-Drupal 6 and work is currently in progress on the Drupal 7 version, which will be
-released this winter.
+At the time of writing (April 2021), the Indicia integration module is available for
+Drupal 7 and 8 and a Drupal 9 version is being tested.
 
 Can Indicia use a MySQL database?
 ---------------------------------
