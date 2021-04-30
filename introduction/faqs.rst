@@ -73,9 +73,9 @@ Is there a mobile interface for Indicia?
 Indicia provides an excellent platform for building mobile
 applications against since it provides the services required to store records,
 lookup species names and report on the data that a mobile application requires.
-`Numerous apps<https://www.brc.ac.uk/apps>`_ have been created using it.
+`Numerous apps <https://www.brc.ac.uk/apps>`_ have been created using it.
 
-A `javascript library<https://github.com/Indicia-Team/indicia-js>`_ exists
+A `javascript library <https://github.com/Indicia-Team/indicia-js>`_ exists
 which provides useful functions to an app using Indicia.
 
 What do I need to do to setup my own online recording site?
