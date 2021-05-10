@@ -89,7 +89,7 @@ as possible and use it for guidance.
 
   After installing PostGreSQL 9.6.3 on Windows, Stack Builder was
   used to install PostGIS 2.5.1. Right-clicked on the 'Databases'
-  icon and selected 'Create > Database' to invole database creation
+  icon and selected 'Create > Database' to invoke the database creation
   dialog. You can either use the 'General' tab to create the 'indicia'
   database, or use the 'SQL' tab to run the following SQL ::
 
@@ -126,8 +126,8 @@ in the toolbar then selecting <new connection>, and run the following script
 which allows the Indicia user just enough rights to access the PostGIS
 functionality: ::
 
-  GRANT ALL PRIVILEGES ON TABLE geometry_columns TO indicia_user;
-  GRANT ALL PRIVILEGES ON TABLE spatial_ref_sys TO indicia_user;
+  GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO indicia_user;
+  GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO indicia_user;
   GRANT EXECUTE ON FUNCTION st_astext(geometry) TO indicia_user;
   GRANT EXECUTE ON FUNCTION st_geomfromtext(text, integer) TO indicia_user;
   GRANT EXECUTE ON FUNCTION st_transform(geometry, integer) TO indicia_user;
