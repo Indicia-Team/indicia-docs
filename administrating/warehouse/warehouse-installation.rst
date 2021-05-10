@@ -27,21 +27,9 @@ have been installed. The steps are similar for Windows.
 Install PostgreSQL and PostGIS
 ==============================
 
-First, install the PostgreSQL database server and the PostGIS extension for your
-operating system. For downloads and more information see
-http://www.postgresql.org/ and http://postgis.refractions.net/. You should
-install version 8.4 or later of PostgreSQL, preferably 9.x, though if installing
-on Windows it is worth reviewing the `Windows installation notes
-<http://postgis.refractions.net/download/windows/>`_ before selecting a version.
-For example, at the current point in time version 9.1 is the latest version
-which supports installation of PostGIS using the Application Stack Builder, so
-opting for this version rather than 9.2 will make things simpler later. PostGIS > 2.0.0 is required.
-
-If you are installing PostgreSQL on a Linux server then you may find the
-following links extremely useful:
-
-* `An almost idiot's guide to installing PostgreSQL 9.0 with Yum <http://www.postgresonline.com/journal/archives/203-postgresql90-yum.html>`_
-* `An almost idiot's guide to installing PostGIS 1.5 on PostgreSQL 9.0 via Yum <http://www.postgresonline.com/journal/archives/204-postgis15-install-yum.html>`_
+First, install the PostgreSQL database server and the PostGIS extension for your operating system.
+For downloads and more information see http://www.postgresql.org/ and http://postgis.refractions.net/.
+You should install version 9.6 or later of PostgreSQL and PostGIS version 2.x or later.
 
 Next, create a PostGIS database on your server. You don't need to put any
 content in the database yet. There are several possible ways of doing this, but
@@ -153,7 +141,7 @@ functionality: ::
   .. code-block:: sql
 
     DELETE FROM spatial_ref_sys WHERE srid=900913;
-    
+
     INSERT into spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text)
     SELECT 900913 ,'EPSG',900913,'GEOGCS["WGS 84", DATUM["World Geodetic System
     1984", SPHEROID["WGS 84", 6378137.0, 298.257223563,AUTHORITY["EPSG","7030"]], AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich", 0.0, AUTHORITY["EPSG","8901"]], NIT["degree",0.017453292519943295], AXIS["Longitude", EAST], AXIS["Latitude", NORTH],AUTHORITY["EPSG","4326"]], PROJECTION["Mercator_1SP"],PARAMETER["semi_minor", 6378137.0],
