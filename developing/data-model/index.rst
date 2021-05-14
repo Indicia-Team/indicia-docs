@@ -3,9 +3,10 @@ Data Model Introduction
 ***********************
 
 Indicia's database is a traditional relational database based on PostgreSQL with spatial
-extensions supported by PostGIS. The database tables and columns are documented in the
-schema comments. Here's an introduction to some key ares of the data model to get you
-started with querying the database.
+extensions supported by PostGIS. Here's an introduction to some key ares of the data model
+to get you started with querying the database. A detailed description of the principal tables
+is included here but use your database client to see a full description of the database 
+tables and columns in the schema comments. 
 
 .. toctree::
 
@@ -16,3 +17,4 @@ started with querying the database.
   users
   agreements
   locations
+  tables
