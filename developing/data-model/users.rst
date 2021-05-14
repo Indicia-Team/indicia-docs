@@ -80,7 +80,7 @@ members and include reporting and data entry pages. Pages can be configured to b
 to all users or group administrators only, plus there is an option to define multiple
 access levels of group membership where more fine-grained control is required.
 
-Ref. :ref:`developing/data-model/tables:groups_pages`
+Ref. :ref:`developing/data-model/tables:group_pages`
 
 filters
 -------

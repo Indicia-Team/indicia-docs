@@ -21,7 +21,7 @@ validation rules.
 Ref. :ref:`developing/data-model/tables:location_attributes`, 
 :ref:`developing/data-model/tables:occurrence_attributes`,
 :ref:`developing/data-model/tables:person_attributes`, 
-:ref:`developing/data-model/tables:samples_attributes`, 
+:ref:`developing/data-model/tables:sample_attributes`, 
 :ref:`developing/data-model/tables:survey_attributes`, 
 :ref:`developing/data-model/tables:taxa_taxon_list_attributes`,
 :ref:`developing/data-model/tables:termlists_term_attributes`
@@ -38,7 +38,7 @@ survey datasets but not others.
 Ref. :ref:`developing/data-model/tables:location_attributes_websites`, 
 :ref:`developing/data-model/tables:occurrence_attributes_websites`,
 :ref:`developing/data-model/tables:person_attributes_websites`, 
-:ref:`developing/data-model/tables:samples_attributes_websites`, 
+:ref:`developing/data-model/tables:sample_attributes_websites`, 
 :ref:`developing/data-model/tables:survey_attributes_websites`, 
 :ref:`developing/data-model/tables:taxon_lists_taxa_taxon_list_attributes`,
 :ref:`developing/data-model/tables:termlists_termlists_term_attributes`
@@ -94,7 +94,7 @@ example:
 Ref. :ref:`developing/data-model/tables:location_attribute_values`, 
 :ref:`developing/data-model/tables:occurrence_attribute_values`,
 :ref:`developing/data-model/tables:person_attribute_values`, 
-:ref:`developing/data-model/tables:samples_attribute_values`, 
+:ref:`developing/data-model/tables:sample_attribute_values`, 
 :ref:`developing/data-model/tables:survey_attribute_values`, 
 :ref:`developing/data-model/tables:taxa_taxon_list_attribute_values`,
 :ref:`developing/data-model/tables:termlists_term_attribute_values`
