@@ -15,14 +15,14 @@ The database stores multiple lists of taxa. A list can be anything from a simple
 of a few species being recorded by a citizen science project to a full hierarchical
 taxonomy for a country's species list.
 
-Ref. :ref:`table_taxon_lists`
+Ref. :ref:`developing/data-model/tables:taxon_lists`
 
 taxa_taxon_lists
 ----------------
 
 The taxa_taxon_lists table serves to join taxa to the lists they belong to.
 
-Ref. :ref:`table_taxa_taxon_lists`
+Ref. :ref:`developing/data-model/tables:taxa_taxon_lists`
 
 taxa
 ----
@@ -73,7 +73,7 @@ refer to database records in different ways:
     for the taxon. In the UK it is used to store the preferred Taxon Version Key as used
     in the UK Species Inventory (UKSI). TVKs are also used by the NBN to identify taxa.
 
-Ref. :ref:`table_taxa`
+Ref. :ref:`developing/data-model/tables:taxa`
 
 taxon_groups
 ------------
@@ -83,7 +83,7 @@ which are often used in reporting to  help clarify taxon names in a user friendl
 taxon belongs to a single taxon group and group names can be taxonomic but don't have to
 be, for example a taxon group could  be called "aquatic insects" if desired.
 
-Ref. :ref:`table_taxon_groups`
+Ref. :ref:`developing/data-model/tables:taxon_groups`
 
 languages
 ---------
@@ -92,5 +92,5 @@ A simple lookup list of languages used in the taxonomy and termlists parts of th
 e.g. separates Latin names from English names. Includes the 3 letter iso language code
 which can be used as a shortcut to the full language name.
 
-Ref. :ref:`table_languages`
+Ref. :ref:`developing/data-model/tables:languages`
 

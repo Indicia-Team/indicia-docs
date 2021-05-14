@@ -91,7 +91,7 @@ where clause as follows:
   MUCH more efficient than joining to the taxon_groups and locations tables to filter
   within those tables.
 
-Ref. :ref:`table_cache_occurrences_functional`
+Ref. :ref:`developing/data-model/tables:cache_occurrences_functional`
 
 cache_occurrences_nonfunctional
 -------------------------------
@@ -104,7 +104,7 @@ Custom occurrence attribute values can be obtained from the `attrs_json` field w
 keyed by attribute ID. This saves joins to ``occurrence_attribute_values`` and
 ``cache_termlists_terms`` in order to get attribute values in query results.
 
-Ref. :ref:`table_cache_occurrences_nonfunctional`
+Ref. :ref:`developing/data-model/tables:cache_occurrences_nonfunctional`
 
 cache_samples_functional
 ------------------------
@@ -115,7 +115,7 @@ since all the values are duplicated in cache_occurrences_functional (for the per
 reasons described above). It is only necessary to use this table when querying a list
 of samples.
 
-Ref. :ref:`table_cache_samples_functional`
+Ref. :ref:`developing/data-model/tables:cache_samples_functional`
 
 cache_samples_nonfunctional
 ---------------------------
@@ -128,7 +128,7 @@ Custom sample attribute values can be obtained from the ``attrs_json`` field whi
 keyed by attribute ID. This saves joins to ``sample_attribute_values`` and
 ``cache_termlists_terms`` in order to get attribute values in query results.
 
-Ref. :ref:`table_cache_samples_nonfunctional`
+Ref. :ref:`developing/data-model/tables:cache_samples_nonfunctional`
 
 cache_taxa_taxon_lists
 ----------------------
@@ -137,7 +137,7 @@ Contains values pertaining to a single taxon name, for example you can find the 
 the preferred name for the taxon as well as the default common name, kingdom, order and
 family.
 
-Ref. :ref:`table_cache_taxa_taxon_lists`
+Ref. :ref:`developing/data-model/tables:cache_taxa_taxon_lists`
 
 cache_taxon_searchterms
 -----------------------
@@ -177,4 +177,4 @@ output:
   on the website_id as shown in the query above. This allows a compound index to work so
   is much more efficient.
 
-Ref. :ref:`table_cache_taxon_searchterms`
+Ref. :ref:`developing/data-model/tables:cache_taxon_searchterms`

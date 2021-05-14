@@ -15,7 +15,7 @@ people
 The people table is used to maintain a list of all known people, whether or not they are
 actually users.
 
-Ref. :ref:`table_people`
+Ref. :ref:`developing/data-model/tables:people`
 
 users
 -----
@@ -35,7 +35,7 @@ their name etc) and a users record (which provides login information).
   always know if one John Smith is the same person as another, so a free text label is more
   logically correct.
 
-Ref. :ref:`table_users`
+Ref. :ref:`developing/data-model/tables:users`
 
 users_websites
 --------------
@@ -45,7 +45,7 @@ with. The information also includes a role which provides permissions informatio
 warehouse, e.g. where a user has rights to log into the warehouse and update the survey
 dataset definitions for that website.
 
-Ref. :ref:`table_users_websites`
+Ref. :ref:`developing/data-model/tables:users_websites`
 
 groups
 ------
@@ -62,7 +62,7 @@ history society or for a national recording scheme.
 A group record defines various settings for the group including privacy settings and other
 metadata.
 
-Ref. :ref:`table_groups`
+Ref. :ref:`developing/data-model/tables:groups`
 
 groups_users
 ------------
@@ -70,7 +70,7 @@ groups_users
 The groups_users table joins users to the groups/activities they belong to and also flags
 which group members can administer the group settings.
 
-Ref. :ref:`table_groups_users`
+Ref. :ref:`developing/data-model/tables:groups_users`
 
 group_pages
 -----------
@@ -80,7 +80,7 @@ members and include reporting and data entry pages. Pages can be configured to b
 to all users or group administrators only, plus there is an option to define multiple
 access levels of group membership where more fine-grained control is required.
 
-Ref. :ref:`table_groups_pages`
+Ref. :ref:`developing/data-model/tables:groups_pages`
 
 filters
 -------
@@ -91,5 +91,5 @@ group. For example, when displaying a list of occurrences, the filters record as
 with a group might define the polygon boundary of the site used by the group or perhaps
 the taxonomic filter appropriate to the group.
 
-Ref. :ref:`table_filters`
+Ref. :ref:`developing/data-model/tables:filters`
 

@@ -67,4 +67,4 @@ Locations support custom attributes so can be extended to support any metadata y
 See :doc:`Locality data <locality-data>` for more information on spatial data in the
 database.
 
-Ref. :ref:`table_locations`
+Ref. :ref:`developing/data-model/tables:locations`

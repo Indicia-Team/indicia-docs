@@ -21,7 +21,7 @@ possible to set up agreements between registered websites that allow the records
 shared. For example,  this approach is used to allow multiple websites to share their
 records to the iRecord verification portal in the UK. 
 
-Ref. :ref:`table_websites`
+Ref. :ref:`developing/data-model/tables:websites`
 
 surveys
 -------
@@ -36,7 +36,7 @@ data might collect a DAFOR abundance value. The configuration of custom attribut
 available is defined at the level of the survey dataset therefore it is often the case that
 a survey dataset is created for each recording form you build. 
 
-Ref. :ref:`table_surveys`
+Ref. :ref:`developing/data-model/tables:surveys`
 
 samples
 -------
@@ -69,7 +69,7 @@ detail in the next section.
   You can use the `vague_date_to_string(date_start, date_end, date_type)` function to
   convert the date stored in the database into formatted text for display.
 
-Ref. :ref:`table_samples`
+Ref. :ref:`developing/data-model/tables:samples`
 
 occurrences
 -----------
@@ -138,7 +138,7 @@ The occurrence comments contains a log of all comments, including:
   * comments added by automatic record quality checks, e.g. flagging records outside the
     expected range or time of year.
 
-Ref. :ref:`data-model/tables:occurrence-comments`
+Ref. :ref:`developing/data-model/tables:occurrence-comments`
 
 determinations
 --------------
@@ -146,4 +146,4 @@ determinations
 Where there have been multiple opinions on the identification of a record, the
 determinations table contains *previous* identification details.
 
-Ref. :ref:`tables:determinations`
+Ref. :ref:`developing/data-model/tables:determinations`

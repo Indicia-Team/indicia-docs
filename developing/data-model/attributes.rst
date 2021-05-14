@@ -18,10 +18,13 @@ For each custom attribute, a record is created in the <table>_attributes table w
 describes the global properties of the attribute, including its caption, data type and
 validation rules.
 
-Ref. :ref:`table_location_attributes`, :ref:`table_occurrence_attributes`,
-:ref:`table_person_attributes`, :ref:`table_samples_attributes`, 
-:ref:`table_survey_attributes`, :ref:`table_taxa_taxon_list_attributes`,
-:ref:`table_termlists_term_attributes`
+Ref. :ref:`developing/data-model/tables:location_attributes`, 
+:ref:`developing/data-model/tables:occurrence_attributes`,
+:ref:`developing/data-model/tables:person_attributes`, 
+:ref:`developing/data-model/tables:samples_attributes`, 
+:ref:`developing/data-model/tables:survey_attributes`, 
+:ref:`developing/data-model/tables:taxa_taxon_list_attributes`,
+:ref:`developing/data-model/tables:termlists_term_attributes`
 
 <table>_attributes_websites
 ---------------------------
@@ -32,10 +35,13 @@ additional validation rules to apply to the attribute within the context of this
 dataset, for example it is normally appropriate to set an attribute to required in some
 survey datasets but not others.
 
-Ref. :ref:`table_location_attributes_websites`, :ref:`table_occurrence_attributes_websites`,
-:ref:`table_person_attributes_websites`, :ref:`table_samples_attributes_websites`, 
-:ref:`table_survey_attributes_websites`, :ref:`table_taxon_lists_taxa_taxon_list_attributes`,
-:ref:`table_termlists_termlists_term_attributes`
+Ref. :ref:`developing/data-model/tables:location_attributes_websites`, 
+:ref:`developing/data-model/tables:occurrence_attributes_websites`,
+:ref:`developing/data-model/tables:person_attributes_websites`, 
+:ref:`developing/data-model/tables:samples_attributes_websites`, 
+:ref:`developing/data-model/tables:survey_attributes_websites`, 
+:ref:`developing/data-model/tables:taxon_lists_taxa_taxon_list_attributes`,
+:ref:`developing/data-model/tables:termlists_termlists_term_attributes`
 
 <table>_attribute_values
 ------------------------
@@ -85,8 +91,11 @@ example:
 
   select id, attr_biotope from cache_samples_nonfunctional
 
-Ref. :ref:`table_location_attribute_values`, :ref:`table_occurrence_attribute_values`,
-:ref:`table_person_attribute_values`, :ref:`table_samples_attribute_values`, 
-:ref:`table_survey_attribute_values`, :ref:`table_taxa_taxon_list_attribute_values`,
-:ref:`table_termlists_term_attribute_values`
+Ref. :ref:`developing/data-model/tables:location_attribute_values`, 
+:ref:`developing/data-model/tables:occurrence_attribute_values`,
+:ref:`developing/data-model/tables:person_attribute_values`, 
+:ref:`developing/data-model/tables:samples_attribute_values`, 
+:ref:`developing/data-model/tables:survey_attribute_values`, 
+:ref:`developing/data-model/tables:taxa_taxon_list_attribute_values`,
+:ref:`developing/data-model/tables:termlists_term_attribute_values`
   
