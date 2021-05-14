@@ -1,0 +1,18 @@
+"Column","Type","Max length","Default","Nullable","Description"
+"id","integer","","nextval('indicia.person_attributes_websites_id_seq'::regclass)","No",NULL
+"website_id","integer","","","No","Foreign key to the websites table. Identifies the website that the person attribute is available for."
+"person_attribute_id","integer","","","No","Foreign key to the person_attributes table. Identifies the person attribute that is available for the website."
+"created_on","timestamp without time zone","","","No","Date this record was created."
+"created_by_id","integer","","","No","Foreign key to the users table (creator)."
+"deleted","boolean","","false","No","Has this record been deleted?"
+"form_structure_block_id","integer","","","Yes","Additional validation rules that are defined for this attribute but only active within the context of this survey/website."
+"validation_rules","character varying","500","","Yes",NULL
+"weight","integer","","0","No","Dictates the order of controls within the block or at the top level. Controls with a higher weight will sink to the end of the list."
+"control_type_id","integer","","","Yes","Foreign key to the control_types table. Identifies the default type of control used for this attribute when used in this survey on a dynamically generated form."
+"default_text_value","text","","","Yes","For default text values, provides the value."
+"default_float_value","double precision","","","Yes","For default float values, provides the value."
+"default_int_value","integer","","","Yes","For default integer values, provides the value. For default lookup values, provides the term id. "
+"default_date_start_value","date","","","Yes","For default vague date and date values, provides the start date of the range of dates covered by the date."
+"default_date_end_value","date","","","Yes","For default vague date and date values, provides the start date of the range of dates covered by the date."
+"default_date_type_value","character varying","2","","Yes","For default vague date values, provides the date type identifier."
+"default_upper_value","double precision","","","Yes","If the attribute allows value ranges, then provides the default upper value of the range."

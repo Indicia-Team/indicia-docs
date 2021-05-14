@@ -1,0 +1,11 @@
+"Column","Type","Max length","Default","Nullable","Description"
+"id","integer","","nextval('indicia.taxon_groups_id_seq'::regclass)","No",NULL
+"title","character varying","100","","Yes",NULL
+"created_on","timestamp without time zone","","","No","Date this record was created."
+"created_by_id","integer","","","No","Foreign key to the users table (creator)."
+"updated_on","timestamp without time zone","","","No","Date this record was last updated."
+"updated_by_id","integer","","","No","Foreign key to the users table (last updater)."
+"deleted","boolean","","false","No","Has this record been deleted?"
+"external_key","character varying","50","","Yes",NULL
+"parent_id","integer","","","Yes","Identifies the parent of the taxon group if there is one."
+"description","character varying","","","Yes","Description of the taxon group."

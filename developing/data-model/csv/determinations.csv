@@ -1,0 +1,24 @@
+"Column","Type","Max length","Default","Nullable","Description"
+"id","integer","","nextval('indicia.determinations_id_seq'::regclass)","No",NULL
+"occurrence_id","integer","","","No","Foreign key to the occurrences table. Identifies the determined occurrence."
+"email_address","character varying","50","","Yes","Email of user who created the determination."
+"person_name","character varying","","","Yes","Identifier for determiner."
+"cms_ref","integer","","","Yes","CMS Identifier for determiner."
+"taxa_taxon_list_id","integer","","","Yes","Foreign key to the taxa_taxon_lists table. Identifies the taxa on a taxon list that this detemination is a record of."
+"comment","text","","","Yes","Text description of Taxon if not in list, or if a list."
+"taxon_extra_info","text","","","Yes","Additional information that may provide more accurate determination."
+"deleted","boolean","","false","No","Has this record been deleted?"
+"created_by_id","integer","","","Yes","Foreign key to the users table (creator), if user was logged in when comment created."
+"created_on","timestamp without time zone","","","No","Date and time this comment was created."
+"updated_by_id","integer","","","Yes","Foreign key to the users table (updater), if user was logged in when comment updated."
+"updated_on","timestamp without time zone","","","No","Date and time this comment was updated."
+"determination_type","character","1","'N'::bpchar","No","Type of determination. Can be one of determination_type can be one of:
+-- 'A' : Considered correct;
+-- 'B' : Considered incorrect;
+-- 'C' : Correct;
+-- 'I' : Incorrect;
+-- 'R' : Requires confirmation;
+-- 'U' : Unconfirmed;
+-- 'X' : Unidentified;"
+"taxon_details","text","","","Yes",NULL
+"taxa_taxon_list_id_list","ARRAY","","","Yes","Where this determination refers to a list of possible taxa, contains an array of the IDs of those taxa."

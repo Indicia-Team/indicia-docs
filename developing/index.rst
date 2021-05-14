@@ -17,7 +17,7 @@ Developing
   coding-standards
   github
   client-website/index
-  data-model
+  data-model/index
   locality-data
   adding-spatial-support
   example-queries

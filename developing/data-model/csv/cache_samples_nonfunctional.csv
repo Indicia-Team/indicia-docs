@@ -1,0 +1,23 @@
+"Column","Type","Max length","Default","Nullable","Description"
+"id","integer","","","No",NULL
+"website_title","character varying","","","Yes",NULL
+"survey_title","character varying","","","Yes",NULL
+"group_title","character varying","","","Yes",NULL
+"public_entered_sref","character varying","","","Yes",NULL
+"entered_sref_system","character varying","","","Yes",NULL
+"recorders","character varying","","","Yes",NULL
+"media","character varying","","","Yes",NULL
+"comment","text","","","Yes",NULL
+"privacy_precision","integer","","","Yes",NULL
+"licence_code","character varying","","","Yes",NULL
+"attr_email","character varying","","","Yes",NULL
+"attr_cms_user_id","integer","","","Yes",NULL
+"attr_cms_username","character varying","","","Yes",NULL
+"attr_first_name","character varying","","","Yes",NULL
+"attr_last_name","character varying","","","Yes",NULL
+"attr_full_name","character varying","","","Yes",NULL
+"attr_biotope","character varying","","","Yes",NULL
+"attr_sref_precision","double precision","","","Yes",NULL
+"attr_linked_location_id","integer","","","Yes",NULL
+"attr_sample_method","character varying","","","Yes",NULL
+"attrs_json","json","","","Yes",NULL

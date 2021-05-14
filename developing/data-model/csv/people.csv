@@ -1,0 +1,15 @@
+"Column","Type","Max length","Default","Nullable","Description"
+"id","integer","","nextval('indicia.people_id_seq'::regclass)","No",NULL
+"first_name","character varying","50","","No","First name of the person."
+"surname","character varying","50","","No","Surname of the person."
+"initials","character varying","6","","Yes","Initials of the person."
+"email_address","character varying","100","","Yes","Email address of the person."
+"website_url","character varying","1000","","Yes","Website URL for the person."
+"created_on","timestamp without time zone","","","No","Date this record was created."
+"created_by_id","integer","","","No","Optional persons address."
+"updated_on","timestamp without time zone","","","No","Date this record was last updated."
+"updated_by_id","integer","","","No","Foreign key to the users table (last updater)."
+"title_id","integer","","","Yes","Foreign key to the titles table."
+"address","character varying","200","","Yes",NULL
+"deleted","boolean","","false","No","Has this record been deleted?"
+"external_key","character varying","50","","Yes","For people imported from an external system, provides a field to store the external system's primary key for the record allowing re-synchronisation."

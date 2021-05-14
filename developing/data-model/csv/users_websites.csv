@@ -1,0 +1,17 @@
+"Column","Type","Max length","Default","Nullable","Description"
+"id","integer","","nextval('indicia.users_websites_id_seq'::regclass)","No",NULL
+"user_id","integer","","","No","Foreign key to the users table. Identifies the user with access to the website."
+"website_id","integer","","","No","Foreign key to the websites table. Identifies the website accessible by the user."
+"activated","boolean","","false","No","Flag indicating if the user's account has been activated."
+"banned","boolean","","false","No","Flag indicating if the user's account has been banned from this site."
+"activation_key","character varying","128","","Yes","Unique key used by the activation process."
+"site_role_id","integer","","","Yes","Foreign key to the site_roles table. Identifies the role of the user on this specific site."
+"registration_datetime","timestamp without time zone","","","Yes","Date and time of registration on this website."
+"last_login_datetime","timestamp without time zone","","","Yes","Date and time of last login to this website."
+"created_on","timestamp without time zone","","","No","Date this record was created."
+"created_by_id","integer","","","No","Foreign key to the users table (creator)."
+"updated_on","timestamp without time zone","","","No","Date this record was last updated."
+"updated_by_id","integer","","","No","Foreign key to the users table (last updater)."
+"preferred_sref_system","character varying","10","","Yes","Spatial reference system used for data entry and viewing of spatial data by this user of the website."
+"licence_id","integer","","","Yes","ID of the licence that is granted for media added this website by this user."
+"media_licence_id","integer","","","Yes",NULL
