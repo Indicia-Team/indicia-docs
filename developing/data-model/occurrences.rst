@@ -125,7 +125,7 @@ follows:
 Therefore a query to obtain all accepted records can simply filter on record_status=V and
 ignore the substatus.
 
-Ref. :ref:`table_occurrences`
+Ref. :ref:`developing/data-model/tables.html#occurrences`
 
 occurrence_comments
 -------------------
@@ -138,7 +138,7 @@ The occurrence comments contains a log of all comments, including:
   * comments added by automatic record quality checks, e.g. flagging records outside the
     expected range or time of year.
 
-Ref. :ref:`table_occurrence_comments`
+Ref. :ref:`data-model/tables.html#occurrence-comments`
 
 determinations
 --------------
@@ -146,4 +146,4 @@ determinations
 Where there have been multiple opinions on the identification of a record, the
 determinations table contains *previous* identification details.
 
-Ref. :ref:`table_determinations`
+Ref. :ref:`tables.html#determinations`

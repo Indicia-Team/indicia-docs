@@ -23,8 +23,6 @@ surveys
     :header-rows: 1
 
 
-.. _table_samples:
-
 samples
 -------
 
@@ -33,8 +31,6 @@ samples
     :widths: 20,10,10,10,10,40
     :header-rows: 1
 
-
-.. _table_occurrences:
 
 occurrences    
 -----------
@@ -45,8 +41,6 @@ occurrences
     :header-rows: 1
 
 
-.. _table_occurrences_comments:
-
 occurrence_comments
 -------------------
 
@@ -55,8 +49,6 @@ occurrence_comments
     :widths: 20,10,10,10,10,40
     :header-rows: 1
 
-
-.. _table_determinations:
 
 determinations
 --------------
