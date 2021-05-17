@@ -1,12 +1,12 @@
 Column,Type,Default,Nullable,Description
 id,integer,nextval(...),No,Unique identifier and primary key for the table.
 group_id,integer,,Yes,Foreign key to the groups table. Identifies the group of which the user is a member.
-caption,character varying,,No,Caption shown for this form when viewed in the group.
-path,character varying,,No,Path to the page on the client site which is enabled for this group
+caption,char varying,,No,Caption shown for this form when viewed in the group.
+path,char varying,,No,Path to the page on the client site which is enabled for this group
 administrator,boolean,false,Yes,"Set to true for pages that require group admin rights to be able to see them, false for pages that require normal membership and null for pages that are accessible to all."
-created_on,timestamp no timezone,,No,Date this record was created.
+created_on,timestamp (no tz),,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
-updated_on,timestamp no timezone,,No,Date this record was last updated.
+updated_on,timestamp (no tz),,No,Date this record was last updated.
 updated_by_id,integer,,No,Foreign key to the users table (last updater).
 deleted,boolean,false,No,Has this record been deleted?
 access_level,integer,,Yes,Optional minimum access level value required by the user in order to be able to use this page (in addition to the rules defined in group_pages.administrator). Null is treated as a value of zero (i.e. open access).

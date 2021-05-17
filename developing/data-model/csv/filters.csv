@@ -1,14 +1,14 @@
 Column,Type,Default,Nullable,Description
 id,integer,nextval(...),No,Primary key and unique identifier for the table.
-title,character varying,,No,Title of the filter
-description,character varying,,Yes,Optional description of the filter.
-definition,character varying,,No,A JSON string holding a definition of the filter parameters. Decodes to an array of key value pairs suitable for passing to a report supporting the standard report parameters.
+title,char varying,,No,Title of the filter
+description,char varying,,Yes,Optional description of the filter.
+definition,char varying,,No,A JSON string holding a definition of the filter parameters. Decodes to an array of key value pairs suitable for passing to a report supporting the standard report parameters.
 sharing,character (1),,Yes,"Identifies the record sharing task that this filter is for. Options are R(eporting), P(eer review), V(erification), D(ata flow), M(oderation)."
 public,boolean,false,Yes,Flag indicating when a filter is publically available and discoverable. Non-public filters can only be allocated to users by the creator.
 defines_permissions,boolean,false,Yes,"Flag indicating when a filter defines a limited set of permissions for the user having the filter. E.g. this could describe a set of records that a user is able to verify, any number of sets can be defined per user."
-created_on,timestamp no timezone,,No,Date this record was created.
+created_on,timestamp (no tz),,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
-updated_on,timestamp no timezone,,No,Date this record was last updated.
+updated_on,timestamp (no tz),,No,Date this record was last updated.
 updated_by_id,integer,,No,Foreign key to the users table (last updater).
 deleted,boolean,false,No,Has this record been deleted?
 website_id,integer,,Yes,Foreign key to the websites table. Optionally limits the filter to being available on this website.

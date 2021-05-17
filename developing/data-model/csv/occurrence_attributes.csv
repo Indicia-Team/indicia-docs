@@ -1,24 +1,24 @@
 Column,Type,Default,Nullable,Description
 id,integer,nextval(...),No,
-caption,character varying (50),,Yes,Display caption for the attribute.
+caption,char varying (50),,Yes,Display caption for the attribute.
 data_type,character (1),,Yes,"Data type for the attribute. Possible values are T (text), I (integer), F (float), D (date), V (vague date), L (item looked up from a termlist)."
-created_on,timestamp no timezone,,No,Date this record was created.
+created_on,timestamp (no tz),,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
-updated_on,timestamp no timezone,,No,Date this record was last updated.
+updated_on,timestamp (no tz),,No,Date this record was last updated.
 updated_by_id,integer,,No,Foreign key to the users table (last updater).
-validation_rules,character varying,,Yes,"Validation rules defined for this attribute, for example: number, required,max[50]."
+validation_rules,char varying,,Yes,"Validation rules defined for this attribute, for example: number, required,max[50]."
 termlist_id,integer,,Yes,"For attributes which define a term from a termlist, provides the ID of the termlist the term can be selected from."
 multi_value,boolean,false,Yes,"Does this attribute allow multiple values? If set to true, then multiple values for this attribute can be stored against a single record."
 public,boolean,false,No,Flag set to true if this attribute is available for selection and use by any website. If false the attribute is only available for use in the website which created it.
 deleted,boolean,false,No,Has this record been deleted?
-system_function,character varying (30),,Yes,"Machine readable function of this attribute, e.g. sex/stage. Defines how the field can be interpreted by the system."
+system_function,char varying (30),,Yes,"Machine readable function of this attribute, e.g. sex/stage. Defines how the field can be interpreted by the system."
 description,text,,Yes,Holds a description for the attribute.
 source_id,integer,,Yes,Points to a termlists_term which describes where the attribute originated.
 caption_i18n,json,,Yes,Stores a list of localised versions of the caption keyed by language code.
-term_name,character varying,,Yes,If the attribute is linked to a standardised glossary such as Darwin Core then provide the term name. Otherwise provide a brief alphanumeric only (with no spaces) version of the attribute name  to give it a unique identifier within the context of the survey dataset to make it easier to refer to in configuration.
-term_identifier,character varying,,Yes,"If the attribute is linked to a standardised glossary such as Darwin Core then provide the term identifier, typically the URL to the term definition."
+term_name,char varying,,Yes,If the attribute is linked to a standardised glossary such as Darwin Core then provide the term name. Otherwise provide a brief alphanumeric only (with no spaces) version of the attribute name  to give it a unique identifier within the context of the survey dataset to make it easier to refer to in configuration.
+term_identifier,char varying,,Yes,"If the attribute is linked to a standardised glossary such as Darwin Core then provide the term identifier, typically the URL to the term definition."
 allow_ranges,boolean,false,No,Set to true if numeric attributes allow a value range to be entered.
 reporting_category_id,integer,,Yes,Foreign key to the termlists_terms table. Identifies an optional reporting category for this attribute which can be used to organise the display of multiple attribute values in report outputs.
-unit,character varying,,Yes,"Name of the attribute\s unit where relevant, e.g. mm"
+unit,char varying,,Yes,"Name of the attribute\s unit where relevant, e.g. mm"
 description_i18n,json,,Yes,Stores a list of localised versions of the description keyed by language code.
-image_path,character varying,,Yes,"Path to an image file representing the attribute, e.g. an explanatory diagram."
+image_path,char varying,,Yes,"Path to an image file representing the attribute, e.g. an explanatory diagram."

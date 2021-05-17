@@ -1,11 +1,11 @@
 Column,Type,Default,Nullable,Description
 id,integer,nextval(...),No,
-title,character varying (100),,Yes,
-created_on,timestamp no timezone,,No,Date this record was created.
+title,char varying (100),,Yes,
+created_on,timestamp (no tz),,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
-updated_on,timestamp no timezone,,No,Date this record was last updated.
+updated_on,timestamp (no tz),,No,Date this record was last updated.
 updated_by_id,integer,,No,Foreign key to the users table (last updater).
 deleted,boolean,false,No,Has this record been deleted?
-external_key,character varying (50),,Yes,
+external_key,char varying (50),,Yes,
 parent_id,integer,,Yes,Identifies the parent of the taxon group if there is one.
-description,character varying,,Yes,Description of the taxon group.
+description,char varying,,Yes,Description of the taxon group.

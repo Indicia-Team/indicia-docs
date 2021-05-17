@@ -2,14 +2,14 @@ Column,Type,Default,Nullable,Description
 id,integer,nextval(...),No,Unique identifier and primary key for the table.
 taxa_taxon_list_id,integer,,No,Identifies the taxon list entry which this searchable name applies to.
 taxon_list_id,integer,,No,Identifies the taxon list which this searchable name is from.
-searchterm,character varying,,No,"Searchable identifier for the taxon. Includes taxon formal and vernacular names, simplified versions of these for searching and codes, abbreviations or other shortcuts used to lookup taxa."
-original,character varying,,No,"When the term is simplified, provides the original unsimplified version of the term."
-taxon_group,character varying,,No,Name of the taxon group.
+searchterm,char varying,,No,"Searchable identifier for the taxon. Includes taxon formal and vernacular names, simplified versions of these for searching and codes, abbreviations or other shortcuts used to lookup taxa."
+original,char varying,,No,"When the term is simplified, provides the original unsimplified version of the term."
+taxon_group,char varying,,No,Name of the taxon group.
 taxon_meaning_id,integer,,No,Identifies the taxon meaning associated with this name. All names with the same ID refer to the same taxon.
-preferred_taxon,character varying,,No,"Provides the preferred taxon name for a taxon that has been looked up,"
-default_common_name,character varying,,Yes,"Provides the preferred common name for a taxon that has been looked up,"
-preferred_authority,character varying,,Yes,The taxonomic authority of the preferred taxon name.
-language_iso,character varying,,Yes,"The language associated with the search term, or null if not language specific."
+preferred_taxon,char varying,,No,"Provides the preferred taxon name for a taxon that has been looked up,"
+default_common_name,char varying,,Yes,"Provides the preferred common name for a taxon that has been looked up,"
+preferred_authority,char varying,,Yes,The taxonomic authority of the preferred taxon name.
+language_iso,char varying,,Yes,"The language associated with the search term, or null if not language specific."
 name_type,character (1),,No,"Type of taxon name string. Options are (L)atin, (S)ynonym, (V)ernacular, (O)ther vernacular name, (C)ode, (A)bbreviation."
 simplified,boolean,false,Yes,Is this a name which has been simplified make it tolerant of some spelling and punctuation errors when searching.
 code_type_id,integer,,Yes,"For names which are codes, identifies the type of code. Foreign key to the termlists_terms table."
@@ -23,9 +23,9 @@ identification_difficulty,integer,,Yes,"Identification difficulty assigned by th
 id_diff_verification_rule_id,integer,,Yes,Verification rule that is associated with the identification difficulty.
 taxon_rank_sort_order,integer,,Yes,
 marine_flag,boolean,false,No,Set to true for marine species.
-external_key,character varying,,Yes,External identifier for the taxon.
-authority,character varying,,Yes,The taxonomic authority of the name.
-search_code,character varying,,Yes,
+external_key,char varying,,Yes,External identifier for the taxon.
+authority,char varying,,Yes,The taxonomic authority of the name.
+search_code,char varying,,Yes,
 taxonomic_sort_order,bigint,,Yes,
 freshwater_flag,boolean,false,No,
 terrestrial_flag,boolean,false,No,

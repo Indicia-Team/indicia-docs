@@ -2,16 +2,16 @@ Column,Type,Default,Nullable,Description
 id,integer,nextval(...),No,
 taxon_list_id,integer,,Yes,
 taxon_id,integer,,No,
-created_on,timestamp no timezone,,No,Date this record was created.
+created_on,timestamp (no tz),,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
 parent_id,integer,,Yes,"Foreign key to the taxa table. Identifies the taxonomic parent, for example the genus of a species."
 taxon_meaning_id,integer,,Yes,Foreign key to the taxon_meanings table. Identifies the meaning of this taxon record. Eacg group of taxa with the same meaning are considered synonymous.
 taxonomic_sort_order,bigint,,Yes,Provides a sort order which allows the taxon hierarchy to be displayed in taxonomic rather than alphabetical order.
 preferred,boolean,false,No,Flag set to true if the name constitutes the preferred name when selected amongst all taxa that have the same meaning.
-updated_on,timestamp no timezone,,No,Date this record was updated.
+updated_on,timestamp (no tz),,No,Date this record was updated.
 updated_by_id,integer,,No,Foreign key to the users table (updater).
 deleted,boolean,false,No,Has this record been deleted?
-description,character varying,,Yes,
+description,char varying,,Yes,
 common_taxon_id,integer,,Yes,Link to the first common name for this taxon entry.
 allow_data_entry,boolean,true,No,
 verification_check_version,integer,0,No,A version number which is incremented each time that a custom attribute attached to a taxon which provides an input value for verification checks is changed.

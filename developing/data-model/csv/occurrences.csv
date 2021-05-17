@@ -3,27 +3,27 @@ id,integer,nextval(...),No,
 sample_id,integer,,No,Foreign key to the samples table. Identifies the sample that this occurrence record is part of.
 determiner_id,integer,,Yes,Foreign key to the people table. Identifies the person who determined the record.
 confidential,boolean,false,No,Flag set to true if this record is flagged confidential by the dataset administrator. The confidential flag relates to the need to control communications around a record rather then simply an indicator that a record is sensitive (which should be done via the sensitivity_precision field) so this flag prevents notifications about this record being sent to the recorder.
-created_on,timestamp no timezone,,No,Date this record was created.
+created_on,timestamp (no tz),,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
-updated_on,timestamp no timezone,,No,Date this record was last updated.
+updated_on,timestamp (no tz),,No,Date this record was last updated.
 updated_by_id,integer,,No,Foreign key to the users table (last updater).
 website_id,integer,,No,Foreign key to the websites table. Website that the occurrence record is linked to.
-external_key,character varying (50),,Yes,"For occurrences imported from an external system, provides a field to store the external system's primary key for the record allowing re-synchronisation."
+external_key,char varying (50),,Yes,"For occurrences imported from an external system, provides a field to store the external system's primary key for the record allowing re-synchronisation."
 comment,text,,Yes,User' comment on data entry of the occurrence.
 taxa_taxon_list_id,integer,,Yes,Foreign key to the taxa_taxon_lists table. Identifies the taxa on a taxon list that this occurrence is a record of.
 deleted,boolean,false,No,Has this record been deleted?
 record_status,character (1),'C'::bpchar,Yes,"Status of this record. I - in progress, C - completed, V - verified, R - rejected, D - dubious/queried (deprecated), T - test."
 verified_by_id,integer,,Yes,Foreign key to the users table (verifier).
-verified_on,timestamp no timezone,,Yes,Date this record was verified.
+verified_on,timestamp (no tz),,Yes,Date this record was verified.
 downloaded_flag,character (1),'N'::bpchar,No,"Downloaded status flag: N - not downloaded, I - Initial download, F - Final download"
-downloaded_on,timestamp no timezone,,Yes,Date occurrence downloaded out of system
+downloaded_on,timestamp (no tz),,Yes,Date occurrence downloaded out of system
 all_info_in_determinations,character (1),'N'::bpchar,No,Flag to indicate whether occurrence uses determinations table
 zero_abundance,boolean,false,No,Flag that is set to true when a record indicates the absence of something rather than presence of something.
-last_verification_check_date,timestamp no timezone,,Yes,The taxa_taxon_list_id that this occurrence was associated with when verification checks were last run. If this has changed then verification checks should be re-run. Foreign key to taxa_taxon_lists.
+last_verification_check_date,timestamp (no tz),,Yes,The taxa_taxon_list_id that this occurrence was associated with when verification checks were last run. If this has changed then verification checks should be re-run. Foreign key to taxa_taxon_lists.
 training,boolean,false,No,Flag indicating if this record was created for training purposes and is therefore not considered real.
 sensitivity_precision,integer,,Yes,"Precision of grid references for public access of records that are sensitive. For example, set to 1000 to limit public access to a 1km grid square. If null then not sensitive."
 release_status,character (1),'R'::bpchar,Yes,"Release states of this record. R - released, P - recorder has requested a precheck before release, U - unreleased as part of a project whcih is witholding records until completion."
 record_substatus,smallint,,Yes,"Provides additional detail on the record status. Values are: 1=accepted as correct, 2=accepted as considered correct, 3=plausible, 4=not accepted as unable to verify, 5=not accepted, incorrect. Null for unchecked records."
 record_decision_source,character (1),,Yes,Defines if the record status decision was by a human (H) or machine (M).
-import_guid,character varying,,Yes,Globally unique identifier of the import batch.
+import_guid,char varying,,Yes,Globally unique identifier of the import batch.
 metadata,json,,Yes,"Record metadata. Use this to store additional metadata that is not part of the actual record, e.g. information about a mobile device used for the record. For system use, not shown to the recorder."

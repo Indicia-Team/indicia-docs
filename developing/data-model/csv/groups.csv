@@ -1,21 +1,21 @@
 Column,Type,Default,Nullable,Description
 id,integer,nextval(...),No,Primary key and unique identifier for the table
-title,character varying,,No,Title for the group
-description,character varying,,Yes,Description of the group
+title,char varying,,No,Title for the group
+description,char varying,,Yes,Description of the group
 filter_id,integer,,Yes,Foreign key to the filters table. Identifies the scope of the group.
 joining_method,character (1),,No,"Defines how a user can join a group. Options are P (public, anyone can join), R (by request or invite, group admins approve members), I (invite only, group admins send invites)."
 website_id,integer,,No,"Foreign key to the websites table, identifies the website that hosts this group."
-created_on,timestamp no timezone,,No,Date this record was created.
+created_on,timestamp (no tz),,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
-updated_on,timestamp no timezone,,No,Date this record was last updated.
+updated_on,timestamp (no tz),,No,Date this record was last updated.
 updated_by_id,integer,,No,Foreign key to the users table (last updater).
 deleted,boolean,false,No,Has this record been deleted?
-code,character varying (20),,Yes,A code or abbreviation identifying the group.
+code,char varying (20),,Yes,A code or abbreviation identifying the group.
 group_type_id,integer,,No,"Foreign key to the termlists_terms table. Identifies the type of group, e.g. recording group, project, organisation."
 from_date,date,,Yes,"Date the group's activities commenced if relevent, e.g. a project start date."
 to_date,date,,Yes,"Date the group's activities ceased if relevent, e.g. a project finish date."
 private_records,boolean,false,Yes,Set to true to indicate that the records input which are directly linked to the group should be witheld from uses outside the group. Relies on reporting queries to respect this.
 implicit_record_inclusion,boolean,false,Yes,"If true, then records are included in this group's content if they are posted by a group member and meet the groups filter criteria. If false, then records must be explicitly posted into the group by a group member. If null, then they are included if they match the filter no matter who or how they were posted."
 view_full_precision,boolean,false,No,Allow group members to view records explicitly posted into the at full precision.
-logo_path,character varying,,Yes,"Path to the group logo file, within the server's upload directory."
+logo_path,char varying,,Yes,"Path to the group logo file, within the server's upload directory."
 licence_id,integer,,Yes,ID of the licence that is associated with this group and the records submitted to it.

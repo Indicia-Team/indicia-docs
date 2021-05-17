@@ -1,14 +1,14 @@
 Column,Type,Default,Nullable,Description
 id,integer,nextval(...),No,
-title,character varying (100),,No,Website title.
+title,char varying (100),,No,Website title.
 description,text,,Yes,Website description.
-created_on,timestamp no timezone,,No,Date this record was created.
+created_on,timestamp (no tz),,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
-updated_on,timestamp no timezone,,No,Date this record was last updated.
+updated_on,timestamp (no tz),,No,Date this record was last updated.
 updated_by_id,integer,,No,Foreign key to the users table (last updater).
-url,character varying (500),,No,URL of the website root.
+url,char varying (500),,No,URL of the website root.
 default_survey_id,integer,,Yes,Survey which records for this website are created under if not specified by the data entry form.
-password,character varying (30),,No,Encrypted password for the website. Enables secure access to services.
+password,char varying (30),,No,Encrypted password for the website. Enables secure access to services.
 deleted,boolean,false,No,Has this record been deleted?
 verification_checks_enabled,boolean,false,No,Are automated verification checks enabled for this website?
 public_key,text,,Yes,Public key for checking signed JWT access tokens in the API.

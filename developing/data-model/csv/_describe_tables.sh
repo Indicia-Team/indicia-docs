@@ -80,7 +80,9 @@ SELECT
 	column_name AS "Column", 
 	CONCAT(
         CASE WHEN data_type = 'timestamp without time zone'
-            THEN 'timestamp no timezone'
+            THEN 'timestamp (no tz)'
+        WHEN data_type = 'character varying'
+            THEN 'char varying'
         ELSE
             data_type
         END,

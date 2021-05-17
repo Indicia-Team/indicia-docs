@@ -7,10 +7,10 @@ float_value,double precision,,Yes,"For float values, provides the value."
 int_value,integer,,Yes,"For integer values, provides the value. For lookup values, provides the term id. "
 date_start_value,date,,Yes,"For vague date and date values, provides the start date of the range of dates covered by the date."
 date_end_value,date,,Yes,"For vague date and date values, provides the start date of the range of dates covered by the date."
-date_type_value,character varying (2),,Yes,"For vague date values, provides the date type identifier."
-created_on,timestamp no timezone,,No,Date this record was created.
+date_type_value,char varying (2),,Yes,"For vague date values, provides the date type identifier."
+created_on,timestamp (no tz),,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
-updated_on,timestamp no timezone,,No,Date this record was last updated.
+updated_on,timestamp (no tz),,No,Date this record was last updated.
 updated_by_id,integer,,No,Foreign key to the users table (last updater).
 deleted,boolean,false,No,Has this record been deleted?
 geom_value,USER-DEFINED,,Yes,"For geometry values, stores the geometry."
