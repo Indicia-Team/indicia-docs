@@ -133,6 +133,13 @@ html_logo = "images/logo.png"
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+# Add custom CSS files according to 
+# https://docs.readthedocs.io/en/stable/guides/adding-custom-css.html
+# # These paths are relative to html_static_path
+html_css_files = [
+    'css/custom.css',
+]
+
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
 #html_last_updated_fmt = '%b %d, %Y'

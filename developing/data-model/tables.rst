@@ -16,11 +16,13 @@ surveys
 .. csv-table::
     :file: ./csv/surveys.csv
     :header-rows: 1
+    :stub-columns: 1
 
 
 samples
 -------
 
+.. rst-class:: sticky-column
 .. csv-table::
     :file: ./csv/samples.csv
     :header-rows: 1
