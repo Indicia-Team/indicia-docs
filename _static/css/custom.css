@@ -1,0 +1,5 @@
+table.sticky-column thead tr th:first-child {
+    left: 0;
+    position: -webkit-sticky;
+    position: sticky;
+}

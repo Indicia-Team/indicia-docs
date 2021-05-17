@@ -7,6 +7,7 @@ websites
 .. csv-table::
     :file: ./csv/websites.csv
     :header-rows: 1
+    :class: sticky-column 
 
 
 surveys
