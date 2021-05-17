@@ -1,9 +1,6 @@
-table.sticky-column th,
-table.sticky-column td {
-    background-color: white;
-
-}table.sticky-column tr > *:first-child {
+table.sticky-column tr > *:first-child {
     left: 0;
     position: -webkit-sticky;
     position: sticky;
+    background-color: white;
 }
