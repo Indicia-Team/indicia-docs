@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.locations_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 name,character varying (100),,No,Name of the location.
 code,character varying (20),,Yes,Location reference code.
 parent_id,integer,,Yes,"Identifies the location's parent location, if there is one."

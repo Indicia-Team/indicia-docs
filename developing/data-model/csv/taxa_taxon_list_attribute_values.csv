@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.taxa_taxon_list_attribute_values_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 taxa_taxon_list_id,integer,,Yes,Foreign key to the taxa_taxon_lists table. Identifies the taxa_taxon_list that this value applies to.
 taxa_taxon_list_attribute_id,integer,,Yes,Foreign key to the taxa_taxon_list_attributes table. Identifies the attribute that this value is for.
 text_value,text,,Yes,"For text values, provides the value."

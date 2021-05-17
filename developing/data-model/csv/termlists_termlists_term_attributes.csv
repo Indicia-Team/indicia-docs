@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.termlists_termlists_term_attributes_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 termlist_id,integer,,No,Foreign key to the termlists table. Identifies the termlist that the termlists_term attribute is available for.
 termlists_term_attribute_id,integer,,No,Foreign key to the termlists_term_attributes table. Identifies the termlists_term attribute that is available for the website.
 created_on,timestamp without time zone,,No,Date this record was created.

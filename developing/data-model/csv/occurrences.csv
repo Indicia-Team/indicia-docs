@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.occurrences_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 sample_id,integer,,No,Foreign key to the samples table. Identifies the sample that this occurrence record is part of.
 determiner_id,integer,,Yes,Foreign key to the people table. Identifies the person who determined the record.
 confidential,boolean,false,No,Flag set to true if this record is flagged confidential by the dataset administrator. The confidential flag relates to the need to control communications around a record rather then simply an indicator that a record is sensitive (which should be done via the sensitivity_precision field) so this flag prevents notifications about this record being sent to the recorder.

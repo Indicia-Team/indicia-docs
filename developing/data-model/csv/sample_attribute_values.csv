@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.sample_attribute_values_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 sample_id,integer,,Yes,Foreign key to the samples table. Identifies the sample that this value applies to.
 sample_attribute_id,integer,,Yes,Foreign key to the sample_attributes table. Identifies the attribute that this value is for.
 text_value,text,,Yes,"For text values, provides the value."

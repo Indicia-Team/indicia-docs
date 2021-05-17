@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.surveys_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 title,character varying (100),,No,Title of the survey.
 owner_id,integer,,Yes,Foreign key to the people table. Identifies the person responsible for the survey.
 description,text,,Yes,Description of the survey.

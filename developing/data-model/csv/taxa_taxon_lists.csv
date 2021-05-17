@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.taxa_taxon_lists_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 taxon_list_id,integer,,Yes,
 taxon_id,integer,,No,
 created_on,timestamp without time zone,,No,Date this record was created.

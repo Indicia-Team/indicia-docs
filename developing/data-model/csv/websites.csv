@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.websites_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 title,character varying (100),,No,Website title.
 description,text,,Yes,Website description.
 created_on,timestamp without time zone,,No,Date this record was created.

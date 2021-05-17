@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.languages_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 iso,character (3),,Yes,ISO 639-2 code for the language.
 language,character varying (50),,Yes,Term used to describe the language in the system.
 created_on,timestamp without time zone,,No,Date this record was created.

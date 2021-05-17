@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.groups_users_id_seq'::regclass),No,Unique identifier and primary key for the table.
+id,integer,nextval(...),No,Unique identifier and primary key for the table.
 group_id,integer,,Yes,Foreign key to the groups table. Identifies the group of which the user is a member.
 user_id,integer,,Yes,Foreign key to the users table. Identifies the user who is a member of the group.
 administrator,boolean,false,No,Is this user an administrator of this group.

@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.filters_id_seq'::regclass),No,Primary key and unique identifier for the table.
+id,integer,nextval(...),No,Primary key and unique identifier for the table.
 title,character varying,,No,Title of the filter
 description,character varying,,Yes,Optional description of the filter.
 definition,character varying,,No,A JSON string holding a definition of the filter parameters. Decodes to an array of key value pairs suitable for passing to a report supporting the standard report parameters.

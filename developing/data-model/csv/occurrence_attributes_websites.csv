@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.occurrence_attributes_websites_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 website_id,integer,,No,Foreign key to the websites table. Identifies the website that the occurrence attribute is available for.
 occurrence_attribute_id,integer,,No,Foreign key to the occurrence_attributes table. Identifies the occurrence attribute that is available for the website.
 created_on,timestamp without time zone,,No,Date this record was created.

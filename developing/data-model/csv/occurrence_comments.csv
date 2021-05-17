@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.occurrence_comments_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 comment,text,,No,
 created_by_id,integer,,Yes,"Foreign key to the users table (creator), if user was logged in when comment created."
 created_on,timestamp without time zone,,No,Date and time this comment was created.

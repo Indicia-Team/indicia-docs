@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.survey_attribute_values_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 survey_id,integer,,Yes,Foreign key to the surveys table. Identifies the survey that this value applies to.
 survey_attribute_id,integer,,Yes,Foreign key to the survey_attributes table. Identifies the attribute that this value is for.
 text_value,text,,Yes,"For text values, provides the value."

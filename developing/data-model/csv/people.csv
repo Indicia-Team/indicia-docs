@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.people_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 first_name,character varying (50),,No,First name of the person.
 surname,character varying (50),,No,Surname of the person.
 initials,character varying (6),,Yes,Initials of the person.

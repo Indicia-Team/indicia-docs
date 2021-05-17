@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.groups_id_seq'::regclass),No,Primary key and unique identifier for the table
+id,integer,nextval(...),No,Primary key and unique identifier for the table
 title,character varying,,No,Title for the group
 description,character varying,,Yes,Description of the group
 filter_id,integer,,Yes,Foreign key to the filters table. Identifies the scope of the group.

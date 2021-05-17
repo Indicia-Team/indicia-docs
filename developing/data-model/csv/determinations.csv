@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.determinations_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 occurrence_id,integer,,No,Foreign key to the occurrences table. Identifies the determined occurrence.
 email_address,character varying (50),,Yes,Email of user who created the determination.
 person_name,character varying,,Yes,Identifier for determiner.

@@ -82,10 +82,17 @@ SELECT
         data_type,
         CASE WHEN character_maximum_length IS NULL
             THEN NULL
-            ELSE CONCAT(' (', character_maximum_length::text, ')')
+        ELSE 
+            ' (' || character_maximum_length::text || ')'
         END
-    )AS "Type", 
-	coalesce(column_default, '') AS "Default", 
+    ) AS "Type", 
+    CASE WHEN column_default IS NULL
+            THEN ''
+        WHEN SUBSTRING(column_default FOR 7) = 'nextval'
+            THEN 'nextval(...)'
+        ELSE 
+            column_default
+	END AS "Default", 
 	CASE WHEN is_nullable = 'YES'
         THEN 'Yes'
         ELSE 'No' 

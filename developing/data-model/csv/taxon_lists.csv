@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.taxon_lists_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 title,character varying (100),,Yes,Title of the taxon list.
 description,text,,Yes,Description of the taxon list.
 website_id,integer,,Yes,"Foreign key to the websites table. Identifies the website that this list is available for, or null for lists available across all websites."

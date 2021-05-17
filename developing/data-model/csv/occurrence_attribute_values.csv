@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.occurrence_attribute_values_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 occurrence_id,integer,,Yes,Foreign key to the occurrences table. Identifies the occurrence that this value applies to.
 occurrence_attribute_id,integer,,Yes,Foreign key to the occurrence_attributes table. Identifies the attribute that this value is for.
 text_value,text,,Yes,"For text values, provides the value."

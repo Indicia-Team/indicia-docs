@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.users_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 person_id,integer,,Yes,Foreign key to the people table. Identifies the person record that this user is associated with.
 core_role_id,integer,,Yes,Foreign key to the core_roles table. Identifies the user's role within the core module.
 created_on,timestamp without time zone,,No,Date this record was created.

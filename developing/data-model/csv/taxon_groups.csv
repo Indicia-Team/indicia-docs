@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.taxon_groups_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 title,character varying (100),,Yes,
 created_on,timestamp without time zone,,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).

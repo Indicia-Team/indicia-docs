@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.group_pages_id_seq'::regclass),No,Unique identifier and primary key for the table.
+id,integer,nextval(...),No,Unique identifier and primary key for the table.
 group_id,integer,,Yes,Foreign key to the groups table. Identifies the group of which the user is a member.
 caption,character varying,,No,Caption shown for this form when viewed in the group.
 path,character varying,,No,Path to the page on the client site which is enabled for this group

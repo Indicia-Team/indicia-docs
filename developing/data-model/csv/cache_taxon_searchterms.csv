@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.cache_taxon_searchterms_id_seq'::regclass),No,Unique identifier and primary key for the table.
+id,integer,nextval(...),No,Unique identifier and primary key for the table.
 taxa_taxon_list_id,integer,,No,Identifies the taxon list entry which this searchable name applies to.
 taxon_list_id,integer,,No,Identifies the taxon list which this searchable name is from.
 searchterm,character varying,,No,"Searchable identifier for the taxon. Includes taxon formal and vernacular names, simplified versions of these for searching and codes, abbreviations or other shortcuts used to lookup taxa."

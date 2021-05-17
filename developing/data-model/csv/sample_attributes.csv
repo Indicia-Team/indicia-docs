@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.sample_attributes_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 caption,character varying (50),,Yes,Display caption for the attribute.
 data_type,character (1),,Yes,"Data type for the attribute. Possible values are T (text), I (integer), F (float), D (date), V (vague date), L (item looked up from a termlist)."
 created_on,timestamp without time zone,,No,Date this record was created.

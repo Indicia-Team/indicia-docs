@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.location_attribute_values_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 location_id,integer,,Yes,Foreign key to the locations table. Identifies the location that this value applies to.
 location_attribute_id,integer,,Yes,Foreign key to the location_attributes table. Identifies the attribute that this value is for.
 text_value,text,,Yes,"For text values, provides the value."

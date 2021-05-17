@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.taxa_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 taxon,character varying (200),,Yes,"Term used for the taxon, excluding the authority."
 taxon_group_id,integer,,No,Foreign key to the taxon_groups table. Identifies a label that describes the taxon's higher level grouping.
 language_id,integer,,Yes,Foreign key to the languages table. Identifies the language used for this taxon name.

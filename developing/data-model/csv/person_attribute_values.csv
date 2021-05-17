@@ -1,5 +1,5 @@
 Column,Type,Default,Nullable,Description
-id,integer,nextval('indicia.person_attribute_values_id_seq'::regclass),No,
+id,integer,nextval(...),No,
 person_id,integer,,Yes,Foreign key to the people table. Identifies the person that this value applies to.
 person_attribute_id,integer,,Yes,Foreign key to the person_attributes table. Identifies the attribute that this value is for.
 text_value,text,,Yes,"For text values, provides the value."
