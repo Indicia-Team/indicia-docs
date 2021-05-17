@@ -13,6 +13,6 @@ created_by_id,integer,,No,Foreign key to the users table (creator).
 updated_on,timestamp (no tz),,No,Date this record was last updated.
 updated_by_id,integer,,No,Foreign key to the users table (last updater).
 deleted,boolean,false,No,Has this record been deleted?
-geom_value,USER-DEFINED,,Yes,"For geometry values, stores the geometry."
+geom_value,geom,,Yes,"For geometry values, stores the geometry."
 source_id,integer,,Yes,Points to a termlists_term which describes where the attribute value originated.
 upper_value,double precision,,Yes,"If the attribute allows value ranges, then provides the upper value of the range."

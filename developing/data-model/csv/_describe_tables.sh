@@ -83,6 +83,8 @@ SELECT
             THEN 'timestamp (no tz)'
         WHEN data_type = 'character varying'
             THEN 'char varying'
+        WHEN data_type = 'USER-DEFINED'
+            THEN 'geom'
         ELSE
             data_type
         END,

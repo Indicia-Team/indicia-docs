@@ -12,7 +12,7 @@ updated_by_id,integer,,No,Foreign key to the users table (last updater).
 comment,text,,Yes,Comment regarding the location.
 external_key,char varying (50),,Yes,"For locations imported from an external system, provides a field to store the external system's primary key for the record allowing re-synchronisation."
 deleted,boolean,false,No,Has this record been deleted?
-centroid_geom,USER-DEFINED,,Yes,"Geometry of the spatial reference at the centre of the location. This is a point, or a polygon for grid references. Uses Latitude and Longitude on the WGS84 datum."
-boundary_geom,USER-DEFINED,,Yes,Polygon for the location's boundary. Uses Latitude and Longitude on the WGS84 datum.
+centroid_geom,geom,,Yes,"Geometry of the spatial reference at the centre of the location. This is a point, or a polygon for grid references. Uses Latitude and Longitude on the WGS84 datum."
+boundary_geom,geom,,Yes,Polygon for the location's boundary. Uses Latitude and Longitude on the WGS84 datum.
 location_type_id,integer,,Yes,Identifies term describing the type of the location. Foreign key to the termlists_terms table.
 public,boolean,false,No,Flag set to true if this location is available for use by any website. If false the location is only available for use by the websites in the locations_websites table.

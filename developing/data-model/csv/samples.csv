@@ -16,7 +16,7 @@ comment,text,,Yes,Comment regarding the sample.
 external_key,char varying (50),,Yes,"For samples imported from an external system, provides a field to store the external system's primary key for the record allowing re-synchronisation."
 sample_method_id,integer,,Yes,Foreign key to the termlists_terms table. Identifies the term which describes the sampling method.
 deleted,boolean,false,No,Has this record been deleted?
-geom,USER-DEFINED,,Yes,"WGS84 geometry describing the spatial reference of the sample. This describes the full grid square as a polygon for grid references, or a point for other spatial references."
+geom,geom,,Yes,"WGS84 geometry describing the spatial reference of the sample. This describes the full grid square as a polygon for grid references, or a point for other spatial references."
 recorder_names,char varying,,Yes,"List of names of the people who were involved in recording of this sample, one per line. Used when the recorders are not listed in the people table."
 parent_id,integer,,Yes,"In cases where sampling data is gathered in a hierarchical fashion, this allows samples to be linked to a parent sample. For example, a sample linear transect may have several quadrat samples taken along it's length."
 input_form,char varying,,Yes,"Identifier of the input form used to create the record, allowing the client website to use the same form when editing. It is suggested that this is used to store the path to the form (either the complete URL or a partial path)."
