@@ -1,22 +1,22 @@
-"Column","Type","Max length","Default","Nullable","Description"
-"id","integer","","","No",NULL
-"data_cleaner_info","character varying","","","Yes",NULL
-"media","character varying","","","Yes",NULL
-"comment","text","","","Yes",NULL
-"sensitivity_precision","integer","","","Yes",NULL
-"privacy_precision","integer","","","Yes",NULL
-"output_sref","character varying","","","Yes",NULL
-"verifier","character varying","","","Yes",NULL
-"licence_code","character varying","","","Yes",NULL
-"attr_sex_stage","character varying","","","Yes",NULL
-"attr_sex","character varying","","","Yes",NULL
-"attr_stage","character varying","","","Yes",NULL
-"attr_sex_stage_count","character varying","","","Yes",NULL
-"attr_certainty","character varying","","","Yes",NULL
-"attr_det_first_name","character varying","","","Yes",NULL
-"attr_det_last_name","character varying","","","Yes",NULL
-"attr_det_full_name","character varying","","","Yes",NULL
-"output_sref_system","character varying","","","Yes",NULL
-"attrs_json","json","","","Yes",NULL
-"attr_behaviour","character varying","","","Yes",NULL
-"attr_reproductive_condition","character varying","","","Yes",NULL
+Column,Type,Default,Nullable,Description
+id,integer,,No,
+data_cleaner_info,character varying,,Yes,
+media,character varying,,Yes,
+comment,text,,Yes,
+sensitivity_precision,integer,,Yes,
+privacy_precision,integer,,Yes,
+output_sref,character varying,,Yes,
+verifier,character varying,,Yes,
+licence_code,character varying,,Yes,
+attr_sex_stage,character varying,,Yes,
+attr_sex,character varying,,Yes,
+attr_stage,character varying,,Yes,
+attr_sex_stage_count,character varying,,Yes,
+attr_certainty,character varying,,Yes,
+attr_det_first_name,character varying,,Yes,
+attr_det_last_name,character varying,,Yes,
+attr_det_full_name,character varying,,Yes,
+output_sref_system,character varying,,Yes,
+attrs_json,json,,Yes,
+attr_behaviour,character varying,,Yes,
+attr_reproductive_condition,character varying,,Yes,

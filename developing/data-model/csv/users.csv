@@ -1,19 +1,19 @@
-"Column","Type","Max length","Default","Nullable","Description"
-"id","integer","","nextval('indicia.users_id_seq'::regclass)","No",NULL
-"person_id","integer","","","Yes","Foreign key to the people table. Identifies the person record that this user is associated with."
-"core_role_id","integer","","","Yes","Foreign key to the core_roles table. Identifies the user's role within the core module."
-"created_on","timestamp without time zone","","","No","Date this record was created."
-"created_by_id","integer","","","No","Foreign key to the users table (creator)."
-"updated_on","timestamp without time zone","","","No","Date this record was last updated."
-"updated_by_id","integer","","","No","Foreign key to the users table (last updater)."
-"username","character varying","30","","No",NULL
-"password","character varying","","","Yes",NULL
-"forgotten_password_key","character varying","","","Yes",NULL
-"deleted","boolean","","false","No","Has this record been deleted?"
-"default_digest_mode","character","1","'D'::bpchar","No","Specifies the default digest behaviour of notifications for this user. Options are null N (no email), I (immediate), D (daily), W (weekly)."
-"allow_share_for_reporting","boolean","","true","No","Flag set to true if the user allows their records to be reported by users on other websites that have a sharing agreement with the site they have contributed to."
-"allow_share_for_peer_review","boolean","","true","No","Flag set to true if the user allows their records to be reviewed by users on other websites that have a sharing agreement with the site they have contributed to."
-"allow_share_for_verification","boolean","","true","No","Flag set to true if the user allows their records to be verified by users on other websites that have a sharing agreement with the site they have contributed to."
-"allow_share_for_data_flow","boolean","","true","No","Flag set to true if the user allows their records to be passed on by other websites that have a sharing agreement with the site they have contributed to."
-"allow_share_for_moderation","boolean","","true","No","Flag set to true if the user allows their records to be moderated by users on other websites that have a sharing agreement with the site they have contributed to."
-"allow_share_for_editing","boolean","","true","No","Flag set to true if the user allows their records to be edited by users on other websites that have a sharing agreement with the site they have contributed to."
+Column,Type,Default,Nullable,Description
+id,integer,nextval('indicia.users_id_seq'::regclass),No,
+person_id,integer,,Yes,Foreign key to the people table. Identifies the person record that this user is associated with.
+core_role_id,integer,,Yes,Foreign key to the core_roles table. Identifies the user's role within the core module.
+created_on,timestamp without time zone,,No,Date this record was created.
+created_by_id,integer,,No,Foreign key to the users table (creator).
+updated_on,timestamp without time zone,,No,Date this record was last updated.
+updated_by_id,integer,,No,Foreign key to the users table (last updater).
+username,character varying (30),,No,
+password,character varying,,Yes,
+forgotten_password_key,character varying,,Yes,
+deleted,boolean,false,No,Has this record been deleted?
+default_digest_mode,character (1),'D'::bpchar,No,"Specifies the default digest behaviour of notifications for this user. Options are null N (no email), I (immediate), D (daily), W (weekly)."
+allow_share_for_reporting,boolean,true,No,Flag set to true if the user allows their records to be reported by users on other websites that have a sharing agreement with the site they have contributed to.
+allow_share_for_peer_review,boolean,true,No,Flag set to true if the user allows their records to be reviewed by users on other websites that have a sharing agreement with the site they have contributed to.
+allow_share_for_verification,boolean,true,No,Flag set to true if the user allows their records to be verified by users on other websites that have a sharing agreement with the site they have contributed to.
+allow_share_for_data_flow,boolean,true,No,Flag set to true if the user allows their records to be passed on by other websites that have a sharing agreement with the site they have contributed to.
+allow_share_for_moderation,boolean,true,No,Flag set to true if the user allows their records to be moderated by users on other websites that have a sharing agreement with the site they have contributed to.
+allow_share_for_editing,boolean,true,No,Flag set to true if the user allows their records to be edited by users on other websites that have a sharing agreement with the site they have contributed to.

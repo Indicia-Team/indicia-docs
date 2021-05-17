@@ -1,29 +1,29 @@
-"Column","Type","Max length","Default","Nullable","Description"
-"id","integer","","nextval('indicia.samples_id_seq'::regclass)","No",NULL
-"survey_id","integer","","","No","Foreign key to the surveys table. Identifies the survey that this sample belongs to."
-"location_id","integer","","","Yes","Foreign key to the locations table. Identifies the location this sample is at, if known."
-"date_start","date","","","Yes","Start of the range of dates that this sample could have been made on."
-"date_end","date","","","Yes","End of the range of dates that this sample could have been made on."
-"date_type","character varying","2","","Yes","Vague date type code. "
-"entered_sref","character varying","40","","Yes","Spatial reference that was entered for the sample."
-"entered_sref_system","character varying","10","","Yes","System that was used for the spatial reference in entered_sref."
-"location_name","character varying","200","","Yes","Free text name of the location or other locality information given for the sample."
-"created_on","timestamp without time zone","","","No","Date this record was created."
-"created_by_id","integer","","","No","Foreign key to the users table (creator)."
-"updated_on","timestamp without time zone","","","No","Date this record was last updated."
-"updated_by_id","integer","","","No","Foreign key to the users table (last updater)."
-"comment","text","","","Yes","Comment regarding the sample."
-"external_key","character varying","50","","Yes","For samples imported from an external system, provides a field to store the external system's primary key for the record allowing re-synchronisation."
-"sample_method_id","integer","","","Yes","Foreign key to the termlists_terms table. Identifies the term which describes the sampling method."
-"deleted","boolean","","false","No","Has this record been deleted?"
-"geom","USER-DEFINED","","","Yes","WGS84 geometry describing the spatial reference of the sample. This describes the full grid square as a polygon for grid references, or a point for other spatial references."
-"recorder_names","character varying","","","Yes","List of names of the people who were involved in recording of this sample, one per line. Used when the recorders are not listed in the people table."
-"parent_id","integer","","","Yes","In cases where sampling data is gathered in a hierarchical fashion, this allows samples to be linked to a parent sample. For example, a sample linear transect may have several quadrat samples taken along it's length."
-"input_form","character varying","","","Yes","Identifier of the input form used to create the record, allowing the client website to use the same form when editing. It is suggested that this is used to store the path to the form (either the complete URL or a partial path)."
-"group_id","integer","","","Yes","Foreign key to the groups table. Identifies the recording group that this sample was posted into, if explicitly posted to a group."
-"privacy_precision","integer","","","Yes","Allows record precision to be blurred for public viewing for privacy (as opposed to sensitivity) reasons. An example might be to obscure the garden location of a minor."
-"record_status","character","1","'C'::bpchar","Yes","Status of this sample. I - in progress, C - completed, V - verified, R - rejected, D - dubious/queried (deprecated), T - test."
-"verified_by_id","integer","","","Yes","Foreign key to the users table (verifier of the sample)."
-"verified_on","timestamp without time zone","","","Yes","Date this record was verified."
-"licence_id","integer","","","Yes","ID of the licence that is associated with this sample and the records it contains."
-"training","boolean","","false","No","Flag indicating if this sample was created for training purposes and is therefore not considered real."
+Column,Type,Default,Nullable,Description
+id,integer,nextval('indicia.samples_id_seq'::regclass),No,
+survey_id,integer,,No,Foreign key to the surveys table. Identifies the survey that this sample belongs to.
+location_id,integer,,Yes,"Foreign key to the locations table. Identifies the location this sample is at, if known."
+date_start,date,,Yes,Start of the range of dates that this sample could have been made on.
+date_end,date,,Yes,End of the range of dates that this sample could have been made on.
+date_type,character varying (2),,Yes,Vague date type code. 
+entered_sref,character varying (40),,Yes,Spatial reference that was entered for the sample.
+entered_sref_system,character varying (10),,Yes,System that was used for the spatial reference in entered_sref.
+location_name,character varying (200),,Yes,Free text name of the location or other locality information given for the sample.
+created_on,timestamp without time zone,,No,Date this record was created.
+created_by_id,integer,,No,Foreign key to the users table (creator).
+updated_on,timestamp without time zone,,No,Date this record was last updated.
+updated_by_id,integer,,No,Foreign key to the users table (last updater).
+comment,text,,Yes,Comment regarding the sample.
+external_key,character varying (50),,Yes,"For samples imported from an external system, provides a field to store the external system's primary key for the record allowing re-synchronisation."
+sample_method_id,integer,,Yes,Foreign key to the termlists_terms table. Identifies the term which describes the sampling method.
+deleted,boolean,false,No,Has this record been deleted?
+geom,USER-DEFINED,,Yes,"WGS84 geometry describing the spatial reference of the sample. This describes the full grid square as a polygon for grid references, or a point for other spatial references."
+recorder_names,character varying,,Yes,"List of names of the people who were involved in recording of this sample, one per line. Used when the recorders are not listed in the people table."
+parent_id,integer,,Yes,"In cases where sampling data is gathered in a hierarchical fashion, this allows samples to be linked to a parent sample. For example, a sample linear transect may have several quadrat samples taken along it's length."
+input_form,character varying,,Yes,"Identifier of the input form used to create the record, allowing the client website to use the same form when editing. It is suggested that this is used to store the path to the form (either the complete URL or a partial path)."
+group_id,integer,,Yes,"Foreign key to the groups table. Identifies the recording group that this sample was posted into, if explicitly posted to a group."
+privacy_precision,integer,,Yes,Allows record precision to be blurred for public viewing for privacy (as opposed to sensitivity) reasons. An example might be to obscure the garden location of a minor.
+record_status,character (1),'C'::bpchar,Yes,"Status of this sample. I - in progress, C - completed, V - verified, R - rejected, D - dubious/queried (deprecated), T - test."
+verified_by_id,integer,,Yes,Foreign key to the users table (verifier of the sample).
+verified_on,timestamp without time zone,,Yes,Date this record was verified.
+licence_id,integer,,Yes,ID of the licence that is associated with this sample and the records it contains.
+training,boolean,false,No,Flag indicating if this sample was created for training purposes and is therefore not considered real.

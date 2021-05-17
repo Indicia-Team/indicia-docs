@@ -1,17 +1,17 @@
-"Column","Type","Max length","Default","Nullable","Description"
-"id","integer","","nextval('indicia.sample_attribute_values_id_seq'::regclass)","No",NULL
-"sample_id","integer","","","Yes","Foreign key to the samples table. Identifies the sample that this value applies to."
-"sample_attribute_id","integer","","","Yes","Foreign key to the sample_attributes table. Identifies the attribute that this value is for."
-"text_value","text","","","Yes","For text values, provides the value."
-"float_value","double precision","","","Yes","For float values, provides the value."
-"int_value","integer","","","Yes","For integer values, provides the value. For lookup values, provides the term id. "
-"date_start_value","date","","","Yes","For vague date and date values, provides the start date of the range of dates covered by the date."
-"date_end_value","date","","","Yes","For vague date and date values, provides the start date of the range of dates covered by the date."
-"date_type_value","character varying","2","","Yes","For vague date values, provides the date type identifier."
-"created_on","timestamp without time zone","","","No","Date this record was created."
-"created_by_id","integer","","","No","Foreign key to the users table (creator)."
-"updated_on","timestamp without time zone","","","No","Date this record was last updated."
-"updated_by_id","integer","","","No","Foreign key to the users table (last updater)."
-"deleted","boolean","","false","No","Has this record been deleted?"
-"source_id","integer","","","Yes","Points to a termlists_term which describes where the attribute value originated."
-"upper_value","double precision","","","Yes","If the attribute allows value ranges, then provides the upper value of the range."
+Column,Type,Default,Nullable,Description
+id,integer,nextval('indicia.sample_attribute_values_id_seq'::regclass),No,
+sample_id,integer,,Yes,Foreign key to the samples table. Identifies the sample that this value applies to.
+sample_attribute_id,integer,,Yes,Foreign key to the sample_attributes table. Identifies the attribute that this value is for.
+text_value,text,,Yes,"For text values, provides the value."
+float_value,double precision,,Yes,"For float values, provides the value."
+int_value,integer,,Yes,"For integer values, provides the value. For lookup values, provides the term id. "
+date_start_value,date,,Yes,"For vague date and date values, provides the start date of the range of dates covered by the date."
+date_end_value,date,,Yes,"For vague date and date values, provides the start date of the range of dates covered by the date."
+date_type_value,character varying (2),,Yes,"For vague date values, provides the date type identifier."
+created_on,timestamp without time zone,,No,Date this record was created.
+created_by_id,integer,,No,Foreign key to the users table (creator).
+updated_on,timestamp without time zone,,No,Date this record was last updated.
+updated_by_id,integer,,No,Foreign key to the users table (last updater).
+deleted,boolean,false,No,Has this record been deleted?
+source_id,integer,,Yes,Points to a termlists_term which describes where the attribute value originated.
+upper_value,double precision,,Yes,"If the attribute allows value ranges, then provides the upper value of the range."
