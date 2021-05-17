@@ -1,6 +1,11 @@
-table.sticky-column tr > *:first-child {
+.rst-content table.sticky-column tr > *:first-child {
     left: 0;
     position: -webkit-sticky;
     position: sticky;
     background-color: white;
+}
+
+.rst-content table.condensed tr > * {
+    padding: 4px 8px;
+    font-size: smaller;
 }
