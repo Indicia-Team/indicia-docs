@@ -6,9 +6,9 @@ definition,character varying,,No,A JSON string holding a definition of the filte
 sharing,character (1),,Yes,"Identifies the record sharing task that this filter is for. Options are R(eporting), P(eer review), V(erification), D(ata flow), M(oderation)."
 public,boolean,false,Yes,Flag indicating when a filter is publically available and discoverable. Non-public filters can only be allocated to users by the creator.
 defines_permissions,boolean,false,Yes,"Flag indicating when a filter defines a limited set of permissions for the user having the filter. E.g. this could describe a set of records that a user is able to verify, any number of sets can be defined per user."
-created_on,timestamp without time zone,,No,Date this record was created.
+created_on,timestamp no timezone,,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
-updated_on,timestamp without time zone,,No,Date this record was last updated.
+updated_on,timestamp no timezone,,No,Date this record was last updated.
 updated_by_id,integer,,No,Foreign key to the users table (last updater).
 deleted,boolean,false,No,Has this record been deleted?
 website_id,integer,,Yes,Foreign key to the websites table. Optionally limits the filter to being available on this website.

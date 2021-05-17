@@ -5,9 +5,9 @@ code,character varying (20),,Yes,Location reference code.
 parent_id,integer,,Yes,"Identifies the location's parent location, if there is one."
 centroid_sref,character varying (40),,No,Spatial reference at the centre of the location.
 centroid_sref_system,character varying (10),,No,System used for the centroid_sref field.
-created_on,timestamp without time zone,,No,Date this record was created.
+created_on,timestamp no timezone,,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
-updated_on,timestamp without time zone,,No,Date this record was last updated.
+updated_on,timestamp no timezone,,No,Date this record was last updated.
 updated_by_id,integer,,No,Foreign key to the users table (last updater).
 comment,text,,Yes,Comment regarding the location.
 external_key,character varying (50),,Yes,"For locations imported from an external system, provides a field to store the external system's primary key for the record allowing re-synchronisation."

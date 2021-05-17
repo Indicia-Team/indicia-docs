@@ -2,7 +2,7 @@ Column,Type,Default,Nullable,Description
 id,integer,nextval(...),No,
 website_id,integer,,No,Foreign key to the websites table. Identifies the website that the sample attribute is available for.
 sample_attribute_id,integer,,No,Foreign key to the sample attributes table. Identifies the sample attribute that is available for the website.
-created_on,timestamp without time zone,,No,Date this record was created.
+created_on,timestamp no timezone,,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
 restrict_to_survey_id,integer,,Yes,"Foreign key to the survey table. For attributes that are only applicable to a given survey, identifies the survey."
 deleted,boolean,false,No,Has this record been deleted?

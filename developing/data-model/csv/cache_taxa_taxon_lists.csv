@@ -21,8 +21,8 @@ external_key,character varying (50),,Yes,
 taxon_meaning_id,integer,,Yes,
 taxon_group_id,integer,,Yes,
 taxon_group,character varying (100),,Yes,
-cache_created_on,timestamp without time zone,,No,
-cache_updated_on,timestamp without time zone,,No,
+cache_created_on,timestamp no timezone,,No,
+cache_updated_on,timestamp no timezone,,No,
 allow_data_entry,boolean,true,Yes,
 kingdom_taxa_taxon_list_id,integer,,Yes,Preferred taxa_taxon_list record which identifies the Kingdom of this taxon
 order_taxa_taxon_list_id,integer,,Yes,Preferred taxa_taxon_list record which identifies the Order of this taxon

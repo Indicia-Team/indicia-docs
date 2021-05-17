@@ -9,9 +9,9 @@ comment,text,,Yes,"Text description of Taxon if not in list, or if a list."
 taxon_extra_info,text,,Yes,Additional information that may provide more accurate determination.
 deleted,boolean,false,No,Has this record been deleted?
 created_by_id,integer,,Yes,"Foreign key to the users table (creator), if user was logged in when comment created."
-created_on,timestamp without time zone,,No,Date and time this comment was created.
+created_on,timestamp no timezone,,No,Date and time this comment was created.
 updated_by_id,integer,,Yes,"Foreign key to the users table (updater), if user was logged in when comment updated."
-updated_on,timestamp without time zone,,No,Date and time this comment was updated.
+updated_on,timestamp no timezone,,No,Date and time this comment was updated.
 determination_type,character (1),'N'::bpchar,No,"Type of determination. Can be one of determination_type can be one of:
 -- 'A' : Considered correct;
 -- 'B' : Considered incorrect;

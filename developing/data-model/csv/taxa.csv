@@ -7,9 +7,9 @@ external_key,character varying (50),,Yes,"For taxa which are directly mappable o
 authority,character varying (100),,Yes,Authority label for the taxon name.
 search_code,character varying (20),,Yes,A search code that may be used for rapid lookup of the taxon name.
 scientific,boolean,,Yes,Flag set to true if the name is a scientific name rather than vernacular.
-created_on,timestamp without time zone,,No,Date this record was created.
+created_on,timestamp no timezone,,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
-updated_on,timestamp without time zone,,No,Date this record was last updated.
+updated_on,timestamp no timezone,,No,Date this record was last updated.
 updated_by_id,integer,,No,Foreign key to the users table (last updater).
 deleted,boolean,false,No,Has this record been deleted?
 description,character varying,,Yes,

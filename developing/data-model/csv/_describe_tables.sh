@@ -79,7 +79,11 @@ for TABLE in ${TABLES[@]}; do
 SELECT 
 	column_name AS "Column", 
 	CONCAT(
-        data_type,
+        CASE WHEN data_type = 'timestamp without time zone'
+            THEN 'timestamp no timezone'
+        ELSE
+            data_type
+        END,
         CASE WHEN character_maximum_length IS NULL
             THEN NULL
         ELSE 

@@ -8,9 +8,9 @@ date_type,character varying (2),,Yes,Vague date type code.
 entered_sref,character varying (40),,Yes,Spatial reference that was entered for the sample.
 entered_sref_system,character varying (10),,Yes,System that was used for the spatial reference in entered_sref.
 location_name,character varying (200),,Yes,Free text name of the location or other locality information given for the sample.
-created_on,timestamp without time zone,,No,Date this record was created.
+created_on,timestamp no timezone,,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
-updated_on,timestamp without time zone,,No,Date this record was last updated.
+updated_on,timestamp no timezone,,No,Date this record was last updated.
 updated_by_id,integer,,No,Foreign key to the users table (last updater).
 comment,text,,Yes,Comment regarding the sample.
 external_key,character varying (50),,Yes,"For samples imported from an external system, provides a field to store the external system's primary key for the record allowing re-synchronisation."
@@ -24,6 +24,6 @@ group_id,integer,,Yes,"Foreign key to the groups table. Identifies the recording
 privacy_precision,integer,,Yes,Allows record precision to be blurred for public viewing for privacy (as opposed to sensitivity) reasons. An example might be to obscure the garden location of a minor.
 record_status,character (1),'C'::bpchar,Yes,"Status of this sample. I - in progress, C - completed, V - verified, R - rejected, D - dubious/queried (deprecated), T - test."
 verified_by_id,integer,,Yes,Foreign key to the users table (verifier of the sample).
-verified_on,timestamp without time zone,,Yes,Date this record was verified.
+verified_on,timestamp no timezone,,Yes,Date this record was verified.
 licence_id,integer,,Yes,ID of the licence that is associated with this sample and the records it contains.
 training,boolean,false,No,Flag indicating if this sample was created for training purposes and is therefore not considered real.

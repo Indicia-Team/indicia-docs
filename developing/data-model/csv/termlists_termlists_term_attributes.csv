@@ -2,7 +2,7 @@ Column,Type,Default,Nullable,Description
 id,integer,nextval(...),No,
 termlist_id,integer,,No,Foreign key to the termlists table. Identifies the termlist that the termlists_term attribute is available for.
 termlists_term_attribute_id,integer,,No,Foreign key to the termlists_term_attributes table. Identifies the termlists_term attribute that is available for the website.
-created_on,timestamp without time zone,,No,Date this record was created.
+created_on,timestamp no timezone,,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
 deleted,boolean,false,No,Has this record been deleted?
 form_structure_block_id,integer,,Yes,Additional validation rules that are defined for this attribute but only active within the context of this termlist.

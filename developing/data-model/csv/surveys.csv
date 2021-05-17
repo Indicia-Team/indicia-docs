@@ -4,9 +4,9 @@ title,character varying (100),,No,Title of the survey.
 owner_id,integer,,Yes,Foreign key to the people table. Identifies the person responsible for the survey.
 description,text,,Yes,Description of the survey.
 website_id,integer,,No,Foreign key to the websites table. Identifies the website that the survey is available for.
-created_on,timestamp without time zone,,No,Date this record was created.
+created_on,timestamp no timezone,,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
-updated_on,timestamp without time zone,,No,Date this record was last updated.
+updated_on,timestamp no timezone,,No,Date this record was last updated.
 updated_by_id,integer,,No,Foreign key to the users table (last updater).
 deleted,boolean,false,No,Has this record been deleted?
 parent_id,integer,,Yes,"Identifies the survey's parent survey, if there is one."

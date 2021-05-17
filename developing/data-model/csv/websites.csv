@@ -2,9 +2,9 @@ Column,Type,Default,Nullable,Description
 id,integer,nextval(...),No,
 title,character varying (100),,No,Website title.
 description,text,,Yes,Website description.
-created_on,timestamp without time zone,,No,Date this record was created.
+created_on,timestamp no timezone,,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
-updated_on,timestamp without time zone,,No,Date this record was last updated.
+updated_on,timestamp no timezone,,No,Date this record was last updated.
 updated_by_id,integer,,No,Foreign key to the users table (last updater).
 url,character varying (500),,No,URL of the website root.
 default_survey_id,integer,,Yes,Survey which records for this website are created under if not specified by the data entry form.

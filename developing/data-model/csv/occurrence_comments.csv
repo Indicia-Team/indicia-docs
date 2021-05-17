@@ -2,9 +2,9 @@ Column,Type,Default,Nullable,Description
 id,integer,nextval(...),No,
 comment,text,,No,
 created_by_id,integer,,Yes,"Foreign key to the users table (creator), if user was logged in when comment created."
-created_on,timestamp without time zone,,No,Date and time this comment was created.
+created_on,timestamp no timezone,,No,Date and time this comment was created.
 updated_by_id,integer,,Yes,"Foreign key to the users table (updater), if user was logged in when comment updated."
-updated_on,timestamp without time zone,,No,Date and time this comment was updated.
+updated_on,timestamp no timezone,,No,Date and time this comment was updated.
 occurrence_id,integer,,Yes,Foreign key to the occurrences table. Identifies the commented occurrence.
 email_address,character varying (50),,Yes,"Email of user who created the comment, if the user was not logged in but supplied an email address."
 deleted,boolean,false,No,Has this record been deleted?

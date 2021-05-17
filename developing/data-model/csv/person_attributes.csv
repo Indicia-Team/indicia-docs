@@ -2,9 +2,9 @@ Column,Type,Default,Nullable,Description
 id,integer,nextval(...),No,
 caption,character varying (50),,Yes,Display caption for the attribute.
 data_type,character (1),,Yes,"Data type for the attribute. Possible values are T (text), I (integer), F (float), D (date), V (vague date), L (item looked up from a termlist)."
-created_on,timestamp without time zone,,No,Date this record was created.
+created_on,timestamp no timezone,,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
-updated_on,timestamp without time zone,,No,Date this record was last updated.
+updated_on,timestamp no timezone,,No,Date this record was last updated.
 updated_by_id,integer,,No,Foreign key to the users table (last updater).
 validation_rules,character varying,,Yes,"Validation rules defined for this attribute, for example: number, required,max[50]."
 termlist_id,integer,,Yes,"For attributes which define a term from a termlist, provides the ID of the termlist the term can be selected from."

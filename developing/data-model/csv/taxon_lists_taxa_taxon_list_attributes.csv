@@ -2,7 +2,7 @@ Column,Type,Default,Nullable,Description
 id,integer,nextval(...),No,
 taxon_list_id,integer,,No,Foreign key to the taxon_lists table. Identifies the taxon_lists that the taxa_taxon_list attribute is available for.
 taxa_taxon_list_attribute_id,integer,,No,Foreign key to the taxa_taxon_list_attributes table. Identifies the taxa_taxon_list attribute that is available for the taxon list.
-created_on,timestamp without time zone,,No,Date this record was created.
+created_on,timestamp no timezone,,No,Date this record was created.
 created_by_id,integer,,No,Foreign key to the users table (creator).
 deleted,boolean,false,No,Has this record been deleted?
 form_structure_block_id,integer,,Yes,Additional validation rules that are defined for this attribute but only active within the context of this taxon list.
