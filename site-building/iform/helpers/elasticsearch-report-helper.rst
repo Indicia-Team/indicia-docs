@@ -1795,6 +1795,11 @@ Enables the following shortcuts:
 Specify the element ID of a `[dataGrid]` or `[cardGallery]` control which the buttons will source
 the selected occurrence from.
 
+**taxon_list_id**
+
+Allows the list that the redetermination functionality's search box will use to be specified. If
+not set, then the master list set in the Indicia settings form will be used.
+
 **uploadButtonContainerElement**
 
 If you want to add the upload button somewhere else on the page (e.g. to a table footer alongside a
