@@ -76,6 +76,7 @@ The following table shows examples of all vague date types.
     :class: sticky-column condensed 
 
 Vague dates can be supplied in various forms. All of the following are equivalent:
+
 * 1997-08-02
 * 02/08/1997
 * 2 August 1997
@@ -89,7 +90,7 @@ When specifying ranges, the words `to` and `from` can be replaced with a hyphen.
   a single field named `date` to the sample model containing a date in one of
   the above vague-date formats, it will be correctly interpreted. Likewise, when 
   writing reports, you will see vague dates returned unless you specify 
-  otherwise, see :ref:`developing/reporting/report-file-format:element-vaguedate`
+  otherwise, see :ref:`developing/reporting/report-file-format:Element \<vagueDate\>`
 
 Ref. :ref:`developing/data-model/tables:samples`
 
