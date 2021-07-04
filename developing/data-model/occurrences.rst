@@ -57,17 +57,39 @@ Samples capture the entered map reference as both a plain text field (as entered
 recorder) and a spatial object ready for drawing on a map. We'll cover spatial data in
 detail in the next section.
 
+Since a sample date can span several days, or may not be precisely known (especially
+relevant for historic data), sample dates are stored in a 3 field "vague date format"
+borrowed from Recorder. The first 2 fields are a date_start and date_end field which
+define the complete range of dates covered by the vague date. They will be the same if
+a single exact date is provided and one or the other can be null (e.g. when specifying
+a date before 2009 the start date will be null). The 3rd date_type field is a code which
+describes what type of date is being given, e.g. an exact day, month, year or date range.
+You can use the `vague_date_to_string(date_start, date_end, date_type)` function to
+convert the date stored in the database into formatted text for display.
+
+The following table shows examples of all vague date types.
+
+.. csv-table::
+    :file: ./csv/date_type.csv
+    :widths: 25 25 15 15 10
+    :header-rows: 1
+    :class: sticky-column condensed 
+
+Vague dates can be supplied in various forms. All of the following are equivalent:
+* 1997-08-02
+* 02/08/1997
+* 2 August 1997
+* 2 Aug 97
+
+When specifying ranges, the words `to` and `from` can be replaced with a hyphen.
+
 .. tip::
 
-  Since a sample date can span several days, or may not be precisely known (especially
-  relevant for historic data), sample dates are stored in a 3 field "vague date format"
-  borrowed from Recorder. The first 2 fields are a date_start and date_end field which
-  define the complete range of dates covered by the vague date. They will be the same if
-  a single exact date is provided and one or the other can be null (e.g. when specifying
-  a date before 2009 the start date will be null). The 3rd date_type field is a code which
-  describes what type of date is being given, e.g. an exact day, month, year or date range.
-  You can use the `vague_date_to_string(date_start, date_end, date_type)` function to
-  convert the date stored in the database into formatted text for display.
+  Rarely will you want to mess with the 3 date component fields. If you submit
+  a single field named `date` to the sample model containing a date in one of
+  the above vague-date formats, it will be correctly interpreted. Likewise, when 
+  writing reports, you will see vague dates returned unless you specify 
+  otherwise, see :ref:`developing/reporting/report-file-format:element-vaguedate`
 
 Ref. :ref:`developing/data-model/tables:samples`
 
