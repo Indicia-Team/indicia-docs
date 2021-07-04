@@ -1,0 +1,18 @@
+Description              ,Vague date                 ,start_date           ,end_date             ,date_type
+
+Day                      ,23 Mar 1987                ,1987-03-23           ,1987-03-23           ,D
+Day range                ,23 Mar 1987 to 30 Mar 1987 ,1987-03-23           ,1987-03-30           ,DD
+Month in year            ,Mar 1987                   ,1987-03-01           ,1987-03-31           ,O
+Month range              ,Mar 1987 to Jun 1987       ,1987-03-01           ,1987-06-30           ,OO
+Season in year           ,Summer 1987                ,1987-06-01           ,1987-08-31           ,P
+Year                     ,1987                       ,1987-01-01           ,1987-12-31           ,Y
+Year range               ,1981 to 1987               ,1981-01-01           ,1987-12-31           ,YY
+Open ended year range    ,From 1987                  ,1987-01-01           ,<null>               ,Y-
+Up to year               ,To 1987                    ,<null>               ,1987-12-31           ,-Y
+Century                  ,20c                        ,1900-01-01           ,1999-12-31           ,C
+Century range            ,18c to 20c                 ,1700-01-01           ,1999-12-31           ,CC
+Open ended century range ,From 20c                   ,1900-01-01           ,<null>               ,C-
+Up to century            ,To 19c                     ,<null>               ,1899-12-31           ,-C
+Month only               ,June                       ,<current year>-06-01 ,<current year>-06-30 ,M
+Season only              ,Summer                     ,<current year>-06-01 ,<current year>-08-31 ,S
+Unknown                  ,Unknown                    ,<null>               ,<null>               ,U
