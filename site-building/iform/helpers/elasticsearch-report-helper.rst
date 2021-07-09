@@ -602,7 +602,7 @@ page.
 
 Each action entry can have the following properties:
 
-  * title - text to add to the button's title attribute, shown on hover as a tooltip.
+  * title - text to add to the button's title attribute, shown on hover as a tooltip. Required.
   * iconClass - class to attach which should define the icon. Normally a FontAwesome class
     is used.
   * path - base path to the page to navigate to. Tokens will be replaced as follows:
@@ -622,6 +622,14 @@ Each action entry can have the following properties:
 
   * urlParams - additional parameters to add to the URL as key/value pairs. Can also
     contain field value replacements by putting the field name in square brackets.
+  * hideIfFromOtherWebsite - set to true to hide the action button if the row is for a record
+    input on another website that shares its records to this website.
+  * hideIfFromOtherUser - set to true to hide the action button if the row is for a record
+    input by another user.
+  * onClickFn - set to the name of a JavaScript function that has been added to the `indiciaFns`
+    object which will be run when the action is clicked. This is an alternative to setting a link
+    path using the other options. The function will receive 2 parameters, the Elasticsearch
+    document object and the table row element.
 
 Note that the title, path and urlParams properties can all contain field name replacement
 tokens by putting the field name in square brackets. This can contain a list of field
@@ -1789,6 +1797,16 @@ Enables the following shortcuts:
 * 5 = Verify current record (rejected as incorrect).
 * Q = Query current record.
 * R = Re-determine current record.
+
+**redeterminerNameAttributeHandling**
+
+To change the behaviour for updating the determiner name associated with a record after a
+redetermination, set to one of the following:
+
+* overwriteOnRedet - The determiner name attribute of a record is changed to the name of
+  the user performing a redetermination. This is the default.
+* allowChoice - the user performing a redetermination is able to choose whether to overwrite the
+  determiner name associated with a record or leave it as it is.
 
 **showSelectedRow**
 
