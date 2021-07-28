@@ -84,6 +84,10 @@ Vague dates can be supplied in various forms. All of the following are equivalen
 
 When specifying ranges, the words `to` and `from` can be replaced with a hyphen.
 
+Winter is considered the first season of the year. Winter 2020 starts on
+1st December, 2019 and ends on 29th February, 2020. Spring, Summer and Autumn 
+follow, starting on the 1st of March, June, and September.
+
 .. tip::
 
   Rarely will you want to mess with the 3 date component fields. If you submit
