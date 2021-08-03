@@ -88,6 +88,9 @@ Winter is considered the first season of the year. Winter 2020 starts on
 1st December, 2019 and ends on 29th February, 2020. Spring, Summer and Autumn 
 follow, starting on the 1st of March, June, and September.
 
+Note that the strict definition of a century is used, not the one that is 
+popularly understood. 
+
 .. tip::
 
   Rarely will you want to mess with the 3 date component fields. If you submit

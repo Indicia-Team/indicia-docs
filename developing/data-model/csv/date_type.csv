@@ -9,10 +9,10 @@ Year                     ,1987                       ,1987-01-01           ,1987
 Year range               ,1981 to 1987               ,1981-01-01           ,1987-12-31           ,YY
 Open ended year range    ,From 1987                  ,1987-01-01           ,<null>               ,Y-
 Up to year               ,To 1987                    ,<null>               ,1987-12-31           ,-Y
-Century                  ,20c                        ,1900-01-01           ,1999-12-31           ,C
-Century range            ,18c to 20c                 ,1700-01-01           ,1999-12-31           ,CC
-Open ended century range ,From 20c                   ,1900-01-01           ,<null>               ,C-
-Up to century            ,To 19c                     ,<null>               ,1899-12-31           ,-C
+Century                  ,20c                        ,1901-01-01           ,2000-12-31           ,C
+Century range            ,18c to 20c                 ,1701-01-01           ,2000-12-31           ,CC
+Open ended century range ,From 20c                   ,1901-01-01           ,<null>               ,C-
+Up to century            ,To 19c                     ,<null>               ,1900-12-31           ,-C
 Month only               ,June                       ,<current year>-06-01 ,<current year>-06-30 ,M
 Season only              ,Summer                     ,<current year>-06-01 ,<current year>-08-31 ,S
 Unknown                  ,Unknown                    ,<null>               ,<null>               ,U
