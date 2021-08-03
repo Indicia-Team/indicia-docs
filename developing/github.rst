@@ -213,6 +213,20 @@ the steps to create the pull request, check the changes then merge it.
 ...make a release
 -----------------
 
-.. todo::
+When new features have been merged in to the develop branch and it is time to 
+release them to the master branch, first create a new branch, called
+`release-x.y.z`, where x.y.z is the new version number to be released.
 
-  Notes on using a release branch.
+Development may continue in the develop branch for future releases.
+
+Within the release branch, run tests, fix bugs, update version numbers and 
+update any chnage log.
+
+When prepared and ready, raise a Pull request to merge the branch in to master.
+Also merge the branch in to dev so that it receives the updates too. The
+release branch can then be deleted.
+
+Releasing a new version of the warehouse includes additional steps as the 
+media and client_helper sub-modules must also be released. See the warehouse
+:ref:`developing/warehouse/release-procedure:release procedure` for more 
+detailed instructions.
