@@ -254,7 +254,7 @@ latest indicia warehouse release `Indicia warehouse code <https://github.com/Ind
 from GitHub.
 
 If the GitHub release page includes an 'asset' labelled with a name similar to this: warehouse-n.n.n.zip, then
-this contains everything, including all the submodules, required for the Warehouse. But if
+this contains everything, including all the submodules and dependencies, required for the Warehouse. But if
 you only see assets called 'Source code' then you will have to use Git to install the Warehouse and its submodules
 (see Installing the Warehouse with Git below).
 
@@ -294,7 +294,14 @@ command to install all the submodules: ::
 
   git submodule update --init --recursive
 
-That will install all the required submodules into the folder. Next move all the files and
+That will install all the required submodules into the folder. 
+
+To install other dependencies type the following `Composer <https://getcomposer.org/>`_ 
+command ::
+
+  composer install --no-dev
+
+Next move all the files and
 folders in htdocs/indicia/warehouse to htdocs/indicia and delete the warehouse folder.
 (Another way to do this would be not to create the empty indicia folder in the first
 place, but just clone the warehouse into the htdocs folder and then rename the warehouse folder

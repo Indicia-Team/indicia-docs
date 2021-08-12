@@ -4,7 +4,7 @@ survey_id,integer,,No,Foreign key to the surveys table. Identifies the survey th
 location_id,integer,,Yes,"Foreign key to the locations table. Identifies the location this sample is at, if known."
 date_start,date,,Yes,Start of the range of dates that this sample could have been made on.
 date_end,date,,Yes,End of the range of dates that this sample could have been made on.
-date_type,char varying (2),,Yes,Vague date type code. 
+date_type,char varying (2),,Yes,"Vague date type code. D = Day, DD = Day range, O = Month in year, OO = Month range in year, P = Season in year, Y = Year, YY = Year range, Y- = From year, -Y = Until year, C = Century, CC = Century range, C- = From century, -C = Until century, M = Month, S = Season, U = Unknown."
 entered_sref,char varying (40),,Yes,Spatial reference that was entered for the sample.
 entered_sref_system,char varying (10),,Yes,System that was used for the spatial reference in entered_sref.
 location_name,char varying (200),,Yes,Free text name of the location or other locality information given for the sample.
