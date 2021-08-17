@@ -8,7 +8,7 @@ to. Indicia provides the online recording forms, maps and reports to integrate
 into your site. This could be a site which already exists if you are looking to 
 add recording functionality to the site or it could be a site which you are 
 building from scratch. At the very least, the server your website is running on 
-needs to support **PHP version 5.3 or higher**, which fortunately is supported 
+needs to support **PHP version 7.3 or higher**, which fortunately is supported 
 by most low cost shared server web hosts. There are several possible scenarios 
 regarding the website development: You are starting from scratch to build a new 
 website. You already have a website which uses a Content Management System You 
@@ -68,9 +68,9 @@ website and add the following:
 Save this file and load it using a web browser, e.g. at 
 http://www.example.com/phpinfo.php. If PHP is enabled then you should see a dump 
 summarising information about your PHP configuration. You should also check that 
-the PHP version described on this page is at least PHP 5.3. If PHP is not 
+the PHP version described on this page is at least PHP 7.3. If PHP is not 
 installed or the PHP version is older then you will need to check with your web 
-host to see if they can install PHP 5.3 or higher for you.
+host to see if they can install PHP 7.3 or higher for you.
 
 Something you should also consider if you have an existing website is whether it 
 is worth converting into a content management system. This allows you to manage 
