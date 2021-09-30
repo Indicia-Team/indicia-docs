@@ -36,7 +36,10 @@ If you do not have the above available and therefore need to set up the REST API
 on the warehouse, then follow the instructions at :doc:`../../../developing/rest-web-services/elasticsearch`.
 
 The settings can be entered onto the Indicia configuration settings page for site-wide settings, or
-overridden in the settings on the Edit tab of individual Elasticsearch outputs pages.
+overridden in the settings on the Edit tab of individual Elasticsearch outputs pages. Where a page
+needs to access more than one Elasticsearch endpoint (e.g. to include data from both the
+occurrences and samples indexes) you can set the default one at the site level, then override this
+using the "Alternative endpoints" and `@endpoint` option for the `[source]` control.
 
 It would be beneficial to have a basic understanding of the Elasticsearch Query API before
 proceeding.

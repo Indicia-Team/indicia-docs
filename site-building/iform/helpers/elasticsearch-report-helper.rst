@@ -178,6 +178,13 @@ setting:
   src.settings.disabled = false;
   src.populate();
 
+**endpoint**
+
+If this source should use an Elasticsearch API endpoint (as configured in the warehouse's REST API)
+that is different from the page's default, then set the endpoint name in this option. Note that the
+endpoint must also be listed under the "Alternative endpoints" configuration option on the page's
+Edit tab.
+
 **fields**
 
 An array of document field names to include in the output when using `termAggregation` or
