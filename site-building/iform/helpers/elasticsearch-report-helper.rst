@@ -721,28 +721,32 @@ page with a URL that might look like:
         retrieved in which case if there is more than one VC code, or no VC code, associated
         with the record, the output value is set to zero.
 
-    * #lat:<format># or #lat# - a formatted latitude value. If specified, `<format>` can
+    * #lat:<format>:<precision># or #lat# - a formatted latitude value. If specified, `<format>` can
       be one of:
 
       * "decimal" - a decimal latitude is returned with negative values for locations
-        south of the equator.
-      * "nssuffix" - a latitude rounded to three decimal places with a suffix of
-        "N" or "S" location in relation to the equator.
+        south of the equator. Decimal places given by <precision>, default is all available.
+      * "nssuffix" - a latitude rounded to n decimal places with a suffix of
+        "N" or "S" location in relation to the equator. Decimal places given by <precision>, default
+        is 3.
 
-    * #lat_lon# - a formatted latitude and longitude value with number each rounded to three
-      decimal places plus a suffix indicating location in relation to the equator and Greenwich meridian.
+    * #lat_lon# or #lat_lon:<precision># - a formatted latitude and longitude value with number
+      each rounded to n decimal places plus a suffix indicating location in relation to the equator
+      and Greenwich meridian. Decimal places given by <precision>, default is 3.
     * #life_stage:<format># - the value of the `occurrence.life_stage` field formatted as specified.
       Currently there is only one format - `mapmate` - which translates values to
       values acceptable to MapMate, e.g. `adult female` to `Adult`.
     * #locality# - a summary of location information including the given location name
       and a list of higher geography locations.
-    * #lon:<format># or #lon# - a formatted longitude value. If specified, `<format>` can
-      be one of:
+    * #lon:<format>:<precision># or #lon# - a formatted longitude value. If specified, `<format>`
+      can be one of:
 
       * "decimal" - a decimal longitude is returned with negative values for locations
-        west of the Greenwich meridian.
-      * "ewsuffix" - a longitude rounded to three decimal places with a suffix of
-        "E" or "W" location in relation to the Greenwich meridian.
+        west of the Greenwich meridian. Decimal places given by <precision>, default is all
+        available.
+      * "ewsuffix" - a longitude rounded to n decimal places with a suffix of
+        "E" or "W" location in relation to the Greenwich meridian. Decimal places given by
+        <precision>, default is 3.
 
     * #null_if_zero:<field># - returns the field value, unless 0 when will be treated as
       null.
