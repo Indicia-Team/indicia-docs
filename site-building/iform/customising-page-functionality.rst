@@ -191,20 +191,28 @@ suitable string. Drupal does not do this.
 ... tip::
 
   If you add a URL parameter called ``notranslate`` to your page's address (it
-  doesn't matter what value you give it), then the page will output the untranslated
-  text for each translateable item, in square brackets. That makes it easy to work
-  out the keys you need to translate the page.
+  doesn't matter what value you give it), then the page will output the
+  untranslated text for each translateable item, in square brackets. That makes
+  it easy to work out the keys you need to translate the page.
 
 Providing custom validation code
 --------------------------------
 
 When the form submission has been built, ready to send to the warehouse, it is
-possible to run custom PHP to validation the form POST data and return an array
-of errors. To do this, create a folder within your iform module
-iform\client_helpers\prebuilt_forms\validation. Inside this folder, create a
-file called validate.\ *nid*\ .php where the *nid* is replaced by your page's Drupal
-node ID. This file will be automatically loaded by the iform module at the
-appropriate point. Inside the PHP file, create a single function called
+possible to run custom PHP to validate the form POST data and return an array of
+errors. To do this, 
+
+* For Drupal 7 or earlier, create a folder within your iform module
+  ``iform/client_helpers/prebuilt_forms/validation``. Inside this folder, create
+  a file called validate.\ *nid*\ .php where the *nid* is replaced by your
+  page's Drupal node ID. 
+* For Drupal 8 or later, create a folder ``<public
+  files path>/indicia/validation``. Inside this folder, create a file called
+  node.\ *nid*\ .php where the *nid* is replaced by your page's Drupal node
+  ID.
+
+This file will be automatically loaded by the iform module at
+the appropriate point. Inside the PHP file, create a single function called
 iform_custom_validation which recieves a $post parameter containing form post
 array and returns an an associative array of control names with error messages.
 It can of course return an empty array if there are no problems found. Here's an
