@@ -132,18 +132,19 @@ you to keep your template definitions together with your theme code when appropr
 Providing your own language files
 ---------------------------------
 
-Language files for each prebuilt form are placed in the folder
-``<public files path>/indicia/lang`` and are called
-*form-name.lang*\ .php where *form-name* is the name of the form and  *lang*
-is the 2 character ISO language code matching the declared code in Drupal.
+In Drupal 8/9, custom language files are located in the folder
+``<private files path>/indicia/lang``. If the private folder has not been
+configured then they are located in ``<public files path>/indicia/lang``.
+
+Language files for each prebuilt form are called *form-name.lang*\ .php where
+*form-name* is the name of the form and  *lang* is the 2 character ISO language
+code matching the declared code in Drupal.
 
 In addition, a single form instance can either replace or change the language
-file for a form by declaring a file called node.\ *nid.lang*\ .php where *nid* is the
-form page's node id and *lang* is the 2 characher ISO language code. Place the file in the
-Drupal files folder, in a sub-folder called ``indicia/lang``. You can also specify a file
-in the ``files/indicia/lang`` folder called default.nn.php (where nn is the language code)
-to provide custom terms that will apply to every form on the site.
-
+file for a form by declaring a file called node.\ *nid.lang*\ .php where *nid*
+is the form page's node id and *lang* is the 2 characher ISO language code. You
+can also specify a file called default.nn.php (where nn is the language code) to
+provide custom terms that will apply to every form on the site.
 
 When adding a page specific translation file or a file for translations for the whole
 site, you should provide a complete set of custom terms by using the global
