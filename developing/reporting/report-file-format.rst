@@ -21,8 +21,8 @@ Element <report>
 
 This is the top level element of the XML document.
 
-Attributes
-^^^^^^^^^^
+Attributes of <report>
+^^^^^^^^^^^^^^^^^^^^^^
 
 * **title** - the display title of the report.
 * **description** - the description of the report.
@@ -46,8 +46,8 @@ Attributes
   public access. These reports will only be available for access via the RESTful API
   if authorised explicitly for a client project.
 
-Child elements
-^^^^^^^^^^^^^^
+Child elements of <report>
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * :ref:`query <query-label>`
 * :ref:`count_query <count-query-label>`
@@ -57,8 +57,8 @@ Child elements
 * :ref:`columns <columns-label>`
 * :ref:`vagueDate <vaguedate-label>`
 
-Example
-^^^^^^^
+Example of <report>
+^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: xml
 
@@ -76,8 +76,8 @@ direct child of the report element. This contains the SQL statement to run,
 which may contain modifications and replacement tokens to allow it to integrate
 with the reporting system, as described elsewhere.
 
-Attributes
-^^^^^^^^^^
+Attributes of <query>
+^^^^^^^^^^^^^^^^^^^^^
 
 There are several attributes available for the ``<query>`` element, which serve
 to override the default field used when the warehouse adds certain filters to
@@ -177,8 +177,8 @@ replacement tokens, so if there is a parameter called "survey_id" then the
 replacement token ``#survey_id#`` can be used in the report and it will be
 replaced by the selected survey ID when the report is run.
 
-Example
-^^^^^^^
+Example of <query>
+^^^^^^^^^^^^^^^^^^
 
 .. code-block:: xml
 
@@ -201,8 +201,8 @@ Element <count_query>
 ---------------------
 
 Indicia normally auto-generates a query to calculate the count of rows in the total dataset from
-the `<query>` element. In rare cases, however, it may be necessary to use an optimisation for the
-main query which breaks the default count query. In these cases, the `<count_query>` element can be
+the ``<query>`` element. In rare cases, however, it may be necessary to use an optimisation for the
+main query which breaks the default count query. In these cases, the ``<count_query>`` element can be
 used to provide an alternative query that avoids the breaking optimisation structure.
 
 An example might be a scenario where a complex aggregation query designed to populate a data table
@@ -212,7 +212,7 @@ these cases it can be much faster to perform an inner query with just the sort a
 join this sub-query to an outer query that calculates the aggregation data on just the limited set.
 This is too complex for Indicia to be able to auto-generate the count query and furthermore it is
 unnecessary as the count query does not need the aggregated column outputs, just to know the total
-number of distinct rows. The following illustrates this using a fictitious `occurrences_summary`
+number of distinct rows. The following illustrates this using a fictitious ``occurrences_summary``
 table. Note how the inner query forces a limit which would affect any attempt to count using this
 structure.
 
@@ -257,8 +257,8 @@ Contains elements defining the default sort order of the report. This can be
 overriding by an ascending or descending sort on any column, e.g. when clicking
 on a report grid title.
 
-Child elements
-^^^^^^^^^^^^^^
+Child elements of <order_bys>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * :ref:`order_by <order-by-label>`
 
@@ -289,8 +289,8 @@ Indicia does not take this approach as it could lead to severe performance
 impacts on the server for inefficient queries or large result sets. Using a
 ``count(*)``  query is much faster.
 
-Example
-^^^^^^^
+Example of <field_sql>
+^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: xml
 
@@ -307,8 +307,8 @@ Element <params>
 The ``<params>`` element provides an area within the report definition to list
 parameters for the query and provide configuration for each.
 
-Child elements
-^^^^^^^^^^^^^^
+Child elements of  <params>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * :ref:`param <param-label>`
 
@@ -319,8 +319,8 @@ Element <param>
 
 Configuration for a single report parameter.
 
-Attributes
-^^^^^^^^^^
+Attributes of  <param>
+^^^^^^^^^^^^^^^^^^^^^^
 
 * **name** -
   The name of the attribute. Must consist of alphabetic characters,
@@ -377,11 +377,11 @@ Attributes
   value to pass into the report, then finally the name of the field which provides the
   caption to display to the user for this value in the drop down. Examples include
   "direct:survey:id:title" or "report:my_reports/taxon_groups:id:title" where
-  `my_reports/taxon_groups.xml` is a report which must return fields named id and title.
+  ``my_reports/taxon_groups.xml`` is a report which must return fields named id and title.
   You can optionally append an additional colon, then a list of report parameters, comma-
-  separate in form `param=value`.
+  separate in form ``param=value``.
 
-  Use the `autocomplete:species` value in population_call to invoke a species autocomplete
+  Use the ``autocomplete:species`` value in population_call to invoke a species autocomplete
   control for the parameter.
 
 * **lookup_values** -
@@ -558,7 +558,9 @@ specifying the attribute caption or ID in the comma separated list. A third opti
 specify a hash followed by the key of a system function in which case the appropriate
 attributes for that system function will be automatically pulled into the report. For
 example you might include the sex, stage and identifier of a record by referring to the
-system functions of the columns as ::
+system functions of the columns as
+
+.. code-block:: none
 
   smpattrs=#sex,#stage,#det_full_name
 
@@ -617,8 +619,8 @@ the columns directly in the ``<query>`` element's SQL statement does not need
 to specify the columns here to work, although the flexibility of the report is
 greatly increased if columns are specified.
 
-Child elements
-^^^^^^^^^^^^^^
+Child elements of <columns>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * :ref:`column <column-label>`
 
@@ -629,8 +631,8 @@ Element <column>
 
 Provides the definition of a single output column for the report query.
 
-Attributes
-^^^^^^^^^^
+Attributes of <column>
+^^^^^^^^^^^^^^^^^^^^^^
 
 * **name**
   Should match the name used in the query:
