@@ -69,35 +69,7 @@ are available for the REST API:
 oAuth2
 ------
 
-The web services support the password grant flow only. By default this is
-possible over an https connection only though in development environments you
-can configure the REST API's `http_authentication_methods` setting to change
-this. Note that a client ID is automatically recognised for every registered
-website on the warehouse, in the format "website_id:<id>" replacing <id>
-with the numerical website ID.
-
-Example:
-
-#. POST to index.php/services/rest/token with the following POST data, replacing
-   the values in <> as appropriate:
-   grant_type=password&username=<user>&password=<password>&client_id=website_id:<n>
-#. The response is a JSON object with a value for access_token, e.g.:
-   ``{access_token:"12345",token_type:"bearer",expires_in:7200}``
-#. The bearer token type indicates we can supply the access token in subsequent
-   requests by setting the Authorization header to "Bearer <access_token>",
-   e.g. call index.php/services/rest/reports with the header set to
-   "Authorization: Bearer 12345".
-
-.. tip::
-
-  Accessing via oAuth in this way grants can be configured to grant access only to the
-  user's records on the associated website registration given in the token request. This is
-  done by setting the 'limit_to_own_data' option for the reports resource as illustrated in
-  the Rest API's example configuration file. In this instance, in order to grant access to
-  a wider set of records you can create a filter (in the filters table) and link it to the
-  user, with defines_permissions=t. This grants the records identified by the filter to the
-  user when using that filter ID. The ID of the filter to use can be passed in a query
-  parameter in the URL called filter_id.
+No longer implemented due to being not-recommended best practice.
 
 HMAC
 ----
