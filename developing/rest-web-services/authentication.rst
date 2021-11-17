@@ -66,10 +66,73 @@ can be used when accessing the web services:
 The following methods of authentication using these 3 categories of client user
 are available for the REST API:
 
-oAuth2
-------
 
-No longer implemented due to being not-recommended best practice.
+JavaScript Web Token
+--------------------
+
+JavaScript Web Token (JWT) authentication permits warehouse user accounts to
+access their own records.
+
+The generator of the tokens uses a private key to encrypt the contents of the
+token. The warehouse use a public key to decrypt it. Each website supported by
+the warehouse has its own public key which is set up using the warehouse user
+interface, saving it in the Public Key field of the website configuration.
+
+Tokens must be in the Authorization header of each API request, prefixed by
+'Bearer '. Tokens have a limited life time and, once they expire, access to the
+warehouse will be blocked. E.g.
+
+.. code::
+
+  curl --location \
+  --request GET '<WAREHOUSE URL>/index.php/services/rest/<ENDPOINT> \
+  --header 'Authorization: Bearer <YOUR ACCESS TOKEN>'
+
+
+The token consists of a header, payload and signature. On reeceipt, the payload
+is base-64 decoded then JSON decoded. The resulting array must contain an
+element with key, ``iss``, having the value of the url field of the website, as
+stored in the configuration for the website in the warehouse. This allows the
+relevant public key to be looked up in order to verify the signature.
+
+The payload may also contain 
+
+* ``email_verified``, boolean. If this is present and false then the request
+  is blocked.
+* ``http://indicia.org.uk/user:id``, an integer to identify the user. If set,
+  the value of this element is used to confirm that user has a role for the given
+  website. If so, the scope of the request is changed to ``userWithinWebsite``
+  from the default of ``reporting``. The scope determines the extent of records in
+  the response.
+* ``scope``, a space-separated string or an array holding the scopes permitted
+  to the user when making requests. Meaningful values are  ``userWithinWebsite``,
+  ``user``, ``reporting``, ``verification``, ``data_flow``, ``moderation``,
+  ``peer_review``, and ``editing``. When set, if the request contains a parameter,
+  ``scope``, having a value matching one of those permitted then that scope is
+  applied to the request.
+* ``http://indicia.org.uk/scope``, a space-separated string or an array holding
+  scope values which may be permittted when ``scope`` is not present in the
+  payload.
+
+.. tip::
+
+  The `Drupal Indicia API module <https://github.com/Indicia-Team/drupal-8-module-indicia-api>`_
+  can be installed on Drupal websites to generate tokens for JWT authentication.
+  It depends on the `Simple OAuth module <https://www.drupal.org/project/simple_oauth>`_
+  Set this up according to the instructions by providing a public/private key 
+  pair and configuring a Client with a secret. You can then send a POST request
+  to the /oauth/token endpoint on the website to acquire a token, e.g.
+  
+  .. code::
+
+    curl --location --request POST '<DRUPAL SITE URL>/oauth/token' \
+    --header 'Content-Type: application/x-www-form-urlencoded' \
+    --data-urlencode 'grant_type=password' \
+    --data-urlencode ‘username=<YOUR EMAIL>' \
+    --data-urlencode ‘password=<YOUR PASSWORD>' \
+    --data-urlencode 'client_id=<THE CLIENT UUID>' \
+    --data-urlencode 'client_secret=<THE CLIENT PASSWORD>'
+  
 
 HMAC
 ----
