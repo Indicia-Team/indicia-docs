@@ -67,16 +67,15 @@ The following methods of authentication using these 3 categories of client user
 are available for the REST API:
 
 
-JavaScript Web Token
+JSON Web Token
 --------------------
 
-JavaScript Web Token (JWT) authentication permits warehouse user accounts to
+JSON Web Token (JWT) authentication permits warehouse user accounts to
 access their own records.
 
-The generator of the tokens uses a private key to encrypt the contents of the
+The generator of the tokens uses a private key to sign the contents of the
 token. The warehouse use a public key to decrypt it. Each website supported by
-the warehouse has its own public key which is set up using the warehouse user
-interface, saving it in the Public Key field of the website configuration.
+the warehouse can have its own public key saved in the Public Key field of the website configuration.
 
 Tokens must be in the Authorization header of each API request, prefixed by
 'Bearer '. Tokens have a limited life time and, once they expire, access to the
@@ -89,13 +88,13 @@ warehouse will be blocked. E.g.
   --header 'Authorization: Bearer <YOUR ACCESS TOKEN>'
 
 
-The token consists of a header, payload and signature. On reeceipt, the payload
+The token consists of a header, payload and signature. On receipt, the payload
 is base-64 decoded then JSON decoded. The resulting array must contain an
 element with key, ``iss``, having the value of the url field of the website, as
 stored in the configuration for the website in the warehouse. This allows the
 relevant public key to be looked up in order to verify the signature.
 
-The payload may also contain 
+The payload may also contain:
 
 * ``email_verified``, boolean. If this is present and false then the request
   is blocked.
