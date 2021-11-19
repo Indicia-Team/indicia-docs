@@ -2,14 +2,15 @@ RESTful web service resources
 =============================
 
 For up to date documentation on the available resources, ensure that the rest_api warehouse
-module is installed then visit `index.php/services/rest`. Currently the resources available
-are limited to those required to support accessing reports as well as those required to
-support the [http://indicia-online-recording-rest-api.readthedocs.io/en/latest/
-online recording REST API] for exchanging records between online recording systems.
+module is installed then visit ``index.php/services/rest``. Initially the resources available
+were limited to those required to support accessing reports as well as those required to
+support the `online recording REST API 
+<http://indicia-online-recording-rest-api.readthedocs.io/en/latest/>`_
+for exchanging records between online recording systems.
 
-The `taxon-observations` and `annotations` resources are both covered in the
-[http://indicia-online-recording-rest-api.readthedocs.io/en/latest/
-online recording REST API] documentation.
+The ``taxon-observations`` and ``annotations`` resources are both covered in the
+`online recording REST API 
+<http://indicia-online-recording-rest-api.readthedocs.io/en/latest/>`_ documentation.
 
 index.php/services/rest
 -----------------------
@@ -165,8 +166,8 @@ entity. Additionally, child media can be specified using a key with the same nam
 index.php/services/locations/{id}
 ---------------------------------
 
-Issue a GET request to retrieve an location matching the provided ID. Currently restricted to
-locations created by the logged in user.
+Issue a GET request to retrieve a location matching the provided ID. Currently restricted to
+locations created by the logged in user or public to all users.
 
 Issue a PUT request to update a location matching the provided ID. Currently restricted to
 locations created by the logged in user. The submission format is the same as that for POST, but
@@ -182,12 +183,12 @@ index.php/services/taxon-observations
 -------------------------------------
 
 Provides access to occurrences stored on the warehouse. Described fully in the
-[http://indicia-online-recording-rest-api.readthedocs.io/en/latest/ online recording REST
-API] documentation.
+`online recording REST API 
+<http://indicia-online-recording-rest-api.readthedocs.io/en/latest/>`_ documentation.
 
 index.php/services/annotations
 ------------------------------
 
 Provides access to occurrence comments stored on the warehouse including verification
-decisions. Described fully in the [http://indicia-online-recording-rest-api.readthedocs.io/en/latest/
-online recording REST API] documentation.
+decisions. Described fully in the `online recording REST API 
+<http://indicia-online-recording-rest-api.readthedocs.io/en/latest/>`_ documentation.
