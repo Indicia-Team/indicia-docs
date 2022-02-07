@@ -444,9 +444,9 @@ Attributes of  <param>
     indexes when optimising the query, since the taxon_group_ids is likely to be a much
     simpler case with a smaller list of IDs.
 * **order_by** -
-    If set, then the ORDER BY clause of the report will have this value added to it only
-    when a value is supplied for this parameter. Specify a field name and optionally ASC
-    or DESC for the order.
+  If set, then the ORDER BY clause of the report will have this value added to it only
+  when a value is supplied for this parameter. Specify a field name and optionally ASC
+  or DESC for the order.
 
 .. _idlist-label:
 
