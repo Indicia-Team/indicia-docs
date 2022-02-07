@@ -443,7 +443,7 @@ Attributes of  <param>
     as well as a list of taxon_group_ids gives the query planner a better chance to use
     indexes when optimising the query, since the taxon_group_ids is likely to be a much
     simpler case with a smaller list of IDs.
-  * **order_by** -
+* **order_by** -
     If set, then the ORDER BY clause of the report will have this value added to it only
     when a value is supplied for this parameter. Specify a field name and optionally ASC
     or DESC for the order.
