@@ -80,9 +80,15 @@ page) and can also define an Elasticsearch aggregation if needed. On its own, a 
 control does nothing. It's only when another output control is linked to it that data
 will be fetched and shown on the page.
 
+Sources normally retrieve documents from Elasticsearch where each document represents a single
+occurrence record. It is also possible to configure an Elasticsearch index to hold documents which
+represent single samples.
+
 When configuring a `source` control the list of available document field names can be
-found in the `document structure documentation
-<https://github.com/Indicia-Team/support_files/blob/master/Elasticsearch/document-structure.md>`_.
+found in the `occurrences document structure documentation
+<https://github.com/Indicia-Team/support_files/blob/master/Elasticsearch/occurrences-document-structure.md>`_
+or the `samples document structure documentation
+<https://github.com/Indicia-Team/support_files/blob/master/Elasticsearch/samples-document-structure.md>`_.
 
 Typical configuration examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

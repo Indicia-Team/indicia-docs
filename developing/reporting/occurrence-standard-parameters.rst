@@ -108,6 +108,12 @@ set of parameters. The report will automatically support the following list of p
       * P - only records which pass
       * F - only records which fail
 
+  * ``autocheck_rule`` - autocheck rule type name (e.g. identification_difficulty or
+    period_within_year). Records are returned if they fail the given rule name.
+  * ``identification_difficulty`` - specify a value from 1 to 5 to filter to this
+    identification difficulty level if this feature is set up on your warehouse. Specify
+    an optional ``identification_difficulty_op`` parameter to set the value '=', '<=' or
+    '>=' to control how the filter is applied.
   * ``has_photos`` - supply '1' to only include records with photos or '0' to exclude
     records with photos.
   * ``zero_abundance``` - supply '1' to only include zero abundance/negative presence
@@ -144,10 +150,6 @@ set of parameters. The report will automatically support the following list of p
     to include, allowing filtering at the family or higher taxon level
   * ``taxon_meaning_list`` - a comma separated list of taxon meaning IDs to filter
     against.
-  * ``identification_difficulty`` - specify a value from 1 to 5 to filter to this
-    identification difficulty level if this feature is set up on your warehouse. Specify
-    an optional ``identification_difficulty_op`` parameter to set the value '=', '<=' or
-    '>=' to control how the filter is applied.
   * ``taxa_taxon_list_attribute_ids`` - to filter for species which are tagged with a
     particular term (e.g. a habitat or resource), provide a list of the
     taxa_taxon_list_attributes record IDs which will be searched in to determine which
