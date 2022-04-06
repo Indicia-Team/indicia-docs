@@ -681,9 +681,12 @@ page with a URL that might look like:
 
     * #associations# - a list of the species names linked to this record as associated
       occurrences.
-    * #attr_value:<entity>:<id># - a single custom attribute value. Specify the entity
-      name (event (=sample), parent_event (sample identified by `samples.parent_id` or
-      occurrence) plus the custom attribute ID as parameters.
+    * #attr_value:<entity>:<id># - a single custom attribute value. Specify the entity name (event
+      (=sample), parent_event (sample identified by `samples.parent_id` or occurrence) plus the
+      custom attribute ID as parameters. Note that if requesting an event attribute value, the
+      parent events attribute values will also be included in the output, so when requesting an
+      attribute value it is not necesssary to know if the value will be stored at the event or
+      parent level.
     * #constant:<value># - outputs a static value. Pass an empty string if you need an empty
       column.
     * #data_cleaner_icons# - icons representing the results of data cleaner rule checks.
