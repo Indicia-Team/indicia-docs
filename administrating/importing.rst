@@ -139,3 +139,6 @@ Additional tips
 #. Importing photos obviously can't be achieved using a CSV file upload. However, if you
    are able to copy the images to the warehouse upload folder, you can then import a
    column with the image file name to link the image to the record.
+
+#. Boolean fields can be supplied using any of the `values acceptable to the 
+   database<https://www.postgresql.org/docs/current/datatype-boolean.html>`_. 
