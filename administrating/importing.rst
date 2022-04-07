@@ -141,4 +141,4 @@ Additional tips
    column with the image file name to link the image to the record.
 
 #. Boolean fields can be supplied using any of the `values acceptable to the 
-   database<https://www.postgresql.org/docs/current/datatype-boolean.html>`_. 
+   database <https://www.postgresql.org/docs/current/datatype-boolean.html>`_. 
