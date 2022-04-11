@@ -31,6 +31,9 @@ after the next cache update:
 * tabs-*
 * indicia-menu-*
 
+If the module makes changes to the database, visit ``home/upgrade`` in your browser to run
+the database scripts.
+
 Module List
 ^^^^^^^^^^^
 
