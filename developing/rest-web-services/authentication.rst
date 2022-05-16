@@ -153,9 +153,9 @@ In more detail:
 #. The requesting entity adds an Authorization header to the request containing the
    following string [user type]:[user identifier]:HMAC:[hmac] where:
 
-     * [user_type] is a token which identifies whether a registered website (WEBSITE_ID),
-     * warehouse user account (USER_ID) or client defined in the REST API's configuration
-       file (USER).
+     * [user_type] is one of WEBSITE_ID, USER_ID, or USER, indicating whether the 
+       user_identifier is for a registered website, a warehouse user account, or client
+       defined in the REST API's configuration file.
      * [user identifier] is the requesting client's identifier, either the website_id,
        user_id or client ID as described above.
      * [hmac] is the HMAC-SHA1 value computed in (1)
