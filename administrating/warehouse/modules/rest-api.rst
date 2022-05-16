@@ -15,7 +15,7 @@ Support for data operations on other data types may be added in future.
 
 Once this module is enabled, you need to create a configuration file to define authentication
 methods, resource endpoints and integration with Elasticsearch. The easiest way to do this is to
-copy the file ``/modules/rest_api/config/rest.jwt-only.php`` to ``/modules/rest_api/config/rest.jwt-only.php``.
+copy the file ``/modules/rest_api/config/rest.jwt-only.php`` to ``/modules/rest_api/config/rest.php``.
 Now open the file in a text editor and perform the following amendments:
 
 * If not using Elasticsearch, then remove the whole line for the ``elasticsearch`` key under the
