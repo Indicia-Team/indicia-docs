@@ -150,6 +150,9 @@ set of parameters. The report will automatically support the following list of p
     to include, allowing filtering at the family or higher taxon level
   * ``taxon_meaning_list`` - a comma separated list of taxon meaning IDs to filter
     against.
+  * ``taxa_taxon_list_external_key_list`` - a comma separated list of taxon external keys
+    (e.g. taxon_version_keys for UKSI data) to filter to. A higher taxon can be selected and the
+    taxonomic children will be included.
   * ``taxa_taxon_list_attribute_ids`` - to filter for species which are tagged with a
     particular term (e.g. a habitat or resource), provide a list of the
     taxa_taxon_list_attributes record IDs which will be searched in to determine which
