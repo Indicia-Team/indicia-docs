@@ -100,23 +100,66 @@ filter into the query.
   datatype for a report parameter. Defaults to "s.id" which is based on the
   assumption that the samples table is joined into the query with a table alias
   "s". See :ref:`attrs-label` for more info.
-* *occurrences_id_field* - identifies the field in the SQL query which is used to
-  join to the occurrence_attribute_values table in order to include occurrence
-  custom attributes in the report output. Use in conjunction with the
+* *samples2_id_field* - identifies the field in the SQL query which is used to
+  join to the sample_attribute_values table a second time in order to include
+  sample custom attributes of a parent sample in the report output. Use in
+  conjunction with the **smp2attrs** datatype for a report parameter. Defaults
+  to "s2.id" which is based on the assumption that the samples table is joined
+  into the query with a table alias "s2". See :ref:`attrs-label` for more info.
+* *occurrences_id_field* - identifies the field in the SQL query which is used
+  to join to the occurrence_attribute_values table in order to include
+  occurrence custom attributes in the report output. Use in conjunction with the
   **occattrs** datatype for a report parameter. Defaults to "o.id" which is
-  based on the assumption that the samples table is joined into the query with a
-  table alias "o". See :ref:`attrs-label` for more info.
+  based on the assumption that the occurrences table is joined into the query
+  with a table alias "o". See :ref:`attrs-label` for more info.
+* *occurrences2_id_field* - identifies the field in the SQL query which is used
+  to join to the occurrence_attribute_values table a second time in order to
+  include custom attributes of an associated occurrence in the report output.
+  Use in conjunction with the **occ2attrs** datatype for a report parameter.
+  Defaults to "o2.id" which is based on the assumption that the occurrences
+  table is joined into the query with a table alias "o2". See :ref:`attrs-label`
+  for more info.
 * *locations_id_field* - identifies the field in the SQL query which is used to
   join to the location_attribute_values table in order to include location
   custom attributes in the report output. Use in conjunction with the
   **locattrs** datatype for a report parameter. Defaults to "l.id" which is
   based on the assumption that the locations table is joined into the query with
   a table alias "l". See :ref:`attrs-label` for more info.
-* *standard_param* - set to "occurrences" to enable a standardised set of filter parameters
-  for filtering occurrence records or "samples" for sample records. This includes a range
-  of filter options such as date, species group, geography etc. They are designed to
-  integrate with the filter panel provided in the reporting client helpers. See
-  :doc:`standard-parameters` for more information.
+* *locations2_id_field* - identifies the field in the SQL query which is used to
+  join to the location_attribute_values table a second time in order to include
+  custom attributes of a parent location in the report output. Use in
+  conjunction with the **loc2attrs** datatype for a report parameter. Defaults
+  to "l2.id" which is based on the assumption that the locations table is joined
+  into the query with a table alias "l2". See :ref:`attrs-label` for more info.
+* *taxa_taxon_lists_id_field* - identifies the field in the SQL query which is
+  used to join to the taxa_taxon_list_attribute_values table in order to include
+  taxon custom attributes in the report output. Use in conjunction with the
+  **taxattrs** datatype for a report parameter. Defaults to "ttl.id" which is
+  based on the assumption that the taxa_taxon_lists table is joined into the
+  query with a table alias "ttl". See :ref:`attrs-label` for more info.
+* *termlists_terms_id_field* - identifies the field in the SQL query which is
+  used to join to the termlists_term_attribute_values table in order to include
+  term custom attributes in the report output. Use in conjunction with the
+  **trmattrs** datatype for a report parameter. Defaults to "tlt.id" which is
+  based on the assumption that the termlists_terms table is joined into the
+  query with a table alias "tlt". See :ref:`attrs-label` for more info.
+* *surveys_id_field* - identifies the field in the SQL query which is used to
+  join to the survey_attribute_values table in order to include survey custom
+  attributes in the report output. Use in conjunction with the **srvattrs**
+  datatype for a report parameter. Defaults to "su.id" which is based on the
+  assumption that the surveys table is joined into the query with a table alias
+  "su". See :ref:`attrs-label` for more info.
+* *people_id_field* - identifies the field in the SQL query which is used to
+  join to the person_attribute_values table in order to include person custom
+  attributes in the report output. Use in conjunction with the **psnattrs**
+  datatype for a report parameter. Defaults to "p.id" which is based on the
+  assumption that the people table is joined into the query with a table alias
+  "p". See :ref:`attrs-label` for more info.
+* *standard_param* - set to "occurrences" to enable a standardised set of filter
+  parameters for filtering occurrence records or "samples" for sample records.
+  This includes a range of filter options such as date, species group, geography
+  etc. They are designed to integrate with the filter panel provided in the
+  reporting client helpers. See :doc:`standard-parameters` for more information.
 
 Replacements Tokens
 ^^^^^^^^^^^^^^^^^^^
@@ -340,21 +383,24 @@ Attributes of  <param>
   Gives a further description displayed alongside the parameter in the form.
 * **datatype** -
   Used in determining the type of control to show when requesting the parameter.
-  Currently, the core module report interface supports datatypes 'text', 'text[]',
-  'integer', 'integer[]', 'lookup', 'date', 'geometry', 'polygon', 'line', 'point', 'idlist',
-  'smpattrs', 'occattrs', 'locattrs'. All other values default to text. Date
-  will show a datepicker control. Lookup will show a select box. Geometry,
-  Polygon, Line and Point all require a map for the user to draw the input
-  parameter shape onto. Finally, idlist, smpattrs, occattrs and locattrs are
-  special datatypes that are described in the section :ref:`attrs-label`. When
-  viewing the parameters form in the Warehouse interface, the contents of the
-  lookup are populated using the query in the query attribute. When using the
-  report_grid control in the data_entry_helper class, the contents of the lookup
-  are populated using the population_call attribute. Alternatively a fixed set
-  of values can be specified by using the lookup_values attribute.
-  Note that the datatypes with [] appended indicate cases where a list of comma
-  separated values is provided to use in an SQL IN clause, allowing the system
-  to sanitise individual list elements.
+  Currently, the core module report interface supports datatypes 'text',
+  'text[]', 'integer', 'integer[]', 'lookup', 'date', 'geometry', 'polygon',
+  'line', 'point', 'idlist', 'excludeidlist', 'smpattrs', 'smp2attrs',
+  'occattrs', 'occ2attrs', 'locattrs', 'loc2attrs', 'taxattrs', 'trmattrs',
+  'srvattrs', 'psnattrs'. All other values default to text. Date will show a
+  datepicker control. Lookup will show a select box. Geometry, Polygon, Line and
+  Point all require a map for the user to draw the input parameter shape onto.
+  The (smp|occ|loc|tax|trm|srv|psn|)attrs are special datatypes that are
+  described in the section :ref:`attrs-label`. When viewing the parameters form
+  in the Warehouse interface, the contents of the lookup are populated using the
+  query in the query attribute. When using the report_grid control in the
+  data_entry_helper class, the contents of the lookup are populated using the
+  population_call attribute. Alternatively a fixed set of values can be
+  specified by using the lookup_values attribute. Note that the datatypes with
+  [] appended or idlist indicate cases where a list of comma separated values is
+  provided to use in an SQL IN clause, allowing the system to sanitise
+  individual list elements.  excludeidlist is similar but creates a NOT IN
+  clause.
 * **query** -
   Used to provide an SQL query used to populate the select box for
   lookup parameters. The query should return 2 fields, the key and display
@@ -550,38 +596,41 @@ SQL.
 Optional custom attributes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The parameter datatypes *smpattrs*, *occattrs* and *locattrs* are special types
-used to allow the input of a comma separated list of custom attributes to be
-added to the report output. Attributes can be sample attributes, occurrence
-attributes and location attributes respectively and can be provided either by
-specifying the attribute caption or ID in the comma separated list. A third option is to
-specify a hash followed by the key of a system function in which case the appropriate
-attributes for that system function will be automatically pulled into the report. For
-example you might include the sex, stage and identifier of a record by referring to the
-system functions of the columns as
+The parameter datatypes *smpattrs*, *smp2attrs*, *occattrs*, *occ2attrs*,
+*locattrs*, *loc2attrs*, *taxattrs*, *trmattrs*, *srvattrs*, and *psnattrs* are
+special types used to allow the input of a comma separated list of custom
+attributes to be added to the report output. Attributes can be for samples,
+parent samples, occurrences, parent occurrences, locations, parent locations,
+taxa, terms, surveys and people respectively and can be provided either by
+specifying the attribute caption or ID in the comma separated list. A third
+option is to specify a hash followed by the key of a system function in which
+case the appropriate attributes for that system function will be automatically
+pulled into the report. For example you might include the sex, stage and
+identifier of a record by referring to the system functions of the columns as
 
 .. code-block:: none
 
   smpattrs=#sex,#stage,#det_full_name
 
-To use parameters of these types it is necessary to fulfill several requirements in the
-way your report is specified:
+To use parameters of these types it is necessary to fulfill several requirements
+in the way your report is specified:
 
-#. The report must use the *field_sql* element to separate the field list from
-   the SQL statement, so that additional fields can be added to the list as
-   required.
+#. The report must use the *field_sql* element or *#columns#* to separate the
+   field list from the SQL statement, so that additional fields can be added to
+   the list as required.
 #. The report query must contain a tag *#joins#* in the SQL in a position where
    additional joins can be inserted.
 #. The query must include a table which contains the ID attribute that the
    attribute values are linked to, for example the sample ID, occurrence ID or
    location ID.
-#. If the ID fields can be referred to in the SQL using *s.id*, *o.id* and
-   *l.id* then no further changes are required. You can override these defaults,
-   for example if you have a query listing occurrences which does not join in the
-   samples table but need to be able to add sample attribute values. In this
-   case, the query element needs an attribute *samples_id_field* which
-   identifies the field reference that can be used in the SQL to join to the
-   sample, in this case *o.sample_id*.
+#. If the ID fields can be referred to in the SQL using *s.id*, *s2.id*, *o.id*,
+   *o2.id*, *l.id*, *l2.id*, *ttl.id*, *tlt.id*, *su.id*, or *p.id*, then no
+   further changes are required. You can override these defaults, for example if
+   you have a query listing occurrences which does not join in the samples table
+   but need to be able to add sample attribute values. In this case, the query
+   element needs an attribute *samples_id_field* which identifies the field
+   reference that can be used in the SQL to join to the sample, in this case
+   *o.sample_id*. See :ref:`query-label` for more info.
 
 You can also use the output column as if it were a normally declared column in
 your report. This lets you specify the column details in the report_grid options
