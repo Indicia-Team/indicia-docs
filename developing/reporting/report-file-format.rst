@@ -134,9 +134,12 @@ filter into the query.
 * *taxa_taxon_lists_id_field* - identifies the field in the SQL query which is
   used to join to the taxa_taxon_list_attribute_values table in order to include
   taxon custom attributes in the report output. Use in conjunction with the
-  **taxattrs** datatype for a report parameter. Defaults to "ttl.id" which is
-  based on the assumption that the taxa_taxon_lists table is joined into the
-  query with a table alias "ttl". See :ref:`attrs-label` for more info.
+  **taxattrs** datatype for a report parameter. Defaults to
+  "ttl.preferred_taxa_taxon_list_id" which is based on the assumption that the
+  taxa_taxon_lists table is joined into the query with a table alias "ttl".
+  Taxon attribute values are only created for preferred taxa and not for common
+  names and synonyms which is why we need to join on that id. See
+  :ref:`attrs-label` for more info.
 * *termlists_terms_id_field* - identifies the field in the SQL query which is
   used to join to the termlists_term_attribute_values table in order to include
   term custom attributes in the report output. Use in conjunction with the
