@@ -1,11 +1,49 @@
 General notes on dynamic forms
 ------------------------------
 
-Flexible
+Dynamic page types are labelled in the form picker as customisable. They all share a **Form
+Structure** box in the **User Interface** section of the Edit tab. This uses a simple text format
+which allows you to output controls onto the page in a fully flexible manner. The controls
+available depend on the type of dynamic page you are creating and can be mixed with HTML for
+complete control over the page layout.
 
-Simple macro language
+Controls
+========
 
-Extensions
+Controls can be embedded into the output by wrapping the control name in square brackets, on its
+own line, with no spaces beforehand.
+
+Controls can have properties set by putting '@property=value' pairs on subsequent lines. For
+example, on a data entry page type the following outputs a map with the `gridRefHints` option
+enabled::
+
+  [map]
+  @gridRefHint=false
+
+Where a property value needs to be spread over multiple lines, wrap it in XML comments <!-- -->
+as follows::
+
+  [download]
+  @source=recordData
+  @columnsTemplate=<!--[
+    "easy-download",
+    "mapmate"
+  ]-->
+
+If a control should only be displayed when the user has permission, a property `@permission` can
+be used to specify the required permission::
+
+  [download]
+  @source=recordData
+  @permission=can download
+
+The permissions check can also allow a control to only be displayed when a user does not have the
+given permission using the `@hideIfHasPermission` property::
+
+  [dataGrid]
+  @source=recordDataForAnonymousUsers
+  @permission=logged in
+  @hideIfHasPermission=true
 
 Extension list
 ==============
@@ -161,6 +199,30 @@ through the `lang::get()` function and therefore can be localised into different
 The following options can be passed to this control:
 
   * @text - Required - pass the text to localised.
+
+[misc_extensions.redirect]
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Provides a method of causing a page to redirect, which can be combined with the `@permission` and
+`@hideIfHasPermission` properties to control when the redirect occurs.
+
+The following options can be passed to this control:
+
+  * @path - required path to redirect to.
+  * @params - array of query string keys and values to append. Any params which have a value in
+    format {{ name }} are replaced by the parameter of the same name in the current page URL query
+    string, or {{ indicia_user_id }} will be replaced by the logged in user's warehouse user ID.
+  * @fragment - URL fragment which is added to the end of the URL being redirected to, after a '#'
+    character.
+
+For example, the following code could be placed on a record details page to redirect away to a
+simpler version if the user is not logged in::
+
+  [misc_extensions.redirect]
+  @path=record-details/logged-out
+  @params={"occurrence_id": "{{ occurrence_id }}"}
+  @permission=logged in
+  @hideIfHasPermission=true
 
 [print.pdf]
 ~~~~~~~~~~~
