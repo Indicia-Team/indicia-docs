@@ -13,7 +13,7 @@ Developing
 
 .. toctree::
 
-  architecture-overview
+  architecture/index
   coding-standards
   github
   client-website/index

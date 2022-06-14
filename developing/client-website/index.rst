@@ -6,3 +6,4 @@ Developing client website code
 
   tutorial-writing-php-form/index
   tutorial-writing-drupal-prebuilt-form/index
+  release-procedure
