@@ -1,12 +1,12 @@
 IForm Release procedure
 =======================
 There are a number of steps to take to create a new release of the IForm module.
-It often coincides or follows a warehouse release so the media and client_helper
-sub-modules will already be tested, tagged and released. If not you can follow
-the :doc:`warehouse release procedure <../warehouse/release-procedure.rst>` to
-prepare the submodules. The version number for the release is always the same as
-the most recent warehouse version number so the IForm module can have rather 
-erratic numbering.
+It often coincides with or follows a warehouse release so the media and
+client_helper sub-modules will already be tested, tagged and released. If not
+you can follow the :doc:`warehouse release procedure
+<../warehouse/release-procedure>` to prepare the submodules. The version number
+for the release is always the same as the most recent warehouse version number
+so the IForm module can have rather erratic numbering.
 
 1. Review outstanding pull requests and merge those that are to be part of the 
    new release.
@@ -19,7 +19,8 @@ erratic numbering.
 5. If OK, then commit the merge.
 6. Set the version number in `iform.info.yml` and commit.
 7. Commit the submodule positions at the head of their master branches.
-8. ``git tag -a vx.y.z`` and ``git push --follow-tags``
+8. ``git tag -a vx.y.z`` and ``git push --follow-tags`` where ``x.y.z`` is the 
+   version number.
 
 Having pushed the changes to master and tagged it with the version number
 
@@ -35,6 +36,6 @@ Having pushed the changes to master and tagged it with the version number
    rm -rf iform/client_helpers/.git
    rm -rf iform/media/.git
    find . -type f -print0 | xargs -0 dos2unix
-   zip -r iform-<version>.zip iform
+   zip -r iform-x.y.z.zip iform
 
-
+Substitute the version number for ``x.y.z``.
