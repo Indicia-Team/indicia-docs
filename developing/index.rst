@@ -20,7 +20,6 @@ Developing
   data-model/index
   locality-data
   adding-spatial-support
-  example-queries
   reporting/index
   web-services/index
   rest-web-services/index
