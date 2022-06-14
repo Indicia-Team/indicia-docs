@@ -12,3 +12,4 @@ Developing for the Warehouse
   tutorial-entity-module
   phpunit
   travis-ci
+  release-procedure
