@@ -1785,6 +1785,8 @@ The decision spreadsheet upload tool checks each record to ensure that it is one
 records returned by the current verification context filter. Therefore it is impossible to update
 records you are not a verifier for.
 
+Note that the `warehouseName` option must be provided when `includeUploadButton` is true.
+
 In order to set the decisions spreadsheet functionality up, a `[download]` control can be modified
 to include the columns required for verification. It can also be configured to output the button
 and resulting download file link under the records grid by adding the following options::
@@ -1805,6 +1807,7 @@ the report footer area as follows::
 
   [verificationButtons]
   @includeUploadButton=true
+  @warehouseName=myexamplewarehouse.com
   @uploadButtonContainerElement=#records-grid tfoot td
 
 **keyboardNavigation**
@@ -1847,6 +1850,13 @@ download button, specify the element selector here.
 
 If a Drupal page path for a record details page is specified then a button is added to
 allow record viewing.
+
+**warehouseName**
+
+Name of the warehouse stored against records in Elasticsearch (in the `metadata.warehouse` field).
+Typically the domain name of the warehouse server. Must be set when the `includeUploadButton`
+option is set as it is required to ensure that uploaded decisions do not affect records imported
+into the Elasticsearch index from other warehouses.
 
 Positioning of control elements
 ===============================
