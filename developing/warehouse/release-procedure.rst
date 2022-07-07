@@ -37,8 +37,8 @@ Or
    this prettily.
 7. Merge any changes you made in the release branch back in to dev.
 
-Warehose release
-----------------
+Warehouse release
+-----------------
 Repeat the same process for the warehouse as described for the submodules but, 
 before merging to master,
 

@@ -6,7 +6,7 @@ Contents
   :maxdepth: 3
 
   index
-  ../../developing/architecture-overview
+  ../../developing/architecture/index
   ../../developing/client-website/index
   ../../developing/subversion
   ../../developing/reporting/index

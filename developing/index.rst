@@ -13,14 +13,13 @@ Developing
 
 .. toctree::
 
-  architecture-overview
+  architecture/index
   coding-standards
   github
   client-website/index
   data-model/index
   locality-data
   adding-spatial-support
-  example-queries
   reporting/index
   web-services/index
   rest-web-services/index

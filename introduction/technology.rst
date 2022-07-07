@@ -61,7 +61,7 @@ Kohana
 provides a ready made layout for a PHP web application. It structures the 
 application using a pattern known as Model View Controller and also provides 
 lots of built in libraries and extensions to make day to day development tasks 
-easier. `Documentation for Kohana 2 <http://web.archive.org/web/20110715130625/http://docs.kohanaphp.com//contents>`_
+easier. `Documentation for Kohana 2 <https://kohana234.misty-stix.com/>`_
 as used by Indicia, is no longer on the Kohana website.
 
 jQuery
