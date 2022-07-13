@@ -65,7 +65,8 @@ Controlling which task is run
 The scheduled tasks process runs the notifications system plus any modules on the
 warehouse that declare they should be scheduled to run. You can control exactly which
 modules are run by appending a **tasks** URL parameter containing a comma separated list
-of task names. The task names available are:
+of task names. If you are calling the PHP executable from the command-line, then you can
+specify a parameter called tasks instead. The task names available are:
 
 * **notifications** - fires the triggers and notifications system.
 * **work_queue** - fires the work queue processor.
@@ -88,15 +89,23 @@ The work_queue task is a recent addition to the Indicia warehouse for version 2.
 examines the work_queue table to find tasks that have been queued and which need to be
 performed. The tasks are sorted by priority and the procesor is designed to be aware of
 your server's load and to avoid intensive tasks during periods of high load. Therefore
-it is safe to run the scheduled_tasks with a parameter `&tasks=work_queue` as frequently
+it is safe to run the scheduled_tasks with a parameter `tasks=work_queue` as frequently
 as you like. You can further control the work queue processor by setting the following
 parameters:
 
-  * maxPriority - set to 1 (high priority) or 2 (medium priority) tasks only.
-  * maxCost - set to a value from 1 to 100 to define the maximum cost of tasks. E.g.
+  * max-priority - set to 1 (high priority) or 2 (medium priority) tasks only.
+  * max-cost - set to a value from 1 to 100 to define the maximum cost of tasks. E.g.
     set to 80 to skip tasks that are very costly.
 
-Note that you should run the work_queue task without a maxPriority or maxCost parameter
+For example, from a browser::
+
+  http://www.example.com/indicia/index.php/scheduled_tasks?tasks=work_queue&max-priority=2
+
+Or from the command-line (ensuring the paths to your PHP exe and warehouse are correct)::
+
+  C:\PHP\php.exe "D:\htdocs\warehouse\index.php" scheduled_tasks tasks=work_queue max-priority=2
+
+Note that you should run the work_queue task without a max-priority or max-cost parameter
 regularly at some point to ensure all tasks get processed, though you could limit these
 to certain times of the day for example.
 
