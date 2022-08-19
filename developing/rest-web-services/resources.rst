@@ -4,19 +4,21 @@ RESTful web service resources
 For up to date documentation on the available resources, ensure that the rest_api warehouse
 module is installed then visit ``index.php/services/rest``. Initially the resources available
 were limited to those required to support accessing reports as well as those required to
-support the `online recording REST API 
+support the `online recording REST API
 <http://indicia-online-recording-rest-api.readthedocs.io/en/latest/>`_
 for exchanging records between online recording systems.
 
 The ``taxon-observations`` and ``annotations`` resources are both covered in the
-`online recording REST API 
+`online recording REST API
 <http://indicia-online-recording-rest-api.readthedocs.io/en/latest/>`_ documentation.
 
 index.php/services/rest
 -----------------------
 
 By visiting the root of the REST API you can access dynamically generated documentation of
-the other resources available via the API. This endpoint does not need authentication.
+the other resources available via the API. This endpoint does not need authentication. E.g.
+visit `http://<warehouse domain>/index.php/services/rest`, replacing `<warehouse domain>`
+with the domain your warehouse is running on.
 
 index.php/services/reports
 --------------------------
@@ -175,20 +177,3 @@ you only  need to provide field values that are actually changing.
 
 Issue a DELETE request to delete a location matching the provided ID. Currently restricted to
 locations created by the logged in user.
-
-index.php/services/media-queue
-------------------------------
-
-index.php/services/taxon-observations
--------------------------------------
-
-Provides access to occurrences stored on the warehouse. Described fully in the
-`online recording REST API 
-<http://indicia-online-recording-rest-api.readthedocs.io/en/latest/>`_ documentation.
-
-index.php/services/annotations
-------------------------------
-
-Provides access to occurrence comments stored on the warehouse including verification
-decisions. Described fully in the `online recording REST API 
-<http://indicia-online-recording-rest-api.readthedocs.io/en/latest/>`_ documentation.
