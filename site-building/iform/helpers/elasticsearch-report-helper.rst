@@ -86,9 +86,9 @@ represent single samples.
 
 When configuring a `source` control the list of available document field names can be
 found in the `occurrences document structure documentation
-<https://github.com/Indicia-Team/support_files/blob/master/Elasticsearch/occurrences-document-structure.md>`_
+<https://github.com/Indicia-Team/support_files/blob/master/Elasticsearch/docs/occurrences-document-structure.md>`_
 or the `samples document structure documentation
-<https://github.com/Indicia-Team/support_files/blob/master/Elasticsearch/samples-document-structure.md>`_.
+<https://github.com/Indicia-Team/support_files/blob/master/Elasticsearch/docs/samples-document-structure.md>`_.
 
 Typical configuration examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
