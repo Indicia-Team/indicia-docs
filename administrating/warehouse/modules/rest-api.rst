@@ -3,7 +3,8 @@ REST API Module
 
 The REST API module provides a RESTful web service to the following:
 
-* Key data operations for wildlife records data (occurrences, samples, locations).
+* Create, read, update and delete operations for wildlife records data (occurrences, samples,
+  locations).
 * Metadata operations for survey data set structure including creating and modifying
   surveys and custom attributes.
 * Access to data via reports.
@@ -42,10 +43,6 @@ config file. The following configuration settings can be specified:
   manually rather than to write code which sets the HTTP header data with the request.
 * **clients**
 
-.. todo::
-  Complete documentation including autofeed (tracking and tracking dates) and max_time
-  information.
-
 .. tip::
   Some default configurations of Apache do not pass the Authorization header through to PHP for
   security reasons. This will prevent authorisation using JWT (the 'jwtUser' method). To fix this,
@@ -60,6 +57,9 @@ config file. The following configuration settings can be specified:
 
 Examples
 --------
+
+See the documentation on your warehouse at /index.php/services/rest for further examples and
+detailed documentation.
 
 Basic POST to create
 ^^^^^^^^^^^^^^^^^^^^
