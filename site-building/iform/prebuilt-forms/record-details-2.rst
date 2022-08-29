@@ -7,6 +7,71 @@ If you install the `Metatag and Metatag: Open Graph <https://www.drupal.org/proj
 modules, Record Details pages will add location, image and title metadata to the page which can be
 picked up in links to Facebook and other social media.
 
-.. todo::
+This form provides a configurable way to create a view page for a record. The following
+controls are available in its user interface:
 
-  Complete documentation.
+User Interface
+~~~~~~~~~~~~~~
+
+The content of the generated page is entirely driven by the *User interface > Form
+structure* configuration. Like other Indicia customisable page types, the *Form Structure*
+is a text area in which you can place tokens which are replaced by controls when the page
+is viewed. You can intersperse the control tokens with HTML to build a custom layout if
+required.
+
+Controls are represented by their name in square brackets and must be the only thing on
+their line. They are followed by any number of parameters on the subsequent lines which
+start with @, are followed by the property name then equals then the value. The list of
+properties associated with a control stops as soon as something else is found which is not
+A property definition. Property names and values are normally on one line but if a large
+property value is required you can wrap the value in an XML comment (<!-- ... -->). For
+example::
+
+  [myControl]
+  @myProperty=foo
+  @myLongProperty=<!--
+    bar
+    baz
+  -->
+
+Controls availabe are as follows:
+
+[record details]
+""""""""""""""""
+
+Draws the record details section of the page, including a list of attribute name/value pairs
+including custom attributes. Options include:
+
+  * fieldsToExcludeIfLoggedOut - array of field names to skip if the user is anonymous.
+  * outputFormatting - set to true to enable auto-formatting HTML for new lines and hyperlinks in
+    text custom attribute values.
+
+[photos]
+""""""""
+
+[sample photos]
+"""""""""""""""
+
+[parent sample photos]
+""""""""""""""""""""""
+
+[map]
+"""""
+
+[comments]
+""""""""""
+
+[previous determinations]
+"""""""""""""""""""""""""
+
+[occurrence associations]
+"""""""""""""""""""""""""
+
+[login]
+"""""""
+
+[block]
+"""""""
+
+[buttons]
+"""""""""
