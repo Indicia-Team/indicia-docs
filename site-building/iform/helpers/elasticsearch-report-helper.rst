@@ -737,8 +737,8 @@ page with a URL that might look like:
 
   * caption - title for the column.
   * description - information displayed as a hint when hovering over the column title.
-  * field - required - can be the name of a field in the Elasticsearch document (e.g.
-    `metadata.created_by_id`) or one of the following special field names:
+  * field - required - can be the name of a field in the Elasticsearch document, e.g.
+    `metadata.created_by_id`, or one of the following special field names (case-sensitive):
 
     * #associations# - a list of the species names linked to this record as associated
       occurrences.
@@ -811,10 +811,10 @@ page with a URL that might look like:
     * #lon:<format>:<precision># or #lon# - a formatted longitude value. If specified, `<format>`
       can be one of:
 
-      * "decimal" - a decimal longitude is returned with negative values for locations
+      * decimal - a decimal longitude is returned with negative values for locations
         west of the Greenwich meridian. Decimal places given by <precision>, default is all
         available.
-      * "ewsuffix" - a longitude rounded to n decimal places with a suffix of
+      * ewsuffix - a longitude rounded to n decimal places with a suffix of
         "E" or "W" location in relation to the Greenwich meridian. Decimal places given by
         <precision>, default is 3.
 
