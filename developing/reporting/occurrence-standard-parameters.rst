@@ -8,8 +8,11 @@ set of parameters. The report will automatically support the following list of p
   * ``searchArea`` - Well-Known Text (WKT) definition of a polygon to filter on. Use the
     web mercator projection (unless Indicia has been reconfigured to use a different
     projection).
-  * ``occurrence_id`` - a single occurrence ID to filter against. Optionally supply a
-    parameter called ``occurrence_id_op`` to specify =, >= or <= as the filter opration.
+  * ``occ_id`` - a single occurrence ID to filter against. Optionally supply a
+    parameter called ``occ_id_op`` to specify =, >= or <= as the filter operation.
+  * ``occurrence_external_key`` - Limit to a single record matching this occurrence external key.
+  * ``smp_id`` - a single sample ID to filter against. Optionally supply a
+    parameter called ``smp_id_op`` to specify =, >= or <= as the filter operation.
   * ``taxon_rank_sort_order`` can be used to filter to include taxa above or below a
     certain rank, defined by the sort_order field in the ``taxon_ranks`` table. Optionally
     supply a parameter called ``taxon_rank_sort_order_op`` to specify =, >= or <= as the
