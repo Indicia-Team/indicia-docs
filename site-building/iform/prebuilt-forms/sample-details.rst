@@ -1,13 +1,13 @@
-Record Details 2
-----------------
+Sample details
+--------------
 
-Provides a customisable view of a single record, ideal for linking to "Explore" reports.
+Provides a customisable view of a single sample.
 
 If you install the `Metatag and Metatag: Open Graph <https://www.drupal.org/project/metatag>`_
 modules, Record Details pages will add location, image and title metadata to the page which can be
 picked up in links to Facebook and other social media.
 
-This form provides a configurable way to create a view page for a record. The following
+This form provides a configurable way to create a view page for a sample. The following
 controls are available in its user interface:
 
 User Interface
@@ -36,56 +36,45 @@ example::
 
 Controls availabe are as follows:
 
-[record details]
+[sample details]
 """"""""""""""""
 
-Draws the record details section of the page, including a list of attribute name/value pairs
+Draws the sample details section of the page, including a list of attribute name/value pairs
 including custom attributes. Options include:
 
   * fieldsToExcludeIfLoggedOut - array of field names to skip if the user is anonymous.
   * outputFormatting - set to true to enable auto-formatting HTML for new lines and hyperlinks in
     text custom attribute values.
 
-[photos]
-""""""""
-
-Outputs a set of photo thumbnails for the record, with click to show the original image in a popup.
-
 [sample photos]
 """""""""""""""
 
-Outputs a set of photo thumbnails for the record's sample, with click to show the original image in
-a popup.
+Outputs a set of photo thumbnails for the sample, with click to show the original image in a popup.
 
 [parent sample photos]
 """"""""""""""""""""""
 
+Outputs a set of photo thumbnails for the sample's parent sample (e.g. the transect for a transect
+section), with click to show the original image in a popup.
+
 [map]
 """""
 
-A map showing the record.
-
-[comments]
-""""""""""
-
-[previous determinations]
-"""""""""""""""""""""""""
-
-[occurrence associations]
-"""""""""""""""""""""""""
+A map showing the sample.
 
 [login]
 """""""
 
-[block]
-"""""""
+[records grid]
+""""""""""""""
 
-A control for rendering a Drupal block.
+A report grid of records recorded as part of this sample.
 
-Options are:
-* @title - output a block title.
-* @module - machine name of the module providing the block.
-* @block - machine name of the block.
+[records list]
+""""""""""""""
+
+[sample details]
+""""""""""""""""
 
 [buttons]
 """""""""
