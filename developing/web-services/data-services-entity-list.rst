@@ -29,6 +29,7 @@ language                         list, detail, gv
 location                         list, detail, gv
 location_attribute               list, gv
 location_attribute_value         list
+location_comment                 list, detail, gv
 location_media                   list, gv
 notification                     list             no
 occurrence                       list, detail, gv
@@ -45,6 +46,7 @@ sample_attribute_value           list
 sample_comment                   list
 sample_media                     list, gv
 survey                           list, detail, gv
+survey_comment                   list, detail, gv
 survey_media                     list, gv
 taxa_taxon_list                  list, detail, gv no
 taxa_taxon_list_attribute        list, gv
