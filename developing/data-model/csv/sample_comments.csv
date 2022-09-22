@@ -1,0 +1,14 @@
+"Column","Type","Default","Nullable","Description"
+"id","integer","nextval(...)","No",NULL
+"comment","text","","No",NULL
+"created_by_id","integer","","Yes","Foreign key to the users table (creator), if user was logged in when comment created."
+"created_on","timestamp (no tz)","","No","Date and time this comment was created."
+"updated_by_id","integer","","Yes","Foreign key to the users table (updater), if user was logged in when comment updated."
+"updated_on","timestamp (no tz)","","No","Date and time this comment was updated."
+"sample_id","integer","","Yes","Foreign key to the samples table. Identifies the commented sample."
+"email_address","char varying (50)","","Yes","Email of user who created the comment, if the user was not logged in but supplied an email address."
+"deleted","boolean","false","No","Has this record been deleted?"
+"person_name","char varying","","Yes","Identifier for anonymous commenter."
+"query","boolean","false","Yes","Set to true if this comment asks a question that needs a response."
+"record_status","character (1)","","Yes","If this comment relates to the changing of the status of a sample, then determines the status it was changed to. Provides and audit trail of sample verification changes."
+"external_key","char varying (50)","","Yes","For comments imported from an external system, provides a field to store the external system's primary key for the record allowing re-synchronisation."

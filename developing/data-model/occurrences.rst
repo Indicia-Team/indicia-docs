@@ -19,7 +19,7 @@ records to be  tagged against the website ID which contributed them. By default 
 website can only view or edit the occurrence data belonging to them, though it is also
 possible to set up agreements between registered websites that allow the records to be
 shared. For example,  this approach is used to allow multiple websites to share their
-records to the iRecord verification portal in the UK. 
+records to the iRecord verification portal in the UK.
 
 Ref. :ref:`developing/data-model/tables:websites`
 
@@ -34,7 +34,7 @@ rather than to keep them all together in one. For example, a survey dataset for 
 data might collect an attribute for the count of each record, whereas one for plant
 data might collect a DAFOR abundance value. The configuration of custom attributes
 available is defined at the level of the survey dataset therefore it is often the case that
-a survey dataset is created for each recording form you build. 
+a survey dataset is created for each recording form you build.
 
 Ref. :ref:`developing/data-model/tables:surveys`
 
@@ -73,7 +73,7 @@ The following table shows examples of all vague date types.
     :file: ./csv/date_type.csv
     :widths: 25 25 15 15 10
     :header-rows: 1
-    :class: sticky-column condensed 
+    :class: sticky-column condensed
 
 Vague dates can be supplied in various forms. All of the following are equivalent:
 
@@ -85,21 +85,32 @@ Vague dates can be supplied in various forms. All of the following are equivalen
 When specifying ranges, the words `to` and `from` can be replaced with a hyphen.
 
 Winter is considered the first season of the year. Winter 2020 starts on
-1st December, 2019 and ends on 29th February, 2020. Spring, Summer and Autumn 
+1st December, 2019 and ends on 29th February, 2020. Spring, Summer and Autumn
 follow, starting on the 1st of March, June, and September.
 
-Note that the strict definition of a century is used, not the one that is 
-popularly understood. 
+Note that the strict definition of a century is used, not the one that is
+popularly understood.
 
 .. tip::
 
   Rarely will you want to mess with the 3 date component fields. If you submit
   a single field named `date` to the sample model containing a date in one of
-  the above vague-date formats, it will be correctly interpreted. Likewise, when 
-  writing reports, you will see vague dates returned unless you specify 
+  the above vague-date formats, it will be correctly interpreted. Likewise, when
+  writing reports, you will see vague dates returned unless you specify
   otherwise, see :ref:`developing/reporting/report-file-format:Element \<vagueDate\>`
 
 Ref. :ref:`developing/data-model/tables:samples`
+
+sample_comments
+-------------------
+
+The sample comments contains a log of all comments made regarding a sample, including:
+
+  * those made by recorders on each others samples
+  * queries made by experts
+  * verification decisions made by experts (if sample verification is enabled)
+
+Ref. :ref:`developing/data-model/tables:sample-comments`
 
 occurrences
 -----------
