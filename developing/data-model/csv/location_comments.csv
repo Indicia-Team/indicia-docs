@@ -1,0 +1,12 @@
+"Column","Type","Default","Nullable","Description"
+"id","integer","nextval(...)","No",NULL
+"comment","text","","No","Location comment text."
+"created_by_id","integer","","Yes","Foreign key to the users table (creator), if user was logged in when comment created."
+"created_on","timestamp (no tz)","","No","Date and time this comment was created."
+"updated_by_id","integer","","Yes","Foreign key to the users table (updater), if user was logged in when comment updated."
+"updated_on","timestamp (no tz)","","No","Date and time this comment was updated."
+"location_id","integer","","Yes","Foreign key to the locations table. Identifies the commented location."
+"email_address","char varying (50)","","Yes","Email of user who created the comment, if the user was not logged in but supplied an email address."
+"deleted","boolean","false","No","Has this record been deleted?"
+"person_name","char varying","","Yes","Identifier for anonymous commenter."
+"external_key","char varying (50)","","Yes","For comments imported from an external system, provides a field to store the external system's primary key for the record allowing re-synchronisation."
