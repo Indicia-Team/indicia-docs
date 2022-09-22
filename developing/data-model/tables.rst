@@ -421,7 +421,7 @@ locations
 .. csv-table::
     :file: ./csv/locations.csv
     :header-rows: 1
-    :class: sticky-column condensed
+    :class: sticky-column condens ed
 
 
 location_comments
