@@ -93,7 +93,9 @@ it is safe to run the scheduled_tasks with a parameter `tasks=work_queue` as fre
 as you like. You can further control the work queue processor by setting the following
 parameters:
 
-  * max-priority - set to 1 (high priority) or 2 (medium priority) tasks only.
+  * max-priority - set to 1 for high priority tasks only, or 2 for medium and high priority tasks.
+  * min-priority - set to 2 for medium and low priority tasks only, or 3 for low priority tasks
+    only.
   * max-cost - set to a value from 1 to 100 to define the maximum cost of tasks. E.g.
     set to 80 to skip tasks that are very costly.
 
