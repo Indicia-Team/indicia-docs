@@ -1455,6 +1455,8 @@ layer objects can have the following properties:
     set to a scale from 0 - 20000, or for fillOpacity options it is set on a scale from
     0 - 1.
 
+  * labels - set to "hover" to enable hover-hints for records on the map, including the taxon name,
+    date and recorder. Set to "permanent" to show them all the time.
   * sourceUrl - the URL of the WMS service if using type WMS.
   * wmsOptions - any additional options to pass to the WMS web service.
 
