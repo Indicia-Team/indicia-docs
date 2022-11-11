@@ -58,7 +58,9 @@ Prepares the page for interacting with the Elasticsearch proxy.
 
 If coding in PHP directly, this method should be called before adding any other
 ElasticsearchReportHelper controls to the page. It is not necessary to call
-`enableElasticsearchProxy` if using the prebuilt form.
+`enableElasticsearchProxy` if using the prebuilt form. The response is a boolean value which will
+be true if the Elasticsearch proxy was successfully enabled. The response should be checked and the
+false response handled appropriately, e.g. by displaying a "Service unavailable" message.
 
 Data access control methods
 ===========================
