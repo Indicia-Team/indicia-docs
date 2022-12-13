@@ -1170,7 +1170,7 @@ It can be set to blank to disable
 loading a predefined set. Other sets may be provided on the warehouse in future.
 
 The "default" format (corresponding to
-"Standard dowload format" in the download control's format selection drop-down) provides
+"Standard download format" in the download control's format selection drop-down) provides
 a standard set of download fields.
 
 The "easy-download" format (corresponding to "Backward-compatible format" in the
@@ -1437,11 +1437,11 @@ layer objects can have the following properties:
       * geom - a polygon representing the record's original geometry.
       * WMS - A Web Mapping Service layer.
 
-  * options - for circles, squares and markers, an object to pass to leaflet as options
+  * style - for circles, squares and markers, an object to pass to leaflet as options
     for the feature as described in the links for each feature type above, e.g.
     `fillOpacity` or `radius`.
 
-    A special option called `size` can be specified for circles
+    A special style option called `size` can be specified for circles
     and squares which defines the size of the feature in metres (similar to radius but the
     latter is calculated as a number of pixels). For non-aggregated data, the size
     defaults to the `location.coordinate_uncertainty_in_meters` field value so features
@@ -1450,7 +1450,7 @@ layer objects can have the following properties:
     zoom the map in, showing 10km features when zoomed out, then 2km, then 1km when zoomed
     in. This setting is automatic when using a map source mode.
 
-    A special value called `metric` can be specified for any option. For non-aggregated
+    A special value called `metric` can be specified for any style option. For non-aggregated
     data, this is the `location.coordinate_uncertainty_in_meters` value. For aggregated
     data, this value is set to an indication of the number of documents in the current
     bucket (i.e. the number of occurrences represented by the current feature). It is
