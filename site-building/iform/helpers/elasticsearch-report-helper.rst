@@ -221,14 +221,18 @@ the center of the covering grid square in 1km, 2km and 10km sizes.
 * docs (default) - retrieve a set of Elasticsearch documents.
 * mapGeoHash - aggregates retrieved data using an Elasticsearch `geohash_grid` aggregation
   based on the `location.point` field value, suitable for providing data to a heat map
-  layer. The precision of the aggregation is automatically controlled depending on the map
-  zoom.
+  layer, or for drawing rectangular grid cells which scale according to the map resolution.
+  See https://en.wikipedia.org/wiki/Geohash. Set the type of the map layer's `@layerConfig`
+  to `heat` or `geom` if you want to draw the rectangle for the geohash grid cells.
 * mapGridSquare - aggregates retrieved data using an Elasticsearch `terms` aggregation on
   `location.grid_square` field values. These contain the centres of grid squares covering
   the record at 1km, 2km and 10km resolution. The default behaviour is to automatically
   select the grid square size depending on map zoom but this can be overriden by setting
   `@mapGridSquareSize` to the size of the required grid square in metres (10000, 2000 or
-  1000).
+  1000). The mapGridSquare option is similar to the mapGeoHash option with layer configured
+  to type geom, except that the mapGridSquare option uses an exact square grid based on 1000,
+  2000 or 10,000m grid squares, whereas the mapGeoHash grid option grid is based on rectangles of
+  varying aspect ratio, but works at more different resolutions.
 * compositeAggregation - generates a composite aggregation from the `@uniqueField`,
   `@fields` and `@aggregation` settings. Similar to the `termAggregation` mode but with
   different restrictions. Composite aggregations have the following features:
@@ -1434,7 +1438,9 @@ layer objects can have the following properties:
       * marker (default) - see
         `Leaflet marker <https://leafletjs.com/reference-1.5.0.html#marker>`_.
       * heat - heat map generated using `Leaflet.heat <http://leaflet.github.io/Leaflet.heat>`_.
-      * geom - a polygon representing the record's original geometry.
+      * geom - a polygon representing the record's original geometry. If the source used is set to
+        mode mapGeoHash, then the geometry output will be the square covering the geohash grid
+        cell.
       * WMS - A Web Mapping Service layer.
 
   * style - for circles, squares and markers, an object to pass to leaflet as options
