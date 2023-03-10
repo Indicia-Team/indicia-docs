@@ -24,6 +24,9 @@ Starting with the Microsoft Access database
 You should have been provided with the original UKSI Microsoft Access database, as
 "curated" by London Natural History Museum.
 
+In the list of tables, right click on the ORGANISM_MASTER table, select to copy it, then right
+click again and paste it, setting the new table name to ORGANISM_MASTER2.
+
 To export the data into a text file format ready for the import, create the following
 queries in your database. To add each query in Microsoft Access, first, create the query
 in Design View by following these steps:
@@ -32,9 +35,21 @@ in Design View by following these steps:
 * Close the Show Table dialog.
 * Use the Views toolbutton to change to SQL View.
 * Then paste the query in and save the query with the appropriate title.
-* Repeat until all 9 queries are created.
+* Repeat until all 10 queries are created.
 
-**Query 1 - title=all_designation_kinds**
+**Query 1 - title=repair_organism_tvks**
+
+This query ensures that organisms point to the accepted name TVKs, not synonyms, so we can make
+this assumption in later queries.
+
+.. code-block:: sql
+
+  UPDATE ORGANISM_MASTER2
+  INNER JOIN NAMESERVER ON NAMESERVER.INPUT_TAXON_VERSION_KEY=ORGANISM_MASTER2.TAXON_VERSION_KEY
+  SET ORGANISM_MASTER2.TAXON_VERSION_KEY=NAMESERVER.RECOMMENDED_TAXON_VERSION_KEY
+  WHERE NAMESERVER.RECOMMENDED_TAXON_VERSION_KEY<>ORGANISM_MASTER2.TAXON_VERSION_KEY
+
+**Query 2 - title=all_designation_kinds**
 
 This query gets the list of terms used to populate the categories of taxon designations.
 
@@ -44,28 +59,30 @@ This query gets the list of terms used to populate the categories of taxon desig
   TAXON_DESIGNATION_TYPE_KIND.KIND
   FROM TAXON_DESIGNATION_TYPE_KIND;
 
-**Query 2 - title=all_names**
+**Query 3 - title=all_names**
 
 This query gets all taxon names, excluding those which are explicitly marked as redundant
 or deleted. Contains basic name data and a link to the preferred name.
 
 .. code-block:: sql
 
-  SELECT ORGANISM_MASTER.ORGANISM_KEY, NAMESERVER.RECOMMENDED_TAXON_VERSION_KEY, NAMESERVER.INPUT_TAXON_VERSION_KEY,
+  SELECT ORGANISM_MASTER2.ORGANISM_KEY, NAMESERVER.RECOMMENDED_TAXON_VERSION_KEY, NAMESERVER.INPUT_TAXON_VERSION_KEY,
   TAXON.ITEM_NAME, TAXON.AUTHORITY, NAMESERVER.TAXON_VERSION_FORM, NAMESERVER.TAXON_VERSION_STATUS,
   NAMESERVER.TAXON_TYPE, TAXON.LANGUAGE, TAXON_VERSION.OUTPUT_GROUP_KEY, TAXON_RANK.LONG_NAME,
   TAXON_VERSION.ATTRIBUTE, TAXON_RANK.SHORT_NAME,
-  IIF(NAMESERVER.DELETED_DATE Is Null AND ORGANISM_MASTER.DELETED_DATE Is Null
-  AND ORGANISM_MASTER.REDUNDANT_FLAG Is Null AND TAXON_VERSION.DELETED_DATE Is Null
-  AND TAXON_VERSION.DATE_TO Is Null, 'N', 'Y') AS REDUNDANT
+  IIF(NAMESERVER.DELETED_DATE Is Null AND ORGANISM_MASTER2.DELETED_DATE Is Null
+  AND ORGANISM_MASTER2.REDUNDANT_FLAG Is Null AND TAXON_VERSION.DELETED_DATE Is Null
+  AND TAXON_VERSION.DATE_TO Is Null, 'N', 'Y') AS REDUNDANT,
+  IIF(NAMESERVER.DELETED_DATE Is Null AND ORGANISM_MASTER2.DELETED_DATE Is Null AND ORGANISM_MASTER2.REDUNDANT_FLAG Is Null, 'N', 'Y') AS ORGANISM_DEPRECATED,
+  IIF(TAXON_VERSION.DELETED_DATE Is Null AND TAXON_VERSION.DATE_TO Is Null, 'N', 'Y') AS NAME_DEPRECATED
   FROM ((TAXON
   INNER JOIN (NAMESERVER
   INNER JOIN TAXON_VERSION ON NAMESERVER.INPUT_TAXON_VERSION_KEY = TAXON_VERSION.TAXON_VERSION_KEY)
   ON TAXON.TAXON_KEY = TAXON_VERSION.TAXON_KEY)
-  INNER JOIN ORGANISM_MASTER ON NAMESERVER.RECOMMENDED_TAXON_VERSION_KEY = ORGANISM_MASTER.TAXON_VERSION_KEY)
+  INNER JOIN ORGANISM_MASTER2 ON NAMESERVER.RECOMMENDED_TAXON_VERSION_KEY = ORGANISM_MASTER2.TAXON_VERSION_KEY)
   INNER JOIN TAXON_RANK ON TAXON_VERSION.TAXON_RANK_KEY = TAXON_RANK.TAXON_RANK_KEY;
 
-**Query 3 - title=preferred_names**
+**Query 4 - title=preferred_names**
 
 This query gets a list of the preferred taxon names, excluding those which are explicitly
 marked as redundant or deleted.
@@ -76,28 +93,28 @@ marked as redundant or deleted.
 
 .. code-block:: sql
 
-  SELECT DISTINCT ORGANISM_MASTER.ORGANISM_KEY, ORGANISM_MASTER.TAXON_VERSION_KEY, TAXON.ITEM_NAME,
-  TAXON.AUTHORITY, ORGANISM_MASTER.PARENT_TVK, ORGANISM_MASTER.PARENT_KEY, TAXON_VERSION.TAXON_RANK_KEY,
-  TAXON_RANK.SEQUENCE, TAXON_RANK.LONG_NAME, TAXON_RANK.SHORT_NAME, ORGANISM_MASTER.MARINE_FLAG,
-  ORGANISM_MASTER.FRESHWATER AS FRESHWATER_FLAG,
-  ORGANISM_MASTER.TERRESTRIAL_FRESHWATER_FLAG AS TERRESTRIAL_FLAG, ORGANISM_MASTER.NON_NATIVE_FLAG,
+  SELECT DISTINCT ORGANISM_MASTER2.ORGANISM_KEY, ORGANISM_MASTER2.TAXON_VERSION_KEY, TAXON.ITEM_NAME,
+  TAXON.AUTHORITY, ORGANISM_MASTER2.PARENT_TVK, ORGANISM_MASTER2.PARENT_KEY, TAXON_VERSION.TAXON_RANK_KEY,
+  TAXON_RANK.SEQUENCE, TAXON_RANK.LONG_NAME, TAXON_RANK.SHORT_NAME, ORGANISM_MASTER2.MARINE_FLAG,
+  ORGANISM_MASTER2.FRESHWATER AS FRESHWATER_FLAG,
+  ORGANISM_MASTER2.TERRESTRIAL_FRESHWATER_FLAG AS TERRESTRIAL_FLAG, ORGANISM_MASTER2.NON_NATIVE_FLAG,
   NULL AS SORT_CODE,
-  IIF(NAMESERVER.DELETED_DATE Is Null AND ORGANISM_MASTER.DELETED_DATE Is Null
-  AND ORGANISM_MASTER.REDUNDANT_FLAG Is Null AND TAXON_VERSION.DELETED_DATE Is Null
+  IIF(NAMESERVER.DELETED_DATE Is Null AND ORGANISM_MASTER2.DELETED_DATE Is Null
+  AND ORGANISM_MASTER2.REDUNDANT_FLAG Is Null AND TAXON_VERSION.DELETED_DATE Is Null
   AND TAXON_VERSION.DATE_TO Is Null, 'N', 'Y') AS REDUNDANT
   FROM (((TAXON_LIST_ITEM
   INNER JOIN (TAXON
   INNER JOIN (TAXON_VERSION
-  INNER JOIN (ORGANISM_MASTER
-  INNER JOIN NAMESERVER ON NAMESERVER.INPUT_TAXON_VERSION_KEY=ORGANISM_MASTER.TAXON_VERSION_KEY)
-  ON TAXON_VERSION.TAXON_VERSION_KEY=ORGANISM_MASTER.TAXON_VERSION_KEY)
+  INNER JOIN (ORGANISM_MASTER2
+  INNER JOIN NAMESERVER ON NAMESERVER.INPUT_TAXON_VERSION_KEY=ORGANISM_MASTER2.TAXON_VERSION_KEY)
+  ON TAXON_VERSION.TAXON_VERSION_KEY=ORGANISM_MASTER2.TAXON_VERSION_KEY)
   ON TAXON.TAXON_KEY=TAXON_VERSION.TAXON_KEY)
   ON TAXON_LIST_ITEM.TAXON_VERSION_KEY=TAXON_VERSION.TAXON_VERSION_KEY)
   INNER JOIN TAXON_LIST_VERSION ON TAXON_LIST_ITEM.TAXON_LIST_VERSION_KEY=TAXON_LIST_VERSION.TAXON_LIST_VERSION_KEY)
   INNER JOIN TAXON_LIST ON TAXON_LIST_VERSION.TAXON_LIST_KEY=TAXON_LIST.TAXON_LIST_KEY)
   INNER JOIN TAXON_RANK ON TAXON_VERSION.TAXON_RANK_KEY=TAXON_RANK.TAXON_RANK_KEY;
 
-**Query 4 - title=taxa_taxon_designations**
+**Query 5 - title=taxa_taxon_designations**
 
 Retrieves a list of the links between all taxon names and their designations.
 
@@ -112,7 +129,7 @@ Retrieves a list of the links between all taxon names and their designations.
   ON TAXON_LIST_ITEM.TAXON_LIST_ITEM_KEY = TAXON_DESIGNATION.TAXON_LIST_ITEM_KEY)
   INNER JOIN NAMESERVER ON TAXON_LIST_ITEM.TAXON_VERSION_KEY = NAMESERVER.INPUT_TAXON_VERSION_KEY;
 
-**Query 5 - title=taxon_designations**
+**Query 6 - title=taxon_designations**
 
 Retrieves a list of all the available taxon designations that can be linked to taxon
 concepts.
@@ -124,7 +141,7 @@ concepts.
   TAXON_DESIGNATION_TYPE.Status_Abbreviation
   FROM TAXON_DESIGNATION_TYPE;
 
-**Query 6 - title=taxon_groups**
+**Query 7 - title=taxon_groups**
 
 Retrieves a list of all the taxon groups (reporting categories).
 
@@ -137,7 +154,7 @@ Retrieves a list of all the taxon groups (reporting categories).
   LEFT JOIN taxon_version AS tv ON tv.output_group_key=tg.taxon_group_key
   WHERE tg2.taxon_group_key IS NOT NULL OR tv.taxon_version_key IS NOT NULL;
 
-**Query 7 - title=taxon_ranks**
+**Query 8 - title=taxon_ranks**
 
 Retrieves a list of all possible taxon ranks, e.g. Phylum, Family, Species.
 
@@ -146,7 +163,7 @@ Retrieves a list of all possible taxon ranks, e.g. Phylum, Family, Species.
   SELECT TAXON_RANK.SEQUENCE, TAXON_RANK.SHORT_NAME, TAXON_RANK.LONG_NAME, TAXON_RANK.LIST_FONT_ITALIC
   FROM TAXON_RANK;
 
-**Query 8 - title=tcn_duplicates**
+**Query 9 - title=tcn_duplicates**
 
 Where there are multiple common names and it is otherwise not possible to pick a single
 default one to use in reports, this table provides a link from the organims to a taxon
@@ -154,13 +171,13 @@ record containing a common name to use.
 
 .. code-block:: sql
 
-  SELECT ORGANISM_MASTER.ORGANISM_KEY, TCN_DUPLICATE_FIX.TAXON_VERSION_KEY
-  FROM ORGANISM_MASTER
+  SELECT ORGANISM_MASTER2.ORGANISM_KEY, TCN_DUPLICATE_FIX.TAXON_VERSION_KEY
+  FROM ORGANISM_MASTER2
   INNER JOIN (TAXON_LIST_ITEM
   INNER JOIN TCN_DUPLICATE_FIX ON TAXON_LIST_ITEM.TAXON_LIST_ITEM_KEY = TCN_DUPLICATE_FIX.TAXON_LIST_ITEM_KEY)
-  ON ORGANISM_MASTER.TAXON_VERSION_KEY = TAXON_LIST_ITEM.TAXON_VERSION_KEY;
+  ON ORGANISM_MASTER2.TAXON_VERSION_KEY = TAXON_LIST_ITEM.TAXON_VERSION_KEY;
 
-**Query 9 - title=all_taxon_version_keys**
+**Query 10 - title=all_taxon_version_keys**
 
 Retrieves a list of all taxon version keys and the associated recommended key, including
 deleted and redundant names. Can be used to work out the context of any names which have
@@ -171,7 +188,11 @@ now been removed from the online recording copy of UKSI.
   SELECT INPUT_TAXON_VERSION_KEY, RECOMMENDED_TAXON_VERSION_KEY
   FROM NAMESERVER;
 
-The next step is to export the query results for each of the 9 queries as a text file.
+Now, run query 1 which fixes ORGANISM_MASTER records so they reliably point to an accepted name,
+never a synonym.
+
+The next step is to export the query results for each of the queries from 2 through to 10 as a text
+file.
 Prepare a folder on your hard disk into which you will export the files (I used
 ``c:\tmp``). These instructions are for Microsoft Access 2007 but the steps should be
 similar for other versions. For each query:
