@@ -112,11 +112,11 @@ example::
 
 The controls available for addition to the page are as follows:
 
-[source]
-""""""""
+[customScript]
+"""""""""""""""""
 
-The `source` control acts as a link from other controls on the page to a set of data from
-Elasticsearch. See :ref:`elasticsearch-report-helper-source`.
+Allows a custom JavaScript to visualise the output of an Elasticsearch source. See
+:ref:`elasticsearch-report-helper-customScript`.
 
 [dataGrid]
 """"""""""
@@ -130,6 +130,20 @@ Generates a table containing Elasticsearch data. See
 A button with associated progress display for generating downloadable zip files of CSV
 data from an associated [source] control. See
 :ref:`elasticsearch-report-helper-download`.
+
+[filterSummary]
+"""""""""""""""
+
+Provides a textual summary of all the filters applied on the page. See
+:ref:`elasticsearch-report-helper-filterSummary`.
+
+[groupIntegration]
+""""""""""""""""""
+
+Converts the page into a group-linked (activity) report. Responds to the
+`group_id` and `implicit` URL parameters added for links to activity pages,
+adding appropriate filtration to the report output to show that group's data.
+See :ref:`elasticsearch-report-helper-groupIntegration`.
 
 [higherGeographySelect]
 """""""""""""""""""""""
@@ -156,30 +170,17 @@ Output a selector for various high level permissions filtering options. See
 A tabbed panel showing key details of the record. See
 :ref:`elasticsearch-report-helper-recordDetails`.
 
+[source]
+""""""""
+
+The `source` control acts as a link from other controls on the page to a set of data from
+Elasticsearch. See :ref:`elasticsearch-report-helper-source`.
+
 [standardParams]
 """"""""""""""""
 
 A toolbar allowing filters to be applied to the page's report data. See
 :ref:`elasticsearch-report-helper-standardParams`.
-
-[templatedOutput]
-"""""""""""""""""
-
-A flexible output of ES data which uses templates to build the HTML. See
-:ref:`elasticsearch-report-helper-templatedOutput`.
-
-[customScript]
-"""""""""""""""""
-
-Allows a custom JavaScript to visualise the output of an Elasticsearch source. See
-:ref:`elasticsearch-report-helper-customScript`.
-
-[userFilters]
-"""""""""""""
-
-Provides a drop down populated with the user's saved report filters. Selecting a filter
-applies that filter to the current page's outputs. See
-:ref:`elasticsearch-report-helper-userFilters`.
 
 [statusFilters]
 """""""""""""""
@@ -188,11 +189,11 @@ Provides a drop down of record status filters. Selecting a filter
 applies that filter to the current page's outputs. See
 :ref:`elasticsearch-report-helper-statusFilters`.
 
-[filterSummary]
-"""""""""""""""
+[templatedOutput]
+"""""""""""""""""
 
-Provides a textual summary of all the filters applied on the page. See
-:ref:`elasticsearch-report-helper-filterSummary`.
+A flexible output of ES data which uses templates to build the HTML. See
+:ref:`elasticsearch-report-helper-templatedOutput`.
 
 [urlParams]
 """""""""""
@@ -201,18 +202,17 @@ This control allows you to configure how the page uses parameters in the URL to 
 output shown on the page. See
 :ref:`elasticsearch-report-helper-urlParams`.
 
+[userFilters]
+"""""""""""""
+
+Provides a drop down populated with the user's saved report filters. Selecting a filter
+applies that filter to the current page's outputs. See
+:ref:`elasticsearch-report-helper-userFilters`.
+
 [verificationButtons]
 """""""""""""""""""""
 Outputs a panel containing action buttons for verification tasks. See
 :ref:`elasticsearch-report-helper-verificationButtons`.
-
-[groupIntegration]
-""""""""""""""""""
-
-Converts the page into a group-linked (activity) report. Responds to the
-`group_id` and `implicit` URL parameters added for links to activity pages,
-adding appropriate filtration to the report output to show that group's data.
-See :ref:`elasticsearch-report-helper-groupIntegration`.
 
 Adding filters to the page using HTML hidden inputs
 ---------------------------------------------------
