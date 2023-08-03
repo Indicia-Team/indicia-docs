@@ -112,8 +112,20 @@ example::
 
 The controls available for addition to the page are as follows:
 
+[cardGallery]
+"""""""""""""
+
+Outputs a paged dataset of records, showing a gallery in "card" format. See
+:ref:`elasticsearch-report-helper-cardGallery`.
+
+[controlLayout]
+"""""""""""""""
+
+A control for managing layout, e.g. for verification pages. See
+:ref:`elasticsearch-report-helper-controlLayout`.
+
 [customScript]
-"""""""""""""""""
+""""""""""""""
 
 Allows a custom JavaScript to visualise the output of an Elasticsearch source. See
 :ref:`elasticsearch-report-helper-customScript`.
@@ -169,6 +181,16 @@ Output a selector for various high level permissions filtering options. See
 
 A tabbed panel showing key details of the record. See
 :ref:`elasticsearch-report-helper-recordDetails`.
+
+[runCustomVerificationRulesets]
+"""""""""""""""""""""""""""""""
+
+A button that can be added to a verification page to enable the custom verification rules feature,
+which allows the user to manage their own sets of local rules for highlighting records during
+verification. Displays a popup dialog allowing the user to:
+* select and run a custom verification ruleset against the currently loaded data,
+* access a link to a management page for the user's sets of rules,
+* clear any existing flags the user previously applied to the current page.
 
 [source]
 """"""""
