@@ -787,11 +787,12 @@ page with a URL that might look like:
     * #associations# - a list of the species names linked to this record as associated
       occurrences.
     * #attr_value:<entity>:<id># - a single custom attribute value. Specify the entity name (event
-      (=sample), parent_event (sample identified by `samples.parent_id` or occurrence) plus the
+      (=sample), parent_event (sample identified by `samples.parent_id`) or occurrence plus the
       custom attribute ID as parameters. Note that if requesting an event attribute value, the
       parent events attribute values will also be included in the output, so when requesting an
       attribute value it is not necesssary to know if the value will be stored at the event or
-      parent level.
+      parent level. If you only want the event attribute and want to exclude the parent event
+      attribute then you can add a third parameter like `#attr_value:<entity>:<id>:noparent#`.
     * #coalesce:<field list># - takes a comma separated list of Elasticsearch document field
       specifiers in the parameters. Returns the value of the first field in the list which has a
       value. For example `#coalesce:event.parent_event_id,event.event_id#` will return the parent
@@ -2181,3 +2182,4 @@ Example code:
   handle_resources();
 
   ?>
+
