@@ -337,4 +337,16 @@ Some examples follow:
     data-es-field="metadata.survey.id"
     value="[1,2,3]" />
 
+To override the default filter which excludes all confidential records you can use a hidden input like:
+
+.. code-block:: HTML
+
+  <!--A hiden input to show records including confidential ones-->
+  <input type="hidden"
+    class="es-filter-param"
+    data-es-bool-clause="must"
+    data-es-query-type="term"
+    data-es-field="metadata.confidential"
+    value="all"
+  />
 

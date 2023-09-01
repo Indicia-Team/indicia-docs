@@ -360,6 +360,17 @@ For example::
     ]
   }-->
 
+By default every source will include filters that exclude confidential records and records which
+are not released. You can supply alternative clauses to override the default. To include all 
+records whether confidential or not, a special value is required as follows::
+
+  @filterBoolClauses=<!--{
+    "must":[
+      {"query_type": "term","field": "metadata.confidential","value":"all"}
+    ]
+  }-->
+
+
 **filterSourceGrid**
 
 If set to the ID of a grid on the same page which is linked to a different source, then
