@@ -2,7 +2,7 @@
 Warehouse administration
 ************************
 
-This section of the documentation provides information for administrators of Indicia 
+This section of the documentation provides information for administrators of Indicia
 warehouses, including installation, upgrade, management of the extension modules and
 other data related tasks.
 
@@ -17,4 +17,4 @@ other data related tasks.
   scheduled-tasks
   triggers-actions
   importing-uksi
-  
+  importing-uksi-incremental

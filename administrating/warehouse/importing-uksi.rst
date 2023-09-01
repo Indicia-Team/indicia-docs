@@ -1,10 +1,10 @@
-Importing the UK Species Index into an Indicia list
-===================================================
+Importing the UK Species Index into an Indicia list - full syncrhonisation
+==========================================================================
 
-This page describes one technique for importing the UK Species Index data into an
-Indicia species list ready for recording. You can of course use the CSV import facility
-to do this, but by using the process described on this page you will be able to re-run
-the update at a later date to just update the changes into your Indicia list.
+This page describes the full-synchronisation technique for importing the UK Species Index data into
+an Indicia species list ready for recording. Once synchronisation has been performed at least once,
+you can use the :doc:`incremental updates <importing-uksi-incremental>` technique for further
+updates.
 
 There are 2 starting points for this process depending on whether you are going to
 generate a fresh export of data from the UKSI Microsoft Access database or use the extract
