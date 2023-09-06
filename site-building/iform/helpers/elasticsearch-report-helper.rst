@@ -361,7 +361,7 @@ For example::
   }-->
 
 By default every source will include filters that exclude confidential records and records which
-are not released. You can supply alternative clauses to override the default. To include all 
+are not released. You can supply alternative clauses to override the default. To include all
 records whether confidential or not, a special value is required as follows::
 
   @filterBoolClauses=<!--{
@@ -909,6 +909,14 @@ page with a URL that might look like:
       zero_abundance status of the record.
     * #taxon_label# - a label for the taxon. This combines the accepted name and vernacular where
       available. The rank is prefixed for higher taxa.
+    * '#template:<template># - a text template for the value. Can contain Elasticsearch document
+      field names in square brackets which will be replaced by the respective values from the
+      document. For example `#template:Species name <strong>[taxon.accepted_name]</strong>`.
+      Any HTML in the template will be stripped when this template is used for a field in a
+      download. If a 2nd parameter is provided, this should be the path to a nested Elasticsearch
+      object such as `occurrence.media`. This will cause the template to be repeated for each
+      nested object and fields within the object will also be available as replacement tokens.
+      For example `#template:<li>[path]</li>:occurrence.media#`.
     * #verification_status:<format># - the record verification status formatted as specified.
       The unmodified field `identification.verification_status` outputs a single letter code.
       Currently there is only one modifer - `astext` - which translates codes to
