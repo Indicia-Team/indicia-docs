@@ -21,7 +21,14 @@ synchronisation.
 3. Import the CSV file into the UKSI_operations table on the warehouse using the import tool on the
    Taxonomy > UKSI Operations page. As long as you haven't changed the column names in the CSV file
    the default mappings suggested by the import tool should be correct.
-4. Stop the Elasticsearch Logstash 6.6 service on the Elasticsearch server.
+4. Run the following query in pgAdmin on the warehouse and keep a copy of the results. This allows
+   us to later "rewind" Logstash to ensure that all records are re-indexed using the latest UKSI
+   operation results.
+
+   ```sql
+   select name, value from variables where name like 'rest-autofeed-BRC%' and name not like '%DEL'
+   ```
+
 5. Click the **Process all operations** button on the warehouse UKSI Operations page and wait till
    the operations have all processed.
 6. Follow the steps required to recreate the taxa.yml and taxon-paths.yml files and place them on
@@ -29,9 +36,20 @@ synchronisation.
    https://github.com/Indicia-Team/support_files/blob/master/Elasticsearch/docs/occurrences.md#prepare-the-lookups-for-taxon-data).
    The files should be placed in the `D:\elastic\indicia_support_files\Elasticsearch\data` folder,
    replacing the existing files.
-7. Restart the Logstash 6.6 service. Note that Logstash should re-index all taxa with alterations,
-   as when the operations are processed the warehouse ORM object layer triggers the relevant work queue
-   entries.
+7. For each variable whose value was captured in point 4, update the variable to its original
+   value by running an SQL statement similar to the following:
+
+   ```sql
+   UPDATE variables SET value='[{""mode"":""updates"",""last_tracking_id"":""517250851""}]'
+   WHERE name='rest-autofeed-BRC5'
+   ```
+
+   Also search for and delete all files in application/cache where the filename contains
+   "variable-rest-autofeed-BRC", to ensure the old values are not cached. This ensures that the
+   Logstash process re-indexes all data changes tracked since the start of the process with the
+   latest UKSI species data. Note that Logstash should automatically re-index all taxa with
+   alterations, as when the operations are processed the warehouse ORM object layer triggers the
+   relevant work queue entries.
 8. Where preferred names may have changed, we may need to update the data now linked to the synonym
    so it points to the new preferred name. This includes data for taxon attribute values,
    associations, designations and verification rules. To update the links, run the following SQL
