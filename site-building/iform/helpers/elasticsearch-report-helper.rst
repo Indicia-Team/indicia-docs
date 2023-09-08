@@ -2054,8 +2054,12 @@ the selected occurrence from.
 
 **taxon_list_id**
 
-Allows the list that the redetermination functionality's search box will use to be specified. If
-not set, then the master list set in the Indicia settings form will be used.
+Allows the master list to be specified that the redetermination functionality's search box can use.
+If not set, then the master list set in the Indicia settings form will be used. One or other is 
+required.
+The redetermination is always against the list used to make the record initially. If this is
+different to the master list then a checkbox is added to allow selection of the master list. If
+there is no master list then set this to 0.
 
 **uploadButtonContainerElement**
 
