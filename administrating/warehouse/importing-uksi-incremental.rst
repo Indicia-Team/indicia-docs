@@ -27,7 +27,7 @@ synchronisation.
 6. Follow the steps required to recreate the taxa.yml and taxon-paths.yml files and place them on
    the Elasticsearch server (see
    https://github.com/Indicia-Team/support_files/blob/master/Elasticsearch/docs/occurrences.md#prepare-the-lookups-for-taxon-data).
-   The files should be placed in the D:\elastic\indicia_support_files\Elasticsearch\data folder,
+   The files should be placed in the `D:\elastic\indicia_support_files\Elasticsearch\data` folder,
    replacing the existing files.
 7. Restart the Logstash 6.6 service. Note that Logstash should re-index all taxa with alterations,
    as when the operations are processed the warehouse ORM object layer triggers the relevant work queue
