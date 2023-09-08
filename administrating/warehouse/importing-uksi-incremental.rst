@@ -7,13 +7,13 @@ a complete re-synchronisation. See :doc:`importing-uksi` for information on perf
 synchronisation.
 
 1. If this is the first time that the incremental updates have been run, or the last update was
-   done by processing a full UKSI synchronisation, then find the highest ID from the UKSI_History
-   table in the last UKSI Access database that has already been synchronised (not the new one you
-   are updating to). If the last update was done using the incremental update system, then find the
-   max sequence value from UKSI_operations table (Taxonomy > UKSI Operations menu item on the
-   warehouse).
+   done by processing a full UKSI synchronisation, then find the highest Processed_Date from the
+   UKSI_History table in the last UKSI Access database that has already been synchronised (not the
+   new one you are updating to). If the last update was done using the incremental update system,
+   then find the max Batch_Processed_On value from UKSI_operations table (Taxonomy > UKSI
+   Operations menu item on the warehouse).
 2. In Access, use an SQL query to select everything from the UKSI_History table, sorted by ID, and
-   filtered so that only those records with ID > the number found in the last step are included.
+   filtered so that only those records with Processed_Date > the date found in the last step are included.
    Export the data from the query to a CSV file using the Text file tool on the Export section of
    Access's External data ribbon tab. Ensure you set the delimited to ',' and the string quote
    character to '"'. Click the Advanced button and ensure that the Unicode (utf-8) code page is
