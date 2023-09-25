@@ -29,7 +29,7 @@ Install PostgreSQL and PostGIS
 
 First, install the PostgreSQL database server and the PostGIS extension for your operating system.
 For downloads and more information see http://www.postgresql.org/ and http://postgis.refractions.net/.
-You should install version 9.6 or later of PostgreSQL and PostGIS version 2.x or later.
+You should install version 11.0 or later of PostgreSQL and PostGIS version 2.x or later.
 
 Next, create a PostGIS database on your server. You don't need to put any
 content in the database yet. There are several possible ways of doing this, but
@@ -294,9 +294,9 @@ command to install all the submodules: ::
 
   git submodule update --init --recursive
 
-That will install all the required submodules into the folder. 
+That will install all the required submodules into the folder.
 
-To install other dependencies type the following `Composer <https://getcomposer.org/>`_ 
+To install other dependencies type the following `Composer <https://getcomposer.org/>`_
 command ::
 
   composer install --no-dev
