@@ -188,6 +188,26 @@ now been removed from the online recording copy of UKSI.
   SELECT INPUT_TAXON_VERSION_KEY, RECOMMENDED_TAXON_VERSION_KEY
   FROM NAMESERVER;
 
+**Query 11 - title=recording_schemes**
+
+Retrieves all extant recording schemes - their keys and their titles.
+
+.. code-block:: sql
+
+  SELECT SCHEME_KEY, SCHEME_NAME
+  FROM SCHEME
+  WHERE DELETED_DATE IS NULL;
+
+**Query 12 - title=recording_scheme_taxa**
+
+Retrieves the relationships between recording schemes and their taxa.
+
+.. code-block:: sql
+
+  SELECT SCHEME_KEY, ORGANISM_KEY
+  FROM SCHEME_TAXA
+  WHERE DELETED_DATE IS NULL;
+
 Now, run query 1 which fixes ORGANISM_MASTER records so they reliably point to an accepted name,
 never a synonym.
 
