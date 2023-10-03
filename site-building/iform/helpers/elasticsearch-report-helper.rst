@@ -49,8 +49,6 @@ required configuration for accessing Elasticsearch is added to he page.
 Initialisation methods
 ======================
 
-.. _elasticsearch-report-helper-enableElasticsearchProxy:
-
 ElasticsearchReportHelper::enableElasticsearchProxy
 ---------------------------------------------------
 
@@ -66,8 +64,6 @@ Data access control methods
 ===========================
 
 Methods provided for accessing Elasticsearch data by this helper are listed below:
-
-.. _elasticsearch-report-helper-source:
 
 ElasticsearchReportHelper::source
 ---------------------------------
@@ -499,8 +495,6 @@ would not be relevant.
 Data output methods
 ===================
 
-.. _elasticsearch-report-helper-cardGallery:
-
 ElasticsearchReportHelper::cardGallery
 --------------------------------------
 
@@ -577,8 +571,6 @@ example::
   @id=card-gallery
   @source=photos-data
 
-.. _elasticsearch-report-helper-controlLayout:
-
 ElasticsearchReportHelper::controlLayout
 ---------------------------------------
 
@@ -602,8 +594,6 @@ cannot be relied on.
 **setHeightPercent**
 
 **setOriginY**
-
-.. _elasticsearch-report-helper-customScript:
 
 ElasticsearchReportHelper::customScript
 ---------------------------------------
@@ -635,8 +625,6 @@ formats the output. Takes 3 parameters:
 **template**
 
 Template for the content to add to the output div. Defaults to empty.
-
-.. _elasticsearch-report-helper-dataGrid:
 
 ElasticsearchReportHelper::dataGrid
 -----------------------------------
@@ -1098,8 +1086,6 @@ the table responsive. Can include:
         "lg": 1200
       }
 
-.. _elasticsearch-report-helper-download:
-
 ElasticsearchReportHelper::download
 -----------------------------------
 
@@ -1299,8 +1285,6 @@ If you want to output the download control in an existing element on the page wi
 CSS selector then specify the selector here. If the selector matches multiple elements
 then only the first will be used.
 
-.. _elasticsearch-report-helper-groupIntegration:
-
 ElasticsearchReportHelper::groupIntegration
 -------------------------------------------
 
@@ -1328,8 +1312,6 @@ If true, then a group summary panel is displayed including the group logo, title
 **showGroupPages**
 
 If true, then a list of available group page links is shown.
-
-.. _elasticsearch-report-helper-higherGeographySelect:
 
 ElasticsearchReportHelper::higherGeographySelect
 ------------------------------------------------
@@ -1365,8 +1347,6 @@ indexed by the spatial index builder module.
 **readAuth**
 
 Read authorisation tokens. Not required when used via the prebuilt form.
-
-.. _elasticsearch-report-helper-leafletMap:
 
 ElasticsearchReportHelper::leafletMap
 -------------------------------------
@@ -1552,8 +1532,6 @@ ElasticsearchReportHelper::mediaFilter
 Outputs a select control for filtering to show records that either do or don't have any
 media/photos. Synchronises with the similar control on the Quality pane of the filter builder.
 
-.. _elasticsearch-report-helper-permissionFilters:
-
 ElasticsearchReportHelper::permissionFilters
 --------------------------------------------
 
@@ -1598,8 +1576,6 @@ options parameter. Options available are:
         LERC Terms and Conditions</a>.</b></p>"
       }-->
 
-.. _elasticsearch-report-helper-recordDetails:
-
 ElasticsearchReportHelper::recordDetails
 ----------------------------------------
 
@@ -1632,8 +1608,6 @@ Read authorisation tokens. Not required when used via the prebuilt form.
 **showSelectedRow**
 
 ID of the grid whose selected row should be shown. Required.
-
-.. _elasticsearch-report-helper-recordsMover:
 
 ElasticsearchReportHelper::recordsMover
 ---------------------------------------
@@ -1694,8 +1668,6 @@ Optional, defaults to true. Set to false to allow records to be moved according 
 source's current filter without enforcing a filter on the current user's records. Otherwise the
 recordsMover tool will only move records belonging to the logged-in user.
 
-.. _elasticsearch-report-helper-runCustomVerificationRulesets:
-
 ElasticsearchReportHelper::runCustomVerificationRulesets
 --------------------------------------------------------
 
@@ -1714,8 +1686,6 @@ for editing rulesets (prebuilt form `custom_verification_rulesets_edit`) and upl
 (prebuilt form `custom_verification_rulesets_upload`).
 
 **source**
-
-.. _elasticsearch-report-helper-standardParams:
 
 ElasticsearchReportHelper::standardParams
 -----------------------------------------
@@ -1753,8 +1723,6 @@ Advanced options
 
 Other options are described in the PHP documentation for the
 `client_helpers/prebuilt_forms/includes/reports.php` `report_filter_panel()` method.
-
-.. _elasticsearch-report-helper-templatedOutput:
 
 ElasticsearchReportHelper::templatedOutput
 ------------------------------------------
@@ -1840,8 +1808,6 @@ iteration over the response for an aggregation called `per_sample`.
 
 ID of the `[source]` control this templatedOutput is populated from.
 
-.. _elasticsearch-report-helper-urlParams:
-
 ElasticsearchReportHelper::urlParams
 ------------------------------------
 
@@ -1902,8 +1868,6 @@ configuration item has the following data values:
 
     If the process is not specified then the value is used as is.
 
-.. _elasticsearch-report-helper-userFilters:
-
 ElasticsearchReportHelper::userFilters
 --------------------------------------
 
@@ -1927,8 +1891,6 @@ Code indicating the type of task the filters to load are for. Default R (=report
 Label for the control which will be translated before use. Set to empty string to exclude
 the label. Default is 'Filter', or 'Context' if `@definesPermissions` is true.
 
-.. _elasticsearch-report-helper-statusFilters:
-
 ElasticsearchReportHelper::statusFilters
 ----------------------------------------
 
@@ -1938,8 +1900,6 @@ the ‘records to include’ drop-down in the quality part of the [permissionFil
 applies that filter to the current page's outputs. Changing the filter selected with this
 control changes the selected option in the [permissionFilters] control, if there is one
 on the page, and visa versa.
-
-.. _elasticsearch-report-helper-surveyFilter:
 
 ElasticsearchReportHelper::surveyFilter
 ----------------------------------------
@@ -1951,8 +1911,6 @@ provide dataset download facilities. When a survey is selected with this control
 the returned records will  include all custom sample and occurrence attributes
 associated with that survey.
 
-.. _elasticsearch-report-helper-filterSummary:
-
 ElasticsearchReportHelper::filterSummary
 ----------------------------------------
 
@@ -1961,8 +1919,6 @@ following controls: [standardParams], [permissionFilters], [userFilters], [statu
 and [surveyFilter].
 This can be used to make it less likely that a user has a filter applied
 that they are not aware of, or two conflicting filters for example.
-
-.. _elasticsearch-report-helper-verificationButtons:
 
 ElasticsearchReportHelper::verificationButtons
 ----------------------------------------------
