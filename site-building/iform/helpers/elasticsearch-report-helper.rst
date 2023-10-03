@@ -1546,6 +1546,12 @@ To make the map highlight the feature associated with a selected row in a `dataG
 showSelectedRow to the `id` of that grid. The map will also zoom in to the feature when
 the grid row is double clicked.
 
+ElasticsearchReportHelper::mediaFilter
+--------------------------------------
+
+Outputs a select control for filtering to show records that either do or don't have any
+media/photos. Synchronises with the similar control on the Quality pane of the filter builder.
+
 .. _elasticsearch-report-helper-permissionFilters:
 
 ElasticsearchReportHelper::permissionFilters
@@ -2055,7 +2061,7 @@ the selected occurrence from.
 **taxon_list_id**
 
 Allows the master list to be specified that the redetermination functionality's search box can use.
-If not set, then the master list set in the Indicia settings form will be used. One or other is 
+If not set, then the master list set in the Indicia settings form will be used. One or other is
 required.
 The redetermination is always against the list used to make the record initially. If this is
 different to the master list then a checkbox is added to allow selection of the master list. If
