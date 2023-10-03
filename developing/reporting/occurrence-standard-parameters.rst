@@ -52,15 +52,21 @@ set of parameters. The report will automatically support the following list of p
     Can be used to retrieve a feed of changes.
   * ``quality`` - defines the quality criteria to apply. The following options are available:
 
-      * V - verified as correct by an expert only
+      * V - accepted records (all)
+      * V1 - accepted as correct records
+      * V2 - accepted as considered correct records
       * C - recorder was certain and record not rejected by an expert
       * L - recorder's opinion was certain or likely and record not rejected by an expert
       * P - pending verification
       * !D - not rejected or dubiuos/queried
       * !R - not rejected
       * D - dubious/queried only
-      * R - rejected only
+      * R - rejected records (all)
+      * R4 - rejected as unable to verify
+      * R5 - rejected as incorrect
       * DR - dubious or rejected only
+      * OV - verified by other verifiers (only available when filtering against Elasticsearch data,
+        not for PostgreSQL reports).
 
   * ``exclude_sensitive`` - provide 't' to hide sensitive records completely. Note that the
     cache_occurrences table already blurs the information for sensitive records.
@@ -123,7 +129,10 @@ set of parameters. The report will automatically support the following list of p
     records with photos or '0' to exclude zero abundance/negative presence records.
   * ``user_id`` - the current user's ID on the warehouse. Does not filter directly but may
     be used by other filter parameters.
-  * ``my_records`` - supply 't' to only include records input by the current user.
+  * ``my_records`` - supply '1' to only include records input by the current user or '0'
+    to exclude records input by the current user.
+  * ``recorder_name`` - supply a name to search for in the recorder names field. If multiple
+    words are specified then searches for any of them. Contains search.
   * ``created_by_id`` - filter to records created by the provided User ID. This is an
     alternative to setting ``user_id`` and ``my_records=1`` which may be more appropriate
     when filtering by another user's records.
