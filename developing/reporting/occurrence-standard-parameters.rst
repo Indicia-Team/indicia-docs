@@ -52,22 +52,31 @@ set of parameters. The report will automatically support the following list of p
     Can be used to retrieve a feed of changes.
   * ``quality`` - defines the quality criteria to apply. The following options are available:
 
+      * A - record with an answered query
+      * C3 - plausible only
+      * D - dubious/queried only
+      * OV - verified by other verifiers (only available when filtering against Elasticsearch data,
+        not for PostgreSQL reports).
+      * P - pending verification
+      * R - not accepted records (all)
+      * R4 - not accepted as unable to verify
+      * R5 - not accepted as incorrect
       * V - accepted records (all)
       * V1 - accepted as correct records
       * V2 - accepted as considered correct records
-      * C - recorder was certain and record not rejected by an expert
-      * L - recorder's opinion was certain or likely and record not rejected by an expert
-      * P - pending verification
+
+    The following additional legacy options are available to support old filters.
+      * -3 - Reviewer agreed at least plausible
       * !D - not rejected or dubiuos/queried
       * !R - not rejected
-      * D - dubious/queried only
-      * R - rejected records (all)
-      * R4 - rejected as unable to verify
-      * R5 - rejected as incorrect
+      * C - recorder was certain and record not rejected by an expert
       * DR - dubious or rejected only
-      * OV - verified by other verifiers (only available when filtering against Elasticsearch data,
-        not for PostgreSQL reports).
+      * L - recorder's opinion was certain or likely and record not rejected by an expert
+      * T - trusted recorders (PostgreSQL queries only).
 
+    Multiple options for quality can be provided as a comma separated list, e.g. for pending
+    verification or queried records set `quality` to 'P,D'. The operation can be inverted by
+    setting a parameter called `quality_op` to 'not in'.
   * ``exclude_sensitive`` - provide 't' to hide sensitive records completely. Note that the
     cache_occurrences table already blurs the information for sensitive records.
   * ``confidential`` - filter on the record's confidential status. This is different to
