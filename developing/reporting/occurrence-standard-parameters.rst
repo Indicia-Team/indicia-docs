@@ -77,6 +77,15 @@ set of parameters. The report will automatically support the following list of p
     Multiple options for quality can be provided as a comma separated list, e.g. for pending
     verification or queried records set `quality` to 'P,D'. The operation can be inverted by
     setting a parameter called `quality_op` to 'not in'.
+  * ``certainty`` - defines a filter on the record's certainty that the record identification given
+    by the recorder was correct. Options are:
+
+      * C - certain
+      * L - likely
+      * U - uncertain
+      * NS - the recorder did not give an indication of certainty.
+    Multiple options for certainty can be provided as a comma separated list, e.g. for certain
+    or likely records set `certainty` to 'C,L'
   * ``exclude_sensitive`` - provide 't' to hide sensitive records completely. Note that the
     cache_occurrences table already blurs the information for sensitive records.
   * ``confidential`` - filter on the record's confidential status. This is different to
