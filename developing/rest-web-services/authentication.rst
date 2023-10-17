@@ -118,10 +118,10 @@ The payload may also contain:
   The `Drupal Indicia API module <https://github.com/Indicia-Team/drupal-8-module-indicia-api>`_
   can be installed on Drupal websites to generate tokens for JWT authentication.
   It depends on the `Simple OAuth module <https://www.drupal.org/project/simple_oauth>`_
-  Set this up according to the instructions by providing a public/private key 
+  Set this up according to the instructions by providing a public/private key
   pair and configuring a Client with a secret. You can then send a POST request
   to the /oauth/token endpoint on the website to acquire a token, e.g.
-  
+
   .. code::
 
     curl --location --request POST '<DRUPAL SITE URL>/oauth/token' \
@@ -131,7 +131,7 @@ The payload may also contain:
     --data-urlencode ‘password=<YOUR PASSWORD>' \
     --data-urlencode 'client_id=<THE CLIENT UUID>' \
     --data-urlencode 'client_secret=<THE CLIENT PASSWORD>'
-  
+
 
 HMAC
 ----
@@ -153,27 +153,15 @@ In more detail:
 #. The requesting entity adds an Authorization header to the request containing the
    following string [user type]:[user identifier]:HMAC:[hmac] where:
 
-     * [user_type] is one of WEBSITE_ID, USER_ID, or USER, indicating whether the 
-       user_identifier is for a registered website, a warehouse user account, or client
-       defined in the REST API's configuration file.
-     * [user identifier] is the requesting client's identifier, either the website_id,
-       user_id or client ID as described above.
+     * [user_type] is one of WEBSITE_ID or USER, indicating whether the
+       user_identifier is for a registered website, or client defined in the REST API's
+       configuration file.
+     * [user identifier] is the requesting client's identifier, either the website_id
+       or client ID as described above.
      * [hmac] is the HMAC-SHA1 value computed in (1)
 
-   When identifying as a warehouse user it is also necessary to provide the
-   website ID in the authentication string as follows, since a single user
-   account can have access to several website registrations::
-
-      USER_ID:[user id]:WEBSITE_ID:[website id]:HMAC:[hmac]
-
-.. tip::
-
-   When identifying as a warehouse user it is possible for them to have their
-   permissions extended by having an administrator create a filter for them
-   which has the defines_permissions flag set to true, just as you can with
-   oAuth authentication. The ID of the filter to use can be passed in a query
-   parameter in the URL called filter_id.
-
+   Note that it is not possible to authenticate as a warehouse user account using HMAC. Instead,
+   using JWT authentication is suggested when needing to authenticate as a specific warehouse user.
 #. The receiving entity recomputes the HMAC-SHA1 in the same manner as (1) and any
    authorisation failure is returned as HTTP 401 Unauthorized.
 
