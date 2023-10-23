@@ -1,11 +1,7 @@
 IForm Licences module
 ---------------------
 
-.. note::
-
-  This module is currently for Drupal 7 only.
-
-The IForm licences module can be enabled on a Drupal 7 Indicia site to allow users to
+The IForm licences module can be enabled on a Drupal Indicia site to allow users to
 choose their own licence settings for records or media files.
 
   #. Before using it, you need to make sure that the licences you wish to use are
