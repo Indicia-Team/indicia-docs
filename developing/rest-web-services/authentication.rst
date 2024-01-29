@@ -74,7 +74,10 @@ Authenticate as a **client** using **JSON Web Token authentication**. This is th
 of authentication when connecting as a read-only data user. Note that in this context a user could
 be a person or a reporting system amongst other things. The client must be configured in the REST
 API's config file or database tables. For more information, see the **JSON Web Token
-authentication** section below.
+authentication** section below. The `jwtClient` authentication method must be enabled in the REST
+API's config file and, in addition, you should use the `Admin > Rest API Clients` section to create
+a client, along with its public key. Once created, you can use the Connections tab from the
+client's Edit tab to define a connection (identified by a proj_id) and appropriate permissions.
 
 Other authentication methods
 ----------------------------
