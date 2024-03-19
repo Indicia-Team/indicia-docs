@@ -1814,7 +1814,7 @@ ElasticsearchReportHelper::urlParams
 This control allows you to configure how the page uses parameters in the URL to filter the
 output shown on the page. By default, the following filter parameters are supported:
 
-  * taxa_in_scratchpad_list_id - takes the ID of a `scratcphad_list` as a parameter and
+  * taxa_in_scratchpad_list_id - takes the ID of a `scratchpad_list` as a parameter and
     creates a hidden filter parameter which limits the returned records to those of
     species in the scratchpad list. For example, a report page which lists scratchpad
     lists could have an action in the grid that links to an Elasticsearch outputs page
