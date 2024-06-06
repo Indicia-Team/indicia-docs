@@ -195,6 +195,67 @@ Indicia. To enable access to a data entity via the data services:
     return array('taxon_designations'=>array('readOnly'=>true));
   }
 
+import_plugins hook
+^^^^^^^^^^^^^^^^^^^
+
+This hook allows you to extend the version 2 spreadsheet import process functionality. Currently
+this supports the following:
+* Addition of additional fields to the list available for importing into.
+* Additional preprocessing steps which operate before the actual import takes place. Preprocessing
+  steps can modify the import data, import metadata (e.g. alter or add column mappings) and apply
+  validation checks to the import data.
+
+An example of this type of hook is given in the `import_svc_data` module.
+
+The hook method (`<my_module>_import_plugins()`) receives a parameter `$entity` and should return
+an empty array if the plugin does not apply to the entity being imported, or return an associative
+array keyed by plugin name and with a description in the value. The description will be used to
+provide information on the list of plugins to enable which appears on the Edit page of the Importer
+2 prebuilt form type. A plugin can have configuration parameters added via the Edit tab of the
+import page (e.g. the database ID of attributes that the plugin interacts with) so explain the
+parameters required in the description given.
+
+Your module must now declare a helper class, `helpers/importPlugin<plugin name>.php` containing a
+class with the same name as the file and containing public static methods as follows:
+
+`public static function alterAvailableDbFields(array $params, $required, array &$fields)`
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Use this method to alter the $fields array which contains metadata about each of the fields
+available for importing into. It is possible to add new, edit or remove fields. If you are adding
+a field which is not required, then do not add it if the `$required` flag is TRUE. The $fields
+array is keyed by the fieldname (normally a database field of the form <entity>.<column> and the
+value is the display label of the field.
+
+`public static function isApplicable(array $params,  array $config)`
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+If a plugin wants to disable itself after the columns are mapped by the user, check the mapped
+columns in `$config['columns']` then return FALSE to turn off the plugin.
+
+`public static function alterPreprocessSteps(array $params, array $config, array &$steps)`
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Implement this function and add any extra preprocessing steps to the `$steps` array. A step is
+defined as an array containing the step function name, a description, plus the helper class name
+which contains the function. Preprocessing steps can modify the data, perform lookups to fill in
+data values, check for error conditions and specify extra validation functionality.
+
+Write a public static function in the helper class matching the function name given in the hook which performs any preprocessing. This can:
+* Access the import configuration, e.g. 'columns' contains the list of columns mapped for import
+  and 'tableName' contains the name of the table in the `import` schema which contains the data
+  ready to import.
+* Scan or modify the data in the import table referred to by `$config['tableName']`.
+* Add any errors to the errors JSON field in the table.
+* Return an array conting a key 'error' with a message value if the preprocessor has detected a
+  condition meaning the import cannot proceed. Add an extra key `errorCount` if the errors are
+  specific to rows in the database table which have an error added to the `errors` JSON field;
+  this will trigger the option for the user to be able to download and inspect the rows where the
+  `errors` field is not empty.
+* If successful, return an array containing a message key, with the value being an array where the
+  first element is the message. This is translatable, so replacements starting `{1}` can be
+  specified which will be replaced by the values in any further array entries.
+
 scheduled_task hook
 ^^^^^^^^^^^^^^^^^^^
 
