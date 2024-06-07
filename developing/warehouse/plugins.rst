@@ -209,14 +209,16 @@ An example of this type of hook is given in the `import_svc_data` module.
 
 The hook method (`<my_module>_import_plugins()`) receives a parameter `$entity` and should return
 an empty array if the plugin does not apply to the entity being imported, or return an associative
-array keyed by plugin name and with a description in the value. The description will be used to
-provide information on the list of plugins to enable which appears on the Edit page of the Importer
-2 prebuilt form type. A plugin can have configuration parameters added via the Edit tab of the
-import page (e.g. the database ID of attributes that the plugin interacts with) so explain the
-parameters required in the description given.
+array keyed by plugin name (UpperCamelCase format) and with a description in the value. The
+description will be used to provide information on the list of plugins to enable which appears on
+the Edit page of the Importer 2 prebuilt form type. A plugin can have configuration parameters
+added via the Edit tab of the import page (e.g. the database ID of attributes that the plugin
+interacts with) so explain the parameters required in the description given.
 
 Your module must now declare a helper class, `helpers/importPlugin<plugin name>.php` containing a
-class with the same name as the file and containing public static methods as follows:
+class with the same name as the file and containing public static methods that implement the
+required alterations to the import process. All methods are optional - only implement those that
+are needed. The following methods are recognised:
 
 `public static function alterAvailableDbFields(array $params, $required, array &$fields)`
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
