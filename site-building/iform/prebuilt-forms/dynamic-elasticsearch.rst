@@ -19,7 +19,7 @@ should know or be able to find out the following settings:
       provide the endpoing, user and secret.
     * As a website - the website ID and password are used to authenticate. In this mode, the
       purpose (sharing) option is important.
-    * As a user, using Java Web Tokens to authenticate.
+    * As a user, using JSON Web Tokens to authenticate.
   * Purpose - the sharing mode used to identify the correct set of records when authenticating as
     as website. For example a website may opt to share records to your site for verification but
     not public reporting.
@@ -148,6 +148,11 @@ data from an associated [source] control. See
 
 Provides a textual summary of all the filters applied on the page. See
 :ref:`elasticsearch-report-helper-filterSummary`.
+
+[gridSquareOpacityScale]
+
+Provides a scale showing how the opacity of a grid square relates to the number of records it
+represents.
 
 [groupIntegration]
 """"""""""""""""""
