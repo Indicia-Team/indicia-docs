@@ -129,13 +129,15 @@ authentication by setting up the configuration as follows:
     ...
   ];
 
-If using client authentication (directClient or hmacClient) then there is one more step -
-you need to attach the appropriate Elasticsearch end-points to the client by adding
-a configuration key, similar to the way you attached them to the authentication methods.
-This is done by adding an `elasticsearch` configuration entry to the `$config['clients']`
-entry for the client you are enabling access for, which contains an array of the
-config entries defined in `$config['elasticsearcg']` which you wish this client to be able
-to access:
+If using client authentication (jwtClient, directClient or hmacClient) then there is one more step.
+You need to define a client on the warehouse's Admin -> REST API Clients user interface and also a 
+connection for that client (identified by a proj_id) which defines the permissions available. 
+
+The REST API's config file also has a legacy `clients` section where clients and connecting 
+projects can be defined with Elasticsearch access enabled. This is done by adding an 
+`elasticsearch` configuration entry to the `$config['clients']` entry for the client you are 
+enabling access for, which contains an array of the config entries defined in 
+`$config['elasticsearcg']` which you wish this client to be able to access:
 
 .. code-block:: php
 
