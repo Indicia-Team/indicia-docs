@@ -2133,6 +2133,12 @@ there is no master list then set this to 0.
 If you want to add the upload button somewhere else on the page (e.g. to a table footer alongside a
 download button, specify the element selector here.
 
+**useLocalFormPaths**
+
+Set this option to TRUE to enable using the path to a form on the local website for the edit button
+path, instead of the path specified by `editPath`, but only if the record is from the local website
+and it has an input_form value saved.
+
 **verificationTemplates**
 
 Set to true to enable saving and loading templates for verification and redetermination comments.
