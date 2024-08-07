@@ -546,6 +546,12 @@ Options
 Optional array defining additional action buttons to include for each card. For more information
 see the description of the **actions** option for the `dataGrid` control.
 
+**class**
+
+Defaults to "flexgrid" which uses a flexbox layout for the gallery. Change to "horizontal" for a
+horizontal row of cards, or specify a custom class with custom CSS on the page for alternative
+layouts.
+
 **columns**
 
 List of report data fields that will be output in the card below the image. Syntax is the same as
