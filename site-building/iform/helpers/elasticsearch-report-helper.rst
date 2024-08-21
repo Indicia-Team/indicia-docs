@@ -938,6 +938,17 @@ page with a URL that might look like:
     * #sex:<format># - the value of the `occurrence.sex` field formatted as specified.
       Currently there is only one format - `mapmate` - which translates codes to
       values acceptable to MapMate, e.g. `female` to `f` and `mixed` to `g`.
+    * #sitename# or #sitename:format# - outputs the stored location name of the record, with
+      formatting options. If no format is provided, then the location name is output unless the
+      record is sensitive or private and the user does not have access to unblurred data in which
+      case an empty string is output. Or, specify one of the following format options:
+      * obscureifsensitive - for sensitive records with a site name, outputs "[sensitive record,
+        location hidden]", otherwise outputs the site name if available.
+      * showifsensitive - for sensitive records with a site name outputs the site name, otherwise
+        outputs nothing.
+      * mapmate - for sensitive records with a site name, outputs "[sensitive record,
+        location hidden]", otherwise outputs the site name if available, or "unnamed site". Site
+        names are truncated to 62 characters for MapMate compatibility.
     * #sref_system:<field>:<format># - a formatted spatial reference system.
       The field must indicate a spatial reference system, e.g. `location.input_sref_system`.
       Currently there is only one format - `alphanumeric` - which replaces any values where
