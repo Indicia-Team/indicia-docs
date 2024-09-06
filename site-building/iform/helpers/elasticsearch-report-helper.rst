@@ -264,7 +264,9 @@ retrieve is set to zero.
 Sets the default sort order of the source. Object where the properties are the field
 names to sort by and the values are either "asc" or "desc" as appropriate. E.g.::
 
-  [source] @id=sorted-data @sort={"id":"desc"}
+  [source]
+  @id=sorted-data
+  @sort={"id":"desc"}
 
 If using composite or term aggregation mode and sorting by an aggregate column, then the
 name given should be the name of the aggregate, not the name of the underlying field in
@@ -495,6 +497,15 @@ the same page hit.
 Caching occurs in the Elasticsearch proxy layer and only applies to the initial load of each data
 source when the page loads. Subsequent hits are likely to be filtered AJAX requests so caching
 would not be relevant.
+
+**shardSize**
+
+When using aggregations, the document counts returned for each row from Elasticsearch may be
+approximate due to the way that data are distributed across the shards. The following link explains
+this issue:
+https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-shard-size.
+Increasing shard size to a number higher than the default (size*1.5 + 10) will increase
+the chances of document counts being exactly correct.
 
 .. _elasticsearchreporthelper-bulkeditor:
 
@@ -1316,6 +1327,15 @@ specified in **addColumns** will be appended to the end.
 
 Define columns from the selected column template to be removed from the CSV download. An
 array of the column titles to remove.
+
+**sort**
+
+Specify the sort order to use when downloading, if different to the default sort order defined in
+the linked source component. This can be useful when linked to a dataGrid that shows data using a
+term aggregation, since when downloading the aggregation mode is automatically switched to a
+composite aggregation for performance reasons, and the composite aggregation does not support
+sorting on the same columns. Specify a JSON object where the property names are the fields to sort
+in order of precedence and the values are either "asc" or "desc" to define the direction.
 
 **source**
 
