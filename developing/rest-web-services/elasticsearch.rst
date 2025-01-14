@@ -129,9 +129,10 @@ authentication by setting up the configuration as follows:
     ...
   ];
 
-If using client authentication (jwtClient, directClient or hmacClient) then there is one more step.
-You need to define a client on the warehouse's Admin -> REST API Clients user interface and also a 
-connection for that client (identified by a proj_id) which defines the permissions available. 
+If using client authentication (jwtClient or directClient, hmacClient is not
+supported) then there is one more step. You need to define a client on the
+warehouse's Admin -> REST API Clients user interface and also a connection for
+that client (identified by a proj_id) which defines the permissions available. 
 
 The REST API's config file also has a legacy `clients` section where clients and connecting 
 projects can be defined with Elasticsearch access enabled. This is done by adding an 
@@ -151,4 +152,45 @@ enabling access for, which contains an array of the config entries defined in
     ],
     ...
   ];
+
+Example Request
+***************
+Having defined a REST API client connection with Proj ID of "ES" and
+Elasticsearch endpoint of "es-occurrences" for the demonstration website
+(website_id = 1) the following request will return the first 10 records
+from that website.
+
+.. code-block:: bash
+
+  curl --location --request GET '[base url]/index.php/services/rest/es-occurrences/_search?proj_id=ES1' \
+  --header 'Authorization: USER:[client system username]:SECRET:[secret]' \
+  --header 'Content-Type: application/json'
+
+Assuming none of the checkboxes were ticked to enable confidential, sensitive,
+or unreleased records then an Elasticsearch filter is built in to the request
+in the form 
+
+.. code-block:: json
+
+  {
+    "query":{"bool":{"must":[
+      {"terms":{"metadata.website.id":["1"]}},
+      {"query_string":{
+        "query":"metadata.confidential:false AND NOT metadata.hide_sample_as_private:true AND metadata.release_status:R AND metadata.sensitive:false AND ((metadata.sensitivity_blur:B) OR (!metadata.sensitivity_blur:*))"
+      }}
+    ]}}
+  }
+
+You can augment this filter to suit your own needs by adding a compatible filter
+in the body of your request. For example, the following
+will just return records of the given taxon.
+
+.. code-block:: bash
+
+  curl --location --request GET '[base url]/index.php/services/rest/es-occurrences/_search?proj_id=ES1' \
+  --header 'Authorization: USER:[client system username]:SECRET:[secret]' \
+  --header 'Content-Type: application/json' \
+  --data '{"query":{"bool":{"must":[
+    {"match":{"taxon.accepted_name":"Urtica dioica"}}
+  ]}}}'
 
