@@ -106,6 +106,12 @@ and secret directly, normally in the auth header:
 ```
 USER:[client system username]:SECRET:[secret]
 ```
+In addition, the project id must be passed as a parameter, e.g. in a query
+string:
+
+```
+?proj_id=[project id]
+```
 
 The username and secret must be defined for the client in the rest_api_clients database table
 (preferred) or config file's `clients` section (legacy). For more information, see the **Direct
@@ -145,6 +151,9 @@ hmacClient
 This approach is similar to directClient authentication but passes a HMAC token instead of the
 secret so there is no need to exchange the secret. For more information, see the **HMAC
 authentication** section below.
+
+This is not supported when the client is defined via the warehouse user
+interface.
 
 hmacWebsite
 ***********
@@ -234,8 +243,8 @@ The payload may also contain:
     curl --location --request POST '<DRUPAL SITE URL>/oauth/token' \
     --header 'Content-Type: application/x-www-form-urlencoded' \
     --data-urlencode 'grant_type=password' \
-    --data-urlencode ‘username=<YOUR EMAIL>' \
-    --data-urlencode ‘password=<YOUR PASSWORD>' \
+    --data-urlencode 'username=<YOUR EMAIL>' \
+    --data-urlencode 'password=<YOUR PASSWORD>' \
     --data-urlencode 'client_id=<THE CLIENT UUID>' \
     --data-urlencode 'client_secret=<THE CLIENT PASSWORD>'
 
