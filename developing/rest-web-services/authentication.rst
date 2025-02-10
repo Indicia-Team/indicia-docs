@@ -50,6 +50,16 @@ combination when authenticating as a website). Using JWT authentication requires
 public/private key pair is generated and the public key stored in the appropriate warehouse
 configuration for either the website or client system.
 
+APACHE headers
+--------------
+
+If using Apache, add the following to .htaccess in the root of the warehouse in order to ensure
+that authorisation headers are passed to the PHP scripts:
+
+```
+CGIPassAuth On
+```
+
 Authentication methods
 ----------------------
 
@@ -100,7 +110,6 @@ USER:[client system username]:SECRET:[secret]
 The username and secret must be defined for the client in the rest_api_clients database table
 (preferred) or config file's `clients` section (legacy). For more information, see the **Direct
 authentication** section below.
-
 
 directUser
 **********
