@@ -134,9 +134,8 @@ set of parameters. The report will automatically support the following list of p
 
       * P - only records which pass
       * F - only records which fail
-
-  * ``autocheck_rule`` - autocheck rule type name (e.g. identification_difficulty or
-    period_within_year). Records are returned if they fail the given rule name.
+      * any autocheck rule type name (e.g. identification_difficulty or
+        period_within_year). Records are returned if they fail the given rule name.
   * ``identification_difficulty`` - specify a value from 1 to 5 to filter to this
     identification difficulty level if this feature is set up on your warehouse. Specify
     an optional ``identification_difficulty_op`` parameter to set the value '=', '<=' or
