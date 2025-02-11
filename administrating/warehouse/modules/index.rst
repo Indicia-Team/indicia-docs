@@ -75,6 +75,7 @@ Module List
   occurrence-associations
   people-tidier
   phpunit
+  record-cleaner
   request-logging
   rest-api
   spatial-index-builder
