@@ -136,6 +136,10 @@ set of parameters. The report will automatically support the following list of p
       * F - only records which fail
       * any autocheck rule type name (e.g. identification_difficulty or
         period_within_year). Records are returned if they fail the given rule name.
+  * ``classifier_agreement`` - specify Y to only show records if an image classifier was used and
+    the classifier's top suggestion matches the record's current determination. specify N to only
+    show records if an image classifier was used and the classifier's top suggestion does not match
+    the record's current determination.
   * ``identification_difficulty`` - specify a value from 1 to 5 to filter to this
     identification difficulty level if this feature is set up on your warehouse. Specify
     an optional ``identification_difficulty_op`` parameter to set the value '=', '<=' or

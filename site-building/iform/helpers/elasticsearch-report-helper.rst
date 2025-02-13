@@ -901,6 +901,12 @@ page with a URL that might look like:
         retrieved in which case if there is more than one VC code, or no VC code, associated
         with the record, the output value is set to zero.
 
+    * #identification_classifier_agreement# - displays a tick if the current determination matches
+      the suggestion with the highest probability made by an image classifier, or a cross if there
+      is a mis-match. These are replaced by "Yes" or "No" in downloads. Nothing is shown unless an
+      image classifier was used for the record.
+    * #identification_classifier_suggestion# - the taxon name given for the most likely suggested
+      taxon name according to the image classifiers used for the record.
     * #lat:<format>:<precision># or #lat# - a formatted latitude value. If specified, `<format>` can
       be one of:
 
@@ -1407,6 +1413,14 @@ and its pages.
 Options
 ^^^^^^^
 
+**containedGroupLabel**
+
+Label used to describe a contained group on the add button. Defaults to sub-group.
+
+**editPath**
+
+Path to the group edit page.
+
 **group_id**
 
 ID of the group to load data for, if fixed. If not set, then the group ID is obtained from a URL
@@ -1423,7 +1437,8 @@ If true, then a group summary panel is displayed including the group logo, title
 
 **showGroupPages**
 
-If true, then a list of available group page links is shown.
+If true, then a list of available group page links is shown, including links to edit the group,
+and, for container groups, add a contained sub-group if the user has rights to do so.
 
 .. _elasticsearchreporthelper-highergeographyselect:
 
@@ -1543,6 +1558,11 @@ Example configuration::
       }
     }
   }-->
+
+**boundaryLocationId**
+
+If the map shows data for a fixed location, then set the ID of this location in this parameter in
+order to draw the boundary of the location onto the map.
 
 **cookies**
 
