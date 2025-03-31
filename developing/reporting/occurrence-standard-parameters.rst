@@ -35,17 +35,33 @@ set of parameters. The report will automatically support the following list of p
   * ``date_to`` - filter to records that were recorded on or before this date.
   * ``date_age`` - include records that were recorded after a date defined by an age.
     e.g. '3 weeks' or '1 year'.
+  * ``date_year_op`` - if using ``date_year``, then the operation to use against the 
+    provided year, one of =, >= or <=.
+  * ``date_year`` - filter the recorded date to this year, using the operation given in 
+    ``date_year_op``.
   * ``input_date_from`` - filter to records that were input on or after this date.
   * ``input_date_to`` - filter to records that were input on or before this date.
   * ``input_date_age`` - include records that were input after a date defined by an age.
     e.g. '3 weeks' or '1 year'.
+  * ``input_date_year_op`` - if using ``date_year``, then the operation to use against the 
+    provided year, one of =, >= or <=.
+  * ``input_date_year`` - filter the recorded date to this year, using the operation given  
+    in ``input_date_year_op``.
   * ``edited_date_from`` - filter to records that were edited on or after this date.
   * ``edited_date_to`` - filter to records that were edited on or before this date.
   * ``edited_date_age`` - include records that were edited after a date defined by an age.
     e.g. '3 weeks' or '1 year'.
+  * ``edited_date_year_op`` - if using ``date_year``, then the operation to use against the 
+    provided year, one of =, >= or <=.
+  * ``edited_date_year`` - filter the recorded date to this year, using the operation given 
+    in ``date_year_op``.
   * ``verified_date_from`` - filter to records that were verified on or after this date.
   * ``verified_date_to`` - filter to records that were verified on or before this date.
   * ``verified_date_age`` - include records that were verified after a date defined by an age.
+  * ``verified_date_year_op`` - if using ``date_year``, then the operation to use against the 
+    provided year, one of =, >= or <=.
+  * ``verified_date_year`` - filter the recorded date to this year, using the operation given
+    in ``verified_date_year_op``.
   * ``tracking_from`` - filter to only include records after a given update tracking ID.
     Can be used to retrieve a feed of changes.
   * ``tracking_to`` - filter to only include records before a given update tracking ID.
