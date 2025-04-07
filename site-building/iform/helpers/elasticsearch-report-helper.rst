@@ -2097,6 +2097,11 @@ an Elasticsearch report page to be converted into a verification tool.
 Options
 ^^^^^^^
 
+**allowForceLinkedLocationsUsingLocTypeId** - set to the location type ID of a spatially indexed
+layer of locations to allow a verifier to force a record to be indexed against a chosen location
+within that layer. For example, set to the location type ID for Vice Counties in order to allow
+UK verifiers to select a Vice County when a record straddles a boundary.
+
 **editPath**
 
 If a Drupal page path for a generic edit form is specified then a button is added to allow
