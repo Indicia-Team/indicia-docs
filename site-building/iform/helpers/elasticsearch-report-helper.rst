@@ -583,6 +583,11 @@ Set to true to include the caption for each field shown below the photo, accordi
 
 Set to false to disable the tool button for enabling full screen mode.
 
+**includeImageClassifierInfo**
+
+Set to true to include information about image classifier agreement and classifier suggestions in
+the panel.
+
 **includeMultiSelectTool**
 
 Set to true to include a multi-select tool button which enables tickboxes for each card.
