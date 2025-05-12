@@ -57,6 +57,10 @@ synchronisation.
 
      select f_fixup_uksi_links();
 
+   Also run the following if the data_cleaner warehouse module is installed::
+
+     select f_fixup_uksi_links_data_cleaner();
+
 9. Regenerated the Pantheon species index table by running the following SQL statement::
 
      select pantheon.f_pantheon_rebuild_species_index();
