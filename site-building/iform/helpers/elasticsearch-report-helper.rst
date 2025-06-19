@@ -1406,6 +1406,34 @@ The ID of the layer to show the scale for, from the linked map's `layerConfig`.
 Give the ID of an output data control (normally a `leafletMap`) which is showing the layer to show
 the scale for.
 
+Example configuration::
+
+  [source]
+  @id=recordsGridSquares
+  @mode=mapGridSquare  
+
+  [leafletMap]
+  @id=map
+  @layerConfig=<!--{
+    "recordsMap": {
+      "title": "All records in current filter (grid map)",
+      "source": "recordsGridSquares",
+      "enabled": true,
+      "forceEnabled": true,
+      "type":"circle",
+      "style": {
+        "color": "#3333FF",
+        "weight": 2,
+        "fillOpacity": "metric",
+        "size": "autoGridSquareSize"
+      }
+    }
+  }-->
+
+  [gridSquareOpacityScale]
+  @layer=recordsMap
+  @linkToDataControl=map
+
 .. _elasticsearchreporthelper-groupintegration:
 
 ElasticsearchReportHelper::groupIntegration
