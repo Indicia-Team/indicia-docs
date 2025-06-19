@@ -122,19 +122,19 @@ Outputs a paged dataset of records, showing a gallery in "card" format. See
 """""""""""""""
 
 A control for managing layout, e.g. for verification pages. See
-:ref:`elasticsearchreporthelper_controlLayout`.
+:ref:`elasticsearchreporthelper-controlLayout`.
 
 [customScript]
 """"""""""""""
 
 Allows a custom JavaScript to visualise the output of an Elasticsearch source. See
-:ref:`_elasticsearchreporthelper-customScript`.
+:ref:`elasticsearchreporthelper-customScript`.
 
 [dataGrid]
 """"""""""
 
 Generates a table containing Elasticsearch data. See
-:ref:`elasticsearch-report-helper-dataGrid`.
+:ref:`elasticsearchreporthelper-dataGrid`.
 
 [download]
 """"""""""
@@ -147,13 +147,13 @@ data from an associated [source] control. See
 """""""""""""""
 
 Provides a textual summary of all the filters applied on the page. See
-:ref:`elasticsearch-report-helper-filterSummary`.
+:ref:`elasticsearchreporthelper-filterSummary`.
 
 [gridSquareOpacityScale]
 """"""""""""""""""""""""
 
 Provides a scale showing how the opacity of a grid square relates to the number of records it
-represents. See :ref:`elasticsearch-report-helper-gridSquareOpacityScale`.
+represents. See :ref:`elasticsearchreporthelper-gridSquareOpacityScale`.
 
 [groupIntegration]
 """"""""""""""""""
@@ -167,26 +167,26 @@ See :ref:`elasticsearch-report-helper-groupIntegration`.
 """""""""""""""""""""""
 
 A select box for choosing from a list of higher geography boundaries. See
-:ref:`elasticsearch-report-helper-higherGeographySelect`.
+:ref:`elasticsearchreporthelper-higherGeographySelect`.
 
 [leafletMap]
 """"""""""""
 
 A map panel which uses the leaflet library that can display occurrence data from
 Elasticsearch in a variety of ways. See
-:ref:`elasticsearch-report-helper-leafletMap`.
+:ref:`elasticsearchreporthelper-leafletMap`.
 
 [permissionFilters]
 """""""""""""""""""
 
 Output a selector for various high level permissions filtering options. See
-:ref:`elasticsearch-report-helper-permissionFilters`.
+:ref:`elasticsearchreporthelper-permissionFilters`.
 
 [recordDetails]
 """""""""""""""
 
 A tabbed panel showing key details of the record. See
-:ref:`elasticsearch-report-helper-recordDetails`.
+:ref:`elasticsearchreporthelper-recordDetails`.
 
 [runCustomVerificationRulesets]
 """""""""""""""""""""""""""""""
@@ -202,45 +202,45 @@ verification. Displays a popup dialog allowing the user to:
 """"""""
 
 The `source` control acts as a link from other controls on the page to a set of data from
-Elasticsearch. See :ref:`elasticsearch-report-helper-source`.
+Elasticsearch. See :ref:`elasticsearchreporthelper-source`.
 
 [standardParams]
 """"""""""""""""
 
 A toolbar allowing filters to be applied to the page's report data. See
-:ref:`elasticsearch-report-helper-standardParams`.
+:ref:`elasticsearchreporthelper-standardParams`.
 
 [statusFilters]
 """""""""""""""
 
 Provides a drop down of record status filters. Selecting a filter
 applies that filter to the current page's outputs. See
-:ref:`elasticsearch-report-helper-statusFilters`.
+:ref:`elasticsearchreporthelper-statusFilters`.
 
 [templatedOutput]
 """""""""""""""""
 
 A flexible output of ES data which uses templates to build the HTML. See
-:ref:`elasticsearch-report-helper-templatedOutput`.
+:ref:`elasticsearchreporthelper-templatedOutput`.
 
 [urlParams]
 """""""""""
 
 This control allows you to configure how the page uses parameters in the URL to filter the
 output shown on the page. See
-:ref:`elasticsearch-report-helper-urlParams`.
+:ref:`elasticsearchreporthelper-urlParams`.
 
 [userFilters]
 """""""""""""
 
 Provides a drop down populated with the user's saved report filters. Selecting a filter
 applies that filter to the current page's outputs. See
-:ref:`elasticsearch-report-helper-userFilters`.
+:ref:`elasticsearchreporthelper-userFilters`.
 
 [verificationButtons]
 """""""""""""""""""""
 Outputs a panel containing action buttons for verification tasks. See
-:ref:`elasticsearch-report-helper-verificationButtons`.
+:ref:`elasticsearchreporthelper-verificationButtons`.
 
 Adding filters to the page using HTML hidden inputs
 ---------------------------------------------------
