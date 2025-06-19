@@ -141,7 +141,7 @@ Generates a table containing Elasticsearch data. See
 
 A button with associated progress display for generating downloadable zip files of CSV
 data from an associated [source] control. See
-:ref:`elasticsearch-report-helper-download`.
+:ref:`elasticsearchreporthelper-download`.
 
 [filterSummary]
 """""""""""""""
@@ -161,7 +161,7 @@ represents. See :ref:`elasticsearchreporthelper-gridSquareOpacityScale`.
 Converts the page into a group-linked (activity) report. Responds to the
 `group_id` and `implicit` URL parameters added for links to activity pages,
 adding appropriate filtration to the report output to show that group's data.
-See :ref:`elasticsearch-report-helper-groupIntegration`.
+See :ref:`elasticsearchreporthelper-groupIntegration`.
 
 [higherGeographySelect]
 """""""""""""""""""""""
