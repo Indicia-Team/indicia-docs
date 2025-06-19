@@ -150,9 +150,10 @@ Provides a textual summary of all the filters applied on the page. See
 :ref:`elasticsearch-report-helper-filterSummary`.
 
 [gridSquareOpacityScale]
+""""""""""""""""""""""""
 
 Provides a scale showing how the opacity of a grid square relates to the number of records it
-represents.
+represents. See :ref:`elasticsearch-report-helper-gridSquareOpacityScale`.
 
 [groupIntegration]
 """"""""""""""""""
