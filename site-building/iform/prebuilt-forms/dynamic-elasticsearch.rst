@@ -116,19 +116,19 @@ The controls available for addition to the page are as follows:
 """""""""""""
 
 Outputs a paged dataset of records, showing a gallery in "card" format. See
-:ref:`elasticsearch-report-helper-cardGallery`.
+:ref:`elasticsearchreporthelper-cardGallery`.
 
 [controlLayout]
 """""""""""""""
 
 A control for managing layout, e.g. for verification pages. See
-:ref:`elasticsearch-report-helper-controlLayout`.
+:ref:`elasticsearchreporthelper_controlLayout`.
 
 [customScript]
 """"""""""""""
 
 Allows a custom JavaScript to visualise the output of an Elasticsearch source. See
-:ref:`elasticsearch-report-helper-customScript`.
+:ref:`_elasticsearchreporthelper-customScript`.
 
 [dataGrid]
 """"""""""
