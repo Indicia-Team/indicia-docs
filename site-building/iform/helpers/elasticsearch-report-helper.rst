@@ -863,6 +863,12 @@ page with a URL that might look like:
       value. For example `#coalesce:event.parent_event_id,event.event_id#` will return the parent
       sample's ID for a structured record (e.g. a transect with section sub-samples) but the
       single sample's ID for a casual record that has no parent sample.
+    * #conditional_value:<field>:<fieldToCheck>:<operator>:<compareAgainst># - outputs the value
+      of a field only if another checked field's value matches the supplied conditions. The only
+      operator currently supported is =. For example, 
+      `#conditional_value:location.output_sref:metadata.sensitivity_blur:=:F#` causes the value
+      of `location.output_sref` to be output if the record is the full precision copy
+      (`metadata.sensitivity_blur=F`), otherwise the output is empty.
     * #constant:<value># - outputs a static value. Pass an empty string if you need an empty
       column.
     * #data_cleaner_icons# - icons representing the results of data cleaner rule checks.
