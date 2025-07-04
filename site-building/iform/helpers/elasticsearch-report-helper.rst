@@ -1701,6 +1701,20 @@ To make the map highlight the feature associated with a selected row in a `dataG
 showSelectedRow to the `id` of that grid. The map will also zoom in to the feature when
 the grid row is double clicked.
 
+**tools**
+
+Set an array of tools to control the tool overlays available on the map. The default is 
+`['baseLayers', 'overlayLayers']` which gives full control over the base layer and overlays
+visible on the map. Options are:
+* baseLayers - radio buttons are added to an overlays popup for selecting the visible base layer.
+* overlayLayers - checkboxes are added to the overlays popup for toggling the overlay layers on
+  or off, e.g. for report output layers.
+* dataLayerOpacity - a slider for controlling the opacity of data layers.
+* gridSquareSize - a drop down for selecting the grid square size to display for data layers.
+* queryLimitTo1kmOrBetter - a checkbox for toggling the behaviour of clicks to query points on 
+  the map in relation to the inclusion of grid squares or records whose precision are over 1km in
+  size.
+
 .. _elasticsearchreporthelper-mediafilter:
 
 ElasticsearchReportHelper::mediaFilter
