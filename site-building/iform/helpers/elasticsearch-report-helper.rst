@@ -1706,6 +1706,7 @@ the grid row is double clicked.
 Set an array of tools to control the tool overlays available on the map. The default is 
 `['baseLayers', 'overlayLayers']` which gives full control over the base layer and overlays
 visible on the map. Options are:
+
 * baseLayers - radio buttons are added to an overlays popup for selecting the visible base layer.
 * overlayLayers - checkboxes are added to the overlays popup for toggling the overlay layers on
   or off, e.g. for report output layers.
