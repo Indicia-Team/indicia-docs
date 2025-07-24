@@ -1717,9 +1717,10 @@ visible on the map. Options are:
   or off, e.g. for report output layers.
 * dataLayerOpacity - a slider for controlling the opacity of data layers.
 * gridSquareSize - a drop down for selecting the grid square size to display for data layers.
-* queryLimitTo1kmOrBetter - a checkbox for toggling the behaviour of clicks to query points on 
-  the map in relation to the inclusion of grid squares or records whose precision are over 1km in
-  size.
+* impreciseMapRefHandling - adds radio buttons for controlling if map references lower than 1km
+  precision are displayed when the map is zoomed in so that records are shown in full precision.
+  This also affects whether the low precision records are included when clicking on the map to
+  query.
 
 .. _elasticsearchreporthelper-mediafilter:
 
