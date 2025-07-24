@@ -482,6 +482,11 @@ For example::
     }
   }-->
 
+**numericFilters**
+
+A JSON object containing Elasticsearch field names as properties and values to filter to using a 
+simple term filter.
+
 **proxyCacheTimeout**
 
 To enable caching of the Elasticsearch content loaded on a page's initial load, set
