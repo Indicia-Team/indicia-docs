@@ -82,3 +82,21 @@ Installation notes
      );
 
      ?>
+
+#. When indexing a layer of locations against very large grid references, either because they
+   have a sensitivity blur applied or because the precision is very low, the spatial indexer
+   can generate long lists of intersecting locations which is both wasteful of resources and 
+   not very useful to the user, since the actual record is very unlikely to be in each of the 
+   listed locations. To avoid this you can set a maximum grid reference area that will be
+   considered for each layer. The area should be set in the units of the Web Mercator 
+   projection which roughly equate to metres. Setting a limit of 10 billion is effective at
+   filtering out 100km grid squares. E.g.
+
+   .. code-block:: php
+
+     <?php
+     $config['max_grid_ref_areas']=array(
+       'National Nature Reserves' => 10000000000,
+     );
+
+     ?>
