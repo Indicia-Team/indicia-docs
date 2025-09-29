@@ -89,3 +89,11 @@ Options are:
 
 [buttons]
 """""""""
+
+A set of buttons for actions relating to the record.
+
+Options available are:
+* buttons - array containing 'edit' to include the edit button, 'explore' for the explore link
+  button, 'species details' for the species details page link. Defaults to all buttons.
+* classes - associative array of each button name (edit, explore or record), with the value being
+  the class to apply to the button if overriding the default.

@@ -45,6 +45,8 @@ including custom attributes. Options include:
   * fieldsToExcludeIfLoggedOut - array of field names to skip if the user is anonymous.
   * outputFormatting - set to true to enable auto-formatting HTML for new lines and hyperlinks in
     text custom attribute values.
+  * title - defaults to true, outputs a block title. Set to a string to override the title or false
+    to remove it.
 
 [photos]
 """"""""
@@ -63,9 +65,45 @@ A map showing the location's boundary.
 A control for rendering a Drupal block.
 
 Options are:
-* @title - output a block title.
-* @module - machine name of the module providing the block.
-* @block - machine name of the block.
+
+  * @title - output a block title.
+  * @module - machine name of the module providing the block.
+  * @block - machine name of the block.
 
 [buttons]
 """""""""
+
+A set of buttons for actions relating to the location.
+
+Options available are:
+
+  * buttons - array containing 'edit' to include the edit button, 'explore' to include an explore
+    link or 'record' to include a link to a recording form for the site. Other options may be added
+    in future. The 'record' button requires an option @enterRecordsPath set to the path of a form
+    page for entering a list of records at this location. The form should use the
+    [location url param] control to allow it to use the location_id parameter passed to the form.
+    Defaults to edit and explore buttons.
+  * classes - associative array of each button name (edit, explore or record), with the value being
+    the class to apply to the button if overriding the default.
+  * title - set to a string to output a block title. Default false.
+
+[subsites]
+
+A report grid containing subsites.
+
+Options available are:
+
+  * title - default to true. Set to a string to override the title, or false to remove it.
+  * addChildrenEditFormPaths - Allows addition of buttons for adding a child site. A JSON object
+    where the property names are button labels and the values are paths, e.g.::
+
+      @addChildrenEditFormPaths=<!--{
+        "Add a habitat": "built-environment-sites/habitats/edit",
+        "Add a feature": "built-environment-sites/features/edit"
+      }-->
+
+    Paths should point to an "Enter a location (customisable)" with the "Link the location to a
+    parent" option checked.
+  * columns - report_grid @columns option setting, if overriding the default.
+  * dataSource - report to use if overriding the default. Should accept a `parent_location_id`
+    parameter for filtering.

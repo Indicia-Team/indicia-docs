@@ -78,3 +78,11 @@ A report grid of records recorded as part of this sample.
 
 [buttons]
 """""""""
+
+Options available are:
+
+  * buttons - array containing 'edit' to include the edit button. Other options may be added in
+    future.
+  * classes - associative array of each button name (edit, explore or record), with the value being
+    the class to apply to the button if overriding the default.
+  * title - set to a string to output a block title. Default false.
