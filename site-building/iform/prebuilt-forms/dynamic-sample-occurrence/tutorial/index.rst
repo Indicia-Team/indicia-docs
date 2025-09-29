@@ -5,7 +5,7 @@ Enter a single record or list of records (customisable) tutorial
 
   Before following this tutorial, ensure you have:
 
-    * Drupal 7 or 8
+    * Drupal 10+
     * a warehouse with a website registration
     * a species list to record against on the same warehouse
     * The Indicia forms module installed in Drupal
