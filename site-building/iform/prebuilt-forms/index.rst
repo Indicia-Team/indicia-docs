@@ -4,6 +4,8 @@ The Prebuilt Form Library
 .. toctree::
 
   generic-settings
+  custom-verification-rulesets-edit
+  custom-verification-rules-upload
   dynamic-forms
   dynamic-sample-occurrence
   dynamic-taxon
