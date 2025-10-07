@@ -4,6 +4,7 @@ The Prebuilt Form Library
 .. toctree::
 
   generic-settings
+  background-import-status
   custom-verification-rulesets-edit
   custom-verification-rules-upload
   dynamic-forms
@@ -13,6 +14,7 @@ The Prebuilt Form Library
   dynamic-reports
   dynamic-elasticsearch
   importer
+  importer-2
   easy-download
   easy-download-2
   mnhnl-dynamic-1
