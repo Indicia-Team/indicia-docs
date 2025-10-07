@@ -358,6 +358,14 @@ allow you to proceed with the installation.
 Email Configuration
 -------------------
 
+Note that the warehouse installation and instructions below guide you through the default 
+email architecture, which is to use the Swift email library for PHP. It is also possible 
+to configure the email to use Microsoft Graph as an alternative architecture, or to 
+replace the emailer with code which just logs the details of each email rather than 
+sending the emails - useful for a development environment. If you want to use Microsoft
+Graph, or to just log the emails, then use the Skip email configuration option below and
+follow the instructions at the bottom of this section.
+
 Click the Configure email button, then you will be presented with the Email Configuration
 page:
 
@@ -395,6 +403,25 @@ configure the port if using a non-standard port, as well as the title used and s
 given in forgotten password emails. Note that if you want to change these settings at a
 later date, they are stored in the Warehouse's email configuration file in
 application/config/email.php.
+
+To use Microsoft Graph, edit the application/config/email.php file using a text editor
+and add settings as follows, filling in your tenant ID, client ID and secret:
+
+.. code-block:: php
+
+  $config['library'] = 'MsGraph';
+  $config['msgraph_tenant_id'] = '';
+  $config['msgraph_client_id'] = '';
+  $config['msgraph_client_secret'] = '';
+  // If MS Graph configured with an email footer, you can configure a spacer to
+  // add to the email body here to keep the body and footer separate.
+  $config['msgraph_footer_spacer_rows'] = 2;
+
+Or, to use the option to log rather than send emails, add the following:
+
+.. code-block:: php
+
+  $config['library'] = 'DevLogger';
 
 Database Configuration
 ----------------------
