@@ -417,11 +417,25 @@ and add settings as follows, filling in your tenant ID, client ID and secret:
   // add to the email body here to keep the body and footer separate.
   $config['msgraph_footer_spacer_rows'] = 2;
 
-Or, to use the option to log rather than send emails, add the following:
+Or, to use the option to log emails to the Kohana logs (in the application/logs folder) 
+rather than send emails, add the following:
 
 .. code-block:: php
 
   $config['library'] = 'DevLogger';
+
+To assist with diagnosis of email issues, it is possible to enable logging of emails to
+a database table called `email_log_entries`. This will log details of every sent email 
+to the `email_log_entries` table and it is independent of the configured method of 
+sending emails. To enable this feature, set the following configuration option in 
+`email.php`:
+
+`` code-block:: php
+
+  $config['log_emails'] = TRUE;
+
+Database logging of emails is not intended for long term use in production, so enable 
+this option only when you need to quantify or diagnose the emails being sent out.
 
 Database Configuration
 ----------------------
