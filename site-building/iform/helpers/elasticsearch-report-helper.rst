@@ -1614,6 +1614,10 @@ Set to false to disable use of cookies to remember the selected layers plus the 
 map viewport. Cookies are only enabled when there is a specific `id` option set for this
 map.
 
+**height**
+
+The height of the output map panel in pixels. Defaults to 500 if not provided.
+
 **id**
 
 Optional. Specify an ID for the `leafletMap` control allowing you to refer to it from
@@ -2400,4 +2404,5 @@ Example code:
   handle_resources();
 
   ?>
+
 
