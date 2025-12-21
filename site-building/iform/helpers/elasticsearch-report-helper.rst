@@ -484,7 +484,7 @@ For example::
 
 **numericFilters**
 
-A JSON object containing Elasticsearch field names as properties and values to filter to using a 
+A JSON object containing Elasticsearch field names as properties and values to filter to using a
 simple term filter.
 
 **proxyCacheTimeout**
@@ -870,7 +870,7 @@ page with a URL that might look like:
       single sample's ID for a casual record that has no parent sample.
     * #conditional_value:<field>:<fieldToCheck>:<operator>:<compareAgainst># - outputs the value
       of a field only if another checked field's value matches the supplied conditions. The only
-      operator currently supported is =. For example, 
+      operator currently supported is =. For example,
       `#conditional_value:location.output_sref:metadata.sensitivity_blur:=:F#` causes the value
       of `location.output_sref` to be output if the record is the full precision copy
       (`metadata.sensitivity_blur=F`), otherwise the output is empty.
@@ -987,8 +987,16 @@ page with a URL that might look like:
       Currently there is only one format - `alphanumeric` - which replaces any values where
       the spatial reference system is stored as a numberic EPSG code with the recognised
       text equivalent (`4326` becomes `WGS84` and `27700` becomes `OSGB36`).
-    * #status_icons# - icons representing the record status, confidential, sensitive and
-      zero_abundance status of the record.
+    * #status_icons# - icons representing the following status of the record:
+
+      * verification status
+      * query
+      * confidential
+      * sensitive
+      * zero abundance
+      * anonymous
+      * DNA derived.
+
     * #taxon_label# - a label for the taxon. This combines the accepted name and vernacular where
       available. The rank is prefixed for higher taxa.
     * '#template:<template># - a text template for the value. Can contain Elasticsearch document
@@ -1421,7 +1429,7 @@ Example configuration::
 
   [source]
   @id=recordsGridSquares
-  @mode=mapGridSquare  
+  @mode=mapGridSquare
 
   [leafletMap]
   @id=map
@@ -1712,7 +1720,7 @@ the grid row is double clicked.
 
 **tools**
 
-Set an array of tools to control the tool overlays available on the map. The default is 
+Set an array of tools to control the tool overlays available on the map. The default is
 `['baseLayers', 'overlayLayers']` which gives full control over the base layer and overlays
 visible on the map. Options are:
 
