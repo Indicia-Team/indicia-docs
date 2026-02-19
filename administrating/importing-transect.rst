@@ -11,7 +11,7 @@ To store this in Indicia we use
 
 - a parent location to describe the whole transect and child locations for each
   section of the transect.
-- a parent sample to describe a visit and child samples for the occurrencs of
+- a parent sample to describe a visit and child samples for the occurrences of
   each section.
 
 This kind of data can be imported in four stages detailed below. This is a real
@@ -75,11 +75,11 @@ A common error is for a term to be mis-typed and not be found in the termlist.
 Import Transect Sections
 ========================
 
-We import the transect sections in the same manner as the transects. The
-significant difference is that we need a column in the CSV file that allows us
-to link the section to its transect. Any of the location fields which can
-contain unique identifiers can serve this purpose: the id, code or external_key.
-In this example the code is used.
+We import the sections in the same manner as the transects. The significant
+difference is that we need a column in the CSV file that allows us to link the
+section to its transect. Any of the location fields which can contain unique
+identifiers can serve this purpose: the id, code or external_key. In this
+example the code is used.
 
 The columns in the CSV file are as follows.
 
@@ -167,7 +167,7 @@ for this. The columns in the CSV file were as follows.
 Column Name                                 Description
 =========================================== ===========
 sample_external_key                         A unique identifier of the sample in the source database.
-parent_sample_external_key                  The unique external_key used to identify the parent sample.
+parent_sample_external_key                  The unique external_key used to identify the visit sample.
 location_external_key                       The unique external_key used to identify the section location.
 location_name                               The transect name. Seems redundant but keeps things pretty.
 grid_ref                                    A spatial reference in a coordinate system  such as latitude and Longitude in decimal degrees (SRID 4326). E.g. 48.9N, 2.4E. Seems redundant but required.
