@@ -11,3 +11,4 @@ Administering and maintaining Indicia
   importing
   importing-dwc
   importing-shp
+  importing-transect
