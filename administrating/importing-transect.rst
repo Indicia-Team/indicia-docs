@@ -127,9 +127,9 @@ external key. The columns in the CSV file were as follows.
 Column Name                                 Description
 =========================================== ===========
 external_key                                A unique identifier of the record in the source database.
-location_external_key                       The unique external_key used to identify the transect location.
+location external key                       The unique external_key used to identify the transect location.
 location_name                               The transect name. Seems redundant but keeps things pretty.
-grid_ref                                    A spatial reference in a coordinate system  such as latitude and Longitude in decimal degrees (SRID 4326). E.g. 48.9N, 2.4E. Seems redundant but required.
+grid ref                                    A spatial reference in a coordinate system  such as latitude and Longitude in decimal degrees (SRID 4326). E.g. 48.9N, 2.4E. Seems redundant but required.
 date                                        The visit date, yyyy-mm-dd.
 start_time                                  A time attribute, hh:mm.
 end_time                                    A time attribute, hh:mm.
@@ -140,6 +140,9 @@ temp_(deg_C)                                A term list attribute.
 wind_speed                                  A term list attribute.
 any_butterflies\_?                          A boolean attribute, 0/1.
 =========================================== ===========
+
+Note, for automatic field matching, omit underscores from 'location external 
+key' and 'grid ref'.
 
 The settings for the sample import are similar to the locations. The coordinate
 reference system selected should match that of the grid_ref. See screenshot
@@ -166,18 +169,22 @@ for this. The columns in the CSV file were as follows.
 =========================================== ===========
 Column Name                                 Description
 =========================================== ===========
-sample_external_key                         A unique identifier of the sample in the source database.
+sample external key                         A unique identifier of the sample in the source database.
 parent_sample_external_key                  The unique external_key used to identify the visit sample.
-location_external_key                       The unique external_key used to identify the section location.
+location external key                       The unique external_key used to identify the section location.
 location_name                               The transect name. Seems redundant but keeps things pretty.
-grid_ref                                    A spatial reference in a coordinate system  such as latitude and Longitude in decimal degrees (SRID 4326). E.g. 48.9N, 2.4E. Seems redundant but required.
+grid ref                                    A spatial reference in a coordinate system  such as latitude and Longitude in decimal degrees (SRID 4326). E.g. 48.9N, 2.4E. Seems redundant but required.
 date                                        The sample date, yyyy-mm-dd. This will be the same as the visit date in our case.
 reliability                                 A term list attribute.
-occurrence_external_key                     A unique identifier of the occurrence in the source database.
+occurrence external key                     A unique identifier of the occurrence in the source database.
 taxon_name                                  The latin species name from a pre-defined species list.
 abundance_count                             An integer attribute.
-occurrence_comment                          Any text comment.
+occurrence comment                          Any text comment.
 =========================================== ===========
+
+Note, for automatic field matching, omit underscores from 'sample external 
+key', 'location external key', 'grid ref', 'occurrence external key', and 
+'occurrence comment'.
 
 In selecting the settings, the spatial reference system should match that of the
 grid_ref and the species list should be the one from which the taxon_names have
