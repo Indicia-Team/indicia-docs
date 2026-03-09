@@ -1565,7 +1565,7 @@ A JSON object defining the base layers to make available for addition to the map
 property is the title of a base layer which contains a sub-object with configuration for
 that layer. The layer configuration options are:
 
-* type - OpenStreetMap, OpenTopoMap, Google or WMS.
+* type - OpenStreetMap, OpenTopoMap, Google, EsriWorldImagery or WMS.
 * config - a nested object containing configuration depending on the layer type.
 
 For OpenStreetMap and OpenTopoMap, the config object is not used.
@@ -2412,5 +2412,6 @@ Example code:
   handle_resources();
 
   ?>
+
 
 
