@@ -1565,10 +1565,13 @@ A JSON object defining the base layers to make available for addition to the map
 property is the title of a base layer which contains a sub-object with configuration for
 that layer. The layer configuration options are:
 
-* type - OpenStreetMap, OpenTopoMap, Google, EsriWorldImagery or WMS.
+* type - OpenStreetMap, OpenTopoMap, Google, EsriWorldImagery or WMS. You are responsible for
+  complying with the relevant terms of use for the layer you are using. See `Google Maps Platform
+  Terms of Service <https://cloud.google.com/maps-platform/terms>`_ and `Esri Terms of Use summary
+  <https://content.esri.com/arcgisonline/docs/tou_summary.pdf>`_.
 * config - a nested object containing configuration depending on the layer type.
 
-For OpenStreetMap and OpenTopoMap, the config object is not used.
+For OpenStreetMap, OpenTopoMap and EsriWorldImagery, the config object is not used.
 
 For Google layers, the config object can contain the following:
 
