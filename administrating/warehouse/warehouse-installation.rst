@@ -358,10 +358,10 @@ allow you to proceed with the installation.
 Email Configuration
 -------------------
 
-Note that the warehouse installation and instructions below guide you through the default 
-email architecture, which is to use the Swift email library for PHP. It is also possible 
-to configure the email to use Microsoft Graph as an alternative architecture, or to 
-replace the emailer with code which just logs the details of each email rather than 
+Note that the warehouse installation and instructions below guide you through the default
+email architecture, which is to use the Swift email library for PHP. It is also possible
+to configure the email to use Microsoft Graph as an alternative architecture, or to
+replace the emailer with code which just logs the details of each email rather than
 sending the emails - useful for a development environment. If you want to use Microsoft
 Graph, or to just log the emails, then use the Skip email configuration option below and
 follow the instructions at the bottom of this section.
@@ -398,6 +398,33 @@ connect to your email account.
 **Password for email connection** is the password used by your email application to
 connect to your email account.
 
+If you want to throttle the rate at which the warehouse will send emails, e.g. if your
+server has an hourly rate limit, then you can add the following config options to
+email.php.
+
+.. code-block:: php
+
+  <?php
+
+  // Enables throttling, defaults FALSE.
+  $config['enable_send_rate_limit'] = TRUE;
+
+  // The following options are not required as they have defaults, but add them to
+  // email.php if you want to override them.
+
+  // Change according to your server's limits.
+  $config['hourly_send_limit'] = 250;
+  // How many unthrottled emails are reserved for sending foreground emails such as
+  // password reset.
+  $config['hourly_critical_reserve'] = 20;
+  // Number of queued emails that can be sent each time the background scheduled tasks
+  // are run.
+  $config['queue_replay_batch_size'] = 250;
+  // Purge sent emails after this number of days.
+  $config['queue_retention_days'] = 7;
+
+  ?>
+
 You should normall be able to leave the other settings as they are, though you can
 configure the port if using a non-standard port, as well as the title used and server name
 given in forgotten password emails. Note that if you want to change these settings at a
@@ -417,7 +444,7 @@ and add settings as follows, filling in your tenant ID, client ID and secret:
   // add to the email body here to keep the body and footer separate.
   $config['msgraph_footer_spacer_rows'] = 2;
 
-Or, to use the option to log emails to the Kohana logs (in the application/logs folder) 
+Or, to use the option to log emails to the Kohana logs (in the application/logs folder)
 rather than send emails, add the following:
 
 .. code-block:: php
@@ -425,16 +452,16 @@ rather than send emails, add the following:
   $config['library'] = 'DevLogger';
 
 To assist with diagnosis of email issues, it is possible to enable logging of emails to
-a database table called `email_log_entries`. This will log details of every sent email 
-to the `email_log_entries` table and it is independent of the configured method of 
-sending emails. To enable this feature, set the following configuration option in 
+a database table called `email_log_entries`. This will log details of every sent email
+to the `email_log_entries` table and it is independent of the configured method of
+sending emails. To enable this feature, set the following configuration option in
 `email.php`:
 
 `` code-block:: php
 
   $config['log_emails'] = TRUE;
 
-Database logging of emails is not intended for long term use in production, so enable 
+Database logging of emails is not intended for long term use in production, so enable
 this option only when you need to quantify or diagnose the emails being sent out.
 
 Database Configuration
