@@ -730,6 +730,9 @@ Attributes of <column>
   a text box is shown at the top of the column into which the user can type
   filters. Note that the species datatype is a variant of text which removes subgenera and
   spaces from the search text to make it more tolerant.
+* **decrypt** - set this to true for encrypted custom attribute values. Decryption is
+  only allowed for users with Core Admin warehouse privileges, or Site Admin privileges
+  on the website associated with the record.
 * **aggregate**
   Described in the section :ref:`declaring-column-sql-label` below.
 * **distincton**

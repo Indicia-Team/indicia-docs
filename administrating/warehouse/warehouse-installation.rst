@@ -533,8 +533,8 @@ That's it!
 Next Steps
 ==========
 
-Security
---------
+Secure directory access
+-----------------------
 
 To secure your Indicia installation, you need to prevent directory access to each of the
 folders. In addition you should block all access to the application/cache folder since
@@ -543,8 +543,17 @@ this on Apache, assuming that .htaccess is supported on your server and mod_rewr
 installed, rename the file example.htaccess in the root of the indicia installation folder
 to just .htaccess.
 
-Indicia supports encryption of custom attribute values such as email addresses. To enable
-this, edit your `application/config/indicia.php` file and find the config value
+Encrypted custom attribute values
+---------------------------------
+
+Indicia supports encryption of custom attribute values such as email addresses. When
+creating a custom attribute using the warehouse user interface, you can tick an option to
+encrypt the values if needed. An encrypted value can only be decrypted by the user that
+inserted it, or someone with warehouse Core Admin privileges, or someone with Site Admin
+privileges on the attribute value's website.
+
+To enable attribute value encryption functionality, edit your
+`application/config/indicia.php` file and find the config value
 `attribute_encryption_key` or add it if it does not exist. You need to set it to a random
 string - best practice is to generate a base64 string as follows - the exact command
 needed may depend on your OS:
