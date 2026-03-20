@@ -543,6 +543,20 @@ this on Apache, assuming that .htaccess is supported on your server and mod_rewr
 installed, rename the file example.htaccess in the root of the indicia installation folder
 to just .htaccess.
 
+Indicia supports encryption of custom attribute values such as email addresses. To enable
+this, edit your `application/config/indicia.php` file and find the config value
+`attribute_encryption_key` or add it if it does not exist. You need to set it to a random
+string - best practice is to generate a base64 string as follows - the exact command
+needed may depend on your OS:
+
+.. code-block:: bash
+
+  $ openssl rand -base64 32
+
+Now paste the output text into the value of `attribute_encryption_key` and prefix it with
+`base64:`. Also either update, or insert a new config value for
+`attribute_encryption_key_id` and set it to a meaningful string such as the current date.
+
 Scheduled tasks
 ---------------
 
