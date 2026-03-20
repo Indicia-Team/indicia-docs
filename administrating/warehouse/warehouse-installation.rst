@@ -552,11 +552,13 @@ encrypt the values if needed. An encrypted value can only be decrypted by the us
 inserted it, or someone with warehouse Core Admin privileges, or someone with Site Admin
 privileges on the attribute value's website.
 
-To enable attribute value encryption functionality, edit your
-`application/config/indicia.php` file and find the config value
-`attribute_encryption_key` or add it if it does not exist. You need to set it to a random
-string - best practice is to generate a base64 string as follows - the exact command
-needed may depend on your OS:
+During installation, the installer should auto-generate cryptographic keys for the
+attribute value encryption in `application/config/indicia.php`. If you prefer to specify
+your own key, or you are upgrading an existing warehouse to support encryption from
+pre-version 9.20, edit your `application/config/indicia.php` file and find the config
+value `attribute_encryption_key` or add it if it does not exist. You need to set it to a
+random string - best practice is to generate a base64 string as follows - the exact
+command needed may depend on your OS:
 
 .. code-block:: bash
 
