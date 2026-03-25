@@ -37,6 +37,143 @@ are required.
 
 That's it!
 
+Maintenance mode
+================
+
+When performing a warehouse upgrade or any long‑running maintenance task
+(such as a full UKSI import), it is important to temporarily prevent API
+access and user interaction with the warehouse. Rather than stopping the
+web server entirely, the warehouse can be placed into *maintenance mode*.
+
+Maintenance mode blocks all web and API traffic and returns an appropriate
+``503 Service Unavailable`` response. This ensures that:
+
+* no data are updated during upgrades,
+* API-consuming websites do not encounter partial data,
+* the warehouse remains online in a controlled maintenance state.
+
+Enabling maintenance mode
+-------------------------
+
+Maintenance mode is controlled by a flag file called ``MAINTENANCE``
+placed in the warehouse's root folder (the same folder as ``index.php``).
+
+To enable maintenance mode:
+
+.. code-block:: bash
+
+   touch MAINTENANCE
+
+Once this file exists, all warehouse requests are intercepted before
+Kohana loads. If the request is from a browser, a styled maintenance
+HTML page is shown. If the client expects JSON (e.g. API calls), a
+JSON maintenance message is returned instead.
+
+Disabling maintenance mode
+--------------------------
+
+To disable maintenance mode:
+
+.. code-block:: bash
+
+   rm MAINTENANCE
+
+The warehouse immediately returns to normal operation.
+
+How it works
+------------
+
+A small maintenance-mode check is added at the top of ``index.php``.
+When the ``MAINTENANCE`` file exists, the request is short‑circuited
+and a maintenance response is returned. For example:
+
+.. code-block:: php
+
+   if (file_exists(__DIR__ . '/MAINTENANCE')) {
+       $accept = $_SERVER['HTTP_ACCEPT'] ?? '';
+       $xhr = isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+              strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+
+       $isJson =
+           strpos($accept, 'application/json') !== false ||
+           strpos($accept, 'text/json') !== false ||
+           strpos($accept, 'application/vnd.api+json') !== false ||
+           $xhr ||
+           (isset($_GET['format']) && $_GET['format'] === 'json');
+
+       header('HTTP/1.1 503 Service Unavailable');
+       header('Retry-After: 3600');
+
+       if ($isJson) {
+           header('Content-Type: application/json');
+           echo json_encode([
+               'status'  => 'maintenance',
+               'message' => 'The Indicia Warehouse is undergoing scheduled maintenance.'
+           ]);
+       }
+       else {
+           readfile(__DIR__ . '/maintenance.html');
+       }
+
+       exit;
+   }
+
+Adding a maintenance page
+-------------------------
+
+Create a file ``maintenance.html`` in the warehouse root folder.
+This will be shown to browser users during maintenance.
+
+A simple example:
+
+.. code-block:: html
+
+   <!DOCTYPE html>
+   <html>
+   <head><title>Indicia Warehouse Maintenance</title></head>
+   <body>
+       <h1>Scheduled Maintenance</h1>
+       <p>The Indicia Warehouse is temporarily offline while essential upgrades are applied.</p>
+   </body>
+   </html>
+
+Command-line helper
+-------------------
+
+To simplify toggling maintenance mode, a helper script can be added:
+
+.. code-block:: bash
+
+   #!/bin/bash
+   WAREHOUSE_ROOT="/var/www/warehouse"
+   FLAG="$WAREHOUSE_ROOT/MAINTENANCE"
+
+   case "$1" in
+       on)
+           touch "$FLAG"
+           echo "Maintenance mode enabled."
+           ;;
+       off)
+           rm -f "$FLAG"
+           echo "Maintenance mode disabled."
+           ;;
+       status)
+           [ -f "$FLAG" ] && echo "Maintenance mode is ON" || echo "Maintenance mode is OFF"
+           ;;
+       *)
+           echo "Usage: $0 {on|off|status}"
+           ;;
+   esac
+
+This script lets administrators type::
+
+   warehouse-maintenance on
+   warehouse-maintenance off
+   warehouse-maintenance status
+
+instead of manually creating or removing the flag file.
+
+
 Developer Notes
 ===============
 
