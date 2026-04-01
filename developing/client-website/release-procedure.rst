@@ -8,26 +8,26 @@ you can follow the :doc:`warehouse release procedure
 for the release is always the same as the most recent warehouse version number
 so the IForm module can have rather erratic numbering.
 
-1. Review outstanding pull requests and merge those that are to be part of the 
+1. Review outstanding pull requests and merge those that are to be part of the
    new release.
 2. Checkout the dev branch and ``git pull``.
-3. Checkout the master branch and ``git merge --no-ff --no-commit develop``.
-4. Use a diff tool to review the code changes, writing a list of key points for 
-   a release note. If ther are problems, merge abort, then either fix them or go 
-   back to the original developer. Git lens in VS Code is great for tracing back 
+3. Set the version number in `iform.info.yml` and commit.
+4. Checkout the master branch and ``git merge --no-ff --no-commit develop``.
+5. Use a diff tool to review the code changes, writing a list of key points for
+   a release note. If ther are problems, merge abort, then either fix them or go
+   back to the original developer. Git lens in VS Code is great for tracing back
    from changed lines to commits.
-5. If OK, then commit the merge.
-6. Set the version number in `iform.info.yml` and commit.
+6. If OK, then commit the merge.
 7. Commit the submodule positions at the head of their master branches.
-8. ``git tag -a vx.y.z`` and ``git push --follow-tags`` where ``x.y.z`` is the 
+8. ``git tag -a vx.y.z`` and ``git push --follow-tags`` where ``x.y.z`` is the
    version number.
 
 Having pushed the changes to master and tagged it with the version number
 
 1. Close any issues that have been resolved by the release.
 2. Create a release on Github, with the version number as the title and a
-   description of the new features in the body. Attach to the release a zip file 
-   created with the following (linux) script. 
+   description of the new features in the body. Attach to the release a zip file
+   created with the following (linux) script.
 
 ::
 
