@@ -36,6 +36,7 @@ in Design View by following these steps:
 * Use the Views toolbutton to change to SQL View.
 * Then paste the query in and save the query with the appropriate title.
 * Repeat until all 10 queries are created.  
+*
 * Version 2.0.1 May 2026
 
 **Query 1 - title=repair_organism_tvks**
