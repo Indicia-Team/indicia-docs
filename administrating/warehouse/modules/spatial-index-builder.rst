@@ -63,8 +63,6 @@ Installation notes
      );
      ?>
 
-
-
 #. You can further restrict the indexing for a given location type to records captured from
    a particular survey dataset or list of survey dataset. To do this, you need to add a
    second configuration item to the config file called ``survey_restrictions``. This must
@@ -85,10 +83,10 @@ Installation notes
 
 #. When indexing a layer of locations against very large grid references, either because they
    have a sensitivity blur applied or because the precision is very low, the spatial indexer
-   can generate long lists of intersecting locations which is both wasteful of resources and 
-   not very useful to the user, since the actual record is very unlikely to be in each of the 
+   can generate long lists of intersecting locations which is both wasteful of resources and
+   not very useful to the user, since the actual record is very unlikely to be in each of the
    listed locations. To avoid this you can set a maximum grid reference area that will be
-   considered for each layer. The area should be set in the units of the Web Mercator 
+   considered for each layer. The area should be set in the units of the Web Mercator
    projection which roughly equate to metres. Setting a limit of 10 billion is effective at
    filtering out 100km grid squares. E.g.
 
@@ -100,3 +98,13 @@ Installation notes
      );
 
      ?>
+
+  #. It is also possible to index location layers against other location layers, for example to
+     index sites against counties, provences or countries. To do this, create a config entry
+     called `location_indexing` which contains the following:
+
+       * `location_type` - the name of the location type that will be indexed.
+       * `website_id` - limit indexing to locations associated with this website.
+       * `higher_location_type` - the name of the location type to index against.
+
+     See the example config file for an illustration of how to set this up.
