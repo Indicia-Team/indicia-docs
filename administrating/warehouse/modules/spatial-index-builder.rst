@@ -99,12 +99,12 @@ Installation notes
 
      ?>
 
-  #. It is also possible to index location layers against other location layers, for example to
-     index sites against counties, provences or countries. To do this, create a config entry
-     called `location_indexing` which contains the following:
+#. It is also possible to index location layers against other location layers, for example to
+   index sites against counties, provences or countries. To do this, create a config entry
+   called `location_indexing` which contains the following:
 
-       * `location_type` - the name of the location type that will be indexed.
-       * `website_id` - limit indexing to locations associated with this website.
-       * `higher_location_type` - the name of the location type to index against.
+     * `location_type` - the name of the location type that will be indexed.
+     * `website_id` - limit indexing to locations associated with this website.
+     * `higher_location_type` - the name of the location type to index against.
 
-     See the example config file for an illustration of how to set this up.
+   See the example config file for an illustration of how to set this up.
