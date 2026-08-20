@@ -968,6 +968,10 @@ page with a URL that might look like:
       The unmodified field `identification.query` outputs a single letter code.
       Currently there is only one format - `astext` - which translates codes to
       meaningful text,  `Q` to `Queried`, `A` to `Answered`.
+    * #record_key# - the record's ID, prefixed with the warehouse's abbreviation, which together
+      make a globally unique identifier. This is stored in the `_id` field in the Elasticsearch
+      document. Note that full-precision sensitive record copies have ! suffixed to the `_id` field
+      but this is stripped automatically for the `#record_key#` special field.
     * #sex:<format># - the value of the `occurrence.sex` field formatted as specified.
       Currently there is only one format - `mapmate` - which translates codes to
       values acceptable to MapMate, e.g. `female` to `f` and `mixed` to `g`.
