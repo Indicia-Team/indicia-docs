@@ -1171,6 +1171,11 @@ Defines which columns are available using the column configuration tool for the
 the list of columns in some circumstances. Specify an array of field names from the
 Elasticsearch index.
 
+**pageChangeScrollPosition**
+
+Set a scroll position for the grid after a page change. Default is 'top', any other setting will
+leave the scroll bar in its current position.
+
 **responsive**
 
 Defaults to true but can be disabled by setting to false.
@@ -1191,6 +1196,11 @@ the table responsive. Can include:
         "md": 992,
         "lg": 1200
       }
+
+**selectFirstOnPageChange**
+
+If set to true, then the first row in the grid is auto-selected after a page change. May be useful
+in verification scenarios.
 
 .. _elasticsearchreporthelper-download:
 
