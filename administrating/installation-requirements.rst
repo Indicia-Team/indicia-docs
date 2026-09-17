@@ -5,7 +5,7 @@ Installation Requirements
 For the client website, assuming that the website will use the client helpers
 PHP API the requirements are as follows:
 
-* PHP version 8.1 - 8.4.
+* PHP version 8.2 - 8.4.
 * The cUrl PHP extension should be enabled.
 * Any other requirements of the website (e.g. for running Drupal if using this
   option).

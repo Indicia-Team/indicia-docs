@@ -972,6 +972,10 @@ page with a URL that might look like:
       The unmodified field `identification.query` outputs a single letter code.
       Currently there is only one format - `astext` - which translates codes to
       meaningful text,  `Q` to `Queried`, `A` to `Answered`.
+    * #record_key# - the record's ID, prefixed with the warehouse's abbreviation, which together
+      make a globally unique identifier. This is stored in the `_id` field in the Elasticsearch
+      document. Note that full-precision sensitive record copies have ! suffixed to the `_id` field
+      but this is stripped automatically for the `#record_key#` special field.
     * #sex:<format># - the value of the `occurrence.sex` field formatted as specified.
       Currently there is only one format - `mapmate` - which translates codes to
       values acceptable to MapMate, e.g. `female` to `f` and `mixed` to `g`.
@@ -1171,6 +1175,11 @@ Defines which columns are available using the column configuration tool for the
 the list of columns in some circumstances. Specify an array of field names from the
 Elasticsearch index.
 
+**pageChangeScrollPosition**
+
+Set a scroll position for the grid after a page change. Default is 'top', any other setting will
+leave the scroll bar in its current position.
+
 **responsive**
 
 Defaults to true but can be disabled by setting to false.
@@ -1191,6 +1200,11 @@ the table responsive. Can include:
         "md": 992,
         "lg": 1200
       }
+
+**selectFirstOnPageChange**
+
+If set to true, then the first row in the grid is auto-selected after a page change. May be useful
+in verification scenarios.
 
 .. _elasticsearchreporthelper-download:
 
@@ -2209,8 +2223,6 @@ The decision spreadsheet upload tool checks each record to ensure that it is one
 records returned by the current verification context filter. Therefore it is impossible to update
 records you are not a verifier for.
 
-Note that the `warehouseName` option must be provided when `includeUploadButton` is true.
-
 In order to set the decisions spreadsheet functionality up, a `[download]` control can be modified
 to include the columns required for verification. It can also be configured to output the button
 and resulting download file link under the records grid by adding the following options::
@@ -2231,7 +2243,6 @@ the report footer area as follows::
 
   [verificationButtons]
   @includeUploadButton=true
-  @warehouseName=myexamplewarehouse.com
   @uploadButtonContainerElement=#records-grid tfoot td
 
 **keyboardNavigation**
@@ -2288,13 +2299,6 @@ Set to true to enable saving and loading templates for verification and redeterm
 
 If a Drupal page path for a record details page is specified then a button is added to
 allow record viewing.
-
-**warehouseName**
-
-Name of the warehouse stored against records in Elasticsearch (in the `metadata.warehouse` field).
-Typically the domain name of the warehouse server. Must be set when the `includeUploadButton`
-option is set as it is required to ensure that uploaded decisions do not affect records imported
-into the Elasticsearch index from other warehouses.
 
 Positioning of control elements
 ===============================

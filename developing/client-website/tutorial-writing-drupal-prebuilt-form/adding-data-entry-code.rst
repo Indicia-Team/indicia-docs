@@ -1,16 +1,16 @@
 Adding our data entry code
 --------------------------
 
-We are now ready to start adding some real data entry code to our form's PHP 
+We are now ready to start adding some real data entry code to our form's PHP
 file. The code is mostly very similar to the code we'd write for a standalone
 PHP file but instead of echoing the HTML out, we must return the HTML from the
 ``get_form`` method of our prebuilt_form's class. We can also ignore any code
-relating to sending the form submission to the warehouse as well as the line 
-which calls ``dump_javascript`` since the Drupal IForm module will handle both 
+relating to sending the form submission to the warehouse as well as the line
+which calls ``dump_javascript`` since the Drupal IForm module will handle both
 of these for us. There is also no need to load the data_entry_helper.php file
-as it will already be loaded by the module. So, we can start with the following 
+as it will already be loaded by the module. So, we can start with the following
 code from the tutorial on building a basic form using PHP - in this example
-the website and survey's IDs are set to 1 so you might like to change them to 
+the website and survey's IDs are set to 1 so you might like to change them to
 match your own setup:
 
 .. code-block:: php
@@ -18,7 +18,7 @@ match your own setup:
   <form id="entry-form" method="POST">
     <input type="hidden" name="website_id" value="1"/>
     <input type="hidden" name="survey_id" value="1"/>
-  <?php   
+  <?php
     $auth = data_entry_helper::get_read_write_auth(1, 'password');
     data_entry_helper::enable_validation('entry-form');
     echo $auth['write'];
@@ -39,7 +39,7 @@ match your own setup:
       'fieldname' => 'sample:entered_sref',
       'systems' => array('osgb'=>'British National Grid')
     ));
-    echo data_entry_helper::map_panel(array(
+    echo map_helper::map_panel(array(
       'presetLayers' => array('google_streets','google_satellite')
     ));
     data_entry_helper::link_default_stylesheet();
@@ -59,6 +59,7 @@ This translates to:
         '<input type="hidden" name="survey_id" value="1"/>';
     $auth = data_entry_helper::get_read_write_auth(1, 'password');
     data_entry_helper::enable_validation('entry-form');
+    iform_load_helpers(['map_helper']);
     $r .= $auth['write'];
     $r .= data_entry_helper::date_picker(array(
       'fieldname'=>'sample:date',
@@ -77,7 +78,7 @@ This translates to:
       'fieldname' => 'sample:entered_sref',
       'systems' => array('osgb'=>'British National Grid')
     ));
-    $r .= data_entry_helper::map_panel(array(
+    $r .= map_helper::map_panel(array(
       'presetLayers' => array('google_streets','google_satellite')
     ));
     data_entry_helper::link_default_stylesheet();
@@ -87,8 +88,8 @@ This translates to:
   }
   ?>
 
-If you follow this through you should see that the translation between standard 
-PHP code using the Indicia client helpers and a prebuilt form's code is pretty 
+If you follow this through you should see that the translation between standard
+PHP code using the Indicia client helpers and a prebuilt form's code is pretty
 simple. So, update your prebuilt form's tutorial.php file and save it, then
 reload the Drupal page containing your form.
 

@@ -137,6 +137,13 @@ A simple example:
    </body>
    </html>
 
+Returning a message to API requests
+-----------------------------------
+
+To set a maintenance message which will be sent in responses to API requests, create a file called
+`maintenance.txt` in the root of the warehouse installation and populate it with the message you
+want to return.
+
 Command-line helper
 -------------------
 
