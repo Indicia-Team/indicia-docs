@@ -632,6 +632,11 @@ buttons allow the user to cycle through the images to display one at a time. Thi
 "record" so only the images for a single record are available to cycle through, but it can be set
 to "all" to allow cycling through all images on the control.
 
+**saveFilterCookies**
+Optional flag if set to TRUE then the grid will save the values of the filters to cookies and load
+them when the page starts. This includes a refresh, so the page can safely be refreshed without
+losing the filters that have been set.
+
 **sortable**
 
 Alias for **includeSortTool**.
