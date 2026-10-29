@@ -632,11 +632,6 @@ buttons allow the user to cycle through the images to display one at a time. Thi
 "record" so only the images for a single record are available to cycle through, but it can be set
 to "all" to allow cycling through all images on the control.
 
-**saveFilterCookies**
-Optional flag if set to TRUE then the grid will save the values of the filters to cookies and load
-them when the page starts. This includes a refresh, so the page can safely be refreshed without
-losing the filters that have been set.
-
 **sortable**
 
 Alias for **includeSortTool**.
@@ -1345,7 +1340,7 @@ A download with a format selector::
 
   [download]
   @source=data-to-download
-  @columnsTemplate=["default","easy-download", "mapmate"]
+  @columnsTemplate=["default", "easy-download", "mapmate"]
 
 Options
 ^^^^^^^
@@ -1364,13 +1359,12 @@ Font Awesome icon if supported by your theme::
 
 **columnsTemplate**
 
-Named template that defines set of columns on the server which will be included in the download file.
-If an array of template names is provided in this parameter then a control is shown allowing the
-user to choose the template to use. The default value is
-"default" when the source is in `docs` mode, or blank for the aggregation modes. Options
-are currently "default", "easy-download" and "mapmate".
-It can be set to blank to disable
-loading a predefined set. Other sets may be provided on the warehouse in future.
+Named template that defines set of columns on the server which will be included in the download
+file. If an array of template names is provided in this parameter then a control is shown allowing
+the user to choose the template to use. The default value is "default" when the source is in `docs`
+mode, or blank for the aggregation modes. Options are currently "default", "easy-download",
+"easy-download-dna" and "mapmate". It can be set to blank to disable loading a predefined set.
+Other sets may be provided on the warehouse in future.
 
 The "default" format (corresponding to
 "Standard download format" in the download control's format selection drop-down) provides
@@ -1836,6 +1830,63 @@ options parameter. Options available are:
         <a href='https://www.brc.ac.uk/irecord/lrc-tc'>
         LERC Terms and Conditions</a>.</b></p>"
       }-->
+
+.. _elasticsearchreporthelper-persistpagestate:
+
+ElasticsearchReportHelper::persistPageState
+----------------------------------------
+
+Adds persistance of all page filtering, sorting and pagination options to browser local storage, so
+that the page will reload the same state if the browwser is refreshed, or navigated away and
+returned to. This may be considered useful for verification pages in particular.
+
+There are options available for defining exactly which aspects of page state are persisted and
+restored.
+
+Add the class `exclude-page-state` to discount any custom filter controls from saved page state.
+
+Options available are:
+
+**customFilterControls**
+
+Set to FALSE to disable persistance of the values of any custom filter inputs (e.g. search boxes,
+`[locationSelect]` controls.
+
+**filterDefinition**
+
+Set to FALSE to disable persistance of the filter settings set using the Create a Filter option.
+
+**filterPanelVisibility**
+
+Set to FALSE to disable persistance of the visibility state of the Create a Filter filter panes.
+
+**gridFilterRow**
+
+Set to FALSE to disable persistance of the values in any `[dataGrid]` control's filter row.
+
+**page**
+
+Set to FALSE to disable persistance of the displayed page of data in any `[dataGrid]` control.
+
+**resetButton**
+
+Set to FALSE to disable output of a Reset All button. The button will be output inline inside the
+Create a Filter toolbar if the `[standardParams]` control is on the page.
+
+**rowsPerPage**
+
+Set to FALSE to disable persistance of the Rows Per Page setting in the pagination settings for any
+`[dataGrid]` or `[cardGallery]` control.
+
+**selectedFilter**
+
+Set to FALSE to disable persistance of the chosen filter.
+
+**sort**
+
+Set to FALSE to disable persistance of the sort state of any `[dataGrid]` and `[cardGallery]`
+controls.
+
 
 .. _elasticsearchreporthelper-recorddetails:
 
